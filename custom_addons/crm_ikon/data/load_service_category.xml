@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record id="service_category_01" model="product.category">
+            <field name="name">Service</field>
+            <field name="complete_name">Service</field>
+        </record>
+    
+        <record id="service_category_02" model="product.category">
+            <field name="name">Payment</field>
+            <field name="complete_name">Payment</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

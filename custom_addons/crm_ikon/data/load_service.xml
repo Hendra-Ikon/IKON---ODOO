@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        
+        <record id="service_01" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Consulting</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_02" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Core Banking</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_03" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Application Development</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_04" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Business Development</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_05" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Phase 1</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_06" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Phase 2</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="service_07" model="product.template">
+            <field name="categ_id" ref="service_category_01" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Phase 3</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

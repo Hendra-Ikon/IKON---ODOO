@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_payment_plan_form" model="ir.ui.view">
+        <field name="name">crm.payment.plan.form</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Sales Order">
+                <p class="oe_grey">
+                    Payment plan will be created as invoice draft so that you can review
+                    them before validation.
+                </p>
+                <group>
+                    <field name="sale_order_ids" invisible="1" />
+                    <field name="has_down_payments" invisible="1" />
+                    <field name="count" attrs="{'invisible': [('count', '=', 1)]}" />
+                    <field name="advance_payment_method" class="oe_inline" widget="radio"
+                        attrs="{'invisible': [('count', '&gt;', 1)]}" invisible="1" />
+                    <field name="advance_plan_payment_method" string="Payment Plan"
+                        class="oe_inline" widget="radio"
+                        attrs="{'invisible': [('count', '&gt;', 1)]}" />
+                </group>
+                <group name="down_payment_specification"
+                    attrs="{'invisible': [('advance_payment_method', 'not in', ('fixed', 'percentage'))]}">
+                    <field name="company_id" invisible="1" />
+                    <field name="product_id" invisible="1" />
+                    <label for="amount" />
+                    <div id="payment_method_details">
+                        <field name="currency_id" invisible="1" />
+                        <field name="fixed_amount"
+                            attrs="{'required': [('advance_payment_method', '=', 'fixed')],                                 'invisible': [('advance_payment_method', '!=', 'fixed')]}"
+                            class="oe_inline" />
+                        <field name="amount"
+                            attrs="{'required': [('advance_payment_method', '=', 'percentage')],                                 'invisible': [('advance_payment_method', '!=', 'percentage')]}"
+                            class="oe_inline" />
+                        <span
+                            attrs="{'invisible': [('advance_payment_method', '!=', 'percentage')]}"
+                            class="oe_inline">%</span>
+                    </div>
+                    <field name="deposit_account_id" options="{'no_create': True}"
+                        attrs="{'invisible': [('product_id', '!=', False)]}"
+                        groups="account.group_account_manager" />
+                    <field name="deposit_taxes_id" widget="many2many_tags"
+                        attrs="{'invisible': [('product_id', '!=', False)]}" />
+                </group>
+                <footer>
+                    <button name="create_invoices" type="object" id="create_invoice_open"
+                        string="Create and View Plan" context="{'open_invoices': True}"
+                        class="btn-primary" data-hotkey="q" />
+                    <button name="create_invoices" type="object" id="create_invoice"
+                        string="Create Plan" data-hotkey="w" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_payment_plan" model="ir.actions.act_window">
+        <field name="name">Payment Plan</field>
+        <field name="res_model">sale.advance.payment.inv</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_crm_payment_plan_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="crm_payment_plan" />
+        <field name="view_id" ref="crm_payment_plan_form" />
+    </record>
+
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="theme_01" model="theme.config">
+            <field name="name">Ikon Theme</field>
+            <field name="theme_main_color">#F97B22</field>
+            <field name="theme_font_color">#000000</field>
+            <field name="view_font_color">#333333</field>
+            <field name="theme_active">true</field>
+        </record>
+    </data>
+</odoo>

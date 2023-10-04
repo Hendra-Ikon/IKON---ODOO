@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_crm_ikon" model="ir.module.category">
+        <field name="name">Crm Ikon</field>
+        <field name="description">CRM IKON Module</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <record id="crm_ikon_group_no_user" model="res.groups">
+        <field name="name">No User</field>
+        <field name="category_id" ref="module_category_crm_ikon" />
+        <field name="comment">No User CRM IKON</field>
+    </record>
+
+</odoo>
