@@ -48,3 +48,4 @@ package.json
 /share/
 /src/
 .env
+/conf

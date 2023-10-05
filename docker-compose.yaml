@@ -1,8 +1,8 @@
 version: '3.1'
 
 services:
-  web:
-    container_name: web
+  web-crm:
+    container_name: ikon-crm
     image: odoo:16.0
     platform: linux/amd64
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - ./debian/odoo.conf:/etc/odoo/odoo.conf:ro
       - ./config:/etc/odoo
       - ./custom_addons:/mnt/extra-addons
-    command: sh -c "pip install openpyxl && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo -i base  && tail -f /dev/null"
+    command: sh -c "pip install openpyxl && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo && tail -f /dev/null"
 
   db:
     container_name: db
