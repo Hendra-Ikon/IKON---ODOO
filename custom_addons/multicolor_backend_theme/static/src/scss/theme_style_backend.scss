@@ -1888,10 +1888,11 @@ div.o_boolean_toggle.custom-control.custom-checkbox
 }
 btn-fill-odoo,
 .btn-odoo {
-  color: #ffffff;
-  background-color: var(--theme_main_color) !important;
-  border-color: var(--theme_main_color) !important;
+  color: black;
+  background-color: #FEE8B0 !important;
+  border-color: #9CA777 !important;
 }
+
 .o_action_manager.sidebar_margin {
   margin-left: 205px !important;
 }
