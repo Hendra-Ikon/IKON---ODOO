@@ -1648,6 +1648,11 @@ th.o_list_button {
     border: 2px solid #7C9070;
 }
 
+.o_list_renderer .o_list_table thead th:not(.o_list_record_selector) {
+    border-left: 1px solid var(--ListRenderer-thead-border-end-color);
+    background-color: #9CA777;
+}
+
 /*theme selector end */
 
 @media (min-width: 1200px) {
