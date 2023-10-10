@@ -8,3 +8,4 @@ from . import model_sale_order_line
 from . import model_stage
 from . import model_account_move
 from . import model_sale_order
+from . import model_crm_team

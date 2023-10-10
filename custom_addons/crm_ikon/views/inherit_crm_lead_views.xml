@@ -15,4 +15,37 @@
         </field>
     </record>
 
+    <menuitem
+        id="crm.sales_team_menu_team_pipeline"
+        name="Categories"
+        parent="crm.crm_menu_sales"
+        action="sales_team.crm_team_action_pipeline"
+        groups="sales_team.group_sale_manager"
+        sequence="4" />
+
+    <menuitem
+        id="crm.crm_team_config"
+        name="Categories"
+        parent="crm.crm_menu_config"
+        action="sales_team.crm_team_action_config"
+        sequence="5" />
+
+    <record id="sales_team.crm_team_action_pipeline" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+    </record>
+    <record id="sales_team.crm_team_action_config" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+    </record>
+
+    <record id="crm_ikon_inherit_search_crm_lead" model="ir.ui.view">
+        <field name="name">crm.ikoninherit.search.crm.lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+        <field name="arch" type="xml">
+            <field name="team_id" position="replace">
+                <field name="team_id" string="Categories" />
+            </field>
+        </field>
+    </record>
+
 </odoo>

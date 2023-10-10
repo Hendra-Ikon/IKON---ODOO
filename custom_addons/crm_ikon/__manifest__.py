@@ -20,6 +20,7 @@
         'data/load_service.xml',
         'data/load_term_payment.xml',
         'data/load_crm_stage.xml',
+        'data/load_crm_categories.xml',
         
         # views
         'views/term_payment_views.xml',
@@ -32,6 +33,7 @@
         'views/inherit_product_form_views.xml',
         'views/inherit_invoice_line_views.xml',
         'views/inherit_invoice_views.xml',
+        'views/inherit_sales_team_views.xml',
         
         # report
         'report/sale_report_inherit.xml',

@@ -8,6 +8,7 @@
         </record>
         <record model="crm.stage" id="crm.stage_lead3">
             <field name="name">Product Presentation</field>
+            <field name="team_id" ref="sales_team.team_sales_department" />
         </record>
         <record model="crm.stage" id="stage_lead5">
             <field name="name">Proposal Submission</field>
@@ -16,6 +17,7 @@
         <record model="crm.stage" id="stage_lead6">
             <field name="name">Technical Clarification</field>
             <field name="sequence">5</field>
+            <field name="team_id" ref="sales_team.team_sales_department" />
         </record>
         <record model="crm.stage" id="stage_lead7">
             <field name="name">Negotiation</field>
