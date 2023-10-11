@@ -1659,6 +1659,13 @@ btn-fill-primary, .btn-primary {
     border-color: #7C9070;
 }
 
+.btn-primary {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #FEE8B0 !important;
+    color: #444a40 !important;
+}
+
 /*theme selector end */
 
 @media (min-width: 1200px) {
