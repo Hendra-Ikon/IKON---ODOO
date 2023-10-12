@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 52.237.90.6
+          password: mG1YkaDO88TDyOuP2B
+          username: ikonenv
+          port: 22
+          script: |
+            bash /home/ikonenv/ikoncrm/action.sh > "/home/ikonenv/ikoncrm/logs/ikoncrm-$(date +"%Y-%m-%d_%I:%M").log" 2>&1 &
