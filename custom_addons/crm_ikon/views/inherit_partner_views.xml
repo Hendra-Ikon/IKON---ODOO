@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_ikon_inherit_res_partner" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title mb24']" position="inside">
+                <h3>
+                    <field name="headline" attrs="{'invisible': [('is_company', '=', True)]}"
+                        placeholder="Headline..." />
+                </h3>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="linkedin_url" attrs="{'invisible': [('is_company', '=', True)]}" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
