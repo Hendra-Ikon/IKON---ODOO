@@ -20,4 +20,4 @@ jobs:
           username: ikonenv
           port: 22
           script: |
-            bash /home/ikonenv/ikoncrm/action.sh > "/home/ikonenv/ikoncrm/logs/ikoncrm-$(date +"%Y-%m-%d_%I:%M").log" 2>&1 &
+            bash /home/ikonenv/ikoncrm/action.sh 2>&1 &
