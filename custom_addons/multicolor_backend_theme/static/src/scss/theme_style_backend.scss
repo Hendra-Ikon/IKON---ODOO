@@ -1731,11 +1731,12 @@ b, strong {
     margin-right: 4px;
     font-size: 11px;
     font-weight: 500;
-    background-color: #def0fc;
+    background-color: #cbe6f8;
     color: inherit;
     box-shadow: none;
     padding: 4px;
     border-radius: 6px;
+    margin-bottom: 1px;
 }
 
 .o_field_widget.o_field_many2one_avatar .o_m2o_avatar > img, .o_field_widget.o_field_many2one_avatar .o_m2o_avatar > .o_m2o_avatar_empty {
@@ -1756,6 +1757,28 @@ b, strong {
     color: #ffffff;
     border-color: #ffffff;
     background-color: #0B75E4;
+}
+
+.kanban-contact {
+  background-color: #F6FBFF !important;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    color: inherit;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+
+.o_kanban_view .o_res_partner_kanban .oe_kanban_action_a:hover > .badge {
+    background-color: #0B75E4;
+    color: white;
 }
 
 // NOTE: End of custom
