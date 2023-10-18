@@ -25,6 +25,10 @@ class CrmMenu(models.Model):
         if menu5:
             menu5.name = 'Sales Teams'
             
+        menu6 = self.env.ref("crm.crm_menu_root")
+        if menu6:
+            menu6.action = None
+            
     @api.model
     def _install_hook_menuitem(self):
         menu1 = self.env.ref("sale.sales_team_config")

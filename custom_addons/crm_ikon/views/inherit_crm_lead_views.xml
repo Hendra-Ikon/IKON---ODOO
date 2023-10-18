@@ -30,6 +30,10 @@
         action="sales_team.crm_team_action_config"
         sequence="5" />
 
+    <menuitem
+        id="crm.crm_menu_root"
+        action="sales_team.crm_team_action_pipeline" />
+
     <record id="sales_team.crm_team_action_pipeline" model="ir.actions.act_window">
         <field name="name">Categories</field>
     </record>
