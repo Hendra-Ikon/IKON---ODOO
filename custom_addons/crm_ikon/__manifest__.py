@@ -37,6 +37,7 @@
         'views/inherit_partner_views.xml',
         'views/inherit_stage_views.xml',
         'views/inherit_contact_views.xml',
+        'views/inherit_categories_views.xml',
         
         # report
         'report/sale_report_inherit.xml',
