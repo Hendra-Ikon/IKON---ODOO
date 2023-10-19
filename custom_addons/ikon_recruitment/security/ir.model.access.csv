@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_users,Access Res Users Ikon,model_res_users,base.group_user,1,1,1,1
+access_res_partner,Access Res Partner,model_res_partner,base.group_user,1,1,1,1
+access_custom_education,Access Custom Education PPU,model_custom_education,,1,1,1,1
+access_custom_bookmark,Access Custom Bookmark PPU,model_custom_bookmark,,1,1,1,1
+access_custom_applicant,Access Custom Applicant PPU,model_custom_applicant,,1,1,1,1
