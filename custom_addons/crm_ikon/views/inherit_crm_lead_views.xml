@@ -32,10 +32,12 @@
 
     <menuitem
         id="crm.crm_menu_root"
+        name="CRM"
+        groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"
         action="sales_team.crm_team_action_pipeline" />
 
     <record id="sales_team.crm_team_action_pipeline" model="ir.actions.act_window">
-        <field name="name">Categories</field>
+        <field name="name">CRM Categories</field>
     </record>
     <record id="sales_team.crm_team_action_config" model="ir.actions.act_window">
         <field name="name">Categories</field>
