@@ -25,9 +25,9 @@ services:
     expose:
       - 5442:5442
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=ikon
+      - POSTGRES_PASSWORD=ikon
+      - POSTGRES_DB=crm
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - odoo-crm-db-data:/var/lib/postgresql/data/pgdata

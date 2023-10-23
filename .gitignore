@@ -1,6 +1,12 @@
 # sphinx build directories
 _build/
 
+# Docker Compose
+docker-compose.yaml
+
+# Odoo Config
+debian/odoo.conf
+
 # dotfiles
 .*
 !.gitignore
