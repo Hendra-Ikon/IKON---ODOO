@@ -7,8 +7,8 @@ logger = logging.getLogger(__name__)
 class CrmTeam(models.Model):
     _inherit = "crm.team"
     
-    opportunities_total = fields.Char(string="Opportunities Ammount", compute="_compute_opportunity_total")
-    quotations_total = fields.Char(string="Quotations Ammount", compute="_compute_quotations_total")
+    opportunities_total = fields.Char(string="Opportunities Ammount", compute="_compute_opportunity_total", store=True)
+    quotations_total = fields.Char(string="Quotations Ammount", compute="_compute_quotations_total", store=True)
     
     @api.model
     def _uninstall_hook_team(self):
