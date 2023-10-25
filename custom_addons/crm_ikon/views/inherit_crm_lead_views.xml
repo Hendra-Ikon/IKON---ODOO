@@ -54,4 +54,26 @@
         </field>
     </record>
 
+    <record id="crm_ikon_inherit_crm_team" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.crm.team</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="crm.crm_team_view_kanban_dashboard" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='opportunities_amount']" position="replace">
+                <field name="opportunities_total" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_ikon_inherit_crm_team_2" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.crm.team.2</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sale.crm_team_view_kanban_dashboard" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='quotations_amount']" position="replace">
+                <field name="quotations_total" />
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
