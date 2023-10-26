@@ -445,6 +445,7 @@
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <kanban class="o_res_partner_kanban" sample="1">
+
                     <field name="id"/>
                     <field name="color"/>
                     <field name="display_name"/>
