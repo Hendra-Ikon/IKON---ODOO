@@ -279,7 +279,7 @@
                                 </a>
                             </div>
                             <div class="col-4 text-end text-truncate">
-                                <field name="opportunities_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="opportunities_amount_formatted" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             </div>
                         </div>
                         <div class="row" t-if="record.opportunities_overdue_count.raw_value">

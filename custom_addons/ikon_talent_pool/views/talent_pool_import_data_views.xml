@@ -1,0 +1,35 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+        <record id="view_talent_pool_import_wizard" model="ir.ui.view">
+            <field name="name">talent.pool.import.wizard</field>
+            <field name="model">talent.pool.import.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="data_file" widget="binary" filename="filename" string="Excel File" accept=".xlsx"/>
+                        <!-- Add other fields here -->
+                    </group>
+                    <footer>
+                        <button name="import_data" string="Import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_talent_pool_import" model="ir.actions.act_window">
+            <field name="name">Import Talent Pool Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">talent.pool.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_talent_pool_import" name="Talent Pool Import" action="action_talent_pool_import" parent="hr_recruitment.menu_hr_recruitment_root" sequence="10"/>
+
+
+
+
+    </data>
+</odoo>
+
