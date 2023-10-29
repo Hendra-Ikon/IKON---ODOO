@@ -13,7 +13,6 @@
     'data': [
         'views/talent_pool_import_data_views.xml',
         'views/talent_kanban_views.xml',
-        # 'views/add_button.xml'
     ],
     'demo': [],
     'installable': True,
