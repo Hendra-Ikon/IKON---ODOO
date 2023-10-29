@@ -12,7 +12,8 @@
     'license': 'AGPL-3',
     'data': [
         'views/talent_pool_import_data_views.xml',
-        'views/talent_kanban_views.xml',
+        # 'views/talent_kanban_views.xml',
+        'views/talent_tree_view.xml'
     ],
     'demo': [],
     'installable': True,
