@@ -36,6 +36,13 @@ class WhatsGreat(models.Model):
     name = fields.Char(string='Whats Great', required=True)
     job_id = fields.Many2one('hr.job', string='Job')
 
+# class Perks(models.Model):
+#     _name = 'custom.perks'
+#     _description = 'Custom Perks'
+#
+#     name = fields.Char(string='Whats Great', required=True)
+#     job_id = fields.Many2one('hr.job', string='Job')
+
 
 
 
