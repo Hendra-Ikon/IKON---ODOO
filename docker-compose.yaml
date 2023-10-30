@@ -4,7 +4,7 @@ services:
   web-crm:
     container_name: ikon-crm
     image: odoo:16.0
-    platform: linux/amd64
+    platform: linux/x86_64
     restart: unless-stopped
     depends_on:
       - db
@@ -14,9 +14,10 @@ services:
       - ./debian/odoo.conf:/etc/odoo/odoo.conf:ro
       - ./config:/etc/odoo
       - ./custom_addons:/mnt/extra-addons
-    command: sh -c "pip install openpyxl && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo && tail -f /dev/null"
+    command: sh -c "pip install openpyxl && pip3 install python-Levenshtein && pip3 install fuzzywuzzy && pip3 install requests && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo && tail -f /dev/null"
 
   db:
+    platform: linux/x86_64
     container_name: db
     image: postgres:15
     restart: unless-stopped

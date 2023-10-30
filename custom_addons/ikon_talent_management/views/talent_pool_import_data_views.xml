@@ -25,11 +25,7 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem id="menu_talent_pool_import" name="Talent Pool Import" action="action_talent_pool_import" parent="hr_recruitment.menu_hr_recruitment_root" sequence="10"/>
-
-
-
+   
 
     </data>
 </odoo>
-
