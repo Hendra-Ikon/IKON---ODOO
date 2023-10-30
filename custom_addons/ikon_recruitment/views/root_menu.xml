@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="root_menu_talent_management" model="ir.ui.menu">
+            <field name="name">Talent Management</field>
+            <field name="parent_id" ref="hr_recruitment.menu_hr_recruitment_root"/> <!-- Ganti "hr" dengan modul HR yang sesuai -->
+        </record>
+    </data>
+</odoo>
