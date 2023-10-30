@@ -5,7 +5,7 @@
                   parent="hr_recruitment.menu_hr_recruitment_root"/>
 
         <!-- sub menu talent pool -->
-        <menuitem id="menu_talent_pool_kanban" name="Talent's Data" action="action_talent_pool_kanban"
+        <menuitem id="menu_talent_pool_kanban" name="Talent's Data" action="action_talent_pool_tree"
                   parent="menu_talent_management"/>
         <menuitem id="menu_talent_pool_form" name="Add New Talent" action="action_talent_pool_form"
                   parent="menu_talent_management"/>
