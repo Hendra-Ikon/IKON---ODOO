@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
                             <div class="card text-bg-primary">
-                                <h4 class="card-header">Minimum Required</h4>
+                                <h4 class="card-header">Minimum Requirement</h4>
                                 <ul class="list-group list-group-flush">
                                     <li t-foreach="job.min_req" t-as="min_req_item" t-key="min_req_item.id"
                                         class="list-group-item">
@@ -77,9 +77,9 @@
                             <div class="card text-bg-primary">
                                 <h4 class="card-header">Nice to Have</h4>
                                 <ul class="list-group list-group-flush">
-                                    <li t-foreach="job.must_have" t-as="must_have_item" t-key="must_have_item.id"
+                                    <li t-foreach="job.nice_to_have" t-as="nice_to_have" t-key="nice_to_have.id"
                                         class="list-group-item">
-                                        <t t-esc="must_have_item.name"/>
+                                        <t t-esc="nice_to_have.name"/>
                                     </li>
                                 </ul>
                             </div>
