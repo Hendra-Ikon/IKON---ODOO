@@ -2,4 +2,5 @@
 from . import hr_applicant
 from . import hr_experience
 from . import hr_custom_skill_requirement
+from . import hr_recruitment
 # from . import crm_team
