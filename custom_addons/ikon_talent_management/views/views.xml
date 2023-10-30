@@ -99,6 +99,8 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="search_view_id" ref="talent_view_search" />
         </record>
+
+         <menuitem id="talent_search_menu" name="Talent Search" parent="menu_talent_management" action="talent_search_action" sequence="10"/>
       
 
     </data>
