@@ -7,6 +7,9 @@ import json
 from odoo.exceptions import UserError 
 from fuzzywuzzy import fuzz
 from collections import Counter
+import xlsxwriter
+import io
+import base64
 
 _logger = logging.getLogger(__name__)
 
@@ -23,7 +26,16 @@ class TalentManagement(models.Model):
     opentowork = fields.Boolean(string='OpenToWork')
     talent_ids = fields.One2many('talent.management.talent.inherit', 'talent_id', string='Talent')
     approved = fields.Boolean(string='Approved')  # A field to mark as approved
-    
+    count_talent = fields.Integer(string='Count of Talent', compute='_compute_count_talent')
+
+
+
+    @api.depends('talent_ids')
+    def _compute_count_talent(self):
+        for record in self:
+            # Menghitung jumlah bakat (talent) berdasarkan talent_id yang sama dengan self.id
+            count = len(record.talent_ids)
+            record.count_talent = count
     
     def toggle_approved(self):
         # Toggle the 'approved' field value.
@@ -38,7 +50,7 @@ class TalentManagement(models.Model):
                 position = f'"{record.position}"'
                 skills = ' '.join(f'"{skill.name}"' for skill in record.skill_ids)
                 opentowork = "opentowork" if record.opentowork else ""
-                ina = "in indonesia"
+                ina = "in indonesia 50 result"
                 search_query = f'{position} {skills} {opentowork} {ina}'
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
@@ -104,5 +116,47 @@ class TalentManagement(models.Model):
         except Exception as e:
             error_message = "An error occurred while downloading the web page: %s" % str(e)
             raise UserError(error_message)
+    def generate_report(self):
+        # Ambil rekaman TalentManagementTalentInherit berdasarkan talent_id yang sesuai dengan self.id
+        talent_inherit_records = self.env['talent.management.talent.inherit'].search([('talent_id', '=', self.id)])
 
-    
+        # Buat laporan Excel dengan XlsxWriter
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+        worksheet = workbook.add_worksheet()
+
+        # Buat format header laporan
+        header_format = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'fg_color': '#D7E4BC'})
+
+        # Set kolom header
+        headers = ['Name', 'Phone Number', 'Headline', 'URL Linkedin', 'Experience']
+
+        for col, header in enumerate(headers):
+            worksheet.write(0, col, header, header_format)
+
+        # Tulis data ke laporan
+        for row, talent_inherit_record in enumerate(talent_inherit_records, start=1):
+            worksheet.write(row, 0, talent_inherit_record.name)
+            worksheet.write(row, 1, talent_inherit_record.no_tlp)
+            worksheet.write(row, 2, talent_inherit_record.skill)
+            worksheet.write(row, 3, talent_inherit_record.url)
+            worksheet.write(row, 4, talent_inherit_record.experience)
+
+        # Tutup workbook untuk menyimpan laporan
+        workbook.close()
+
+        # Simpan file Excel dalam bentuk attachment
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Talent_List_Report.xlsx',
+            'type': 'binary',
+            'datas': base64.b64encode(output.getvalue()),
+            'res_model': self._name,
+            'res_id': self.id,
+        })
+
+        # Return tindakan yang memungkinkan pengguna mengunduh laporan
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}/{attachment.name}',
+            'target': 'self',
+        }
