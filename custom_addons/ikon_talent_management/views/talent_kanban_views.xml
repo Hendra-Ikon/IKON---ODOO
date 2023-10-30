@@ -82,10 +82,5 @@
         </record>
 
 
-        <menuitem id="menu_talent_pool_kanban" name="Talent's Data" action="action_talent_pool_kanban"
-                  parent="hr_recruitment.menu_hr_recruitment_root"/>
-        <menuitem id="menu_talent_pool_form" name="Add New Talent" action="action_talent_pool_form"
-                  parent="hr_recruitment.menu_hr_recruitment_root"/>
-
     </data>
 </odoo>
