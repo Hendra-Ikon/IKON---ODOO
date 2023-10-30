@@ -5,13 +5,13 @@ class CustomJobDescription(models.Model):
 
 
     lead_data = fields.Char(String="Lead Article", required=True)
-    must_have = fields.One2many('custom.musthave', 'job_id', string='Must Have Items')
+    nice_to_have = fields.One2many('custom.nice_to_have', 'job_id', string='Nice to Have Items')
     req_skill = fields.One2many('custom.reqskill', 'job_id', string='Req Skill Items')
     min_req = fields.One2many('custom.minreq', 'job_id', string='Minimum Req Items')
     whats_great = fields.One2many('custom.great', 'job_id', string='Whats Great')
 
 class MustHave(models.Model):
-    _name = 'custom.musthave'
+    _name = 'custom.nice_to_have'
     _description = 'Custom Must Have'
 
     name = fields.Char(string='Nice to Have', required=True)
