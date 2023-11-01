@@ -1,49 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-
-    <!--    Custom Skill tree View-->
-    <!--    <record id="custom_skill_tree" model="ir.ui.view">-->
-    <!--        <field name="name">custom.skill.tree</field>-->
-    <!--        <field name="model">hr.job</field>-->
-    <!--        <field name="arch" type="xml">-->
-    <!--            <tree>-->
-    <!--                <field name="skill_name"/>-->
-    <!--                <field name="skill_active"/>-->
-    <!--            </tree>-->
-    <!--        </field>-->
-    <!--    </record>-->
-
-    <!--    <record id="custom_skill_form" model="ir.ui.view">-->
-    <!--        <field name="name">custom.skill.form</field>-->
-    <!--        <field name="model">hr.job</field>-->
-    <!--        <field name="inherit_id" ref="hr.view_hr_job_form"/>-->
-    <!--        <field name="arch" type="xml">-->
-    <!--            <data>-->
-    <!--                <xpath expr="//notebook" position="inside">-->
-    <!--                    <page string="Skills">-->
-    <!--                        <field name="skill_ids" widget="one2many_list">-->
-    <!--                            <tree string="Skills">-->
-    <!--                                <field name="skill_name"/>-->
-    <!--                                <field name="skill_active"/>-->
-    <!--                            </tree>-->
-    <!--                            <form string="Add Skill">-->
-    <!--                                <group>-->
-    <!--                                    <field name="skill_name"/>-->
-    <!--                                    <field name="skill_active"/>-->
-    <!--                                </group>-->
-    <!--                                <footer>-->
-    <!--                                    <button string="Save" type="object" class="oe_highlight" name="add_new_skill"/>-->
-    <!--&lt;!&ndash;                                    <button string="Cancel" class="oe_secondary" special="cancel"/>&ndash;&gt;-->
-    <!--                                </footer>-->
-    <!--                            </form>-->
-    <!--                        </field>-->
-    <!--                    </page>-->
-    <!--                </xpath>-->
-    <!--            </data>-->
-    <!--        </field>-->
-    <!--    </record>-->
-
     <record id="custom_skill_form" model="ir.ui.view">
         <field name="name">custom.skill.form</field>
         <field name="model">hr.job</field>
