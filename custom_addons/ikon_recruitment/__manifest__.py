@@ -20,6 +20,9 @@
         'views/custom_skill_form_view.xml',
         # 'views/inherit/hr_custom_skill.xml',
         'static/src/js/user_profile.js',
+
+        'views/custom_hr_applicant_kanban.xml',
+        'views/custom_job_position.xml',
     ],
     'demo': [],
     'installable': True,

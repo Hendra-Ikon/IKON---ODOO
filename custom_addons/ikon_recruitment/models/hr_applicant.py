@@ -28,8 +28,8 @@ class HrApplicant(models.Model):
         ], string="Religion")
     last_salary = fields.Integer(string='Last Salary')
     fresh_grad = fields.Boolean(string="Fresh Graduate")
-    
     experience_ids = fields.One2many('hr.experience', 'applicant_id' ,string="Experience")
+    result = fields.Char('Result')
 
 class JobsApplied(models.Model):
 
