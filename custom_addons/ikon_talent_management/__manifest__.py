@@ -16,6 +16,7 @@
         'views/talent_kanban_views.xml',
         'views/menu_talent.xml',
         'views/views.xml',
+        # 'views/view_report/report_talent.xml',
     ],
     'demo': [],
     'installable': True,

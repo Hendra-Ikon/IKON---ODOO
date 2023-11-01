@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <report
+            id="talent_management.report_talent_inherit"
+            model="talent.management.talent.inherit"
+            name="talent_management.report_talent_inherit"
+            string="Talent Inherit Report"
+            report_type="qweb-xlsx"
+            file="talent_management.report_talent_inherit"
+            attachment_use="True"
+            attachment="(object.name or 'Talent_Inherit_Report') + '.xlsx'"
+        />
+
+        <record id="talent_management_report_talent_inherit" model="ir.actions.report">
+            <field name="report_name">talent_management.report_talent_inherit</field>
+            <field name="name">Talent Inherit Report</field>
+            <field name="model">talent.management.talent.inherit</field>
+            <field name="report_type">qweb-xlsx</field>
+            <field name="report_file">talent_management.report_talent_inherit</field>
+        </record>
+
+        <template id="talent_management.report_talent_inherit">
+            <t t-name="talent_management.report_talent_inherit">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Headline</th>
+                                    <th>URL Linkedin</th>
+                                    <th>Experience</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="docs" t-as="o">
+                                    <td><span t-esc="o.name"/></td>
+                                    <td><span t-esc="o.no_tlp"/></td>
+                                    <td><span t-esc="o.skill"/></td>
+                                    <td><span t-esc="o.url"/></td>
+                                    <td><span t-esc="o.experience"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

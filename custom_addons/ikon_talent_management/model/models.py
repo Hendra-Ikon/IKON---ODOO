@@ -7,6 +7,9 @@ import json
 from odoo.exceptions import UserError 
 from fuzzywuzzy import fuzz
 from collections import Counter
+import xlsxwriter
+import io
+import base64
 
 _logger = logging.getLogger(__name__)
 
@@ -14,32 +17,51 @@ class TalentManagement(models.Model):
     _name = 'talent.management.talent'
     _description = 'Talent Management'
 
+    REGION_SELECTION = [
+        ('jabodetabek', 'Jabodetabek'),
+        ('jakarta', 'Jakarta'),
+        ('surabaya', 'Surabaya'),
+        ('bandung', 'Bandung'),
+        ('medan', 'Medan'),
+        ('makassar', 'Makassar'),
+        ('palembang', 'Palembang'),
+        # Tambahkan kota-kota lain di sini
+    ]
+
     position = fields.Char(string='Position', required=True)
     skill_ids = fields.Many2many('hr.skill', string='Add Skill')
     description = fields.Text(string='Description')
     custom_search_link = fields.Char(string='Custom Search Link', compute='_compute_custom_search_link')
     custom_search_data = fields.Text(string='Custom Search Data', compute='_compute_custom_search_data', store=True)
     limit = fields.Integer(string='Limit', required=True)
+    region = fields.Selection(REGION_SELECTION, string='Region', default='jabodetabek')
     opentowork = fields.Boolean(string='OpenToWork')
     talent_ids = fields.One2many('talent.management.talent.inherit', 'talent_id', string='Talent')
     approved = fields.Boolean(string='Approved')  # A field to mark as approved
-    
-    
-    def toggle_approved(self):
-        # Toggle the 'approved' field value.
-        for record in self:
-            record.write({'approved': not record.approved})
+    count_talent = fields.Integer(string='Count of Talent', compute='_compute_count_talent')
 
-    @api.depends('position', 'skill_ids', 'limit', 'opentowork')
+
+
+    @api.depends('talent_ids')
+    def _compute_count_talent(self):
+        for record in self:
+            # Menghitung jumlah bakat (talent) berdasarkan talent_id yang sama dengan self.id
+            count = len(record.talent_ids)
+            record.count_talent = count
+    
+    
+
+    @api.depends('position', 'skill_ids', 'limit', 'opentowork', 'region')
     def _compute_custom_search_link(self):
         base_url = "https://www.google.com/search?q=site:linkedin.com/in/"
         for record in self:
-            if record.position and record.skill_ids:
+            if record.position and record.skill_ids and record.region:
                 position = f'"{record.position}"'
                 skills = ' '.join(f'"{skill.name}"' for skill in record.skill_ids)
-                opentowork = "opentowork" if record.opentowork else ""
-                ina = "in indonesia"
-                search_query = f'{position} {skills} {opentowork} {ina}'
+                opentowork = "#opentowork" if record.opentowork else ""
+                ina = "work in indonesia"
+                region = record.region  # Ambil nilai region dari field
+                search_query = f'{position} {skills} {opentowork} {ina} {region}'  # Sertakan region dalam pencarian
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
                 _logger.info(custom_search_url)
@@ -53,8 +75,7 @@ class TalentManagement(models.Model):
                 limit = record.limit
                 self._get_custom_search_data(record, limit)
 
-    # Your existing function
-    # Your existing function
+
     def _get_custom_search_data(self, record, limit):
         try:
             response = requests.get(record.custom_search_link)
@@ -89,10 +110,18 @@ class TalentManagement(models.Model):
                                     match = re.search(r'https://[^\s&]+', raw_url)
                                     if match:
                                         url = match.group(0)
+
+                                        # Extract the phone number from the URL if available
+                                        phone_number = None
+                                        phone_match = re.search(r'(\d{4,15})', raw_url)
+                                        if phone_match:
+                                            phone_number = phone_match.group(0)
+
                                         talent_inherit = self.env['talent.management.talent.inherit'].create({
                                             'name': nama,
                                             'skill': skills,
                                             'url': url,
+                                            'no_tlp': phone_number,  # Add the phone number to the model
                                         })
                                         talent_inherit.talent_id = record.id
                                         existing_names.append(nama)  # Add to existing names
@@ -105,4 +134,48 @@ class TalentManagement(models.Model):
             error_message = "An error occurred while downloading the web page: %s" % str(e)
             raise UserError(error_message)
 
-    
+        
+    def generate_report(self):
+        # Ambil rekaman TalentManagementTalentInherit berdasarkan talent_id yang sesuai dengan self.id
+        talent_inherit_records = self.env['talent.management.talent.inherit'].search([('talent_id', '=', self.id)])
+
+        # Buat laporan Excel dengan XlsxWriter
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+        worksheet = workbook.add_worksheet()
+
+        # Buat format header laporan
+        header_format = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'fg_color': '#D7E4BC'})
+
+        # Set kolom header
+        headers = ['Name', 'Phone Number', 'Headline', 'URL Linkedin', 'Experience']
+
+        for col, header in enumerate(headers):
+            worksheet.write(0, col, header, header_format)
+
+        # Tulis data ke laporan
+        for row, talent_inherit_record in enumerate(talent_inherit_records, start=1):
+            worksheet.write(row, 0, talent_inherit_record.name)
+            worksheet.write(row, 1, talent_inherit_record.no_tlp)
+            worksheet.write(row, 2, talent_inherit_record.skill)
+            worksheet.write(row, 3, talent_inherit_record.url)
+            worksheet.write(row, 4, talent_inherit_record.experience)
+
+        # Tutup workbook untuk menyimpan laporan
+        workbook.close()
+
+        # Simpan file Excel dalam bentuk attachment
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Talent_List_Report.xlsx',
+            'type': 'binary',
+            'datas': base64.b64encode(output.getvalue()),
+            'res_model': self._name,
+            'res_id': self.id,
+        })
+
+        # Return tindakan yang memungkinkan pengguna mengunduh laporan
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}/{attachment.name}',
+            'target': 'self',
+        }

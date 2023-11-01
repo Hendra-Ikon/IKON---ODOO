@@ -17,6 +17,9 @@
         # 'views/custom_skill_form_view.xml',
         'views/custom_job_detail.xml',
         'static/src/js/user_profile.js',
+
+        'views/custom_hr_applicant_kanban.xml',
+        'views/custom_job_position.xml',
     ],
     'demo': [],
     'installable': True,

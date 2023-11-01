@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <!-- Add the filter to the Kanban view -->
+        <record id="hr_kanban_view_applicant_inherit" model="ir.ui.view">
+            <field name="name">hr.applicants.kanban.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//div[@class='o_kanban_record_headings']" position="after">
+                        <field name="result"/>
+                    </xpath>
+            
+            </field>
+        </record>
+        
+    </data>
+</odoo>

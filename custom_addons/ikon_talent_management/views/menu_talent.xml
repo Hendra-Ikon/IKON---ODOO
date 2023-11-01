@@ -11,8 +11,6 @@
                   parent="menu_talent_management"/>
         <menuitem id="menu_talent_pool_import" name="Talent Pool Import" action="action_talent_pool_import" parent="menu_talent_management" sequence="10"/>
         
-        <!-- sub menu talent search -->
-       
       
     </data>
 </odoo>

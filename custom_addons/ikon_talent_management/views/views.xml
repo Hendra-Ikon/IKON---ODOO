@@ -11,9 +11,13 @@
                             <field name="position"/>
                             <field name="skill_ids" widget="many2many_tags" options="{'no_create': False}"/>
                             <field name="limit"/>
+                            <field name="region" required="1"/> 
                             <field name="opentowork" widget="boolean_toggle"/>
                         </group>
-                  
+                        <field name="count_talent" invisible="true"/>
+                        <button name="generate_report" string="Generate Report" type="object" class="btn-primary" attrs="{'invisible':[('count_talent','=',0)]}" />
+                        
+                       
                    
                         <notebook>
                             <page string="Talent Information">
@@ -22,10 +26,10 @@
                                         <field name="name"/>
                                         <field name="no_tlp"/>
                                         <field name="skill"/>
-                                        <field name="url"/>
+                                        <field name="url" widget="url" />
                                         <field name="experience"/>
                                         <field name="create_date" string="Create Date" widget="date"/>
-                                        <field name="write_date" string="Write Date" widget="date"/>
+                                        <field name="write_date" string="Update Date" widget="date"/>
                                     </tree>
                                 </field>
                             </page>
@@ -46,20 +50,24 @@
                             <field name="name"/>
                             <field name="no_tlp"/>
                             <field name="skill"/>
-                            <field name="url"/>
+                            <field name="url" widget="url"/>
                             <field name="experience"/>
                             <field name="create_date" string="Create Date" widget="date" readonly="1"/>
-                            <field name="write_date" string="Write Date" widget="date" readonly="1"/>
-                            
+                            <field name="write_date" string="Update Date" widget="date" readonly="1"/>
+                            <field name="job_id" domain="[]"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   widget="many2one_list"/>
                             <!-- Field lainnya -->
                         </group>
                         <group>
-                            <button name="toggle_approved" string="Approve" class="oe_highlight"/>
+                            <button name="toggle_approved" string="Approve" type="object" class="btn-primary" attrs="{'invisible': [('job_id', '=', False)]}"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
+
+        
         
 
         <record id="talent_view_kanban" model="ir.ui.view">
@@ -73,6 +81,7 @@
                                 <div class="oe_kanban_content">
                                     <p><field name="position"/></p>
                                     <p><field name="skill_ids" widget="many2many_tags" options="{'no_create': True}"/></p>
+                                    <p><field name="create_date" string="Create Date" widget="date" readonly="1"/></p>
                                 </div>
                             </div>
                         </t>
@@ -100,8 +109,10 @@
             <field name="search_view_id" ref="talent_view_search" />
         </record>
 
+
          <menuitem id="talent_search_menu" name="Talent Search" parent="menu_talent_management" action="talent_search_action" sequence="10"/>
       
+
 
     </data>
 </odoo>
