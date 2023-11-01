@@ -35,7 +35,7 @@
             </xpath>
             <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"
                 position="attributes">
-                <attribute name="invisible">1</attribute>
+<!--                <attribute name="invisible">1</attribute>-->
             </xpath>
             <xpath expr="//field[@name='customer_lead' and @optional='hide']" position="attributes">
                 <attribute name="invisible">1</attribute>

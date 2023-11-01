@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_talent_pool_tree" model="ir.ui.view">
+            <field name="name">talent.pool.data.tree</field>
+            <field name="model">talent.pool.data</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nama"/>
+                    <field name="email"/>
+                    <field name="posisi"/>
+                    <field name="sumber"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_talent_pool_tree" model="ir.actions.act_window">
+            <field name="name">Talent Pool Tree</field>
+            <field name="res_model">talent.pool.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_talent_pool_tree"/>
+        </record>
+
+<!--        <menuitem id="menu_talent_pool_form" name="Talent's Data" action="action_talent_pool_tree"-->
+<!--                  parent="hr_recruitment.menu_hr_recruitment_root"/>-->
+    </data>
+</odoo>
