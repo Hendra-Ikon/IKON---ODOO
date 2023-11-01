@@ -49,5 +49,13 @@
     'application': True,
     'auto_install': False,
     'post_init_hook': '_post_init_hook',
-    'uninstall_hook': '_uninstall_hook'
+    'uninstall_hook': '_uninstall_hook',
+    'assets': {
+        'web.assets_backend': [
+            'crm_ikon/static/js/contact_kanban_import_button.js',
+            'crm_ikon/static/js/contact_list_import_button.js',
+            'crm_ikon/static/xml/contact_kanban_import_button.xml',
+            'crm_ikon/static/xml/contact_list_import_button.xml',
+        ],
+    },
 }
