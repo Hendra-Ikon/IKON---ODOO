@@ -14,7 +14,7 @@
         'views/inherit/jobs_portal.xml',
         'views/inherit/footer_login.xml',
         'views/inherit/custom_job_detail.xml',
-        # 'views/custom_skill_form_view.xml',
+        'views/custom_skill_form_view.xml',
         'views/custom_job_detail.xml',
         'static/src/js/user_profile.js',
 
