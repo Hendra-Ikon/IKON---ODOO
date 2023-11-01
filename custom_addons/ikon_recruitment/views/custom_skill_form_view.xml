@@ -7,13 +7,9 @@
         <field name="inherit_id" ref="hr.view_hr_job_form"/>
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//notebook" position="inside">
-                    <page string="Skills">
-                        <group>
-                            <field name="skill_ids" widget="many2many_tags"/>
-                        </group>
-                    </page>
-                </xpath>
+                <xpath expr="//field[@name='interviewer_ids']" position="after">
+                    <field name="skill_ids" widget="many2many_tags"/>
+                 </xpath>
             </data>
         </field>
     </record>

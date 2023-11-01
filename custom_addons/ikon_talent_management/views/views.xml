@@ -110,8 +110,9 @@
         </record>
 
 
-         <menuitem id="talent_search_menu" name="Talent Search" parent="menu_talent_management" action="talent_search_action" sequence="10"/>
-      
+        <menuitem id="menu_talent_search" name="Talent Search" action="talent_search_action" parent="menu_talent_management" sequence="10"/>
+        
+
 
 
     </data>
