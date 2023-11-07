@@ -16,6 +16,7 @@ _logger = logging.getLogger(__name__)
 class TalentManagement(models.Model):
     _name = 'talent.management.talent'
     _description = 'Talent Management'
+    _inherit = ['mail.thread']
 
     REGION_SELECTION = [
         ('jabodetabek', 'Jabodetabek'),
@@ -28,8 +29,8 @@ class TalentManagement(models.Model):
         # Tambahkan kota-kota lain di sini
     ]
 
-    position = fields.Char(string='Position', required=True)
-    skill_ids = fields.Many2many('hr.skill', string='Add Skill')
+    position = fields.Char(string='Position', required=True, tracking=True)
+    skill_ids = fields.Many2many('hr.skill', string='Add Skill', tracking=True)
     description = fields.Text(string='Description')
     custom_search_link = fields.Char(string='Custom Search Link', compute='_compute_custom_search_link')
     custom_search_data = fields.Text(string='Custom Search Data', compute='_compute_custom_search_data', store=True)
@@ -40,6 +41,8 @@ class TalentManagement(models.Model):
     approved = fields.Boolean(string='Approved')  # A field to mark as approved
     count_talent = fields.Integer(string='Count of Talent', compute='_compute_count_talent')
 
+    def customLogs(self):
+        self.message_post(body="Hellow word")
 
 
     @api.depends('talent_ids')

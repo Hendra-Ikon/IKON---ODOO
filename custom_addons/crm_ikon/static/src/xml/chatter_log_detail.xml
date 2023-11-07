@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="crm_ikon.camera" t-inherit="mail.ChatterTopbar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_ChatterTopbar_controllers')]" t-if="chatterTopbar.chatter.threadView" position="inside">
+            <!-- <button id="camera_button" type="button" t-on-click="chatterTopbar.chatter.onClickCamera" style="border:none;background-color:white;">
+                Log Detail
+            </button> -->
+            <button class="o_ChatterTopbar_button o_ChatterTopbar_buttonDetailLog btn text-nowrap"
+                    type="button"
+                    t-att-class="{
+                        'o-active btn-odoo': chatterTopbar.chatter.composerView and chatterTopbar.chatter.composerView.composer.isDetailLog,
+                        'btn-light': chatterTopbar.chatter.composerView and !chatterTopbar.chatter.composerView.composer.isDetailLog or !chatterTopbar.chatter.composerView,
+                    }"
+                    t-att-disabled="!chatterTopbar.chatter.isTemporary and !chatterTopbar.chatter.hasWriteAccess"
+                    t-on-click="chatterTopbar.chatter.onClickDetailLog"
+                    data-hotkey="shift+d"
+                >
+                    Detail Log
+                </button>
+            <!-- <center>
+                <t t-foreach="log_details" t-as="log_detail" t-foreach-x="log_details" t-key="unique_key">
+                    <t t-esc="log_detail.name"/>: <t t-esc="log_detail.price_old"/> -> <t t-esc="log_detail.price_new"/><br/>
+                </t>
+            </center> -->
+        </xpath>
+    </t>
+</templates>

@@ -6,7 +6,7 @@
     'company': 'Ikonsultan Inovatama',
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
-    'depends': ['base', 'crm', 'sale', 'sale_management', 'multicolor_backend_theme'],
+    'depends': ['base', 'crm', 'sale', 'sale_management', 'multicolor_backend_theme', 'base_setup', 'mail', 'web'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -38,6 +38,7 @@
         'views/inherit_stage_views.xml',
         'views/inherit_contact_views.xml',
         'views/inherit_categories_views.xml',
+        'views/inherit_mail_tracking.xml',
         
         # report
         'report/sale_report_inherit.xml',
@@ -56,6 +57,9 @@
             'crm_ikon/static/js/contact_list_import_button.js',
             'crm_ikon/static/xml/contact_kanban_import_button.xml',
             'crm_ikon/static/xml/contact_list_import_button.xml',
+            # log detail
+            'crm_ikon/static/src/js/chatter_log_detail.js',
+            'crm_ikon/static/src/xml/chatter_log_detail.xml',
         ],
     },
 }
