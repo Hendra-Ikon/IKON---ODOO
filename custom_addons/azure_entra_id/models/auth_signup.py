@@ -134,45 +134,50 @@ class ResUsers(models.Model):
     def _create_user_from_template(self, values):
         _logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>> _create_user_from_template")
         _logger.info(values)
-        # TODO: get user's azure object id
-        user_response = requests.get("https://graph.microsoft.com/v1.0/me", headers={'Authorization': 'Bearer %s' % values['oauth_access_token']}, timeout=10)
-        _logger.info(user_response)
-        if user_response.ok:
-            user = user_response.json()
-        else:
-            _logger.error("failed to get user id info")
-            raise UserError("Failed to get user id info")
-        _logger.info(user)
-        # TODO: get user's azure application assigned role
-        role_response = requests.get(f"https://graph.microsoft.com/v1.0/users/{user['id']}/appRoleAssignments", headers={'Authorization': 'Bearer %s' % values['oauth_access_token']}, timeout=10)
-        _logger.info(role_response)
-        if role_response.ok:
-            role = role_response.json()
-        else:
-            _logger.error("Failed to get role info")
-            raise UserError("Failed to get role info")
-        _logger.info(role)
-        app_role_ids = [item['appRoleId'] for item in role['value']]
-        app_role_ids.sort()
-        joined_app_role_ids = ','.join(app_role_ids)
-        _logger.info("joined role id >>>>>>>>>>>>")
-        _logger.info(joined_app_role_ids)
+        # if login oauth then get roleid
+        try:
+            user_response = requests.get("https://graph.microsoft.com/v1.0/me", headers={'Authorization': 'Bearer %s' % values['oauth_access_token']}, timeout=10)
+            _logger.info(user_response)
+            if user_response.ok:
+                user = user_response.json()
+            else:
+                _logger.error("failed to get user id info")
+                raise UserError("Failed to get user id info")
+            _logger.info(user)
+            # get user's azure application assigned role
+            role_response = requests.get(f"https://graph.microsoft.com/v1.0/users/{user['id']}/appRoleAssignments", headers={'Authorization': 'Bearer %s' % values['oauth_access_token']}, timeout=10)
+            _logger.info(role_response)
+            if role_response.ok:
+                role = role_response.json()
+            else:
+                _logger.error("Failed to get role info")
+                raise UserError("Failed to get role info")
+            _logger.info(role)
+            app_role_ids = [item['appRoleId'] for item in role['value']]
+            app_role_ids.sort()
+            joined_app_role_ids = ','.join(app_role_ids)
+            _logger.info("joined role id >>>>>>>>>>>>")
+            _logger.info(joined_app_role_ids)
 
-        # hash appRoloId as user template hash
-        md5_hash = hashlib.md5()
-        md5_hash.update(joined_app_role_ids.encode('utf-8'))
-        template_user_hash = md5_hash.hexdigest()
-        _logger.info(template_user_hash)
+            # hash appRoloId as user template hash
+            md5_hash = hashlib.md5()
+            md5_hash.update(joined_app_role_ids.encode('utf-8'))
+            template_user_hash = md5_hash.hexdigest()
+            _logger.info(template_user_hash)
 
-        # template_user_id = literal_eval(self.env['ir.config_parameter'].sudo().get_param('base.template_portal_user_id', 'False'))
-        template_user_id = self.search([('login', '=', template_user_hash)], limit=1)
+            # template_user_id = literal_eval(self.env['ir.config_parameter'].sudo().get_param('base.template_portal_user_id', 'False'))
+            tu = self.search([('login', '=', template_user_hash)], limit=1)
+            template_user_id = tu.read(['id'])[0].get('id')
+        except KeyError:
+            # fallback to default template user id
+            template_user_id = literal_eval(self.env['ir.config_parameter'].sudo().get_param('base.template_portal_user_id', 'False'))
 
         _logger.info(template_user_id)
         if not template_user_id:
             _logger.error("template user not found")
             raise AccessDenied("Template user not found")
-        _logger.info(template_user_id.read(['id'])[0].get('id'))
-        template_user = self.browse(template_user_id.read(['id'])[0].get('id'))
+        
+        template_user = self.browse(template_user_id)
         _logger.info("=============================================")
         if not template_user.exists():
             raise ValueError(_('Signup: invalid template user'))
