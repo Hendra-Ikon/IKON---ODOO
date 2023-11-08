@@ -3,7 +3,6 @@ from odoo import models, fields
 from base64 import b64decode
 
 
-
 class TalentPoolImportWizard(models.TransientModel):
     _name = 'talent.pool.import.wizard'
     _description = 'Talent Pool Import Wizard'
@@ -23,11 +22,11 @@ class TalentPoolImportWizard(models.TransientModel):
                 'sumber': sheet.cell_value(row, 1),
                 'posisi': sheet.cell_value(row, 2),
                 'nama': sheet.cell_value(row, 3),
-                'email': sheet.cell_value(row, 4)
+                'email': sheet.cell_value(row, 4),
+                'universitas': sheet.cell_value(row, 5),
+                'notes': sheet.cell_value(row, 6)
             }
             talent_pool_model.create(data)
-
-
 
 
 class TalentData(models.Model):
@@ -38,8 +37,13 @@ class TalentData(models.Model):
     posisi = fields.Char(string="Posisi")
     nama = fields.Char(string="Nama")
     email = fields.Char(string="Email")
-
-
-
-
-
+    degree = fields.Selection([
+        ('sma', 'SMA'),
+        ('smk', 'SMK'),
+        ('s1', 'S1'),
+        ('s2', 'S2'),
+    ])
+    # degree = fields.Selection(string="Degree", selection=DEGREES, default=DEGREES[2][2])
+    universitas = fields.Char(string="Universitas")
+    notes = fields.Char(string="Additional Notes")
+    attachment = fields.Binary(string="Attachment File")

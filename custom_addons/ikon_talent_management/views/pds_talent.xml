@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_pds_form" model="ir.ui.view">
+            <field name="name">pds.data.form</field>
+            <field name="model">pds.data</field>
+            <field name="arch" type="xml">
+                <form string="PDS">
+                    <sheet>
+                        <group>
+                            <field name="nama"/>
+                            <field name="nik"/>
+                            <field name="alamat"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_pds_form" model="ir.actions.act_window">
+            <field name="name">PDS Data Action</field>
+            <field name="res_model">pds.data</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pds_form"/>
+        </record>
+</odoo>
