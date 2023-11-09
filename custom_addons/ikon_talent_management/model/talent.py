@@ -10,7 +10,7 @@ class TalentManagementTalentInherit(models.Model):
 
     name = fields.Char(string='Name', required=True, track_visibility = 'always')
     no_tlp = fields.Char(string='Phone Number', track_visibility = 'always')
-    skill = fields.Char(string='Headline', required=True)
+    keyword = fields.Text(string='Keyword', tracking=True)
     talent_id = fields.Many2one('talent.management.talent', string='Talent')
     url = fields.Char(string='URL Linkedin')
     experience = fields.Char(string='Experience')
