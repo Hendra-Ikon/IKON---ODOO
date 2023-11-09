@@ -6,7 +6,7 @@
     'company': 'Ikonsultan Inovatama',
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
-    'depends': ['base', 'crm', 'sale', 'sale_management', 'multicolor_backend_theme'],
+    'depends': ['base', 'crm', 'sale', 'sale_management', 'multicolor_backend_theme', 'base_setup', 'mail', 'web'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [

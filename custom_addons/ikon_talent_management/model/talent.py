@@ -6,10 +6,11 @@ _logger = logging.getLogger(__name__)
 class TalentManagementTalentInherit(models.Model):
     _name = 'talent.management.talent.inherit'
     _description = 'Inherited Talent Management'
+    _inherit = ['mail.thread']
 
-    name = fields.Char(string='Name', required=True)
-    no_tlp = fields.Char(string='Phone Number')
-    skill = fields.Char(string='Headline', required=True)
+    name = fields.Char(string='Name', required=True, track_visibility = 'always')
+    no_tlp = fields.Char(string='Phone Number', track_visibility = 'always')
+    keyword = fields.Text(string='Keyword', tracking=True)
     talent_id = fields.Many2one('talent.management.talent', string='Talent')
     url = fields.Char(string='URL Linkedin')
     experience = fields.Char(string='Experience')

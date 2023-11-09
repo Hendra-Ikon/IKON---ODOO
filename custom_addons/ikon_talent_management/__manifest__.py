@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images'  : [],
-    'depends': ['base','hr_skills'],
+    'depends': ['base','hr_skills','mail'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -18,6 +18,7 @@
         'views/views.xml',
         # 'views/view_report/report_talent.xml',
     ],
+   
     'demo': [],
     'installable': True,
     'application': True,
