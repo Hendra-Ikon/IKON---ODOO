@@ -9,26 +9,66 @@ logger = logging.getLogger(__name__)
 
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
-    
+
     attention = fields.Char(string="Attention")
     inv_no = fields.Char(string='Invoice No.')
     pph = fields.Float(string='PPH Invoice', default=0.00)
     pph_price = fields.Float(compute="_compute_pph_price", default=0.00)
-    
+    state = fields.Selection(
+        selection=[
+            ('draft', 'Draft'),
+            ('approved', 'Approved'),
+            ('posted', 'Posted'),
+            ('cancel', 'Cancelled'),
+        ],
+        string='Status',
+        required=True,
+        readonly=True,
+        copy=False,
+        tracking=True,
+        default='draft',
+    )
+
+    hide_post_button = fields.Boolean(compute='_compute_hide_post_button', readonly=True, default=True)
+
+    def action_approve(self):
+        for move in self:
+            if move.state == 'approved':
+                move.write({'state': 'posted'})
+            else:
+                move.write({'state': 'approved'})
+
+    @api.depends('restrict_mode_hash_table', 'state')
+    def _compute_show_reset_to_draft_button(self):
+        for move in self:
+            move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in ('posted', 'approved', 'cancel')
+
+
+
+
+
     def action_post(self):
         # validate sales order  
         for rec in self.invoice_line_ids:
             if rec.sale_line_ids.order_id.state == 'draft':
                 raise UserError(_("You are not allowed to confirm, please confirm sale order first!"))
-        
+
+        # for move in self:
+        #     if move.state == 'approved':
+        #         move.write({'state': 'posted'})
+        #     else:
+        #         move.write({'state': 'approved'})
+
         res = super(CrmAccountMove, self).action_post()
         return res
-    
+
+
+
     @api.depends('pph', 'amount_total')
     def _compute_pph_price(self):
         for rec in self:
             rec.pph_price = -1 * (rec.pph * 0.01 * rec.amount_total)
-            
+
     @api.depends(
         'invoice_line_ids.currency_rate',
         'invoice_line_ids.tax_base_amount',
@@ -102,8 +142,8 @@ class CrmAccountMove(models.Model):
                         ))
                 move.tax_totals = self.env['account.tax']._prepare_tax_totals(**kwargs)
                 tax_totals = move.tax_totals
-                
-                tax_totals['amount_total'] = tax_totals['amount_total'] + move.pph_price  
+
+                tax_totals['amount_total'] = tax_totals['amount_total'] + move.pph_price
                 tax_totals['formatted_amount_total'] = formatLang(self.env, tax_totals['amount_total'], currency_obj=move.currency_id)
                 if move.invoice_cash_rounding_id:
                     rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id, move.tax_totals['amount_total'])
@@ -129,7 +169,7 @@ class CrmAccountMove(models.Model):
             else:
                 # Non-invoice moves don't support that field (because of multicurrency: all lines of the invoice share the same currency)
                 move.tax_totals = None
-    
+
     @contextmanager
     def _check_balanced(self, container):
         ''' Assert the move is fully balanced debit = credit.
@@ -142,7 +182,7 @@ class CrmAccountMove(models.Model):
 
         unbalanced_moves = self._get_unbalanced_moves(container)
         is_merge_inv = self.env.context.get("source") == 'merge_inv'
-        
+
         if unbalanced_moves and not is_merge_inv:
             error_msg = _("An error has occurred.")
             for move_id, sum_debit, sum_credit in unbalanced_moves:
@@ -157,31 +197,30 @@ class CrmAccountMove(models.Model):
                     format_amount(self.env, sum_credit, move.company_id.currency_id),
                     move.journal_id.name)
             raise UserError(error_msg)
-        
+
     def action_merge_invoices(self):
         for move in self:
             if move.state == 'posted':
                 raise UserError(_("Merge invoice only possible for draft!"))
-        
+
         move_selected = self.filtered(lambda x: x.state == 'draft')
         if len(move_selected) <= 1:
             raise UserError(_("At least select 2 records draft invoice!"))
-        
+
         move_header = move_selected[0]
         for line in move_selected.line_ids.filtered(lambda x: x.move_id != move_header and x.display_type == 'product'):
             line.copy(default={'move_id': move_header.id})
-            
+
         header_payment = move_header.line_ids.filtered(lambda x: x.display_type == 'payment_term' and x.is_downpayment == False)
         header_payment.debit = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
         header_payment.balance = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
         header_payment.amount_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
         header_payment.amount_residual = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
         header_payment.amount_residual_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-                
+
         fileterd_moves = move_selected.filtered(lambda x: x.id != move_header.id)
         for move in fileterd_moves:
             move.state = 'cancel'
-        
+
         return True
-        
-            
+
