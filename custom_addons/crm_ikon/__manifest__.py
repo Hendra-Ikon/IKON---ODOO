@@ -58,8 +58,9 @@
             'crm_ikon/static/xml/contact_kanban_import_button.xml',
             'crm_ikon/static/xml/contact_list_import_button.xml',
             # log detail
-            'crm_ikon/static/src/js/chatter_log_detail.js',
-            'crm_ikon/static/src/xml/chatter_log_detail.xml',
+            # 'crm_ikon/static/src/js/chatter_log_detail.js',
+            # 'crm_ikon/static/src/xml/chatter_log_detail.xml',
+            # 'crm_ikon/static/src/xml/detail.js',
         ],
     },
 }

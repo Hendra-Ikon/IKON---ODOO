@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    price_unit = fields.Monetary('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
+    price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     
     invoice_count = fields.Integer(related='order_id.invoice_count')
     
