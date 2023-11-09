@@ -19,7 +19,7 @@
         'data/load_service_category.xml',
         'data/load_service.xml',
         'data/load_term_payment.xml',
-        'data/load_crm_stage.xml',
+        # 'data/load_crm_stage.xml',
         'data/load_crm_categories.xml',
         
         # views
