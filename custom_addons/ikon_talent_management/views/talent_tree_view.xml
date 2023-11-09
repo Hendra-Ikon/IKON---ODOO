@@ -10,6 +10,10 @@
                     <field name="email"/>
                     <field name="posisi"/>
                     <field name="sumber"/>
+                    <field name="degree"/>
+                    <field name="universitas"/>
+                    <field name="notes"/>
+                    <field name="attachment" widget="download_link" filename="attachment_filename"/>
                 </tree>
             </field>
         </record>
@@ -21,7 +25,5 @@
             <field name="view_id" ref="view_talent_pool_tree"/>
         </record>
 
-<!--        <menuitem id="menu_talent_pool_form" name="Talent's Data" action="action_talent_pool_tree"-->
-<!--                  parent="hr_recruitment.menu_hr_recruitment_root"/>-->
     </data>
 </odoo>

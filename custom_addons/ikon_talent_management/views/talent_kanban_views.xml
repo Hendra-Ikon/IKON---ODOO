@@ -57,10 +57,14 @@
                 <form string="Talent Pool Data">
                     <sheet>
                         <group>
-                            <!-- Add fields from the "talent.pool.data" model here -->
                             <field name="nama"/>
                             <field name="email"/>
-                            <!-- Add more fields as needed -->
+                            <field name="posisi"/>
+                            <field name="sumber"/>
+                            <field name="degree"/>
+                            <field name="universitas"/>
+                            <field name="notes"/>
+                            <field name="attachment" widget="binary" filename="attachment_filename" options="{'preview_image': true}"/>
                         </group>
                     </sheet>
                 </form>
@@ -72,6 +76,7 @@
             <field name="res_model">talent.pool.data</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_talent_pool_form"/>
+            <field name="target">current</field>
         </record>
 
         <record id="action_talent_pool_kanban" model="ir.actions.act_window">
