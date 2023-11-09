@@ -69,7 +69,7 @@ class TalentManagement(models.Model):
                 search_query = f'{position} {opentowork}  {keywords} {region} {ina}'  # Sertakan region dalam pencarian
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
-                _logger.info("test",custom_search_url)
+                _logger.info(custom_search_url)
             else:
                 record.custom_search_link = False
 

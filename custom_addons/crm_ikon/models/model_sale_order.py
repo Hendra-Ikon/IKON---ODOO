@@ -53,6 +53,3 @@ class CrmSaleOrder(models.Model):
 
         return self.order_line.filtered(show_line)
     
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     print("==========tevals_listst=========", vals_list)

@@ -10,4 +10,3 @@ from . import model_account_move
 from . import model_sale_order
 from . import model_crm_team
 from . import model_partner
-from . import model_mail_tracking

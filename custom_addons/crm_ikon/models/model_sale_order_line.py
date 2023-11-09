@@ -107,11 +107,3 @@ class SaleOrderLine(models.Model):
                 line.product_uom_qty = product_uom_qty
 
 
-class LogDetailSale(models.Model):
-    _name = 'log.detail.sale'
-    _description = 'Log Detail Sale'
-
-    name = fields.Char(string='Name', required=True)
-    price_old = fields.Float(string='Old Price')
-    price_new = fields.Float(string='New Price')
-    change_date = fields.Datetime(string='Change Date')
