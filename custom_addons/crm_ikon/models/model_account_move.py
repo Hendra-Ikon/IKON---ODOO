@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -31,6 +32,7 @@ class CrmAccountMove(models.Model):
 
     hide_post_button = fields.Boolean(compute='_compute_hide_post_button', readonly=True, default=True)
 
+
     def action_approve(self):
         for move in self:
             if move.state == 'approved':
@@ -41,11 +43,8 @@ class CrmAccountMove(models.Model):
     @api.depends('restrict_mode_hash_table', 'state')
     def _compute_show_reset_to_draft_button(self):
         for move in self:
-            move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in ('posted', 'approved', 'cancel')
-
-
-
-
+            move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in (
+            'posted', 'approved', 'cancel')
 
     def action_post(self):
         # validate sales order  
@@ -61,8 +60,6 @@ class CrmAccountMove(models.Model):
 
         res = super(CrmAccountMove, self).action_post()
         return res
-
-
 
     @api.depends('pph', 'amount_total')
     def _compute_pph_price(self):
@@ -144,17 +141,22 @@ class CrmAccountMove(models.Model):
                 tax_totals = move.tax_totals
 
                 tax_totals['amount_total'] = tax_totals['amount_total'] + move.pph_price
-                tax_totals['formatted_amount_total'] = formatLang(self.env, tax_totals['amount_total'], currency_obj=move.currency_id)
+                tax_totals['formatted_amount_total'] = formatLang(self.env, tax_totals['amount_total'],
+                                                                  currency_obj=move.currency_id)
                 if move.invoice_cash_rounding_id:
-                    rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id, move.tax_totals['amount_total'])
+                    rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id,
+                                                                                       move.tax_totals['amount_total'])
                     totals = move.tax_totals
                     totals['display_rounding'] = True
                     if rounding_amount:
                         if move.invoice_cash_rounding_id.strategy == 'add_invoice_line':
                             totals['rounding_amount'] = rounding_amount
-                            totals['formatted_rounding_amount'] = formatLang(self.env, totals['rounding_amount'], currency_obj=move.currency_id)
+                            totals['formatted_rounding_amount'] = formatLang(self.env, totals['rounding_amount'],
+                                                                             currency_obj=move.currency_id)
                             totals['amount_total_rounded'] = totals['amount_total'] + rounding_amount
-                            totals['formatted_amount_total_rounded'] = formatLang(self.env, totals['amount_total_rounded'], currency_obj=move.currency_id)
+                            totals['formatted_amount_total_rounded'] = formatLang(self.env,
+                                                                                  totals['amount_total_rounded'],
+                                                                                  currency_obj=move.currency_id)
                         elif move.invoice_cash_rounding_id.strategy == 'biggest_tax':
                             if totals['subtotals_order']:
                                 max_tax_group = max((
@@ -163,9 +165,11 @@ class CrmAccountMove(models.Model):
                                     for tax_group in tax_groups
                                 ), key=lambda tax_group: tax_group['tax_group_amount'])
                                 max_tax_group['tax_group_amount'] += rounding_amount
-                                max_tax_group['formatted_tax_group_amount'] = formatLang(self.env, max_tax_group['tax_group_amount'], currency_obj=move.currency_id)
+                                max_tax_group['formatted_tax_group_amount'] = formatLang(self.env, max_tax_group[
+                                    'tax_group_amount'], currency_obj=move.currency_id)
                                 totals['amount_total'] += rounding_amount
-                                totals['formatted_amount_total'] = formatLang(self.env, totals['amount_total'], currency_obj=move.currency_id)
+                                totals['formatted_amount_total'] = formatLang(self.env, totals['amount_total'],
+                                                                              currency_obj=move.currency_id)
             else:
                 # Non-invoice moves don't support that field (because of multicurrency: all lines of the invoice share the same currency)
                 move.tax_totals = None
@@ -211,16 +215,21 @@ class CrmAccountMove(models.Model):
         for line in move_selected.line_ids.filtered(lambda x: x.move_id != move_header and x.display_type == 'product'):
             line.copy(default={'move_id': move_header.id})
 
-        header_payment = move_header.line_ids.filtered(lambda x: x.display_type == 'payment_term' and x.is_downpayment == False)
-        header_payment.debit = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.balance = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_residual = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_residual_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
+        header_payment = move_header.line_ids.filtered(
+            lambda x: x.display_type == 'payment_term' and x.is_downpayment == False)
+        header_payment.debit = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.balance = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_currency = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_residual = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_residual_currency = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
 
         fileterd_moves = move_selected.filtered(lambda x: x.id != move_header.id)
         for move in fileterd_moves:
             move.state = 'cancel'
 
         return True
-
