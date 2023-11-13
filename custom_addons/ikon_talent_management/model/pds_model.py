@@ -1,7 +1,7 @@
 from odoo import fields, models, api
 
 NATIONALITY = [
-    ("select", "PLEASE SELECT"),
+    ("select", "Click to select"),
     ("islam", "ISLAM"),
     ("kristen", "KRISTEN"),
     ("hindu", "HINDU"),
@@ -9,24 +9,112 @@ NATIONALITY = [
     ("konghuchu", "KONGHUCHU"),
 
 ]
-class PDSData(models.Model):
 
+MARITAL_STATUS = [
+    ("select", "Click to select"),
+    ('single', 'Single'),
+    ('married', 'Married'),
+    ('divorced', 'Divorced'),
+]
+
+SEX = [
+    ("select", "Click to select"),
+    ('male', 'MALE'),
+    ('female', 'Married'),
+]
+
+MAJORDEGREE = [
+    ('select', 'Click to select'),
+    ('high_school', 'High School'),
+    ('bachelor', 'Bachelor Degree'),
+    ('master', 'Master Degree'),
+    ('doctor', 'Doctoral Degree'),
+]
+
+LANGUAGE_LEVEL = [
+    ('0', '0'),
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    ('6', '6'),
+    ('7', '7'),
+    ('8', '8'),
+    ('9', '9'),
+    ('10', '10'),
+]
+
+
+class PDSData(models.Model):
     _inherit = "hr.applicant"
 
     _description = "Personal Data Sheet"
 
-
+    # Personal Records
     pds_fullname = fields.Char(string="Nama", default="Fullname Test")
-    pds_nik = fields.Char(string="Nomor Induk Kependudukan")
-    pds_addressNIK = fields.Char(string="Alamat Seuai NIK")
-    pds_currentAddress = fields.Char(string="Alamat sesuai domisili sekarang")
+    pds_nik = fields.Char(string="NIK")
+    pds_addressNIK = fields.Char(string="Alamat NIK")
+    pds_zipcode_addressNIK = fields.Integer(string="Zip")
+    pds_currentAddress = fields.Char(string="Alamat sekarang")
+    pds_zipcode_currentAddress = fields.Integer(string="Zip")
     pds_phoneNumber = fields.Char(string="No Hp")
     pds_email = fields.Char(string="Personal Email")
     pds_placeOfBirth = fields.Char(string="Place of birth")
     pds_nationality = fields.Char(string="Nationality")
-    pds_religion = fields.Selection(NATIONALITY, default=NATIONALITY[0][0])
+    pds_religion = fields.Selection(NATIONALITY, default='select')
+    pds_dob = fields.Date(string="Date of Birth")
+    pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", default='select')
+    pds_sex = fields.Selection(SEX, string="Sex", default=SEX[0][0])
+
+    # Education & Skills
+
+    pds_edu_inst_name = fields.Char(string="Institution name")
+    pds_edu_major = fields.Selection(MAJORDEGREE,string="Major", default='select')
+    pds_edu_location = fields.Char(string="Location")
+    pds_edu_start_year = fields.Date(string="Start year")
+    pds_edu_end_year = fields.Date(string="End year")
+
+
+    pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
+    pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
+    pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
 
 
 
-    # applicant_id = fields.Many2one('hr.applicant', string="Applicant FK")
+class HrApplCertif(models.Model):
 
+    _name = 'custom.certif'
+
+    # Certification
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_cert_name = fields.Char(string="Certification name")
+    pds_cert_provider = fields.Char(string="Provider")
+    pds_cert_issued_year = fields.Date(string='Issued year')
+
+class HrApplNonFormalEdu(models.Model):
+
+    _name = "custom.nonformaledu"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_course_name = fields.Char(string="Course name")
+    pds_course_provider = fields.Char(string="Provider")
+    pds_course_issued_year = fields.Date(string='Issued year')
+
+class HrApplLanguageProf(models.Model):
+
+    _name = "custom.language.prof"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_lang_name = fields.Char(string="Language name")
+    pds_lang_percen = fields.Selection(LANGUAGE_LEVEL, string="Level", default='1')
+
+class HrApplWorkExperience(models.Model):
+
+    _name = "custom.work.experience"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_workex_company_name = fields.Char(string="Company name")
+    pds_workex_lob = fields.Char(string="Line of bussiness")
+    pds_workex_period_from = fields.Date(string="Working period")
+    pds_workex_period_to = fields.Date(string="to")
