@@ -5,8 +5,8 @@
         <field name="name">Application Development</field>
     </record>
 
-    <record id="sales_team.crm_team_1" model="crm.team">
+    <!-- <record id="sales_team.crm_team_1" model="crm.team">
         <field name="name">Consulting</field>
-    </record>
+    </record> -->
 
 </odoo>

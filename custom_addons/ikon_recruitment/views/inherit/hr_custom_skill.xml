@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="hr.view_hr_job_form"/>
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page string="Skills">
+                <page string="PDS">
                     <div class="row">
                         <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-5 d-flex flex-column">
                             <field name="id" invisible="1"/>
