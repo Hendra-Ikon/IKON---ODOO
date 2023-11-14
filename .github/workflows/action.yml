@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -20,4 +20,4 @@ jobs:
           username: ikonenv
           port: 22
           script: |
-            bash /home/ikonenv/ikonbo-dev/action.sh > /dev/null 2>&1 &
+            bash /home/ikonenv/ikoncrm/action.sh > /dev/null 2>&1 &
