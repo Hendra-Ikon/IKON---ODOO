@@ -1,23 +1,168 @@
 <odoo>
-    <data>
-        <template id="custom_pds_data">
-            <t t-call="website.layout">
-                <ul>
-                    <t t-foreach="data" t-as="record">
-                        <li>
-                            <t t-esc="record.fullname"/>
-                        </li>
-                        <li>
-                            <t t-esc="record.nik"/>
-                        </li>
-                        <li>
-                            <t t-esc="record.addressNIK"/>
-                        </li>
-                        <!-- Add more fields as needed -->
-                    </t>
-                </ul>
-            </t>
+    <template id="custom_pds_view">
+       <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Contact Details</t>
+            <form id="custom_pds_form" action="/pds/data" method="post"
+                                enctype="multipart/form-data" class="o_mark_required row"
+                                data-mark="*" data-model_name="hr.applicant"
+                                data-success-mode="redirect" data-success-page="/jobs"
+                                hide-change-model="true">
+                <div class="row o_portal_details">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <t t-call="ikon_talent_management.custom_web_pds_form"/>
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        </div>
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-primary float-end mb32 ">
+                                Submit
+                                <span class="fa fa-long-arrow-right" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </t>
 
-        </template>
-    </data>
+    </template>
+
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li class="breadcrumb-item">PDS Data</li>
+        </xpath>
+        <!--        <ol t-if="page_name != 'home'" class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">-->
+        <!--            <li class="breadcrumb-item ms-1"><a href="/my/home" aria-label="Home" title="Home"><i class="fa fa-home"/></a></li>-->
+        <!--            <li t-if="page_name == 'my_details'" class="breadcrumb-item">Details</li>-->
+        <!--        </ol>-->
+    </template>
+
+    <template id="custom_web_pds_form">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <div t-if="error_message" class="alert alert-danger" role="alert">
+            <div class="col-lg-12">
+                <t t-foreach="error_message" t-as="err">
+                    <t t-esc="err"/>
+                    <br/>
+                </t>
+            </div>
+        </div>
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label" for="pds_fullname">Name</label>
+            <input type="text" name="pds_fullname" t-attf-class="form-control "
+                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>
+        </div>
+<!--        <div t-attf-class="mb-3 col-xl-6">-->
+<!--            <label class="col-form-label" for="email">Email</label>-->
+<!--            <input type="email" name="email"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+<!--        </div>-->
+
+<!--        <div class="clearfix"/>-->
+<!--        <div t-attf-class="mb-1 col-xl-6">-->
+<!--            <label class="col-form-label label-optional" for="company_name">Company Name</label>-->
+<!--            &lt;!&ndash; The <input> use "disabled" attribute to avoid sending an unauthorized value on form submit.-->
+<!--                 The user might not have rights to change company_name but should still be able to see it.-->
+<!--            &ndash;&gt;-->
+<!--            <input type="text" name="company_name"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
+<!--                   t-att-disabled="None if partner_can_edit_vat else '1'"/>-->
+<!--            <small t-if="not partner_can_edit_vat"-->
+<!--                   class="form-text text-muted d-block d-xl-none">-->
+<!--                Changing company name is not allowed once document(s) have been issued for your-->
+<!--                account.-->
+<!--                Please contact-->
+<!--                us directly for this operation.-->
+<!--            </small>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-1  col-xl-6">-->
+<!--            <label class="col-form-label label-optional" for="vat">VAT Number</label>-->
+<!--            &lt;!&ndash; The <input> use "disabled" attribute to avoid sending an unauthorized value on form submit.-->
+<!--                 The user might not have rights to change company_name but should still be able to see it.-->
+<!--            &ndash;&gt;-->
+<!--            <input type="text" name="vat"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
+<!--                   t-att-disabled="None if partner_can_edit_vat else '1'"/>-->
+<!--            <small t-if="not partner_can_edit_vat"-->
+<!--                   class="form-text text-muted d-block d-xl-none">Changing-->
+<!--                VAT number is-->
+<!--                not allowed once document(s) have been issued for your account. Please contact-->
+<!--                us directly-->
+<!--                for this-->
+<!--                operation.-->
+<!--            </small>-->
+<!--        </div>-->
+<!--        <div t-if="not partner_can_edit_vat" class="col-12 d-none d-xl-block">-->
+<!--            <small class="form-text text-muted">Changing company name or VAT number is not-->
+<!--                allowed once-->
+<!--                document(s) have-->
+<!--                been issued for your account.<br/>Please contact us directly for this operation.-->
+<!--            </small>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3 col-xl-6">-->
+<!--            <label class="col-form-label" for="phone">Phone</label>-->
+<!--            <input type="tel" name="phone"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+<!--        </div>-->
+
+<!--        <div class="clearfix"/>-->
+<!--        <div t-attf-class="mb-3  col-xl-6">-->
+<!--            <label class="col-form-label" for="street">Street</label>-->
+<!--            <input type="text" name="street"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3  col-xl-6">-->
+<!--            <label class="col-form-label" for="city">City</label>-->
+<!--            <input type="text" name="city"-->
+<!--                   t-attf-class="form-control"-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3 col-xl-6">-->
+<!--            <label class="col-form-label label-optional" for="zipcode">Zip / Postal Code</label>-->
+<!--            <input type="text" name="zipcode"-->
+<!--                   t-attf-class="form-control "-->
+<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3 col-xl-6">-->
+<!--            <label class="col-form-label" for="country_id">Country</label>-->
+<!--            <select name="country_id"-->
+<!--                    t-attf-class="form-select ">-->
+<!--                <option value="">Country...</option>-->
+<!--                <t t-foreach="countries or []" t-as="country">-->
+<!--                    <option t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
+<!--                            t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id">-->
+<!--                        <t t-esc="country.name"/>-->
+<!--                    </option>-->
+<!--                </t>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3  col-xl-6">-->
+<!--            <label class="col-form-label label-optional" for="state_id">State / Province</label>-->
+<!--            <select name="state_id"-->
+<!--                    t-attf-class="form-select ">-->
+<!--                <option value="">select...</option>-->
+<!--                <t t-foreach="states or []" t-as="state">-->
+<!--                    <option t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
+<!--                            style="display:none;"-->
+<!--                            t-att-data-country_id="state.country_id.id"-->
+<!--                            t-att-selected="state.id == int(state_id) if state_id else state.id == partner.state_id.id">-->
+<!--                        <t t-esc="state.name"/>-->
+<!--                    </option>-->
+<!--                </t>-->
+<!--            </select>-->
+<!--        </div>-->
+    </template>
+
 </odoo>
+
+        <!--<t t-foreach="pds_data" t-as="data">-->
+        <!--                        <tr>-->
+        <!--                            <td class="text-center">-->
+        <!--                                <t t-out="data.name"/>-->
+        <!--                            </td>-->
+        <!--                        </tr>-->
+        <!--                    </t>-->

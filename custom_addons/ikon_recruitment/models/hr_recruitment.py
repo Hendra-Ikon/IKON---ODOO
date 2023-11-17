@@ -1,5 +1,20 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
+
+class AppliedJob(models.Model):
+
+    _inherit = "hr.applicant"
+
+
+    applied_jobs = fields.Many2many('hr.job', string='Applied Jobs', compute='_compute_applied_jobs', store=True)
+
+    @api.depends('job_id')
+    def _compute_applied_jobs(self):
+        for applicant in self:
+            if applicant.job_id:
+                applicant.applied_jobs = [(6, 0, [applicant.job_id.id])]
+            else:
+                applicant.applied_jobs = [(5, 0, 0)]  # Clear the Many2many field if no job is selected
 class CustomJobDescription(models.Model):
     _inherit = "hr.job"
 

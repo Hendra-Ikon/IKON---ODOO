@@ -52,7 +52,7 @@ class PDSData(models.Model):
     _description = "Personal Data Sheet"
 
     # Personal Records
-    pds_fullname = fields.Char(string="Nama", default="Fullname Test")
+    pds_fullname = fields.Char(string="Nama")
     pds_nik = fields.Char(string="NIK")
     pds_addressNIK = fields.Char(string="Alamat NIK")
     pds_zipcode_addressNIK = fields.Integer(string="Zip")

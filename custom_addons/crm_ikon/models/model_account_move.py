@@ -7,7 +7,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
+# PAYMENT_STATE_SELECTION = [
+#         ('not_paid', 'Not Paid'),
+#         ('in_payment', 'In Payment'),
+#         ('paid', 'Paid'),
+#         ('partial', 'Partially Paid'),
+#         ('reversed', 'Reversed'),
+#         ('invoicing_legacy', 'Invoicing App Legacy'),
+# ]
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -31,6 +38,21 @@ class CrmAccountMove(models.Model):
     )
 
     hide_post_button = fields.Boolean(compute='_compute_hide_post_button', readonly=True, default=True)
+
+    payment_state = fields.Selection(
+        selection=[
+        ('not_paid', ''),
+        ('in_payment', 'In Payment'),
+        ('paid', 'Paid'),
+        ('partial', 'Partially Paid'),
+        ('reversed', 'Reversed'),
+        ('invoicing_legacy', 'Invoicing App Legacy'),
+],
+        string="Payment Status",
+        compute='_compute_payment_state', store=True, readonly=True,
+        copy=False,
+        tracking=True,
+    )
 
 
     def action_approve(self):
