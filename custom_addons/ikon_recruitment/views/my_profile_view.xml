@@ -1,4 +1,14 @@
 <odoo>
+    <template id="custom_my_home" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[contains(@class, 'dropdown-item') and contains(., 'My Account')]"
+               position="replace">
+            <a href="/my/profile" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
+                My Profile
+            </a>
+        </xpath>
+
+    </template>
     <template id="custom_profile_view">
         <t t-call="website.layout">
             <link rel="stylesheet" type="text/css" href="/ikon_recruitment/static/src/scss/my_profile.css"/>
@@ -34,7 +44,9 @@
                                 <li class="breadcrumb-item">
                                     <a href="#">User profile</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page"><t t-esc="user_data.name"/></li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <t t-esc="user_data.name"/>
+                                </li>
                             </ol>
                         </nav>
                     </div>
@@ -51,7 +63,6 @@
                                     <t t-esc="user_data.name"/>
                                 </h5>
 
-                                <!--                                <p t-if="employment_status"  class="text-muted mb-1"><t t-esc="employee_department"/></p>-->
                                 <t t-if="employment_status">
                                     <p class="text-muted mb-1">
                                         <t t-esc="employee_department"/>
@@ -62,42 +73,41 @@
                                     <p class="text-muted mb-1">No Employment Status</p>
                                 </t>
 
-<!--                                <div class="d-flex justify-content-center mb-2">-->
-<!--                                    <button type="button" class="btn btn-primary">Follow</button>-->
-<!--                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>-->
-<!--                                </div>-->
                             </div>
                         </div>
                         <div class="card mb-4 mb-lg-0">
-                            <div class="card-body p-0">
-                                <ul class="list-group list-group-flush rounded-3">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fas fa-globe fa-lg text-warning"></i>
-                                        <p class="mb-0">https://mdbootstrap.com</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                        <p class="mb-0">@mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                </ul>
+                            <div class="card-body p-0 row">
+                                <div t-if="user_stage > 0"
+                                     class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/pds/data'">
+                                        PDS Data
+                                    </button>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/my/account'">
+                                        Edit My data
+                                    </button>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/my/security'">
+                                        Edit Password
+                                    </button>
+                                </div>
+                                <!--                                <t t-esc="user_stage"/>-->
                             </div>
                         </div>
+
+
                     </div>
                     <div class="col-lg-8">
                         <div class="card mb-4">
-                            <div class="card-body">
+                            <div class="card-profile card-body">
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <p class="mb-0">Full Name</p>
@@ -106,7 +116,6 @@
                                         <p class="text-muted mb-0">
                                             <t t-esc="user_data.name"/>
                                         </p>
-                                        <!--                                        <t t-out="user_data.name" class="text-muted mb-0"/>-->
                                     </div>
                                 </div>
                                 <hr/>
@@ -144,72 +153,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card mb-4 mb-md-0">
-                                    <div class="card-body">
-                                        <p class="mb-4">
-                                            Applied Jobs
-                                        </p>
-                                        <t t-foreach="applied_jobs" t-as="job">
-                                            <p>
-                                                Job Name:
-                                                <t t-esc="job['job'].name"/>
-                                            </p>
-                                            <p>
-                                                Job Status:
-                                                <t t-esc="job['stage']"/>
-                                            </p>
-                                        </t>
 
-                                    </div>
-                                </div>
+                        <div t-attf-class="mb-3 col-xl-12">
+                            <div class="col-md-10">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Applied on</th>
+                                            <th>Applied role</th>
+                                            <th>Stages</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="applied_jobs" t-as="job">
+                                            <td>
+
+                                                <span t-esc="job['created']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="job['job'].name"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="job['stage']"/>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-<!--                            <div class="col-md-6">-->
-<!--                                <div class="card mb-4 mb-md-0">-->
-<!--                                    <div class="card-body">-->
-<!--                                        <p class="mb-4">-->
-<!--                                            <span class="text-primary font-italic me-1">assigment</span>-->
-<!--                                            Project Status-->
-<!--                                        </p>-->
-<!--                                        <p class="mb-1" style="font-size: .77rem;">Web Design</p>-->
-<!--                                        <div class="progress rounded" style="height: 5px;">-->
-<!--                                            <div class="progress-bar" role="progressbar" style="width: 80%"-->
-<!--                                                 aria-valuenow="80"-->
-<!--                                                 aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                                        </div>-->
-<!--                                        <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>-->
-<!--                                        <div class="progress rounded" style="height: 5px;">-->
-<!--                                            <div class="progress-bar" role="progressbar" style="width: 72%"-->
-<!--                                                 aria-valuenow="72"-->
-<!--                                                 aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                                        </div>-->
-<!--                                        <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>-->
-<!--                                        <div class="progress rounded" style="height: 5px;">-->
-<!--                                            <div class="progress-bar" role="progressbar" style="width: 89%"-->
-<!--                                                 aria-valuenow="89"-->
-<!--                                                 aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                                        </div>-->
-<!--                                        <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>-->
-<!--                                        <div class="progress rounded" style="height: 5px;">-->
-<!--                                            <div class="progress-bar" role="progressbar" style="width: 55%"-->
-<!--                                                 aria-valuenow="55"-->
-<!--                                                 aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                                        </div>-->
-<!--                                        <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>-->
-<!--                                        <div class="progress rounded mb-2" style="height: 5px;">-->
-<!--                                            <div class="progress-bar" role="progressbar" style="width: 66%"-->
-<!--                                                 aria-valuenow="66"-->
-<!--                                                 aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <!--            </section>-->
 
         </t>
     </template>

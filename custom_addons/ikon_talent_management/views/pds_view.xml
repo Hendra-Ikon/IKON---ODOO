@@ -1,12 +1,51 @@
 <odoo>
+    <template id="custom_certif_form">
+        <form enctype="multipart/form-data"
+              class="o_form_editable o_form_container"
+              data-model_name="hr.applicant"
+              method="post" action="/save_edited_cert">
+
+            <div class="o_group">
+                <label for="pds_certifications">Certifications:</label>
+                <div class="o_group">
+                    <!--                    <t t-foreach="pds_data.pds_certifications" t-as="cert" t-key="cert.id">-->
+                    <div class="o_group">
+                        <label for="pds_cert_name">Certification Name:</label>
+                        <input type="text" name="pds_cert_name"
+                               t-attf-class="form-control"
+                        />
+                        <!--                                   t-att-value="pds_data['pds_certifications'].pds_cert_name"/>-->
+
+                        <label for="pds_cert_provider">Certification Provider:</label>
+                        <input type="text" name="pds_cert_provider"
+                               t-attf-class="form-control"
+                        />
+                        <!--                                   t-att-value="pds_data['pds_certifications'].pds_cert_provider"/>-->
+
+                        <label for="pds_cert_issued_year">Issued Year:</label>
+                        <input type="text" name="pds_cert_issued_year"
+                               t-attf-class="form-control"
+                        />
+                        <!--                                   t-att-value="pds_data['pds_certifications'].pds_cert_issued_year"/>-->
+                    </div>
+                    <!--                    </t>-->
+                </div>
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </template>
+
     <template id="custom_pds_view">
-       <t t-call="portal.portal_layout">
+        <!--        <t t-raw="ikon_talent_management.pds_test"/>-->
+        <t t-call="portal.portal_layout">
+            <script type="text/javascript" src="/ikon_talent_management/static/src/js/pds.js"></script>
             <t t-set="additional_title">Contact Details</t>
             <form id="custom_pds_form" action="/pds/data" method="post"
-                                enctype="multipart/form-data" class="o_mark_required row"
-                                data-mark="*" data-model_name="hr.applicant"
-                                data-success-mode="redirect" data-success-page="/jobs"
-                                hide-change-model="true">
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="hr.applicant"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
                 <div class="row o_portal_details">
                     <div class="col-lg-8">
                         <div class="row">
@@ -16,7 +55,7 @@
                         <div class="clearfix">
                             <button type="submit" class="btn btn-primary float-end mb32 ">
                                 Submit
-                                <span class="fa fa-long-arrow-right" />
+                                <span class="fa fa-long-arrow-right"/>
                             </button>
                         </div>
                     </div>
@@ -28,7 +67,7 @@
 
     <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li class="breadcrumb-item">PDS Data</li>
+            <li t-if="page_name == 'pds_data'" class="breadcrumb-item">PDS Data</li>
         </xpath>
         <!--        <ol t-if="page_name != 'home'" class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">-->
         <!--            <li class="breadcrumb-item ms-1"><a href="/my/home" aria-label="Home" title="Home"><i class="fa fa-home"/></a></li>-->
@@ -37,6 +76,7 @@
     </template>
 
     <template id="custom_web_pds_form">
+
         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
         <div t-if="error_message" class="alert alert-danger" role="alert">
             <div class="col-lg-12">
@@ -46,123 +86,502 @@
                 </t>
             </div>
         </div>
+
+        <!--        Personal Record-->
+
         <div t-attf-class="mb-3 col-xl-6">
             <label class="col-form-label" for="pds_fullname">Name</label>
             <input type="text" name="pds_fullname" t-attf-class="form-control "
                    t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>
         </div>
-<!--        <div t-attf-class="mb-3 col-xl-6">-->
-<!--            <label class="col-form-label" for="email">Email</label>-->
-<!--            <input type="email" name="email"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
-<!--        </div>-->
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label" for="pds_email">Email</label>
+            <input type="email" name="pds_email"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_email'] or 'Your Email'"/>
+        </div>
 
-<!--        <div class="clearfix"/>-->
-<!--        <div t-attf-class="mb-1 col-xl-6">-->
-<!--            <label class="col-form-label label-optional" for="company_name">Company Name</label>-->
-<!--            &lt;!&ndash; The <input> use "disabled" attribute to avoid sending an unauthorized value on form submit.-->
-<!--                 The user might not have rights to change company_name but should still be able to see it.-->
-<!--            &ndash;&gt;-->
-<!--            <input type="text" name="company_name"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
-<!--                   t-att-disabled="None if partner_can_edit_vat else '1'"/>-->
-<!--            <small t-if="not partner_can_edit_vat"-->
-<!--                   class="form-text text-muted d-block d-xl-none">-->
-<!--                Changing company name is not allowed once document(s) have been issued for your-->
-<!--                account.-->
-<!--                Please contact-->
-<!--                us directly for this operation.-->
-<!--            </small>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-1  col-xl-6">-->
-<!--            <label class="col-form-label label-optional" for="vat">VAT Number</label>-->
-<!--            &lt;!&ndash; The <input> use "disabled" attribute to avoid sending an unauthorized value on form submit.-->
-<!--                 The user might not have rights to change company_name but should still be able to see it.-->
-<!--            &ndash;&gt;-->
-<!--            <input type="text" name="vat"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
-<!--                   t-att-disabled="None if partner_can_edit_vat else '1'"/>-->
-<!--            <small t-if="not partner_can_edit_vat"-->
-<!--                   class="form-text text-muted d-block d-xl-none">Changing-->
-<!--                VAT number is-->
-<!--                not allowed once document(s) have been issued for your account. Please contact-->
-<!--                us directly-->
-<!--                for this-->
-<!--                operation.-->
-<!--            </small>-->
-<!--        </div>-->
-<!--        <div t-if="not partner_can_edit_vat" class="col-12 d-none d-xl-block">-->
-<!--            <small class="form-text text-muted">Changing company name or VAT number is not-->
-<!--                allowed once-->
-<!--                document(s) have-->
-<!--                been issued for your account.<br/>Please contact us directly for this operation.-->
-<!--            </small>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-3 col-xl-6">-->
-<!--            <label class="col-form-label" for="phone">Phone</label>-->
-<!--            <input type="tel" name="phone"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
-<!--        </div>-->
 
-<!--        <div class="clearfix"/>-->
-<!--        <div t-attf-class="mb-3  col-xl-6">-->
-<!--            <label class="col-form-label" for="street">Street</label>-->
-<!--            <input type="text" name="street"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-3  col-xl-6">-->
-<!--            <label class="col-form-label" for="city">City</label>-->
-<!--            <input type="text" name="city"-->
-<!--                   t-attf-class="form-control"-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-3 col-xl-6">-->
-<!--            <label class="col-form-label label-optional" for="zipcode">Zip / Postal Code</label>-->
-<!--            <input type="text" name="zipcode"-->
-<!--                   t-attf-class="form-control "-->
-<!--                   t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-3 col-xl-6">-->
-<!--            <label class="col-form-label" for="country_id">Country</label>-->
-<!--            <select name="country_id"-->
-<!--                    t-attf-class="form-select ">-->
-<!--                <option value="">Country...</option>-->
-<!--                <t t-foreach="countries or []" t-as="country">-->
-<!--                    <option t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
-<!--                            t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id">-->
-<!--                        <t t-esc="country.name"/>-->
-<!--                    </option>-->
-<!--                </t>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div t-attf-class="mb-3  col-xl-6">-->
-<!--            <label class="col-form-label label-optional" for="state_id">State / Province</label>-->
-<!--            <select name="state_id"-->
-<!--                    t-attf-class="form-select ">-->
-<!--                <option value="">select...</option>-->
-<!--                <t t-foreach="states or []" t-as="state">-->
-<!--                    <option t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"-->
-<!--                            style="display:none;"-->
-<!--                            t-att-data-country_id="state.country_id.id"-->
-<!--                            t-att-selected="state.id == int(state_id) if state_id else state.id == partner.state_id.id">-->
-<!--                        <t t-esc="state.name"/>-->
-<!--                    </option>-->
-<!--                </t>-->
-<!--            </select>-->
-<!--        </div>-->
+        <div t-attf-class="mb-1 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_nik">NIK</label>
+
+            <input type="number" name="pds_nik"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_nik'] or 'Your NIK Number'"
+            />
+
+        </div>
+
+        <div class="clearfix"/>
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label" for="pds_addressNIK">NIK address</label>
+            <input type="text" name="pds_addressNIK"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_addressNIK'] or 'Your NIK Address'"/>
+        </div>
+        <div t-attf-class="mb-1  col-xl-6">
+            <label class="col-form-label" for="pds_zipcode_addressNIK">Zip code</label>
+            <input type="number" name="pds_zipcode_addressNIK"
+                   t-attf-class="form-control"
+                   t-att-value="pds_data['pds_zipcode_addressNIK'] or '0'"/>
+
+        </div>
+
+
+        <div class="clearfix"/>
+        <div t-attf-class="mb-3  col-xl-6">
+            <label class="col-form-label" for="pds_currentAddress">Current address</label>
+            <input type="text" name="pds_currentAddress"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_currentAddress'] or 'Your current address'"/>
+        </div>
+        <div t-attf-class="mb-3  col-xl-6">
+            <label class="col-form-label" for="pds_zipcode_currentAddress">Zip code</label>
+            <input type="text" name="pds_zipcode_currentAddress"
+                   t-attf-class="form-control"
+                   t-att-value="pds_data['pds_zipcode_currentAddress'] or '0'"/>
+        </div>
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_phoneNumber">Phone</label>
+            <input type="text" name="pds_phoneNumber"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_phoneNumber'] or '0'"/>
+        </div>
+
+
+        <div class="clearfix"/>
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_placeOfBirth">Place of birth</label>
+            <input type="text" name="pds_placeOfBirth"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_placeOfBirth'] or 'Your Place of birth'"/>
+        </div>
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_dob">Date of birth</label>
+            <input type="date" name="pds_dob"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_dob'] or 'Your Date of birth'"/>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_nationality">Nationality</label>
+            <input type="text" name="pds_nationality"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label" for="pds_religion">Religion</label>
+            <select name="pds_religion"
+                    t-attf-class="form-select ">
+                <!--                <option value="">Select religion ...</option>-->
+                <!--                <t t-foreach="pds_data['pds_religion'] or []" t-as="rel">-->
+                <!--                <option t-att-value="pds_data['pds_religion'] or []">-->
+                <option value="">
+                    <t t-esc="pds_data['pds_religion']"/>
+                </option>
+                <option value="select">Click to select</option>
+                <option value="islam">islam</option>
+                <option value="kristen">kristen</option>
+                <option value="hindu">hindu</option>
+                <option value="budha">budha</option>
+                <option value="konghuchu">konghuchu</option>
+                <!--                </option>-->
+                <!--                </t>-->
+            </select>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label" for="pds_marital_status">Marital status</label>
+            <select name="pds_marital_status"
+                    t-attf-class="form-select ">
+                <option t-att-value="pds_data['pds_marital_status'] or []">
+                    <option value="select">Click to select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                </option>
+            </select>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-12">
+            <label for="pds_education" class="col-md-2 control-label">Education</label>
+            <div class="col-md-10">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Institution Name</th>
+                            <th>Major</th>
+                            <th>Location</th>
+                            <th>Start year</th>
+                            <th>End year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="pds_data['pds_education']" t-as="edu">
+                            <td>
+
+                                <span t-esc="edu['pds_edu_inst_name']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="edu['pds_edu_major']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="edu['pds_edu_location']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="edu['pds_edu_start_year']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="edu['pds_edu_end_year']"/>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger" t-att-href="'/remove_cert/' + str(edu['id'])">Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                        <tr>
+<!--                            <label class="col-md-2 control-label">Create new Education</label>-->
+                            <td>
+<!--                                <label for="pds_edu_inst_name">Institution Name:</label>-->
+                                <input type="text" name="pds_edu_inst_name"/>
+                            </td>
+
+                            <td>
+<!--                                <label for="pds_edu_major">Major:</label>-->
+                                <input type="text" name="pds_edu_major"/>
+                            </td>
+
+                            <td>
+<!--                                <label for="pds_edu_location">Location:</label>-->
+                                <input type="text" name="pds_edu_location"/>
+                            </td>
+                            <td>
+<!--                                <label for="pds_edu_start_year">Start Year:</label>-->
+                                <input type="date" name="pds_edu_start_year"/>
+                            </td>
+                            <td>
+<!--                                <label for="pds_edu_end_year">End Year:</label>-->
+                                <input type="date" name="pds_edu_end_year"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-12">
+            <label for="pds_certifications" class="col-md-2 control-label">Certifications</label>
+            <div class="col-md-10">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Certification Name</th>
+                            <th>Certification Provider</th>
+                            <th>Issued Year</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="pds_data['pds_certifications']" t-as="cert">
+                            <td>
+
+                                <span t-esc="cert['pds_cert_name']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="cert['pds_cert_provider']"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="cert['pds_cert_issued_year']"/>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger" t-att-href="'/remove_cert/' + str(cert['id'])">Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                        <tr>
+<!--                            <label class="col-md-2 control-label">Create new Certificate</label>-->
+                            <td>
+<!--                                <label for="pds_cert_name">Certification Name:</label>-->
+                                <input type="text" name="pds_cert_name" required="true"/>
+                            </td>
+
+                            <td>
+<!--                                <label for="pds_cert_provider">Provider:</label>-->
+                                <input type="text" name="pds_cert_provider" required="true"/>
+                            </td>
+
+                            <td>
+<!--                                <label for="pds_cert_issued_year">Issued Year:</label>-->
+                                <input type="date" name="pds_cert_issued_year"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div t-attf-class="mb-3 col-xl-6">
+            <label class="col-form-label label-optional" for="pds_nationality">Nationality</label>
+            <input type="text" name="pds_nationality"
+                   t-attf-class="form-control "
+                   t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
+        </div>
+
     </template>
 
+    <template id="custom_pds_portal">
+        <t t-call="website.layout">
+            <form>
+                <group>
+                    <group string="Personal Records">
+                        <label for="pds_fullname"/>
+                        <div class="o_row">
+                            <field name="pds_fullname"/>
+                            <label for="pds_sex"/>
+                            <field name="pds_sex"/>
+                        </div>
+                        <label for="pds_nik"/>
+                        <div>
+                            <field name="pds_nik"/>
+                        </div>
+                        <label for="pds_addressNIK"/>
+                        <div class="o_row">
+                            <field name="pds_addressNIK" placeholder="NIK Address"/>
+                            <label for="pds_zipcode_addressNIK"/>
+                            <field name="pds_zipcode_addressNIK"
+                            />
+                        </div>
+                        <label for="pds_currentAddress"/>
+                        <div class="o_row">
+                            <field name="pds_currentAddress" placeholder="Current Address"/>
+                            <label for="pds_zipcode_currentAddress"/>
+                            <field name="pds_zipcode_currentAddress"/>
+                        </div>
+                        <field name="pds_phoneNumber"/>
+                        <field name="pds_email"/>
+                        <label for="pds_placeOfBirth"/>
+                        <div class="o_row">
+                            <field name="pds_placeOfBirth"/>
+                            <label for="pds_dob"/>
+                            <field name="pds_dob"/>
+                        </div>
+                        <field name="pds_nationality"/>
+                        <field name="pds_religion"/>
+                        <field name="pds_marital_status"/>
+                    </group>
+                    <group string="Education &amp; Skills">
+                        <label for="pds_edu_inst_name"/>
+                        <div class="o_row">
+                            <field name="pds_edu_inst_name"/>
+                            <label for="pds_edu_start_year"/>
+                            <field name="pds_edu_start_year"/>
+                        </div>
+                        <label for="pds_edu_major"/>
+                        <div class="o_row">
+                            <field name="pds_edu_major"/>
+                            <label for="pds_edu_end_year"/>
+                            <field name="pds_edu_end_year"/>
+                        </div>
+                        <field name="pds_edu_location"/>
+
+                    </group>
+                    <group string="Certifications">
+                        <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="top">
+                                <field name="pds_cert_name"/>
+                                <field name="pds_cert_provider"/>
+                                <field name="pds_cert_issued_year"/>
+                            </tree>
+                            <form editable="top">
+                                <group>
+                                    <field name="pds_cert_name"/>
+                                    <field name="pds_cert_provider"/>
+                                    <field name="pds_cert_issued_year"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                    <group string="Non formal Education">
+                        <field name="pds_course" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="top">
+                                <field name="pds_course_name"/>
+                                <field name="pds_course_provider"/>
+                                <field name="pds_course_issued_year"/>
+                            </tree>
+                            <form editable="top">
+                                <group>
+                                    <field name="pds_course_name"/>
+                                    <field name="pds_course_provider"/>
+                                    <field name="pds_course_issued_year"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                    <group string="Language Proficiency">
+                        <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="top">
+                                <field name="pds_lang_name"/>
+                                <field name="pds_lang_percen"/>
+                            </tree>
+                            <form editable="top">
+                                <group>
+                                    <field name="pds_lang_name"/>
+                                    <field name="pds_lang_percen"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </group>
+            </form>
+        </t>
+    </template>
+    <!--    <record id="pds_test" model="ir.ui.view">-->
+    <!--        <field name="name">custom.hr.applicant.pds</field>-->
+    <!--        <field name="model">hr.applicant</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <group>-->
+    <!--                <group string="Personal Records">-->
+    <!--                    <label for="pds_fullname"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_fullname"/>-->
+    <!--                        <label for="pds_sex"/>-->
+    <!--                        <field name="pds_sex"/>-->
+    <!--                    </div>-->
+    <!--                    <label for="pds_nik"/>-->
+    <!--                    <div>-->
+    <!--                        <field name="pds_nik"/>-->
+    <!--                    </div>-->
+    <!--                    <label for="pds_addressNIK"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_addressNIK" placeholder="NIK Address"/>-->
+    <!--                        <label for="pds_zipcode_addressNIK"/>-->
+    <!--                        <field name="pds_zipcode_addressNIK"-->
+    <!--                        />-->
+    <!--                    </div>-->
+    <!--                    <label for="pds_currentAddress"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_currentAddress" placeholder="Current Address"/>-->
+    <!--                        <label for="pds_zipcode_currentAddress"/>-->
+    <!--                        <field name="pds_zipcode_currentAddress"/>-->
+    <!--                    </div>-->
+    <!--                    <field name="pds_phoneNumber"/>-->
+    <!--                    <field name="pds_email"/>-->
+    <!--                    <label for="pds_placeOfBirth"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_placeOfBirth"/>-->
+    <!--                        <label for="pds_dob"/>-->
+    <!--                        <field name="pds_dob"/>-->
+    <!--                    </div>-->
+    <!--                    <field name="pds_nationality"/>-->
+    <!--                    <field name="pds_religion"/>-->
+    <!--                    <field name="pds_marital_status"/>-->
+    <!--                </group>-->
+    <!--                <group string="Education &amp; Skills">-->
+    <!--                    <label for="pds_edu_inst_name"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_edu_inst_name"/>-->
+    <!--                        <label for="pds_edu_start_year"/>-->
+    <!--                        <field name="pds_edu_start_year"/>-->
+    <!--                    </div>-->
+    <!--                    <label for="pds_edu_major"/>-->
+    <!--                    <div class="o_row">-->
+    <!--                        <field name="pds_edu_major"/>-->
+    <!--                        <label for="pds_edu_end_year"/>-->
+    <!--                        <field name="pds_edu_end_year"/>-->
+    <!--                    </div>-->
+    <!--                    <field name="pds_edu_location"/>-->
+
+    <!--                </group>-->
+    <!--                <group string="Certifications">-->
+    <!--                    <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">-->
+    <!--                        <tree editable="top">-->
+    <!--                            <field name="pds_cert_name"/>-->
+    <!--                            <field name="pds_cert_provider"/>-->
+    <!--                            <field name="pds_cert_issued_year"/>-->
+    <!--                        </tree>-->
+    <!--                        <form editable="top">-->
+    <!--                            <group>-->
+    <!--                                <field name="pds_cert_name"/>-->
+    <!--                                <field name="pds_cert_provider"/>-->
+    <!--                                <field name="pds_cert_issued_year"/>-->
+    <!--                            </group>-->
+    <!--                        </form>-->
+    <!--                    </field>-->
+    <!--                </group>-->
+    <!--                <group string="Non formal Education">-->
+    <!--                    <field name="pds_course" widget="section_and_note_one2many" mode="tree">-->
+    <!--                        <tree editable="top">-->
+    <!--                            <field name="pds_course_name"/>-->
+    <!--                            <field name="pds_course_provider"/>-->
+    <!--                            <field name="pds_course_issued_year"/>-->
+    <!--                        </tree>-->
+    <!--                        <form editable="top">-->
+    <!--                            <group>-->
+    <!--                                <field name="pds_course_name"/>-->
+    <!--                                <field name="pds_course_provider"/>-->
+    <!--                                <field name="pds_course_issued_year"/>-->
+    <!--                            </group>-->
+    <!--                        </form>-->
+    <!--                    </field>-->
+    <!--                </group>-->
+    <!--                <group string="Language Proficiency">-->
+    <!--                    <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">-->
+    <!--                        <tree editable="top">-->
+    <!--                            <field name="pds_lang_name"/>-->
+    <!--                            <field name="pds_lang_percen"/>-->
+    <!--                        </tree>-->
+    <!--                        <form editable="top">-->
+    <!--                            <group>-->
+    <!--                                <field name="pds_lang_name"/>-->
+    <!--                                <field name="pds_lang_percen"/>-->
+    <!--                            </group>-->
+    <!--                        </form>-->
+    <!--                    </field>-->
+    <!--                </group>-->
+    <!--            </group>-->
+    <!--        </field>-->
+    <!--    </record>-->
 </odoo>
 
-        <!--<t t-foreach="pds_data" t-as="data">-->
-        <!--                        <tr>-->
-        <!--                            <td class="text-center">-->
-        <!--                                <t t-out="data.name"/>-->
-        <!--                            </td>-->
-        <!--                        </tr>-->
-        <!--                    </t>-->
+        <!--        <div class="accordion" id="pdsAccordion">-->
+        <!--            <div class="accordion-item">-->
+        <!--                <h2 class="accordion-header" id="nameHeader">-->
+        <!--                    <button class="accordion-button" type="button" data-bs-toggle="collapse"-->
+        <!--                            data-bs-target="#nameCollapse" aria-expanded="true" aria-controls="nameCollapse">-->
+        <!--                        Name-->
+        <!--                    </button>-->
+        <!--                </h2>-->
+        <!--                <div id="nameCollapse" class="accordion-collapse collapse show" aria-labelledby="nameHeader"-->
+        <!--                     data-bs-parent="#pdsAccordion">-->
+        <!--                    <div class="accordion-body">-->
+        <!--                        <input type="text" name="pds_fullname" class="form-control"-->
+        <!--                               t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+
+        <!--            <div class="accordion-item">-->
+        <!--                <h2 class="accordion-header" id="emailHeader">-->
+        <!--                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+        <!--                            data-bs-target="#emailCollapse" aria-expanded="false" aria-controls="emailCollapse">-->
+        <!--                        Email-->
+        <!--                    </button>-->
+        <!--                </h2>-->
+        <!--                <div id="emailCollapse" class="accordion-collapse collapse" aria-labelledby="emailHeader"-->
+        <!--                     data-bs-parent="#pdsAccordion">-->
+        <!--                    <div class="accordion-body">-->
+        <!--                        <input type="email" name="pds_email" class="form-control"-->
+        <!--                               t-att-value="pds_data['pds_email'] or 'Your Email'"/>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->

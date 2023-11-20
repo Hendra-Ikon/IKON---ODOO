@@ -45,19 +45,25 @@
                             <field name="pds_marital_status"/>
                         </group>
                         <group string="Education &amp; Skills">
-                            <label for="pds_edu_inst_name"/>
-                            <div class="o_row">
-                                <field name="pds_edu_inst_name"/>
-                                <label for="pds_edu_start_year"/>
-                                <field name="pds_edu_start_year"/>
-                            </div>
-                            <label for="pds_edu_major"/>
-                            <div class="o_row">
-                                <field name="pds_edu_major"/>
-                                <label for="pds_edu_end_year"/>
-                                <field name="pds_edu_end_year"/>
-                            </div>
-                            <field name="pds_edu_location"/>
+                            <field name="pds_education" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_edu_inst_name"/>
+                                    <field name="pds_edu_major"/>
+                                    <field name="pds_edu_location"/>
+                                    <field name="pds_edu_start_year"/>
+                                    <field name="pds_edu_end_year"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_edu_inst_name"/>
+                                        <field name="pds_edu_major"/>
+                                        <field name="pds_edu_location"/>
+                                        <field name="pds_edu_start_year"/>
+                                        <field name="pds_edu_end_year"/>
+                                    </group>
+                                </form>
+                            </field>
+                            -->
 
                         </group>
                         <group string="Certifications">
