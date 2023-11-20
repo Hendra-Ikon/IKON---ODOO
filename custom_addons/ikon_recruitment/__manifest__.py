@@ -14,6 +14,8 @@
         'views/inherit/jobs_portal.xml',
         'views/inherit/footer_login.xml',
         'views/inherit/custom_job_detail.xml',
+        'views/inherit/custom_hr_cruser_snemail.xml',
+        'views/inherit/custom_quick_create_appl.xml',
         'views/custom_skill_form_view.xml',
         'views/custom_job_detail.xml',
         'views/my_profile_view.xml',

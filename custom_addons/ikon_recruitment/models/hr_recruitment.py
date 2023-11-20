@@ -51,6 +51,32 @@ class WhatsGreat(models.Model):
     name = fields.Char(string='Whats Great', required=True)
     job_id = fields.Many2one('hr.job', string='Job')
 
+class HrApplCrUsrSnEmail(models.Model):
+    _inherit = 'hr.applicant'
+
+    def action_create_user_and_send_email(self):
+        # Get the applicant's email
+        applicant_email = self.user_email
+
+        # Create a user based on the email
+        user_vals = {
+            'name': self.partner_name,
+            'email': applicant_email,
+            # Add other user fields as needed
+        }
+        new_user = self.env['res.users'].create(user_vals)
+
+        # Send an email to the newly created user
+        # template_id = self.env.ref('ikon_recruitment.email_template_applicant')
+        # if template_id:
+        #     template_id.send_mail(new_user.id, force_send=True)
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
+
 
 
 
