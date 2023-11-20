@@ -1,24 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_pds_form" model="ir.ui.view">
-            <field name="name">pds.data.form</field>
-            <field name="model">pds.data</field>
-            <field name="arch" type="xml">
-                <form string="PDS">
-                    <sheet>
-                        <group>
-                            <field name="nama"/>
-                            <field name="nik"/>
-                            <field name="alamat"/>
+    <record id="custom_view_pds_form" model="ir.ui.view">
+        <field name="name">custom.hr.applicant.pds</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PDS Data">
+                    <group>
+                        <group string="Personal Records">
+                            <label for="pds_fullname"/>
+                            <div class="o_row">
+                                <field name="pds_fullname"/>
+                                <label for="pds_sex"/>
+                                <field name="pds_sex"/>
+                            </div>
+                            <label for="pds_nik"/>
+                            <div>
+                                <field name="pds_nik"/>
+                            </div>
+                            <label for="pds_addressNIK"/>
+                            <div class="o_row">
+                                <field name="pds_addressNIK" placeholder="NIK Address"/>
+                                <label for="pds_zipcode_addressNIK"/>
+                                <field name="pds_zipcode_addressNIK"
+                                />
+                            </div>
+                            <label for="pds_currentAddress"/>
+                            <div class="o_row">
+                                <field name="pds_currentAddress" placeholder="Current Address"/>
+                                <label for="pds_zipcode_currentAddress"/>
+                                <field name="pds_zipcode_currentAddress"/>
+                            </div>
+                            <field name="pds_phoneNumber"/>
+                            <field name="pds_email"/>
+                            <label for="pds_placeOfBirth"/>
+                            <div class="o_row">
+                                <field name="pds_placeOfBirth"/>
+                                <label for="pds_dob"/>
+                                <field name="pds_dob"/>
+                            </div>
+                            <field name="pds_nationality"/>
+                            <field name="pds_religion"/>
+                            <field name="pds_marital_status"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <group string="Education &amp; Skills">
+                            <field name="pds_education" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_edu_inst_name"/>
+                                    <field name="pds_edu_major"/>
+                                    <field name="pds_edu_location"/>
+                                    <field name="pds_edu_start_year"/>
+                                    <field name="pds_edu_end_year"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_edu_inst_name"/>
+                                        <field name="pds_edu_major"/>
+                                        <field name="pds_edu_location"/>
+                                        <field name="pds_edu_start_year"/>
+                                        <field name="pds_edu_end_year"/>
+                                    </group>
+                                </form>
+                            </field>
+                            -->
 
-        <record id="action_pds_form" model="ir.actions.act_window">
-            <field name="name">PDS Data Action</field>
-            <field name="res_model">pds.data</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_pds_form"/>
-        </record>
+                        </group>
+                        <group string="Certifications">
+                            <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_cert_name"/>
+                                    <field name="pds_cert_provider"/>
+                                    <field name="pds_cert_issued_year"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_cert_name"/>
+                                        <field name="pds_cert_provider"/>
+                                        <field name="pds_cert_issued_year"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Non formal Education">
+                            <field name="pds_course" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_course_name"/>
+                                    <field name="pds_course_provider"/>
+                                    <field name="pds_course_issued_year"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_course_name"/>
+                                        <field name="pds_course_provider"/>
+                                        <field name="pds_course_issued_year"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Language Proficiency">
+                            <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_lang_name"/>
+                                    <field name="pds_lang_percen"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_lang_name"/>
+                                        <field name="pds_lang_percen"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
 </odoo>

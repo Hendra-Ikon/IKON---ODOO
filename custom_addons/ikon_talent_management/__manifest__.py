@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images'  : [],
-    'depends': ['base','hr_skills','mail'],
+    'depends': ['base', "web", 'hr_recruitment', 'hr_skills'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -16,6 +16,8 @@
         'views/talent_kanban_views.xml',
         'views/menu_talent.xml',
         'views/views.xml',
+        'views/pds_talent.xml',
+        'views/pds_view.xml',
         # 'views/view_report/report_talent.xml',
     ],
    
