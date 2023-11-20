@@ -9,7 +9,7 @@
                     <sheet>
                         <group>
                             <field name="position"/>
-                            <field name="skill_ids" widget="many2many_tags" options="{'no_create': False}"/>
+                            <field name="keyword"/>
                             <field name="limit"/>
                             <field name="region" required="1"/> 
                             <field name="opentowork" widget="boolean_toggle"/>
@@ -25,7 +25,7 @@
                                     <tree>
                                         <field name="name"/>
                                         <field name="no_tlp"/>
-                                        <field name="skill"/>
+                                        <field name="keyword"/>
                                         <field name="url" widget="url" />
                                         <field name="experience"/>
                                         <field name="create_date" string="Create Date" widget="date"/>
@@ -49,7 +49,7 @@
                         <group>
                             <field name="name"/>
                             <field name="no_tlp"/>
-                            <field name="skill"/>
+                            <field name="keyword"/>
                             <field name="url" widget="url"/>
                             <field name="experience"/>
                             <field name="create_date" string="Create Date" widget="date" readonly="1"/>
@@ -80,7 +80,7 @@
                             <div class="oe_kanban_global_click">
                                 <div class="oe_kanban_content">
                                     <p><field name="position"/></p>
-                                    <p><field name="skill_ids" widget="many2many_tags" options="{'no_create': True}"/></p>
+                                    <p><field name="keyword"/></p>
                                     <p><field name="create_date" string="Create Date" widget="date" readonly="1"/></p>
                                 </div>
                             </div>

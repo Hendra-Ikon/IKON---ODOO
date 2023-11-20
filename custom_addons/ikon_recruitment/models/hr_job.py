@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class HrJob(models.Model):
     _inherit = 'hr.job'
 
-    skill_ids = fields.Many2many('hr.skill', string='Add Skill')
+    skill_ids = fields.Many2many('custom.skill', string='Add Skill')
     matching_count = fields.Integer(string='Total Matching', compute='_compute_matching_count')
 
     hr_applicant_count = fields.Integer(string='Total HR Applicants', compute='_compute_hr_applicant_count')
@@ -60,9 +60,6 @@ class HrJob(models.Model):
                     skill_found = False
 
                     for attachment in attachment_records:
-                        if attachment:
-                            attachment_url = 'http://localhost:8042/web?db=ikon_crm#id=5&menu_id=271&action=383&active_id=1&model=hr.applicant&view_type=form'
-                            _logger.info(attachment_url)
                         extracted_text = self.extract_text_from_attachment(attachment)
                         if skill.lower() in extracted_text.lower():
                             skill_found = True

@@ -20,6 +20,7 @@
         'views/pds_view.xml',
         # 'views/view_report/report_talent.xml',
     ],
+   
     'demo': [],
     'installable': True,
     'application': True,
