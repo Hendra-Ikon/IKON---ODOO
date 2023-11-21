@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.http import request
 
 RELIGION = [
     ("select", "Click to select"),
@@ -82,6 +83,7 @@ class PDSData(models.Model):
     pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
 
+
 class HrApplEdu(models.Model):
     _name = 'custom.edu'
 
@@ -99,9 +101,9 @@ class HrApplCertif(models.Model):
 
     # Certification
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    pds_cert_name = fields.Char(string="Certification name")
-    pds_cert_provider = fields.Char(string="Provider")
-    pds_cert_issued_year = fields.Date(string='Issued year')
+    pds_cert_name = fields.Char(string="Certification name", required=False)
+    pds_cert_provider = fields.Char(string="Provider", required=False)
+    pds_cert_issued_year = fields.Date(string='Issued year', required=False, default="01/01/2001")
 
 
 class HrApplNonFormalEdu(models.Model):

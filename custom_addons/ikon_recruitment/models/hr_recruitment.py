@@ -54,6 +54,15 @@ class WhatsGreat(models.Model):
 class HrApplCrUsrSnEmail(models.Model):
     _inherit = 'hr.applicant'
 
+
+    # toggle_send_email = fields.Boolean(string="Send Email", default=False)
+    #
+    # @api.depends("stage_id")
+    # def toogle_email(self):
+    #     if(self.stage_id == "PDS Submission"):
+    #         self.toggle_send_email = True
+
+
     def action_create_user_and_send_email(self):
         # Get the applicant's email
         applicant_email = self.user_email

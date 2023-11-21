@@ -10,6 +10,7 @@
                         type="object"
                         class="oe_highlight"
                         name="action_create_user_and_send_email"/>
+<!--                        attrs="{'invisible': [('toggle_send_email', '==', 'False')]}"-->
             </xpath>
         </field>
     </record>

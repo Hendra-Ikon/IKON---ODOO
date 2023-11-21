@@ -1,10 +1,14 @@
 import os
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 import json
 
 
 class PDSController(http.Controller):
+
+    @http.route("/tes/popup", type='http', auth='none', website=True, csrf=False)
+    def open_popup(self):
+        return request.render("ikon_recruitment.tes_popup")
 
 
     @http.route("/edit_cert/<int:cert_id>", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
@@ -25,33 +29,82 @@ class PDSController(http.Controller):
         cert_record.unlink()
         return request.redirect('/pds/data')
 
+    @http.route("/delete_edu/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
+                csrf=False)
+    def remove_edu(self, edu_id):
+        edu_record = request.env['custom.edu'].browse(edu_id)
+        edu_record.unlink()
+        return request.redirect('/pds/data')
+
+    @http.route("/create_cert", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_cert(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        certifications = request.env['custom.certif'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                certifications.create({
+                    'applicant_id': applicant_to_update.id,
+                    'pds_cert_name': kwargs.get("pds_cert_name"),
+                    'pds_cert_provider': kwargs.get("pds_cert_provider"),
+                    'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
+                })
+            except Exception as e:
+                print(f'Error Certification {e}')
+
+        return request.redirect('/pds/data')
+
+    @http.route("/create_edu", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_edu(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        education = request.env['custom.edu'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                education.create({
+                    'applicant_id': applicant_to_update.id,
+                    'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
+                    'pds_edu_major': kwargs.get("pds_edu_major"),
+                    'pds_edu_location': kwargs.get("pds_edu_location"),
+                    'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
+                    'pds_edu_end_year': kwargs.get("pds_edu_end_year"),
+                })
+            except Exception as e:
+                print(f'Error Education {e}')
+        return request.redirect('/pds/data')
+
     @http.route("/pds/data", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def pds_route(self, **kwargs):
 
         user = request.env.user
         pds_data = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-        # certifications = pds_data.mapped('pds_certifications')
-        certifications = request.env['custom.certif'].search([])
-        education = request.env['custom.edu'].search([])
 
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         if request.httprequest.method == 'POST':
 
-            education.create({
-                'applicant_id': applicant_to_update.id,
-                'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
-                'pds_edu_major': kwargs.get("pds_edu_major"),
-                'pds_edu_location': kwargs.get("pds_edu_location"),
-                'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
-                'pds_edu_end_year': kwargs.get("pds_edu_end_year"),
-            })
+            # if(kwargs.get("pds_cert_name") != None and kwargs.get("pds_cert_name") != None):
+            #     education.create({
+            #         'applicant_id': applicant_to_update.id,
+            #         'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
+            #         'pds_edu_major': kwargs.get("pds_edu_major"),
+            #         'pds_edu_location': kwargs.get("pds_edu_location"),
+            #         'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
+            #         'pds_edu_end_year': kwargs.get("pds_edu_end_year"),
+            #     })
 
-            certifications.create({
-                'applicant_id': applicant_to_update.id,
-                'pds_cert_name': kwargs.get("pds_cert_name"),
-                'pds_cert_provider': kwargs.get("pds_cert_provider"),
-                'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
-            })
+            # if(kwargs.get("pds_cert_name") != None and kwargs.get("pds_cert_provider") != None and kwargs.get("pds_cert_issued_year") != None):
+            #     certifications.create({
+            #         'applicant_id': applicant_to_update.id,
+            #         'pds_cert_name': kwargs.get("pds_cert_name"),
+            #         'pds_cert_provider': kwargs.get("pds_cert_provider"),
+            #         'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
+            #     })
+            # certifications.create({
+            #     'applicant_id': applicant_to_update.id,
+            #     'pds_cert_name': kwargs.get("pds_cert_name"),
+            #     'pds_cert_provider': kwargs.get("pds_cert_provider"),
+            #     'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
+            # })
 
             applicant_to_update.write({
                 "pds_fullname": kwargs.get("pds_fullname"),
@@ -68,11 +121,6 @@ class PDSController(http.Controller):
                 "pds_dob": kwargs.get("pds_dob"),
                 "pds_marital_status": kwargs.get("pds_marital_status"),
                 "pds_sex": kwargs.get("pds_sex"),
-                "pds_edu_inst_name": kwargs.get("pds_edu_inst_name"),
-                "pds_edu_major": kwargs.get("pds_edu_major"),
-                "pds_edu_location": kwargs.get("pds_edu_location"),
-                "pds_edu_start_year": kwargs.get("pds_edu_start_year"),
-                "pds_edu_end_year": kwargs.get("pds_edu_end_year"),
 
             })
 
