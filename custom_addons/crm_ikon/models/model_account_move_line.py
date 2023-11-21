@@ -24,7 +24,7 @@ class CrmAccountMoveLine(models.Model):
         string="order Lines",
         copy=False)
     
-    item_id = fields.Integer(string="Item ID")
+    item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
     period = fields.Date(string="Period")
     

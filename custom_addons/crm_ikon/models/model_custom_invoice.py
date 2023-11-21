@@ -7,14 +7,14 @@ logger = logging.getLogger(__name__)
 class CustomInvoiceLayout(models.TransientModel):
 
     _inherit = 'sale.advance.payment.inv'
-    # base_layout = fields.Selection(related='company_id.base_layout',
-    #                                readonly=False,
-    #                                help="Base layout selection field inside "
-    #                                     "document layout model")
+    base_layout = fields.Selection(related='company_id.base_layout',
+                                   readonly=False,
+                                   help="Base layout selection field inside "
+                                        "document layout model")
     
-    document_layout_id = fields.Many2one(
-        related='company_id.document_layout_id', readonly=False,
-        help="custom document layouts")
+    # document_layout_id = fields.Many2one(
+    #     related='company_id.document_layout_id', readonly=False,
+    #     help="custom document layouts")
     
     
 
