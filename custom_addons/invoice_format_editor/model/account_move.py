@@ -28,9 +28,7 @@ class TemplateInvoice(models.Model):
     a relational field to doc layout model"""
     _inherit = 'account.move'
 
-    base_layout = fields.Selection(selection=[('default', 'Default'),
-                                              ('modern', 'Modern'),
-                                              ('normal', 'Normal'),
+    base_layout = fields.Selection(selection=[
                                               ('old', 'Old Standard'),
                                               ('fif', 'Fif'),
                                               ('stp', 'Solusi Tunas Pratama'),
