@@ -31,10 +31,17 @@
                                             'no_open': True,
                                         }"
                     domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                    widget="sol_product_many2one" />
+                    widget="sol_product_many2one"
+                    optional="hide"
+                    />
+                    <field name="item_id" optional="hide"/>
+                    <field name="item_description" optional="hide"/>
+                    <field name="period" widget="date" optional="hide"/>
+                    <!-- <field name="monthly_rate" optional="hide"/> -->
             </xpath>
             <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"
                 position="attributes">
+               
 <!--                <attribute name="invisible">1</attribute>-->
             </xpath>
             <xpath expr="//field[@name='customer_lead' and @optional='hide']" position="attributes">
@@ -83,10 +90,10 @@
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="attention" />
             </xpath>
-            <xpath expr="//field[@name='payment_term_id']" position="after">
+            <xpath expr="//field[@name='attention']" position="after">
                 <field name="po_fif_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
                 <!-- <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" /> -->
-                <field name="pr_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
+                <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
             </xpath>
         </field>
     </record>

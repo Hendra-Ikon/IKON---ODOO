@@ -2,7 +2,7 @@ from odoo import models, _, fields, api
 from odoo.exceptions import UserError
 from contextlib import contextmanager
 from odoo.tools import formatLang, format_amount
-
+import inflect
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,7 +14,20 @@ class CrmAccountMove(models.Model):
     inv_no = fields.Char(string='Invoice No.')
     pph = fields.Float(string='PPH Invoice', default=0.00)
     pph_price = fields.Float(compute="_compute_pph_price", default=0.00)
-    
+    in_word = fields.Char(string="In Word", compute="_compute_in_word", store=True)
+
+    @api.depends('amount_total')
+    def _compute_in_word(self):
+        p = inflect.engine()
+        for record in self:
+            if record.amount_total:
+                amount_in_words = p.number_to_words(record.amount_total)
+                
+                amount_in_words = amount_in_words.replace(" and", "").replace(" point zero", " Rupiah")
+                logger.info("1", amount_in_words)
+                record.in_word = amount_in_words
+
+
     def action_post(self):
         # validate sales order  
         for rec in self.invoice_line_ids:

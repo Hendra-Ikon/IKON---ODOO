@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_invoice_custom_field" model="ir.ui.view">
+        <field name="name">view.account.move_invoice.custom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page id="other_field" string="Other Field" name="other_Field" >
+                    <group id="field_tab_group">
+                        <group string="Other Field" name="other_field" >
+                            <field name="spk" string="Spk No"/>
+                            <field name="agreement_no" string="Agreement No"/>
+                            <field name="payment_for_service" string="Payment For Service"/>
+                            <field name="payment_for" string="Payment For"/>
+
+
+
+                           
+                            </group>
+     
+                      
+                    </group>
+                </page>
+            </xpath>
+</field>
+</record>
+</odoo>

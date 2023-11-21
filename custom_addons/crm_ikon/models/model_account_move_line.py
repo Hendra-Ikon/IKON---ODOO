@@ -12,6 +12,7 @@ class CrmAccountMoveLine(models.Model):
         compute="_compute_price_unit", store=True, readonly=False, precompute=True,
         digits='Product Price',
     )
+
     name = fields.Char(
         string='Label',
         compute='_compute_name', store=True, readonly=False, precompute=True,
@@ -22,6 +23,12 @@ class CrmAccountMoveLine(models.Model):
         relation='sale_order_line_invoice_rel', column1='invoice_line_id', column2='order_line_id',
         string="order Lines",
         copy=False)
+    
+    item_id = fields.Integer(string="Item ID")
+    item_description = fields.Char(string="Item Description")
+    period = fields.Date(string="Period")
+    
+    
     
     @api.depends('product_id', 'product_uom_id')
     def _compute_price_unit(self):
