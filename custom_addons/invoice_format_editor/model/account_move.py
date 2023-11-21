@@ -31,8 +31,7 @@ class TemplateInvoice(models.Model):
     base_layout = fields.Selection(selection=[('default', 'Default'),
                                               ('modern', 'Modern'),
                                               ('normal', 'Normal'),
-                                              ('old', 'Old Standard'),
-                                              ('solusi_tunas_pratama', 'PT Solusi Tunas Pratama')],
+                                              ('old', 'PT Solusi Tunas Pratama')],
                                    required=True,
                                    string="Invoice Document Layout",
                                    default="default")

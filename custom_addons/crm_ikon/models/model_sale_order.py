@@ -12,15 +12,25 @@ class CrmSaleOrder(models.Model):
     
     attention = fields.Char(string="Attention")
     project_name = fields.Char(string="Project Name")
-    po_fif_no = fields.Char(string="PO No.")
-    po_date = fields.Date(string="PO. Date")
-    
+
     po_no = fields.Char(string="PO No.")
+    po_date = fields.Date(string="PO. Date")
+    payment_for = fields.Char(string="Payment For")
+    period = fields.Date(string="Period")
+    payment_for_service = fields.Char(string="Payment For Service")
+    spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',True)]")
+    agreement_no = fields.Char(string="Agreement No")
+    spk_no = fields.Char(string="SPK No")
+
+    month = fields.Date(string="Month")
+    
+
     name = fields.Text(
         string="Description",
         compute='_compute_name',
         tracking=True,
         store=True, readonly=False, required=True, precompute=True)
+        
 
 
     def _get_order_lines_to_report_payment(self):

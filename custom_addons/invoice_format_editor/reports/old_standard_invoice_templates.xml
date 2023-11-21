@@ -374,7 +374,7 @@
                             <span t-field="o.fiscal_position_id.note"/>
                         </p>
                         <p t-if="o.amount_total">
-                            Say :
+                            In Words :
                             <b><i><span t-field="o.in_word"/></i></b>
                         </p>
                         <p t-if="o.invoice_payment_term_id" name="payment_term">

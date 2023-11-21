@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- <record id="view_invoice_payment_invoice_loyout" model="ir.ui.view">
-        <field name="name">view.payment.invoice.loyout</field>
-        <field name="model">sale.advance.payment.inv</field>
-        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='sale_order_ids']" position="after">
-                    <field name='layout_id' widget='many2many_tags' options="{'no_create_edit': False}"/>
-            </xpath>
-        </field>    
-    </record> -->
 
     <record id="view_invoice_payment_invoice_loyout" model="ir.ui.view">
         <field name="name">view.payment.invoice.loyout</field>
@@ -33,26 +23,6 @@
         </field>
     </record>
 
-     <!-- Partner kanban view inherit -->
-     <!-- <record id="view_partners_form_layout" model="ir.ui.view">
-        <field name="name">view.res.partner.form.crm.layout</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field eval="1" name="priority"/>
-        <field name="arch" type="xml">
-            <data>
-                <div name="button_box" position="inside">
-                    <button class="oe_stat_button o_res_partner_tip_opp" type="object"
-                        name="action_open_base_document_layout"
-                        string="Invoice Layout"
-                        icon="fa-bars"
-                        context="{'default_partner_id': active_id, 'default_type':'opportunity', 'default_company_id': company_id}">
-                    </button>
-                    <button name="%(web.action_base_document_layout_configurator)d" string="Configure Document Layout" type="action" class="oe_link" icon="fa-file-o"/>
-                </div>
-            </data>
-        </field>
-    </record> -->
 
 
 </odoo>
