@@ -21,7 +21,6 @@
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
     ],
-
     'demo': [],
     'installable': True,
     'application': True,

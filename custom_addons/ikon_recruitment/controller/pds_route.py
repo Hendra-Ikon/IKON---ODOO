@@ -39,7 +39,7 @@ class PDSController(http.Controller):
     @http.route("/delete_nonfromedu/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
                 csrf=False)
     def delete_nonfromedu(self, edu_id):
-        nonedu_record = request.env['custom.nonformedu'].browse(edu_id)
+        nonedu_record = request.env['custom.nonformaledu'].browse(edu_id)
         nonedu_record.unlink()
         return request.redirect('/pds/data')
 
@@ -65,7 +65,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 certifications.create({
-                    'applicant_id': applicant_to_update.id,
+                    'applicant_id': applicant_to_update[-1].id,
                     'pds_cert_name': kwargs.get("pds_cert_name"),
                     'pds_cert_provider': kwargs.get("pds_cert_provider"),
                     'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
@@ -84,7 +84,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 education.create({
-                    'applicant_id': applicant_to_update.id,
+                    'applicant_id': applicant_to_update[-1].id,
                     'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
                     'pds_edu_major': kwargs.get("pds_edu_major"),
                     'pds_edu_location': kwargs.get("pds_edu_location"),
@@ -103,7 +103,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 non_formeducation.create({
-                    'applicant_id': applicant_to_update.id,
+                    'applicant_id': applicant_to_update[-1].id,
                     'pds_course_name': kwargs.get("pds_course_name"),
                     'pds_course_provider': kwargs.get("pds_course_provider"),
                     'pds_course_issued_year': kwargs.get("pds_course_issued_year"),
@@ -120,7 +120,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 lang_prof.create({
-                    'applicant_id': applicant_to_update.id,
+                    'applicant_id': applicant_to_update[-1].id,
                     'pds_lang_name': kwargs.get("pds_lang_name"),
                     'pds_lang_percen': kwargs.get("pds_lang_percen"),
                 })
@@ -136,12 +136,25 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 work_exp.create({
-                    'applicant_id': applicant_to_update.id,
+                    'applicant_id': applicant_to_update[-1].id,
                     'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
                     'pds_workex_lob': kwargs.get("pds_workex_lob"),
                     'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
                     'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
                 })
+
+                # new_work_exp = {
+                #     'applicant_id': applicant_to_update.id,
+                #     'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
+                #     'pds_workex_lob': kwargs.get("pds_workex_lob"),
+                #     'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
+                #     'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
+                # }
+                #
+                # # Assuming 'work_experience_ids' is the one2many field linking hr.applicant and custom.work.experience
+                #
+                # for applicant in applicant_to_update:
+                #     applicant.write({'pds_work_exp': [(0, 0, new_work_exp)]})
             except Exception as e:
                 print(f'Error Language Proficiency {e}')
         return request.redirect('/pds/data')
@@ -154,30 +167,28 @@ class PDSController(http.Controller):
 
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         if request.httprequest.method == 'POST':
-
-            applicant_to_update.write({
-                "pds_fullname": kwargs.get("pds_fullname"),
-                "pds_nik": kwargs.get("pds_nik"),
-                "pds_addressNIK": kwargs.get("pds_addressNIK"),
-                "pds_zipcode_addressNIK": kwargs.get("pds_zipcode_addressNIK"),
-                "pds_currentAddress": kwargs.get("pds_currentAddress"),
-                "pds_zipcode_currentAddress": kwargs.get("pds_zipcode_currentAddress"),
-                "pds_phoneNumber": kwargs.get("pds_phoneNumber"),
-                "pds_email": kwargs.get("pds_email"),
-                "pds_placeOfBirth": kwargs.get("pds_placeOfBirth"),
-                "pds_nationality": kwargs.get("pds_nationality"),
-                "pds_religion": kwargs.get("pds_religion"),
-                "pds_dob": kwargs.get("pds_dob"),
-                "pds_marital_status": kwargs.get("pds_marital_status"),
-                "pds_sex": kwargs.get("pds_sex"),
-
-            })
-            pds_data.open_modal = True
+            for applicant in applicant_to_update:
+                applicant.write({
+                    "pds_fullname": kwargs.get("pds_fullname"),
+                    "pds_nik": kwargs.get("pds_nik"),
+                    "pds_addressNIK": kwargs.get("pds_addressNIK"),
+                    "pds_zipcode_addressNIK": kwargs.get("pds_zipcode_addressNIK"),
+                    "pds_currentAddress": kwargs.get("pds_currentAddress"),
+                    "pds_zipcode_currentAddress": kwargs.get("pds_zipcode_currentAddress"),
+                    "pds_phoneNumber": kwargs.get("pds_phoneNumber"),
+                    "pds_email": kwargs.get("pds_email"),
+                    "pds_placeOfBirth": kwargs.get("pds_placeOfBirth"),
+                    "pds_nationality": kwargs.get("pds_nationality"),
+                    "pds_religion": kwargs.get("pds_religion"),
+                    "pds_dob": kwargs.get("pds_dob"),
+                    "pds_marital_status": kwargs.get("pds_marital_status"),
+                    "pds_sex": kwargs.get("pds_sex"),
+                })
 
         data = {
-            'pds_data': pds_data[0],
+            'pds_data': pds_data[-1],
             "page_name": "pds_data",
-            "open_modal": pds_data[0].open_modal
+            "open_modal": pds_data[-1].open_modal
         }
 
         return request.render("ikon_talent_management.custom_pds_view", data)
