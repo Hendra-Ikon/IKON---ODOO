@@ -4,11 +4,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class CrmSalesOrderLine(models.Model):
-    _inherit = "sale.order.line"
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     
     invoice_count = fields.Integer(related='order_id.invoice_count')
     
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -102,3 +105,5 @@ class CrmSalesOrderLine(models.Model):
                 line.product_packaging_qty * qty_per_packaging, line.product_uom)
             if float_compare(product_uom_qty, line.product_uom_qty, precision_rounding=line.product_uom.rounding) != 0:
                 line.product_uom_qty = product_uom_qty
+
+

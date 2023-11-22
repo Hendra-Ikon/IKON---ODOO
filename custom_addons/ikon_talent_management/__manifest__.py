@@ -21,12 +21,7 @@
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
     ],
-    'assets': {
-        # 'web.assets_common': [
-        #     '/ikon_talent_management/static/src/js/pds.js',
-        #     '/ikon_talent_management/static/src/js/pds_popup_template.xml',
-        # ],
-    },
+
     'demo': [],
     'installable': True,
     'application': True,
