@@ -608,7 +608,7 @@
                 <div class="accordion-body">
                     <form id="custom_nonformedu_form" action="/create_workexp" method="post"
                           enctype="multipart/form-data" class="o_mark_required row"
-                          data-mark="*" data-model_name="custom.language.prof"
+                          data-mark="*" data-model_name="custom.work.experience"
                           data-success-mode="redirect" data-success-page="/jobs"
                           hide-change-model="true">
                         <div class="row o_portal_details">
