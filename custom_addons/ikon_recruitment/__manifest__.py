@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images': [],
-    'depends': ['base', 'website', 'website_hr_recruitment', 'portal'],
+    'depends': ['base', 'web', 'website', 'portal', 'website_hr_recruitment', ],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -19,6 +19,7 @@
         'views/custom_skill_form_view.xml',
         'views/custom_job_detail.xml',
         'views/my_profile_view.xml',
+        'views/tes_popup.xml',
         'static/src/js/user_profile.js',
 
         'views/custom_hr_applicant_kanban.xml',
@@ -28,6 +29,9 @@
         'web.assets_frontend': [
             '/ikon_recruitment/static/src/scss/my_profile.css',
         ],
+        # 'ikon_recruitment.assets': [
+        #     ''
+        # ]
     },
     'demo': [],
     'installable': True,

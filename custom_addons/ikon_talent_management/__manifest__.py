@@ -6,8 +6,8 @@
     'company': 'Ikonsultan Inovatama',
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
-    'images'  : [],
-    'depends': ['base', "web", 'hr_recruitment', 'hr_skills'],
+    'images': [],
+    'depends': ['base', "web", 'hr_recruitment', 'hr_skills', 'website', ],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -18,9 +18,10 @@
         'views/views.xml',
         'views/pds_talent.xml',
         'views/pds_view.xml',
+        'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
     ],
-   
+
     'demo': [],
     'installable': True,
     'application': True,
