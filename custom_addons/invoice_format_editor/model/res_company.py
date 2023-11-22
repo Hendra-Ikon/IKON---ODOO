@@ -30,8 +30,11 @@ class ReportCompanyTemplate(models.Model):
     base_layout = fields.Selection(selection=[('default', 'Default'),
                                               ('modern', 'Modern'),
                                               ('normal', 'Normal'),
-                                               ('old', 'PT Solusi Tunas Pratama')],
-
+                                              ('old', 'Old Standard'),
+                                              ('fif', 'Fif'),
+                                              ('stp', 'Solusi Tunas Pratama'),
+                                              ('btpn', 'BTPN'),
+                                              ('bciv1', 'Bank Commonwealth Indonesia V1')],
                                    required=True,
                                    string="Invoice Document Layout",
                                    help="base layout selection",

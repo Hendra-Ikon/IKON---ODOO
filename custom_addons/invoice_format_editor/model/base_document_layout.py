@@ -72,6 +72,34 @@ class BaseDocumentLayout(models.TransientModel):
                         'invoice_format_editor.report_preview_old',
                         {'company': wizard, 'preview_css': preview_css, })
 
+                elif wizard.base_layout == 'fif':
+                    preview_css = self._get_css_for_preview(styles, wizard.id)
+                    ir_ui_view = wizard.env['ir.ui.view']
+                    wizard.preview = ir_ui_view._render_template(
+                        'invoice_format_editor.report_preview_fif',
+                        {'company': wizard, 'preview_css': preview_css, })
+
+                elif wizard.base_layout == 'stp':
+                    preview_css = self._get_css_for_preview(styles, wizard.id)
+                    ir_ui_view = wizard.env['ir.ui.view']
+                    wizard.preview = ir_ui_view._render_template(
+                        'invoice_format_editor.report_preview_stp',
+                        {'company': wizard, 'preview_css': preview_css, })
+                        
+                elif wizard.base_layout == 'btpn':
+                    preview_css = self._get_css_for_preview(styles, wizard.id)
+                    ir_ui_view = wizard.env['ir.ui.view']
+                    wizard.preview = ir_ui_view._render_template(
+                        'invoice_format_editor.report_preview_btpn',
+                        {'company': wizard, 'preview_css': preview_css, })
+
+                elif wizard.base_layout == 'bciv1':
+                    preview_css = self._get_css_for_preview(styles, wizard.id)
+                    ir_ui_view = wizard.env['ir.ui.view']
+                    wizard.preview = ir_ui_view._render_template(
+                        'invoice_format_editor.report_preview_bci_v1',
+                        {'company': wizard, 'preview_css': preview_css, })
+
                 else:
                     wizard.preview = False
             else:

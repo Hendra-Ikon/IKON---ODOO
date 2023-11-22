@@ -42,11 +42,13 @@
              'reports/old_standard_invoice_templates.xml',
              'reports/report_invoice_templates.xml',
              'reports/preview_layout_report_templates.xml',
+             'reports/fif_invoice_templates.xml',
              'preview_templates/normal_preview_templates.xml',
              'preview_templates/modern_preview_templates.xml',
-             'preview_templates/old_standard_preview_templates.xml',
-
-
+             'preview_templates/fif_preview_templates.xml',
+             'preview_templates/stp_preview_templates.xml',
+             'preview_templates/btpn_preview_templates.xml',
+             'preview_templates/bci_v1_preview_templates.xml',
 
              'views/custom_invoice.xml',
              ],
