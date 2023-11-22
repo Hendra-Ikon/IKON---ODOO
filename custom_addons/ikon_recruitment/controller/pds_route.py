@@ -10,7 +10,6 @@ class PDSController(http.Controller):
     def open_popup(self):
         return request.render("ikon_recruitment.tes_popup")
 
-
     @http.route("/edit_cert/<int:cert_id>", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def edit_cert(self, cert_id, **kwargs):
         cert_record = request.env['custom.certif'].browse(cert_id)
@@ -64,12 +63,13 @@ class PDSController(http.Controller):
         certifications = request.env['custom.certif'].search([])
         if request.httprequest.method == 'POST':
             try:
-                certifications.create({
-                    'applicant_id': applicant_to_update[-1].id,
-                    'pds_cert_name': kwargs.get("pds_cert_name"),
-                    'pds_cert_provider': kwargs.get("pds_cert_provider"),
-                    'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
-                })
+                for applicant in applicant_to_update:
+                    certifications.create({
+                        'applicant_id': applicant.id,
+                        'pds_cert_name': kwargs.get("pds_cert_name"),
+                        'pds_cert_provider': kwargs.get("pds_cert_provider"),
+                        'pds_cert_issued_year': kwargs.get("pds_cert_issued_year"),
+                    })
                 applicant_to_update.open_modal = True
             except Exception as e:
                 print(f'Error Certification {e}')
@@ -83,14 +83,15 @@ class PDSController(http.Controller):
         education = request.env['custom.edu'].search([])
         if request.httprequest.method == 'POST':
             try:
-                education.create({
-                    'applicant_id': applicant_to_update[-1].id,
-                    'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
-                    'pds_edu_major': kwargs.get("pds_edu_major"),
-                    'pds_edu_location': kwargs.get("pds_edu_location"),
-                    'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
-                    'pds_edu_end_year': kwargs.get("pds_edu_end_year"),
-                })
+                for applicant in applicant_to_update:
+                    education.create({
+                        'applicant_id': applicant.id,
+                        'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
+                        'pds_edu_major': kwargs.get("pds_edu_major"),
+                        'pds_edu_location': kwargs.get("pds_edu_location"),
+                        'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
+                        'pds_edu_end_year': kwargs.get("pds_edu_end_year"),
+                    })
             except Exception as e:
                 print(f'Error Education {e}')
         return request.redirect('/pds/data')
@@ -102,12 +103,13 @@ class PDSController(http.Controller):
         non_formeducation = request.env['custom.nonformaledu'].search([])
         if request.httprequest.method == 'POST':
             try:
-                non_formeducation.create({
-                    'applicant_id': applicant_to_update[-1].id,
-                    'pds_course_name': kwargs.get("pds_course_name"),
-                    'pds_course_provider': kwargs.get("pds_course_provider"),
-                    'pds_course_issued_year': kwargs.get("pds_course_issued_year"),
-                })
+                for applicant in applicant_to_update:
+                    non_formeducation.create({
+                        'applicant_id': applicant.id,
+                        'pds_course_name': kwargs.get("pds_course_name"),
+                        'pds_course_provider': kwargs.get("pds_course_provider"),
+                        'pds_course_issued_year': kwargs.get("pds_course_issued_year"),
+                    })
             except Exception as e:
                 print(f'Error Non Formal Education {e}')
         return request.redirect('/pds/data')
@@ -119,11 +121,12 @@ class PDSController(http.Controller):
         lang_prof = request.env['custom.language.prof'].search([])
         if request.httprequest.method == 'POST':
             try:
-                lang_prof.create({
-                    'applicant_id': applicant_to_update[-1].id,
-                    'pds_lang_name': kwargs.get("pds_lang_name"),
-                    'pds_lang_percen': kwargs.get("pds_lang_percen"),
-                })
+                for applicant in applicant_to_update:
+                    lang_prof.create({
+                        'applicant_id': applicant.id,
+                        'pds_lang_name': kwargs.get("pds_lang_name"),
+                        'pds_lang_percen': kwargs.get("pds_lang_percen"),
+                    })
             except Exception as e:
                 print(f'Error Language Proficiency {e}')
         return request.redirect('/pds/data')
@@ -135,26 +138,16 @@ class PDSController(http.Controller):
         work_exp = request.env['custom.work.experience'].search([])
         if request.httprequest.method == 'POST':
             try:
-                work_exp.create({
-                    'applicant_id': applicant_to_update[-1].id,
-                    'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
-                    'pds_workex_lob': kwargs.get("pds_workex_lob"),
-                    'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
-                    'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
-                })
+                for applicant in applicant_to_update:
+                    work_exp.create({
+                        'applicant_id': applicant.id,
+                        'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
+                        'pds_workex_lob': kwargs.get("pds_workex_lob"),
+                        'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
+                        'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
+                    })
 
-                # new_work_exp = {
-                #     'applicant_id': applicant_to_update.id,
-                #     'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
-                #     'pds_workex_lob': kwargs.get("pds_workex_lob"),
-                #     'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
-                #     'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
-                # }
-                #
-                # # Assuming 'work_experience_ids' is the one2many field linking hr.applicant and custom.work.experience
-                #
-                # for applicant in applicant_to_update:
-                #     applicant.write({'pds_work_exp': [(0, 0, new_work_exp)]})
+
             except Exception as e:
                 print(f'Error Language Proficiency {e}')
         return request.redirect('/pds/data')
@@ -185,15 +178,15 @@ class PDSController(http.Controller):
                     "pds_sex": kwargs.get("pds_sex"),
                 })
 
-        data = {
-            'pds_data': pds_data[-1],
-            "page_name": "pds_data",
-            "open_modal": pds_data[-1].open_modal
-        }
+        data = {}
+        if pds_data:
+            data = {
+                'pds_data': pds_data[-1],  # Assuming you want the last element if it exists
+                "page_name": "pds_data",
+                "open_modal": pds_data[-1].open_modal
+            }
 
         return request.render("ikon_talent_management.custom_pds_view", data)
-
-
 
     @http.route("/my/profile", type='http', auth='user', website=True)
     def my_profile(self):

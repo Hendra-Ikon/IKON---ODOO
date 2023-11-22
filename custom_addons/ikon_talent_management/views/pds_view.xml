@@ -10,7 +10,7 @@
             <t t-call="ikon_talent_management.nonformal_education_section"/>
             <t t-call="ikon_talent_management.language_section"/>
             <t t-call="ikon_talent_management.work_section"/>
-            <t t-call="ikon_talent_management.success_notif"/>
+<!--            <t t-call="ikon_talent_management.success_notif"/>-->
             <!--            <button class="o_popup_close_btn">Show Modal</button>-->
         </t>
         <!--        <t t-call="ikon_talent_management.pds_popup_template"/>-->
@@ -22,15 +22,15 @@
             <li t-if="page_name == 'pds_data'" class="breadcrumb-item">PDS Data</li>
         </xpath>
     </template>
-    <template id="success_notif">
-        <t t-if="open_modal == 'True'">
-            <div class="alert alert-success">
-                <strong>Success!</strong>
-                Certification created successfully.
-            </div>
-            <t t-esc="open_modal"/>
-        </t>
-    </template>
+<!--    <template id="success_notif">-->
+<!--        <t t-if="open_modal == 'True'">-->
+<!--            <div class="alert alert-success">-->
+<!--                <strong>Success!</strong>-->
+<!--                Certification created successfully.-->
+<!--            </div>-->
+<!--            <t t-esc="open_modal"/>-->
+<!--        </t>-->
+<!--    </template>-->
 
     <template id="personal_record">
         <div class="accordion" id="pdsAccordion">
