@@ -68,20 +68,14 @@ class PDSData(models.Model):
     pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", default='select')
     pds_sex = fields.Selection(SEX, string="Sex", default=SEX[0][0])
 
-    # Education & Skills
-
-    # pds_edu_inst_name = fields.Char(string="Institution name")
-    # pds_edu_major = fields.Selection(MAJORDEGREE,string="Major", default='select')
-    # pds_edu_location = fields.Char(string="Location")
-    # pds_edu_start_year = fields.Date(string="Start year")
-    # pds_edu_end_year = fields.Date(string="End year")
-
 
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
     pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
+    pds_work_exp = fields.One2many('custom.work.experience', 'applicant_id', string='Working Experience')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
+    open_modal = fields.Boolean(string="Modal Popup", default=True)
 
 
 class HrApplEdu(models.Model):
@@ -128,7 +122,7 @@ class HrApplWorkExperience(models.Model):
     _name = "custom.work.experience"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    pds_workex_company_name = fields.Char(string="Company name")
-    pds_workex_lob = fields.Char(string="Line of bussiness")
-    pds_workex_period_from = fields.Date(string="Working period")
-    pds_workex_period_to = fields.Date(string="to")
+    pds_workex_company_name = fields.Char(string="Company name", help='Company name')
+    pds_workex_lob = fields.Char(string="Line of bussiness", help="Line of bussiness")
+    pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
+    pds_workex_period_to = fields.Date(string="to", help="Working period to")

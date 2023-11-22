@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images': [],
-    'depends': ['base', "web", 'hr_recruitment', 'hr_skills'],
+    'depends': ['base', "web", 'hr_recruitment', 'hr_skills', 'website', ],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -18,13 +18,14 @@
         'views/views.xml',
         'views/pds_talent.xml',
         'views/pds_view.xml',
-        'static/src/js/pds.js',
+        'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
     ],
     'assets': {
-        'ikon_recruitment.assets': [
-            '/ikon_talent_management/static/src/js/pds.js'
-        ]
+        # 'web.assets_common': [
+        #     '/ikon_talent_management/static/src/js/pds.js',
+        #     '/ikon_talent_management/static/src/js/pds_popup_template.xml',
+        # ],
     },
     'demo': [],
     'installable': True,

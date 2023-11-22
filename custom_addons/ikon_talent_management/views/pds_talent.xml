@@ -63,7 +63,6 @@
                                     </group>
                                 </form>
                             </field>
-
                         </group>
                         <group string="Certifications">
                             <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">
@@ -107,6 +106,24 @@
                                     <group>
                                         <field name="pds_lang_name"/>
                                         <field name="pds_lang_percen"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Working Experience">
+                            <field name="pds_work_exp" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_workex_company_name"/>
+                                    <field name="pds_workex_lob"/>
+                                    <field name="pds_workex_period_from"/>
+                                    <field name="pds_workex_period_to"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_workex_company_name"/>
+                                        <field name="pds_workex_lob"/>
+                                        <field name="pds_workex_period_from"/>
+                                        <field name="pds_workex_period_to"/>
                                     </group>
                                 </form>
                             </field>

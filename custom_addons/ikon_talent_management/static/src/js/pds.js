@@ -1,70 +1,89 @@
-function openPopup() {
-    console.log("Halhbclsjhbcsd")
-}
+odoo.define('ikon_talent_management.pds', ['web.core', 'web.Dialog', 'web.ajax', 'web.Widget'], function (require) {
+    "use strict";
 
-// odoo.define("ikon_talent_management.pds", function () {
+    var ajax = require('web.ajax');
+    var core = require('web.core');
+    var Widget = require('web.Widget');
+    var Dialog = require('web.Dialog');
+
+    var _t = core._t;
+
+    var PopupWidget = Widget.extend({
+        start: function () {
+            var self = this;
+
+            // Create a simple dialog
+            var dialog = new Dialog(self, {
+                title: _t("Popup Title"),
+                size: 'medium',
+                buttons: [
+                    {text: _t("Close"), classes: 'btn-secondary', close: true},
+                ],
+            });
+
+            // Add content to the dialog
+            dialog.$el.append($('<div>', {class: 'popup-content'}).text("This is the content of your popup."));
+
+            // Show the dialog
+            dialog.open();
+
+            return this._super.apply(this, arguments);
+        },
+    });
+
+    core.addons['web.Dialog'] = Dialog;
+    core.addons['web.Widget'] = Widget;
+
+    core.action_registry.add('ikon_talent_management.pds', PopupWidget);
+
+    return PopupWidget;
+});
+
+// odoo.define('ikon_talent_management.pds', function (require) {
+//     "use strict";
 //
 //     var core = require('web.core');
-//     var _t = core._t;
+//     var Widget = require('web.Widget');
 //     var Dialog = require('web.Dialog');
 //
-//     // Open the popup form
-//     function openPopup() {
-//         var options = {
-//             title: _t('Your Popup Title'),
-//             size: 'medium',
-//             $content: $('<div>').text(_t('Content of your popup form')),
-//             buttons: [
-//                 {text: _t('Save'), classes: 'btn-primary', click: function () {
-//                     console.log("Popup disave")
-//                     // Handle save button click
-//                     // You can perform actions like saving data here
-//                     dialog.close();
-//                 }},
-//                 {text: _t('Cancel'), click: function () {
-//                     // Handle cancel button click
-//                     dialog.close();
-//                 }},
-//             ],
-//         };
+//     var PdsPopup = Widget.extend({
+//         events: {
+//             'click .show-modal-button': '_onShowModalClick',
+//         },
 //
-//         var dialog = new Dialog(null, options);
-//         dialog.open();
-//     }
+//         init: function (parent, options) {
+//             this._super.apply(this, arguments);
+//             this.appendTo = options.appendTo || 'body';
+//         },
 //
-//     // Call the openPopup function when needed
-//     // For example, you can bind it to a button click event
-//     $('#your_button_id').click(function () {
-//         openPopup();
+//         start: function () {
+//             this.$el.appendTo(this.appendTo);
+//             return this._super.apply(this, arguments);
+//         },
+//
+//         _onShowModalClick: function () {
+//             var modalContent = `
+//                 <div class="modal-content">
+//                     <span class="close-modal">&times;</span>
+//                     <p>This is your popup modal content.</p>
+//                 </div>
+//             `;
+//
+//             Dialog.alert(this, modalContent, {
+//                 title: 'Popup Modal',
+//                 buttons: [
+//                     { text: core._t('Close'), close: true, click: function () {} },
+//                 ],
+//             });
+//         },
 //     });
 //
+//     core.action_registry.add('ikon_talent_management.pds', PdsPopup);
 //
-// })
-//
-//
-// // console.log("Haloooo");
-// //
-// // var ikon_talent_management = ikon_talent_management || {};
-// //
-// // ikon_talent_management.pds = (function ($) {
-// //     "use strict";
-// //
-// //     function editCert(certId) {
-// //         // Your existing edit logic here
-// //     }
-// //
-// //     function deleteCert(cert) {
-// //         console.log("Before confirmation");
-// //         // if (confirm("Are you sure you want to delete this certification?")) {
-// //         //     console.log("After confirmation");
-// //         //     $(cert).remove();  // Remove the table row from the DOM
-// //         //     console.log("Yoyoyo");
-// //         // }
-// //     }
-// //
-// //
-// //     return {
-// //         editCert: editCert,
-// //         deleteCert: deleteCert,
-// //     };
-// // })();
+//      return {
+//         PdsPopup: PdsPopup,
+//         Dialog: Dialog, // Add this line to declare the dependency
+//         core: core,
+//         Widget: Widget,
+//     };
+// });
