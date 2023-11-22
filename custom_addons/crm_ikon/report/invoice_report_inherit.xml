@@ -25,15 +25,15 @@
                     <p class="m-0" t-field="o.invoice_origin" />
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.po_fif_no"
-                    name="po_fif_no">
+                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
+                    name="po_no">
                     <strong>PO FIF No.:</strong>
-                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.po_fif_no" />
+                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.po_no" />
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.pr_no"
-                    name="pr_no">
-                    <strong>PR No.:</strong>
+                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
+                    name="po_no">
+                    <strong>Test:</strong>
                     <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.pr_no" />
                 </div>
             </div>

@@ -4,43 +4,59 @@
     <record id="view_move_form_inherit_crm_ikon" model="ir.ui.view">
         <field name="name">view.move.form.inherit.crm.ikon</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//form//header//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,approved,posted"/>
+            </xpath>
+            <xpath expr="//form//header" position="inside">
+                <button name="action_approve" string="Approve" class="oe_highlight"
+                        type="object" groups="account.group_account_invoice" data-hotkey="v"
+                        context="{'validate_analytic': True}"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('display_inactive_currency_warning','=',True), ('id', '=', False)]}"/>
+                <button name="action_approve" string="Post" class="oe_highlight"
+                        type="object" groups="account.group_account_invoice" data-hotkey="v"
+                        context="{'validate_analytic': True}"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'approved'), ('display_inactive_currency_warning','=',True), ('id', '=', False)]}"/>
+            </xpath>
             <xpath expr="//div[@class='oe_title']" position="replace">
                 <div class="oe_title">
                     <span class="o_form_label">
                         <field name="move_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"
-                            readonly="1" nolabel="1" />
+                               readonly="1" nolabel="1"/>
                     </span>
 
                     <div class="text-warning"
-                        attrs="{'invisible': [('show_name_warning', '=', False)]}">The current
-                        highest number is <field class="oe_inline" name="highest_name" />. You might
-                        want to put a higher number here.</div>
-                        
+                         attrs="{'invisible': [('show_name_warning', '=', False)]}">The current
+                        highest number is<field class="oe_inline" name="highest_name"/>. You might
+                        want to put a higher number here.
+                    </div>
+
                     <h1>
                         <field name="name"
-                            attrs="{'invisible':[('name', '=', '/'), ('posted_before', '=', False), ('quick_edit_mode', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
-                            placeholder="Draft" />
+                               attrs="{'invisible':[('name', '=', '/'), ('posted_before', '=', False), ('quick_edit_mode', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                               placeholder="Draft"/>
 
                         <span
-                            attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('name', '!=', '/'), ('quick_edit_mode', '=', True)]}">
-                            Draft</span>
+                                attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('name', '!=', '/'), ('quick_edit_mode', '=', True)]}">
+                            Draft
+                        </span>
                     </h1>
-                    <label for="inv_no" />
+
+                    <label for="inv_no"/>
                     <h1>
                         <field name="inv_no"
-                            attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </h1>
                 </div>
             </xpath>
             <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
-                <field name="attention" />
+                <field name="attention"/>
             </xpath>
             <xpath
-                expr="//field[@name='currency_id' and @groups='!account.group_account_readonly,base.group_multi_currency']"
-                position="after">
-                <field name="pph" attrs="{'invisible': [('name', '=', '/')]}" />
+                    expr="//field[@name='currency_id' and @groups='!account.group_account_readonly,base.group_multi_currency']"
+                    position="after">
+                <field name="pph" attrs="{'invisible': [('name', '=', '/')]}"/>
             </xpath>
         </field>
     </record>
@@ -48,11 +64,11 @@
     <record id="view_invoice_tree_inherit_crm_ikon" model="ir.ui.view">
         <field name="name">view_invoice_tree_inherit_crm_ikon</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_merge_invoices" type="object"
-                    string="Merge Invoice" context="{'source':'merge_inv'}" />
+                        string="Merge Invoice" context="{'source':'merge_inv'}"/>
             </xpath>
         </field>
     </record>

@@ -42,7 +42,7 @@ class TemplateInvoice(models.Model):
     payment_for_service = fields.Char(string='Payment For Service')
     payment_for = fields.Char(string='Payment For')
     project_name = fields.Boolean(string="Project Name")
-    po_fif_no = fields.Boolean(string="PO No.")
+    # po_fif_no = fields.Boolean(string="PO No.")
     po_date = fields.Boolean(string="PO. Date")
     
     pr_no = fields.Boolean(string="PR No.")

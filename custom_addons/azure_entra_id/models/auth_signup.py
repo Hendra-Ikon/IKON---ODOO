@@ -153,6 +153,7 @@ class ResUsers(models.Model):
             raise UserError("Failed to get role info")
         _logger.info(role)
         app_role_ids = [item['appRoleId'] for item in role['value']]
+        app_role_ids.sort()
         joined_app_role_ids = ','.join(app_role_ids)
         _logger.info("joined role id >>>>>>>>>>>>")
         _logger.info(joined_app_role_ids)
