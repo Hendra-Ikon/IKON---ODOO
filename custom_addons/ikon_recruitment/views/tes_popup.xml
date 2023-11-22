@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="tes_popup">
+        <!--        <t t-call="website.layout">-->
+        <div class="container">
+            <!-- Table Section -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h2>Table Section</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="dummy_data" t-as="record">
+                                <td>
+                                    <t t-esc="record.id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.value"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Button to Open Popup -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" id="openPopupBtn">
+                        Add Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Popup Section -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Data</h4>
+                            <button type="button" class="close" data-dismiss="modal">Add</button>
+                        </div>
+
+                        <!-- Modal Body (Form) -->
+                        <div class="modal-body">
+                            <form id="addDataForm">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="value">Value:</label>
+                                    <input type="text" class="form-control" id="value"/>
+                                </div>
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript Section -->
+        <script type="text/javascript">
+            $(document).ready(function () {
+            // Open Popup
+            $("#openPopupBtn").click(function () {
+            $("#myModal").modal("show");
+            });
+
+            // Handle Form Submission
+            $("#addDataForm").submit(function (event) {
+            event.preventDefault();
+            // Perform your form submission logic here
+            // You can use AJAX to send the data to the server
+            // After successful submission, you may want to update the table or perform other actions
+            // For simplicity, let's just close the popup for now
+            $("#myModal").modal("hide");
+            });
+            });
+        </script>
+        <!--        </t>-->
+    </template>
+</odoo>

@@ -2,7 +2,7 @@ from odoo import api, models, fields
 
 class HrApplicant(models.Model):
     _inherit = "hr.applicant"
-    
+
     indeed_profile = fields.Char(string="Indeed Profile")
     glints_profile = fields.Char(string="Glints Profile")
     nik = fields.Char(string="NIK")
@@ -30,6 +30,9 @@ class HrApplicant(models.Model):
     fresh_grad = fields.Boolean(string="Fresh Graduate")
     experience_ids = fields.One2many('hr.experience', 'applicant_id' ,string="Experience")
     result = fields.Char('Result')
+
+    # PDS MODEL
+
 
 class JobsApplied(models.Model):
 

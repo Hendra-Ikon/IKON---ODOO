@@ -1,0 +1,39 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_hr_kanban_view_applicant">
+        <field name="name">Custom Hr Applicants kanban</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_bottom_left']" position="inside">
+                <!-- Add your custom button here -->
+                <button string="Send"
+                        type="object"
+                        class="oe_highlight"
+                        name="action_create_user_and_send_email"/>
+<!--                        attrs="{'invisible': [('toggle_send_email', '==', 'False')]}"-->
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record id="email_template_applicant" model="ir.ui.view">-->
+<!--        <field name="name">Applicant Email Template</field>-->
+<!--        <field name="model">hr.applicant</field>-->
+<!--        &lt;!&ndash;        <field name="model_id" ref="model_hr_applicant"/>&ndash;&gt;-->
+<!--        <field name="arch" type="xml">-->
+<!--            &lt;!&ndash;            <email_template>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <tbody>&ndash;&gt;-->
+<!--            <template>-->
+<!--                <div>-->
+<!--                    <p>Hello ${object.partner_name},</p>-->
+<!--                    <p>Congratulations! Your application has been accepted.</p>-->
+<!--                    <p>Best regards,</p>-->
+<!--                    <p>Your Company</p>-->
+<!--                </div>-->
+<!--            </template>-->
+<!--            &lt;!&ndash;                </tbody>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </email_template>&ndash;&gt;-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+</odoo>
