@@ -23,6 +23,7 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_fif"
                                t-lang="o.partner_id.lang"/>
                         </t>
+<<<<<<< HEAD
                         <t t-if="o.company_id.base_layout == 'stp'">
                             <t t-call="invoice_format_editor.custom_template_report_invoice_stp"
                                t-lang="o.partner_id.lang"/>
@@ -63,6 +64,8 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_lps"
                                t-lang="o.partner_id.lang"/>
                         </t>
+=======
+>>>>>>> 57519fef (add template invoice)
                         <t t-if="o.company_id.base_layout == 'default'">
                             <t t-call="account.report_invoice_document"
                                t-lang="o.partner_id.lang"/>
@@ -99,6 +102,7 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_fif"
                                t-lang="o.partner_id.lang"/>
                         </t>
+<<<<<<< HEAD
                         <t t-if="o.company_id.base_layout == 'stp'">
                             <t t-call="invoice_format_editor.custom_template_report_invoice_stp"
                                t-lang="o.partner_id.lang"/>
@@ -139,6 +143,8 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_lps"
                                t-lang="o.partner_id.lang"/>
                         </t>
+=======
+>>>>>>> 57519fef (add template invoice)
                         <t t-if="o.company_id.base_layout == 'default'">
                             <t t-call="account.report_invoice_document"
                                t-lang="o.partner_id.lang"/>

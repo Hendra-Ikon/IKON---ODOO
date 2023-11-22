@@ -360,6 +360,7 @@
         <!--modern Template View-->
         <template id="custom_template_report_invoice_fif">
             <!--External layout template-->
+<<<<<<< HEAD
             <t t-if="o and 'company_id' in o">
                 <t t-set="company" t-value="o.company_id"/>
             </t>
@@ -367,10 +368,13 @@
                 <t t-set="company" t-value="res_company"/>
             </t>
                
+=======
+>>>>>>> 57519fef (add template invoice)
             <t t-call="web.external_layout">
                 <!--Invoice Reference-->
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                 <t t-set="model" t-value="'account.move'" />
+<<<<<<< HEAD
                 <t t-set="tax_totals" t-value="o.tax_totals" />
                 <div class="page" style="overflow: hidden;">
                     <!--Customer Address-->
@@ -530,10 +534,132 @@
                                     </td>
                                 </tr>
                             </tbody>
+=======
+                <div class="page" style="overflow: hidden;">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <!--Customer Address-->
+                    <div id="customer address"
+                        t-attf-style="color:#{o.theme_id.customer_text_color}">
+                        <div class="row">
+                            <div style="width:50%;"
+                                t-attf-class="{{'ms-auto' if o.theme_id.customer_position == 'right' else ''}}">
+                                <div itemprop="address"
+                                    class="address">
+                                    <div>
+                                        <span>tester = </span><t t-esc="o"/>
+                                        <span t-field="o.partner_id"></span>
+                                        <span t-if="o.partner_id">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span t-if="o.partner_id.street">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id.street" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span t-if="o.partner_id.street2">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id.street2" />
+                                        </span>
+                                    </div>
+                                    <div t-if="o.theme_id.city">
+                                        <span t-if="o.partner_id.city">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id.city" />
+                                        </span>
+                                    </div>
+                                    <div t-if="o.theme_id.country">
+                                        <span t-if="o.partner_id.country_id">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id.country_id" />
+                                        </span>
+                                    </div>
+                                    <div t-if="o.theme_id.vat">
+                                        <span t-if="o.partner_id.vat">
+                                            <span
+                                                style="color:#{o.theme_id.customer_text_color} !important;"
+                                                t-field="o.partner_id.vat" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Product Table-->
+                    <div style="padding-top:20px;width:100%">
+                        <t t-set="display_discount"
+                            t-value="any([l.discount for l in o.invoice_line_ids])" />
+                        <!--Product Details-->
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <th class="text-start"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                </th>
+                                <th class="text-center"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Qty
+                                </th>
+                                <th class="text-center"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    UOM
+                                </th>
+                                <th class="text-end"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Unite Price<br/>(IDR)
+                                </th>
+                                <th class="text-center"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Term
+                                </th>
+                                <th class="text-end"
+                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Invoice Amount<br/>(IDR)
+                                </th>
+                            </tr>
+                            <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                <td class="text-start"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <!-- <span t-field="l.description" /> -->
+                                    <span t-field="l.debit" />
+                                </td>
+                                <td class="text-center"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <span t-field="l.quantity" />
+                                </td>
+                                <td class="text-center"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <!-- <span t-field="l.uom" /> -->
+                                </td>
+                                <td class="text-end"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <span t-field="l.price_unit" />
+                                </td>
+                                <td class="text-center"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <!-- <span t-field="l.term" /> -->
+                                </td>
+                                <td class="text-end"
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <!-- <span t-field="l.invoice_amount" /> -->
+                                </td>
+                            </tr>
+>>>>>>> 57519fef (add template invoice)
                         </table>
                         <!--Payment details-->
                         <div class="clearfix mb-4">
                             <div id="total" class="row">
+<<<<<<< HEAD
                                 <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
                                     <table class="table table-sm table-borderless" style="page-break-inside: avoid;">
                                      
@@ -625,13 +751,117 @@
      
                     <div t-attf-style="color:#{o.theme_id.text_color};"
                         class="col-12">
+=======
+                                <div
+                                    t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                    <table class="table table-sm table-borderless"
+                                        style="page-break-inside: avoid;">
+                                        <tbody>
+                                            <tr class="border-black o_subtotal" style="">
+                                                <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                <t t-foreach="tax_totals['subtotals']"
+                                                    t-as="subtotal">
+                                                    <tr class="border-black o_subtotal"
+                                                        t-attf-style="color:#{o.theme_id.text_color};">
+                                                        <td
+                                                            t-attf-style="color:#{o.theme_id.text_color};">
+                                                            <strong t-esc="subtotal['name']"
+                                                                t-attf-style="color:#{o.theme_id.text_color};" />
+                                                        </td>
+                                                        <td class="text-end"
+                                                            t-attf-style="color:#{o.theme_id.text_color};">
+                                                            <span
+                                                                t-att-class="oe_subtotal_footer_separator"
+                                                                t-attf-style="color:#{o.theme_id.text_color};"
+                                                                t-esc="subtotal['formatted_amount']" />
+                                                        </td>
+                                                    </tr>
+                                                    <t t-set="subtotal_to_show"
+                                                        t-value="subtotal['name']" />
+                                                    <t t-call="account.tax_groups_totals"
+                                                        t-attf-style="color:#{o.theme_id.text_color};" />
+                                                </t>
+                                            </tr>
+                                            <!--Total amount with all taxes-->
+                                            <tr class="border-black o_total">
+                                                <td>
+                                                    <strong
+                                                        t-attf-style="color:#{o.theme_id.customer_text_color}">
+                                                        Total</strong>
+                                                </td>
+                                                <td class="text-end">
+                                                    <span
+                                                        t-esc="tax_totals['formatted_amount_total']"
+                                                        t-attf-style="color:#{o.theme_id.customer_text_color}" />
+                                                </td>
+                                            </tr>
+                                            <!--Paid amount details-->
+                                            <t t-if="print_with_payments">
+                                                <t t-if="o.payment_state != 'invoicing_legacy'">
+                                                    <t t-set="payments_vals"
+                                                        t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []" />
+                                                    <t t-foreach="payments_vals" t-as="payment_vals">
+                                                        <tr>
+                                                            <td>
+                                                                <i
+                                                                    class="oe_form_field text-end oe_payment_label"
+                                                                    t-attf-style="color:#{o.theme_id.text_color}">Paid
+                                                                    on <t
+                                                                        t-esc="payment_vals['date']"
+                                                                        t-options='{"widget": "date"}'
+                                                                        t-attf-style="color:#{o.theme_id.text_color}" />
+                                                                </i>
+                                                            </td>
+                                                            <td class="text-end"
+                                                                t-attf-style="color:#{o.theme_id.text_color}">
+                                                                <span t-esc="payment_vals['amount']"
+                                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-if="len(payments_vals) > 0">
+                                                        <tr class="border-black o_total">
+                                                            <td>
+                                                                <strong
+                                                                    t-attf-style="color:#{o.theme_id.customer_text_color}">Amount
+                                                                    Due</strong>
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span t-field="o.amount_residual"
+                                                                    t-attf-style="color:#{o.theme_id.customer_text_color}" />
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div t-attf-style="color:#{o.theme_id.text_color};padding-top:10%;"
+                        class="col-12">
+                        <p t-if="not is_html_empty(o.narration)">
+                            <strong>Comment:</strong>
+                            <span t-field="o.narration" />
+                        </p>
+>>>>>>> 57519fef (add template invoice)
                         <p t-if="o.fiscal_position_id.note">
                             <strong>Fiscal Position Remark:</strong>
                             <span t-field="o.fiscal_position_id.note" />
                         </p>
                         <p t-if="o.move_type in ('out_invoice','in_refund')"> Please use the
                             following communication for your payment : <b>
+<<<<<<< HEAD
                                 <span t-field="o.name" />
+=======
+                                <span t-field="o.payment_reference" />
+>>>>>>> 57519fef (add template invoice)
                             </b>
                         </p>
                         <p t-if="o.invoice_payment_term_id" name="payment_term">
@@ -640,6 +870,15 @@
                         <p t-if="o.fiscal_position_id.note" name="note">
                             <span t-field="o.fiscal_position_id.note" />
                         </p>
+<<<<<<< HEAD
+=======
+                        <t t-if="o.company_id.country_id.code == 'IN'">
+                            <p id="total_in_words" class="mb16">
+                                <strong>Total (In Words):</strong>
+                                <span t-field="o.amount_total_words" />
+                            </p>
+                        </t>
+>>>>>>> 57519fef (add template invoice)
                         <div id="qrcode"
                             t-if="(o.company_id.qr_code) and (o.currency_id.name == 'EUR') and (o.invoice_partner_bank_id.acc_number != False)">
                             <p t-if="(o.invoice_partner_bank_id.qr_code_valid)">
@@ -657,6 +896,7 @@
                             </p>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <xpath expr="//p[@name='payment_communication']" position="after">
                         <div class="row mt-4 mb-4 ml-5" id="sincerely">
                             
@@ -704,6 +944,10 @@
            
             </t>
           
+=======
+                </div>
+            </t>
+>>>>>>> 57519fef (add template invoice)
         </template>
     </data>
 </odoo>
