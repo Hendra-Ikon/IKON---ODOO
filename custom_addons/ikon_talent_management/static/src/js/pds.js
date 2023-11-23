@@ -1,89 +1,115 @@
-odoo.define('ikon_talent_management.pds', ['web.core', 'web.Dialog', 'web.ajax', 'web.Widget'], function (require) {
+odoo.define('your_module_name.my_script', function (require) {
     "use strict";
 
-    var ajax = require('web.ajax');
     var core = require('web.core');
-    var Widget = require('web.Widget');
     var Dialog = require('web.Dialog');
+    var rpc = require('web.rpc');
 
+    console.log("***************************")
     var _t = core._t;
 
-    var PopupWidget = Widget.extend({
-        start: function () {
-            var self = this;
+    core.bus.on('model.hr.applicant', this, function (ev) {
+        console.log("Event triggered:", ev);
 
-            // Create a simple dialog
-            var dialog = new Dialog(self, {
-                title: _t("Popup Title"),
-                size: 'medium',
-                buttons: [
-                    {text: _t("Close"), classes: 'btn-secondary', close: true},
-                ],
+        // Handle changes in the "hr.applicant" model
+        var changedRecordIds = ev.data.ids;
+
+        // Check if the changed records include the desired record(s) based on your logic
+        // For example, you may want to check if a specific field like "stage_id" has changed
+        alert("Before rpc.query");
+        console.log(">>>>>>>>>><<<<<<<<<<<<<")
+        rpc.query({
+            model: 'hr.applicant',
+            method: 'search_read',
+            args: [changedRecordIds, ['stage_id']],
+        }).then(function (records) {
+            alert("Inside rpc.query callback");
+            var recordsWithStageChange = records.filter(function (record) {
+                // Customize this condition based on your logic
+                let desiredStageId = "PDS Submission";
+                return record.stage_id && record.stage_id[0] === desiredStageId;
             });
 
-            // Add content to the dialog
-            dialog.$el.append($('<div>', {class: 'popup-content'}).text("This is the content of your popup."));
+            if (recordsWithStageChange.length > 0) {
+                // Perform actions or trigger the dialog as needed
+                console.log("STAGE CHANGES")
 
-            // Show the dialog
-            dialog.open();
-
-            return this._super.apply(this, arguments);
-        },
+                showDialog();
+            }
+        });
     });
 
-    core.addons['web.Dialog'] = Dialog;
-    core.addons['web.Widget'] = Widget;
+    function showDialog() {
+        var dialog = new Dialog(this, {
+            title: _t('My Dialog Title'),
+            size: 'medium',
+            buttons: [
+                {text: _t('OK'), classes: 'btn-primary', click: _onOK, close: true},
+                {text: _t('Close'), classes: 'btn-secondary', close: true},
+            ],
+            $content: $('<div>').text(_t('Dialog content goes here.')),
+        });
 
-    core.action_registry.add('ikon_talent_management.pds', PopupWidget);
+        dialog.open();
+    }
 
-    return PopupWidget;
+    function _onOK() {
+        // Handle OK button click
+        console.log("OK button clicked!");
+        // Add your custom logic here
+    }
 });
 
-// odoo.define('ikon_talent_management.pds', function (require) {
+
+// odoo.define('your_module_name.my_script', function (require) {
 //     "use strict";
 //
+//     var publicWidget = require('web.public.widget');
 //     var core = require('web.core');
-//     var Widget = require('web.Widget');
 //     var Dialog = require('web.Dialog');
 //
-//     var PdsPopup = Widget.extend({
-//         events: {
-//             'click .show-modal-button': '_onShowModalClick',
-//         },
+//     var _t = core._t;
 //
-//         init: function (parent, options) {
-//             this._super.apply(this, arguments);
-//             this.appendTo = options.appendTo || 'body';
-//         },
+//     publicWidget.registry.my_script = publicWidget.Widget.extend({
+//         selector: '.my-script-selector',
 //
 //         start: function () {
-//             this.$el.appendTo(this.appendTo);
-//             return this._super.apply(this, arguments);
+//             console.log("**** UWUW ****")
+//             this.$el.on('click', this._onClick.bind(this));
 //         },
 //
-//         _onShowModalClick: function () {
-//             var modalContent = `
-//                 <div class="modal-content">
-//                     <span class="close-modal">&times;</span>
-//                     <p>This is your popup modal content.</p>
-//                 </div>
-//             `;
+//         _onClick: function () {
+//             this.showDialog();
+//         },
 //
-//             Dialog.alert(this, modalContent, {
-//                 title: 'Popup Modal',
+//
+//         showDialog: function () {
+//             var self = this;
+//
+//             var dialog = new Dialog(this, {
+//                 title: _t('My Dialog Title'),
+//                 size: 'medium',
 //                 buttons: [
-//                     { text: core._t('Close'), close: true, click: function () {} },
+//                     {text: _t('OK'), classes: 'btn-primary', click: this._onOK.bind(this), close: true},
+//                     {text: _t('Close'), classes: 'btn-secondary', close: true},
 //                 ],
+//                 $content: $('<div>').text(_t('Dialog content goes here.')),
 //             });
+//
+//             dialog.open();
+//         },
+//
+//
+//
+//         _onOK: function () {
+//             // Handle OK button click
+//             console.log("OK button clicked!");
+//             // Add your custom logic here
 //         },
 //     });
 //
-//     core.action_registry.add('ikon_talent_management.pds', PdsPopup);
-//
-//      return {
-//         PdsPopup: PdsPopup,
-//         Dialog: Dialog, // Add this line to declare the dependency
-//         core: core,
-//         Widget: Widget,
-//     };
+//     return publicWidget.registry.my_script;
 // });
+//
+// //
+// //

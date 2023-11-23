@@ -15,6 +15,8 @@ class AppliedJob(models.Model):
                 applicant.applied_jobs = [(6, 0, [applicant.job_id.id])]
             else:
                 applicant.applied_jobs = [(5, 0, 0)]  # Clear the Many2many field if no job is selected
+
+
 class CustomJobDescription(models.Model):
     _inherit = "hr.job"
 
