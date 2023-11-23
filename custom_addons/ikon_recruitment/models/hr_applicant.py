@@ -1,4 +1,5 @@
-from odoo import api, models, fields
+from odoo import api, models, fields, exceptions
+
 
 class HrApplicant(models.Model):
     _inherit = "hr.applicant"
@@ -30,6 +31,13 @@ class HrApplicant(models.Model):
     fresh_grad = fields.Boolean(string="Fresh Graduate")
     experience_ids = fields.One2many('hr.experience', 'applicant_id' ,string="Experience")
     result = fields.Char('Result')
+
+    @api.constrains('email_from')
+    def _check_duplicate_email(self):
+        for applicant in self:
+            domain = [('id', '!=', applicant.id), ('email_from', '=', applicant.email_from)]
+            if self.search_count(domain) > 0:
+                raise exceptions.ValidationError("An applicant with this email already exists.")
 
     # PDS MODEL
 
