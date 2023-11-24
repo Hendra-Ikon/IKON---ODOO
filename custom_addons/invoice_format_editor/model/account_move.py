@@ -28,18 +28,11 @@ class TemplateInvoice(models.Model):
     a relational field to doc layout model"""
     _inherit = 'account.move'
 
-<<<<<<< HEAD
     base_layout = fields.Selection(selection=[
-=======
-    base_layout = fields.Selection(selection=[('default', 'Default'),
-                                              ('modern', 'Modern'),
-                                              ('normal', 'Normal'),
->>>>>>> 57519fef (add template invoice)
                                               ('old', 'Old Standard'),
                                               ('fif', 'Fif'),
                                               ('stp', 'Solusi Tunas Pratama'),
                                               ('btpn', 'BTPN'),
-<<<<<<< HEAD
                                               ('bciv1', 'Bank Commonwealth Indonesia V1'),
                                               ('bciv2', 'Bank Commonwealth Indonesia V2'),
                                               ('bbs', 'Basis Bay Singapore'),
@@ -48,9 +41,6 @@ class TemplateInvoice(models.Model):
                                               ('bni','BNI'),
                                               ('aia','AIA'),
                                               ('lps','Licences / Product Sales')],
-=======
-                                              ('bciv1', 'Bank Commonwealth Indonesia V1')],
->>>>>>> 57519fef (add template invoice)
                                    required=True,
                                    string="Invoice Document Layout",
                                    default="default")

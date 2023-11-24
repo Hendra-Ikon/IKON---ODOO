@@ -43,7 +43,6 @@
              'reports/report_invoice_templates.xml',
              'reports/preview_layout_report_templates.xml',
              'reports/fif_invoice_templates.xml',
-<<<<<<< HEAD
              'reports/stp_invoice_templates.xml',
              'reports/btpn_invoice_templates.xml',
              'reports/bci_v1_invoice_templates.xml',
@@ -54,19 +53,12 @@
              'reports/bni_invoice_templates.xml',
              'reports/aia_invoice_templates.xml',
              'reports/lps_invoice_templates.xml',
-=======
->>>>>>> 57519fef (add template invoice)
              'preview_templates/normal_preview_templates.xml',
              'preview_templates/modern_preview_templates.xml',
              'preview_templates/fif_preview_templates.xml',
              'preview_templates/stp_preview_templates.xml',
              'preview_templates/btpn_preview_templates.xml',
              'preview_templates/bci_v1_preview_templates.xml',
-<<<<<<< HEAD
-=======
-
-             'views/custom_invoice.xml',
->>>>>>> 57519fef (add template invoice)
              ],
     'license': 'AGPL-3',
     'installable': True,
