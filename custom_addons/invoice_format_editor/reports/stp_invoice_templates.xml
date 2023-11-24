@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--modern Template View-->
-        <template id="custom_template_report_invoice_fif">
+        <template id="custom_template_report_invoice_stp">
             <!--External layout template-->
             <t t-call="web.external_layout">
                 <!--Invoice Reference-->
@@ -94,27 +94,27 @@
                                 <tr>
                                     <th class="text-start"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Description
+                                        Item ID
+                                    </th>
+                                    <th class="text-center"
+                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                        Item Description
+                                    </th>
+                                    <th class="text-center"
+                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                        Period
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Qty
                                     </th>
-                                    <th class="text-center"
+                                    <th class="text-end"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        UOM
+                                        Monthly Rate<br/>(IDR)
                                     </th>
                                     <th class="text-end"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Unite Price<br/>(IDR)
-                                    </th>
-                                    <th class="text-center"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Term
-                                    </th>
-                                    <th class="text-end"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Invoice Amount<br/>(IDR)
+                                        Amount<br/>(IDR)
                                     </th>
                                 </tr>
                             </thead>
@@ -122,19 +122,19 @@
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td class="text-start"
                                         t-attf-style="color:#{o.theme_id.text_color};">
+                                        <span t-field="l.item_id" />
+                                    </td>
+                                    <td class="text-center"
+                                        t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.item_description" />
                                     </td>
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.quantity" />
-                                    </td>
-                                    <td class="text-center"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.product_uom_id" />
+                                        <span t-field="l.period" />
                                     </td>
                                     <td class="text-end"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.price_unit" />
+                                        <span t-field="l.quantity" />
                                     </td>
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">

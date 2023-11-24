@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--modern Template View-->
-        <template id="custom_template_report_invoice_fif">
+        <template id="custom_template_report_invoice_bbs">
             <!--External layout template-->
             <t t-call="web.external_layout">
                 <!--Invoice Reference-->
@@ -57,11 +57,11 @@
                                 <td class="text-center" style="width:5%"><span>:</span></td>
                                 <td class="text-start"><span style="font-weight:bold" t-field="o.name"/></td>
                             </tr>
-                            <!-- <tr t-attf-style="background-color: white">
+                            <tr t-attf-style="background-color: white">
                                 <td class="text-start" style="width:25%"><span>PO No.</span></td>
                                 <td class="text-center" style="width:5%"><span>:</span></td>
                                 <td class="text-start"><span style="font-weight:bold">370-0000011026</span> dated <span style="font-weight:bold">21-Aug-2023</span></td>
-                            </tr> -->
+                            </tr>
                             <tr t-attf-style="background-color: white" t-if="o.invoice_date_due">
                                 <td class="text-start" style="width:25%"><span>Due date</span></td>
                                 <td class="text-center" style="width:5%"><span>:</span></td>
@@ -72,73 +72,51 @@
                                 <td class="text-center" style="width:5%"><span>:</span></td>
                                 <td class="text-start"><span style="font-weight:bold" t-field="o.payment_for"/></td>
                             </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.attention">
-                                <td class="text-start" style="width:25%"><span>Attention</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.attention"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.invoice_date">
-                                <td class="text-start" style="width:25%"><span>Invoice Date</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.invoice_date"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.payment_reference">
-                                <td class="text-start" style="width:25%"><span>Payment Reference</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_reference"/></td>
-                            </tr>
                         </table>
                         <!--Product Details-->
                         <table class="table table-sm o_main_table table-borderless" name ="invoice_line_table">
                             <thead>
                                 <tr>
-                                    <th class="text-start"
+                                    <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Description
+                                        NO
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Qty
+                                        SERVICES
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        UOM
-                                    </th>
-                                    <th class="text-end"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Unite Price<br/>(IDR)
+                                        Unit
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Term
+                                        RATE
                                     </th>
-                                    <th class="text-end"
+                                    <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Invoice Amount<br/>(IDR)
+                                        TOTAL
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                    <td class="text-start"
+                                    <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.item_description" />
+                                        <t t-set="index" t-value="1" t-foreach="o.invoice_line_ids" t-as="dummy"/>
+                                        <span t-esc="index"/>
                                     </td>
                                     <td class="text-center"
+                                        t-attf-style="color:#{o.theme_id.text_color};">
+                                        <span t-field="l.product_id" />
+                                    </td>
+                                    <td class="text-end"
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.quantity" />
-                                    </td>
-                                    <td class="text-center"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.product_uom_id" />
                                     </td>
                                     <td class="text-end"
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.price_unit" />
-                                    </td>
-                                    <td class="text-center"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <!-- <span t-field="l." /> -->
                                     </td>
                                     <td class="text-end"
                                         t-attf-style="color:#{o.theme_id.text_color};">

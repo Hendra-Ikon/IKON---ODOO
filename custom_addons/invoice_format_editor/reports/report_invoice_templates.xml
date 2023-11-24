@@ -23,6 +23,46 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_fif"
                                t-lang="o.partner_id.lang"/>
                         </t>
+                        <t t-if="o.company_id.base_layout == 'stp'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_stp"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'btpn'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_btpn"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bciv1'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bci_v1"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bciv2'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bci_v2"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bbs'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bbs"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'dkatalis'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_dkatalis"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'mandiri'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_mandiri"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bni'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bni"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'aia'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_aia"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'lps'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_lps"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
                         <t t-if="o.company_id.base_layout == 'default'">
                             <t t-call="account.report_invoice_document"
                                t-lang="o.partner_id.lang"/>
@@ -57,6 +97,46 @@
                         </t>
                         <t t-if="o.company_id.base_layout == 'fif'">
                             <t t-call="invoice_format_editor.custom_template_report_invoice_fif"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'stp'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_stp"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'btpn'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_btpn"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bciv1'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bci_v1"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bciv2'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bci_v2"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bbs'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bbs"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'dkatalis'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_dkatalis"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'mandiri'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_mandiri"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'bni'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_bni"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'aia'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_aia"
+                               t-lang="o.partner_id.lang"/>
+                        </t>
+                        <t t-if="o.company_id.base_layout == 'lps'">
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_lps"
                                t-lang="o.partner_id.lang"/>
                         </t>
                         <t t-if="o.company_id.base_layout == 'default'">
