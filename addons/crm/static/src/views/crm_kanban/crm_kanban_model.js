@@ -32,8 +32,10 @@ export class CrmKanbanDynamicGroupList extends CrmKanbanModel.DynamicGroupList {
      * a rainbowman message if that's the case.
      */
     async moveRecord(dataRecordId, dataGroupId, refId, targetGroupId) {
+
         const succeeded = await super.moveRecord(...arguments);
         if (!succeeded) {
+            console.log("Kanban Moveeeeeeedddd")
             return;
         }
         const sourceGroup = this.groups.find((g) => g.id === dataGroupId);
@@ -44,6 +46,7 @@ export class CrmKanbanDynamicGroupList extends CrmKanbanModel.DynamicGroupList {
             targetGroup &&
             sourceGroup.groupByField.name === "stage_id"
         ) {
+            console.log("Horeeee")
             const record = targetGroup.list.records.find((r) => r.id === dataRecordId);
             await checkRainbowmanMessage(this.model.ormService, this.model.effect, record.resId);
         }

@@ -140,6 +140,7 @@ publicWidget.registry.crmPartnerAssign = publicWidget.Widget.extend({
      * @returns {Promise}
      */
     _editOpportunity: function () {
+        console.log("Masuk CRM Lead Kanban");
         return this._rpc({
             model: 'crm.lead',
             method: 'update_lead_portal',

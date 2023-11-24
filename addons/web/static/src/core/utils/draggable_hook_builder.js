@@ -268,6 +268,7 @@ export function makeDraggableHook(hookParams = {}) {
              */
             const dragStart = () => {
                 state.dragging = true;
+                console.log("Drag start begins");
 
                 // Compute scrollable parent
                 [ctx.currentScrollParentX, ctx.currentScrollParentY] = getScrollParents(
@@ -329,6 +330,7 @@ export function makeDraggableHook(hookParams = {}) {
              */
             const dragEnd = (cancelled, inErrorState) => {
                 if (state.dragging) {
+                    alert("Are you sure")
                     if (!inErrorState) {
                         execBuildHandler("onDragEnd");
                         if (!cancelled) {
