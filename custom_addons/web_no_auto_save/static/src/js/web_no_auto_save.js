@@ -49,28 +49,28 @@ const listSetup = function () {
 };
 ListController.prototype.setup = listSetup;
 
-// Function to handle auto-save disabling for Kanban views
-const originalKanbanSetup = KanbanController.prototype.setup;
-
-const kanbanSetup = function () {
-    useSetupView({
-        beforeLeave: () => {
-            const kanban = this.model.root;
-            const editedRecord = kanban.editedRecord;
-            console.log("editedRecord", editedRecord);
-            if (editedRecord && editedRecord.isDirty) {
-                if (confirm("Do you want to save changes Automatically?")) {
-                    // Handle saving logic for Kanban view
-                    // Add your specific logic here
-                } else {
-                    this.onClickDiscard();
-                    return true;
-                }
-            }
-        },
-    });
-    originalKanbanSetup.apply(this, arguments);
-};
-
-KanbanController.prototype.setup = kanbanSetup;
+// // Function to handle auto-save disabling for Kanban views
+// const originalKanbanSetup = KanbanController.prototype.setup;
+//
+// const kanbanSetup = function () {
+//     useSetupView({
+//         beforeLeave: () => {
+//             const kanban = this.model.root;
+//             const editedRecord = kanban.editedRecord;
+//             console.log("editedRecord", editedRecord);
+//             if (editedRecord && editedRecord.isDirty) {
+//                 if (confirm("Do you want to save changes Automatically?")) {
+//                     // Handle saving logic for Kanban view
+//                     // Add your specific logic here
+//                 } else {
+//                     this.onClickDiscard();
+//                     return true;
+//                 }
+//             }
+//         },
+//     });
+//     originalKanbanSetup.apply(this, arguments);
+// };
+//
+// KanbanController.prototype.setup = kanbanSetup;
 
