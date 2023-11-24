@@ -1,18 +1,14 @@
 /** @odoo-module **/
-import {useSetupView} from "@web/views/view_hook";
-import {FormController} from "@web/views/form/form_controller";
-import {ListController} from "@web/views/list/list_controller";
-import {FormStatusIndicator} from "@web/views/form/form_status_indicator/form_status_indicator";
+import { useSetupView } from "@web/views/view_hook";
+import { FormController } from "@web/views/form/form_controller";
+import { ListController } from "@web/views/list/list_controller";
+import { KanbanController } from "@web/views/kanban/kanban_controller";
+import { FormStatusIndicator } from "@web/views/form/form_status_indicator/form_status_indicator";
 
-const {useRef, toRaw} = owl;
+const { useRef } = owl;
 
-const oldSetup = FormController.prototype.setup;
-const oldonPagerUpdated = FormController.prototype.onPagerUpdate;
-console.log("web_no_auto_save loaded");
-
-const Formsetup = function () {
-    console.log("setup from CIUSTOM");
-
+// Function to handle auto-save disabling for Form views
+const formSetup = function () {
     const rootRef = useRef("root");
     useSetupView({
         beforeLeave: () => {
@@ -23,36 +19,13 @@ const Formsetup = function () {
             }
         },
     });
-    const result = oldSetup.apply(this, arguments);
-
+    const result = FormController.prototype.setup.apply(this, arguments);
     return result;
 };
-FormController.prototype.setup = Formsetup;
+FormController.prototype.setup = formSetup;
 
-const onPagerUpdate = await function () {
-    this.model.root.askChanges();
-
-    if (this.model.root.isDirty) {
-        console.log("leaving without saving..")
-        // if (confirm("Do you want to save changes Automatically?")) {
-        //     return oldonPagerUpdated.apply(this, arguments);
-        // }
-        this.discard();
-        return true;
-    }
-    return oldonPagerUpdated.apply(this, arguments);
-};
-
-//assign setup to FormController
-
-FormController.prototype.onPagerUpdate = onPagerUpdate;
-
-// FormStatusIndicator.template = 'web_no_auto_save.FormStatusIndicator';
-
-const ListSuper = ListController.prototype.setup;
-const Listsetup = function () {
-    console.log("setup from List CIUSTOM");
-
+// Function to handle auto-save disabling for List views
+const listSetup = function () {
     useSetupView({
         rootRef: this.rootRef,
         beforeLeave: () => {
@@ -71,7 +44,33 @@ const Listsetup = function () {
             }
         },
     });
-    const result = ListSuper.apply(this, arguments);
+    const result = ListController.prototype.setup.apply(this, arguments);
     return result;
 };
-ListController.prototype.setup = Listsetup;
+ListController.prototype.setup = listSetup;
+
+// Function to handle auto-save disabling for Kanban views
+const originalKanbanSetup = KanbanController.prototype.setup;
+
+const kanbanSetup = function () {
+    useSetupView({
+        beforeLeave: () => {
+            const kanban = this.model.root;
+            const editedRecord = kanban.editedRecord;
+            console.log("editedRecord", editedRecord);
+            if (editedRecord && editedRecord.isDirty) {
+                if (confirm("Do you want to save changes Automatically?")) {
+                    // Handle saving logic for Kanban view
+                    // Add your specific logic here
+                } else {
+                    this.onClickDiscard();
+                    return true;
+                }
+            }
+        },
+    });
+    originalKanbanSetup.apply(this, arguments);
+};
+
+KanbanController.prototype.setup = kanbanSetup;
+

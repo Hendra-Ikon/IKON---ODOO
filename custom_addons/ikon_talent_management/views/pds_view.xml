@@ -10,27 +10,47 @@
             <t t-call="ikon_talent_management.nonformal_education_section"/>
             <t t-call="ikon_talent_management.language_section"/>
             <t t-call="ikon_talent_management.work_section"/>
-<!--            <t t-call="ikon_talent_management.success_notif"/>-->
+            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>
+            <button class="btn btn-primary ms-2" t-on-click="showDialog">Dialog Service</button>
+            <button class="btn btn-primary ms-2" t-on-click="showEffect">Effect Service</button>
+            <!--            <t t-call="ikon_talent_management.success_notif"/>-->
             <!--            <button class="o_popup_close_btn">Show Modal</button>-->
+            <!--            <button t-on-click="widget.openAlert()">Open Alert</button>-->
         </t>
         <!--        <t t-call="ikon_talent_management.pds_popup_template"/>-->
-        <script type="text/javascript" src="/ikon_talent_management/static/src/js/pds.js" defer="true"></script>
+        <!--                <script type="text/javascript" src="/ikon_talent_management/static/src/js/pds.js" defer="true"></script>-->
+        <!-- The Modal -->
+
+
     </template>
+    <!-- your_module_name.xml -->
+
+    <!--    <template id="ikon_talent_management.pds">-->
+    <!--        <div class="o_web_client">-->
+    <!--            <MyScript/>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash;        <div>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            &lt;!&ndash; Your component content here &ndash;&gt;&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;        <button type="button" class="btn btn-primary my-script-selector">Click me</button>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+    <!--    </template>-->
+
 
     <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li t-if="page_name == 'pds_data'" class="breadcrumb-item">PDS Data</li>
         </xpath>
     </template>
-<!--    <template id="success_notif">-->
-<!--        <t t-if="open_modal == 'True'">-->
-<!--            <div class="alert alert-success">-->
-<!--                <strong>Success!</strong>-->
-<!--                Certification created successfully.-->
-<!--            </div>-->
-<!--            <t t-esc="open_modal"/>-->
-<!--        </t>-->
-<!--    </template>-->
+    <!--    <template id="success_notif">-->
+    <!--        <t t-if="open_modal == 'True'">-->
+    <!--            <div class="alert alert-success">-->
+    <!--                <strong>Success!</strong>-->
+    <!--                Certification created successfully.-->
+    <!--            </div>-->
+    <!--            <t t-esc="open_modal"/>-->
+    <!--        </t>-->
+    <!--    </template>-->
 
     <template id="personal_record">
         <div class="accordion" id="pdsAccordion">
@@ -460,7 +480,8 @@
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-sm btn-danger"
-                                                               t-att-href="'/delete_nonfromedu/' + str(edu['id'])">Delete
+                                                               t-att-href="'/delete_nonfromedu/' + str(edu['id'])">
+                                                                Delete
                                                             </a>
                                                         </td>
 

@@ -443,8 +443,10 @@ export class ListController extends Component {
         const root = this.model.root;
         const body =
             root.isDomainSelected || root.selection.length > 1
-                ? this.env._t("Are you sure you want to delete these records?")
-                : this.env._t("Are you sure you want to delete this record?");
+                // ? this.env._t("Are you sure you want to delete these records?")
+                // : this.env._t("Are you sure you want to delete this record?");
+                ? this.env._t("Yaquin nuih mau dihapius?")
+                : this.env._t("Yaquin nuih mau dihapius?");
         return {
             body,
             confirm: async () => {

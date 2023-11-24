@@ -1,4 +1,6 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
 
 class CrmPartner(models.Model):
     _inherit = "res.partner"
@@ -25,3 +27,10 @@ class CrmPartner(models.Model):
             'self' : self.id
         }
         return action
+
+    @api.constrains('email')
+    def _check_duplicate_email(self):
+        for partner in self:
+            domain = [('id', '!=', partner.id), ('email', '=', partner.email)]
+            if self.search_count(domain) > 0:
+                raise ValidationError("A contact with this email already exists.")
