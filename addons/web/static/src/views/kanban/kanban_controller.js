@@ -63,6 +63,7 @@ export class KanbanController extends Component {
                     limit: limit,
                     total: count,
                     onUpdate: async ({ offset, limit }) => {
+                        console.log("Helooo On Update")
                         this.model.root.offset = offset;
                         this.model.root.limit = limit;
                         await this.model.root.load();

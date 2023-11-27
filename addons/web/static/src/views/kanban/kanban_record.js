@@ -305,6 +305,7 @@ export class KanbanRecord extends Component {
                     });
                 } else {
                     // static list case
+                    console.log("WADAWW")
                     listOrGroup.removeRecord(record);
                 }
                 return;

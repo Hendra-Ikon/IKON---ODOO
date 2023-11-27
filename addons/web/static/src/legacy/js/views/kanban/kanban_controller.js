@@ -300,6 +300,7 @@ odoo.define('web.KanbanController', function (require) {
         // },
 
         _onAddRecordToColumn: function (ev) {
+            console.log("TEST")
             var self = this;
             var record = ev.data.record;
             var column = ev.target;
