@@ -77,6 +77,37 @@ class CrmSaleInvoice(models.TransientModel):
         for line in self:
             if line.advance_plan_payment_method:
                 line.advance_payment_method = line.advance_plan_payment_method
+            if line.advance_plan_payment_method == 'monthly' and line.monthly_payment_duration:
+                total_amount = line.sale_order_id.amount_total
+                monthly_amount = total_amount / int(line.monthly_payment_duration)
+                line.amount = monthly_amount
+                line.fixed_amount = 0
+                print(total_amount)
+
+                logger.info("Total Amount: %s", total_amount)
+                logger.info("Monthly Amount: %s", monthly_amount)
+            # if line.advance_plan_payment_method == 'monthly' and line.monthly_payment_duration:
+            #     total_amount = line.sale_order_id.amount_total
+            #     monthly_amount = total_amount / int(line.monthly_payment_duration)
+            #     line.advance_payment_method = monthly_amount
+
+    def _get_down_payment_amount(self, order):
+        self.ensure_one()
+        if self.advance_payment_method == 'percentage':
+            untaxed_amount = order.amount_untaxed
+            advance_product_taxes = self.product_id.taxes_id.filtered(lambda tax: tax.company_id == order.company_id)
+            if all(order.fiscal_position_id.map_tax(advance_product_taxes).mapped('price_include')):
+                amount = untaxed_amount * self.amount / 100
+            else:
+                amount = untaxed_amount * self.amount / (1 + sum(advance_product_taxes.mapped('amount')) / 100)
+        elif self.advance_payment_method == 'monthly':
+            total_amount = order.amount_total
+            monthly_amount = total_amount / int(self.monthly_payment_duration)
+            amount = monthly_amount
+        else:
+            amount = 0.0
+
+        return amount
 
 # from odoo import models, fields, _, api
 # from odoo.fields import Command
