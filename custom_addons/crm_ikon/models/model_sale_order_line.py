@@ -117,23 +117,23 @@ class SaleOrderLine(models.Model):
             if float_compare(product_uom_qty, line.product_uom_qty, precision_rounding=line.product_uom.rounding) != 0:
                 line.product_uom_qty = product_uom_qty
     
-    # @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id', 'monthly_rate')
-    # def _compute_amount(self):
-    #     """
-    #     Compute the amounts of the SO line.
-    #     """
-    #     for line in self:
-    #         tax_results = self.env['account.tax']._compute_taxes([line._convert_to_tax_base_line_dict()])
-    #         totals = list(tax_results['totals'].values())[0]
-    #         amount_untaxed = totals['amount_untaxed']
-    #         amount_tax = totals['amount_tax']
+    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
+    def _compute_amount(self):
+        """
+        Compute the amounts of the SO line.
+        """
+        for line in self:
+            tax_results = self.env['account.tax']._compute_taxes([line._convert_to_tax_base_line_dict()])
+            totals = list(tax_results['totals'].values())[0]
+            amount_untaxed = totals['amount_untaxed']
+            amount_tax = totals['amount_tax']
         
 
-    #         line.update({
-    #             'price_subtotal': amount_untaxed,
-    #             'price_tax': amount_tax,
-    #             'price_total': amount_untaxed + amount_tax,
-    #         })
+            line.update({
+                'price_subtotal': amount_untaxed,
+                'price_tax': amount_tax,
+                'price_total': amount_untaxed + amount_tax,
+            })
     # @api.depends('monthly_rate', 'product_uom_qty','price_subtotal','tax_id','price_total','order_id')
     # def _compute_monthly_rate(self):      
     #     for line in self:

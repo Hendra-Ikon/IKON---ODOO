@@ -6,7 +6,12 @@ logger = logging.getLogger(__name__)
 class CrmAccountMoveLine(models.Model):
     _inherit = "account.move.line"
     
-    
+    product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Service',
+        inverse='_inverse_product_id',
+        ondelete='restrict',
+    )
     price_unit = fields.Float(
         string='Unit Price',
         compute="_compute_price_unit", store=True, readonly=False, precompute=True,

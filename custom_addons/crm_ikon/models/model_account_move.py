@@ -12,9 +12,20 @@ class CrmAccountMove(models.Model):
 
     attention = fields.Char(string="Attention")
     inv_no = fields.Char(string='Invoice No.')
-    pph = fields.Float(string='PPH Invoice', default=0.00)
-    pph_price = fields.Float(compute="_compute_pph_price", default=0.00)
+    # pph = fields.Float(string='PPH Invoice', default=0.00)
+    # pph_price = fields.Float(compute="_compute_pph_price", default=0.00)
     in_word = fields.Char(string="In Word", compute="_compute_in_word", store=True)
+    
+    project_name = fields.Char(string="Project Name")
+    po_no = fields.Char(string="PO No.")
+    po_date = fields.Date(string="PO. Date")
+    payment_for = fields.Char(string="Payment For")
+    period = fields.Date(string="Period")
+    payment_for_service = fields.Char(string="Payment For Service")
+    spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',False)]")
+    agreement_no = fields.Char(string="Agreement No")
+    spk_no = fields.Char(string="SPK No")
+    month = fields.Date(string="Month")
 
     @api.depends('amount_total')
     def _compute_in_word(self):
@@ -22,9 +33,7 @@ class CrmAccountMove(models.Model):
         for record in self:
             if record.amount_total:
                 amount_in_words = p.number_to_words(record.amount_total)
-                
                 amount_in_words = amount_in_words.replace(" and", "").replace(" point zero", " Rupiah")
-                logger.info("1", amount_in_words)
                 record.in_word = amount_in_words
     state = fields.Selection(
         selection=[
@@ -39,6 +48,16 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
         default='draft',
+    )
+    amount_untaxed = fields.Monetary(
+        string='Amount before Taxes',
+        compute='_compute_amount', store=True, readonly=True,
+        tracking=True,
+    )
+    amount_total = fields.Monetary(
+        string='Amount After Taxes',
+        compute='_compute_amount', store=True, readonly=True,
+        inverse='_inverse_amount_total',
     )
 
     hide_post_button = fields.Boolean(compute='_compute_hide_post_button', readonly=True, default=True)
@@ -76,10 +95,10 @@ class CrmAccountMove(models.Model):
 
 
 
-    @api.depends('pph', 'amount_total')
-    def _compute_pph_price(self):
-        for rec in self:
-            rec.pph_price = -1 * (rec.pph * 0.01 * rec.amount_total)
+    # @api.depends('pph', 'amount_total')
+    # def _compute_pph_price(self):
+    #     for rec in self:
+    #         rec.pph_price = -1 * (rec.pph * 0.01 * rec.amount_total)
 
     @api.depends(
         'invoice_line_ids.currency_rate',
@@ -155,7 +174,7 @@ class CrmAccountMove(models.Model):
                 move.tax_totals = self.env['account.tax']._prepare_tax_totals(**kwargs)
                 tax_totals = move.tax_totals
 
-                tax_totals['amount_total'] = tax_totals['amount_total'] + move.pph_price
+                tax_totals['amount_total'] = tax_totals['amount_total']
                 tax_totals['formatted_amount_total'] = formatLang(self.env, tax_totals['amount_total'], currency_obj=move.currency_id)
                 if move.invoice_cash_rounding_id:
                     rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id, move.tax_totals['amount_total'])

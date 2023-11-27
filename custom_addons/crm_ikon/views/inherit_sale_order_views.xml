@@ -91,21 +91,22 @@
                 <field name="attention" />
             </xpath>
             <xpath expr="//field[@name='attention']" position="after">
-                <field name="po_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="period" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
+                <field name="po_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="period" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
 
                
                 
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="agreement_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="spk_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
-                <field name="month" widget="date" class="oe_inline" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}"/>
-                <field name="spv" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" />
+                <field name="agreement_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="spk_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="month" widget="date" class="oe_inline" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                <field name="spv" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
             </xpath>
+            
         </field>
     </record>
 
@@ -122,5 +123,8 @@
             </xpath>
         </field>
     </record>
+
+
+    
 
 </odoo>

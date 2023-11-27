@@ -78,11 +78,11 @@ class AddDocumentTemplate(models.Model):
     payment_for = fields.Boolean(string='Payment For',default=True,
                                   help="Payment For")
     
-    # project_name = fields.Boolean(string="Project Name")
+    project_name = fields.Boolean(string="Project Name")
     # po_fif_no = fields.Boolean(string="PO No.")
-    # po_date = fields.Boolean(string="PO. Date")
+    po_date = fields.Date(string="PO. Date")
     
-    po_no = fields.Boolean(string="PO No.")
+    po_no = fields.Date(string="PO No.")
 
     period = fields.Boolean(string="Period")
 

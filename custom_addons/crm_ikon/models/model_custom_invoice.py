@@ -31,8 +31,8 @@ class CustomInvoiceLayout(models.TransientModel):
         
         # ids = 0
         # if ids > 0:
-        #     res = self.env['account.move.line'].search([('move_id', '=',ids)])
-        #     res.write(datas)
+       
+        
         
         if self.advance_payment_method == 'delivered':
             return sale_orders._create_invoices(final=self.deduct_down_payments)

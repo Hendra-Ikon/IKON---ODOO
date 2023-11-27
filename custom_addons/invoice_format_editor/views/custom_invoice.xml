@@ -10,10 +10,10 @@
                 <page id="other_field" string="Other Field" name="other_Field" >
                     <group id="field_tab_group">
                         <group string="Other Field" name="other_field" >
-                            <field name="spk" string="Spk No"/>
+                            <!-- <field name="spk" string="Spk No"/>
                             <field name="agreement_no" string="Agreement No"/>
                             <field name="payment_for_service" string="Payment For Service"/>
-                            <field name="payment_for" string="Payment For"/>
+                            <field name="payment_for" string="Payment For"/> -->
 
 
 

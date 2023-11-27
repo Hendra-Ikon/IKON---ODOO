@@ -53,11 +53,11 @@
             <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
                 <field name="attention"/>
             </xpath>
-            <xpath
+            <!-- <xpath
                     expr="//field[@name='currency_id' and @groups='!account.group_account_readonly,base.group_multi_currency']"
                     position="after">
                 <field name="pph" attrs="{'invisible': [('name', '=', '/')]}"/>
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 
