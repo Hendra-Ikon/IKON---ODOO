@@ -4,9 +4,36 @@ class CRMLead(models.Model):
 
     _inherit = "crm.lead"
 
+    toggle_confirm = fields.Boolean(string="Toogle Confirmation", default=False)
+
+    @api.model
+    def get_toggle_confirm_value(self, lead_id):
+        # lead = self.browse(lead_id)
+        return self.toggle_confirm
+
     @api.onchange("stage_id")
+    def open_dialog(self):
+
+        return self.toggle_confirm
+
+    @api.model
     def crm_kanban_moved(self):
-        confirmation_msg = "Kanban card is moved. Do you want to proceed?"
+
+        return {
+            'name': 'Confirmation',
+            'type': 'ir.actions.act_window',
+            'res_model': 'crm.lead',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('crm_ikon.view_crm_lead_form_inherit').id,
+            'view_type': 'form',
+            'target': 'current',
+        }
+
+
+        # confirmation_msg = "Kanban card is moved. Do you want to proceed?"
+
+
 
         # Display confirmation popup
         # return {
@@ -19,19 +46,6 @@ class CRMLead(models.Model):
         #         },
         #     },
         # }
-        return {
-            'name': 'Confirmation',
-            'type': 'ir.actions.act_window',
-            'res_model': 'popup.crm',
-            'view_mode': 'form',
-            'view_id': self.env.ref('crm_ikon.view_crm_lead_form_inherit').id,
-            'view_type': 'form',
-            'target': 'new',
-            'context': {'default_confirmation_msg': confirmation_msg},
-        }
-
-
-
 
 # from odoo import api, fields, models
 #
@@ -81,5 +95,5 @@ class PopupModel(models.Model):
 
     _name = "popup.crm"
 
-    message = fields.Char(string="Popup Message", default=)
+    popup_message = fields.Char(string="Popup Message", default="Kanban card is moved. Do you want to proceed?")
 

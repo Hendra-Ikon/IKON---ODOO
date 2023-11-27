@@ -1,14 +1,11 @@
 <odoo>
-    <!-- In your form view, include a field for the confirmation message -->
     <record id="view_crm_lead_form_inherit" model="ir.ui.view">
         <field name="name">popup.form.crm</field>
-        <field name="model">popup.crm</field>
-<!--        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>-->
+        <field name="model">crm.lead</field>
         <field name="arch" type="xml">
-<!--            <field name="stage_id" position="before">-->
-<!--                <field name="confirmation_msg" invisible="1"/>-->
-<!--            </field>-->
-            <field name="message"/>
+            <form>
+                <field name="name"/>
+            </form>
         </field>
     </record>
 

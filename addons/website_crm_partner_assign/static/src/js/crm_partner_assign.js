@@ -85,6 +85,7 @@ publicWidget.registry.crmPartnerAssign = publicWidget.Widget.extend({
             }],
             context: _.extend({website_partner_assign: 1}),
         }).then(function () {
+            alert("HIYAAAA")
             window.location.reload();
         });
     },

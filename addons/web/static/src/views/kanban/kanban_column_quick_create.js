@@ -26,6 +26,7 @@ export class KanbanColumnQuickCreate extends Component {
             window,
             "click",
             (/** @type {MouseEvent} */ ev) => {
+                console.log("WAKWAWW")
                 const target = this.mousedownTarget || ev.target;
                 const gotClickedInside = this.root.el.contains(target);
                 if (!gotClickedInside) {
@@ -60,6 +61,7 @@ export class KanbanColumnQuickCreate extends Component {
     }
 
     unfold() {
+        console.log("FOLDDDDDDD")
         this.props.onFoldChange(false);
     }
 
