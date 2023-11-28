@@ -699,11 +699,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                <tr t-foreach="o.invoice_line_ids" t-as="l" t-if="l.item_description or l.name">
                                     <td class="text-start"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.item_description" />
+                                    t-attf-style="color:#{o.theme_id.text_color};">
+                                    <span t-if="l.item_description" t-field="l.item_description" />
+                                    <span t-if="not l.item_description" t-field="l.name" />
                                     </td>
+                                    
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.quantity" />
@@ -869,7 +871,8 @@
 
                     <xpath expr="//p[@name='payment_communication']" position="after">
                         <div class="row mt-4 mb-4 ml-5" id="sincerely">
-                            <div t-if="o.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                            
+                            <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
                                 <strong>Sincerely,</strong>
 
                                 <br />
