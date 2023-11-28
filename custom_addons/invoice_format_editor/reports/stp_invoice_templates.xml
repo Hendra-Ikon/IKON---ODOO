@@ -166,12 +166,13 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <span>PPN 11%</span>
+                                                    <span>PPN</span>
                                                 </td>
                                                 <td class="text-end">
                                                     <span t-esc="tax_totals['groups_by_subtotal']['Untaxed Amount'][0]['formatted_tax_group_amount']"/>
                                                 </td>
                                             </tr>
+                                          
 
                                             <!--Total amount with all taxes-->
                                             <tr class="border-black o_total">
@@ -282,14 +283,19 @@
                     </div>
                     <xpath expr="//p[@name='payment_communication']" position="after">
                         <div class="row mt-4 mb-4 ml-5" id="sincerely">
-                            <div t-if="o.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                            
+                            <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
                                 <strong>Sincerely,</strong>
                                 <br />
                                 <br />
                                 <br />
                                 <br />
                                 <br />
-                                <p class="m-0"><span t-field="o.user_id" /><br/>Finance Department</p>
+                                <p class="m-0"><span t-field="o.spv" /><br/>
+                                    <span t-field="o.spv.function" />
+                                
+                                
+                                </p>
                             </div>
                         </div>
                     </xpath>

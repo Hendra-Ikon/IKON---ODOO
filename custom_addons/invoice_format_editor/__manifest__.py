@@ -59,8 +59,6 @@
              'preview_templates/stp_preview_templates.xml',
              'preview_templates/btpn_preview_templates.xml',
              'preview_templates/bci_v1_preview_templates.xml',
-
-             'views/custom_invoice.xml',
              ],
     'license': 'AGPL-3',
     'installable': True,
