@@ -85,7 +85,7 @@ class HrApplEdu(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_edu_inst_name = fields.Char(string="Institution name")
     pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
-    # pds_edu_major = fields.Char(string="Major")
+    pds_edu_major = fields.Char(string="Major")
     pds_edu_location = fields.Char(string="Location")
     pds_edu_start_year = fields.Date(string="Start year")
     pds_edu_end_year = fields.Date(string="End year")
