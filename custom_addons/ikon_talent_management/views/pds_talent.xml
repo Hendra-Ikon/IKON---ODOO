@@ -48,6 +48,7 @@
                             <field name="pds_education" widget="section_and_note_one2many" mode="tree">
                                 <tree editable="top">
                                     <field name="pds_edu_inst_name"/>
+                                    <field name="pds_edu_level"/>
                                     <field name="pds_edu_major"/>
                                     <field name="pds_edu_location"/>
                                     <field name="pds_edu_start_year"/>
@@ -56,6 +57,7 @@
                                 <form editable="top">
                                     <group>
                                         <field name="pds_edu_inst_name"/>
+                                        <field name="pds_edu_level"/>
                                         <field name="pds_edu_major"/>
                                         <field name="pds_edu_location"/>
                                         <field name="pds_edu_start_year"/>

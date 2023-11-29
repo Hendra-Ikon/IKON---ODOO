@@ -4,15 +4,21 @@
     <template id="custom_pds_view">
         <t t-call="portal.portal_layout">
             <t t-set="additional_title">Contact Details</t>
-            <t t-call="ikon_talent_management.personal_record"/>
-            <t t-call="ikon_talent_management.certificate_section"/>
-            <t t-call="ikon_talent_management.education_section"/>
-            <t t-call="ikon_talent_management.nonformal_education_section"/>
-            <t t-call="ikon_talent_management.language_section"/>
-            <t t-call="ikon_talent_management.work_section"/>
-            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>
-            <button class="btn btn-primary ms-2" t-on-click="showDialog">Dialog Service</button>
-            <button class="btn btn-primary ms-2" t-on-click="showEffect">Effect Service</button>
+            <t t-if="pds_data">
+                <t t-call="ikon_talent_management.personal_record"/>
+                <t t-call="ikon_talent_management.certificate_section"/>
+                <t t-call="ikon_talent_management.education_section"/>
+                <t t-call="ikon_talent_management.nonformal_education_section"/>
+                <t t-call="ikon_talent_management.language_section"/>
+                <t t-call="ikon_talent_management.work_section"/>
+            </t>
+            <t t-else="">
+                <h1>Forbidden Access</h1>
+            </t>
+
+            <!--            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>-->
+            <!--            <button class="btn btn-primary ms-2" t-on-click="showDialog">Dialog Service</button>-->
+            <!--            <button class="btn btn-primary ms-2" t-on-click="showEffect">Effect Service</button>-->
             <!--            <t t-call="ikon_talent_management.success_notif"/>-->
             <!--            <button class="o_popup_close_btn">Show Modal</button>-->
             <!--            <button t-on-click="widget.openAlert()">Open Alert</button>-->
@@ -203,14 +209,6 @@
                                             </select>
                                         </div>
 
-                                        <div t-attf-class="mb-3 col-xl-6">
-                                            <label class="col-form-label label-optional" for="pds_nationality">
-                                                Nationality
-                                            </label>
-                                            <input type="text" name="pds_nationality"
-                                                   t-attf-class="form-control "
-                                                   t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
-                                        </div>
 
                                         <input type="hidden" name="redirect" t-att-value="redirect"/>
                                     </div>
@@ -285,15 +283,15 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" name="pds_cert_name"
-                                                                   placeholder="Add Cert name"/>
+                                                            <input type="text" name="pds_cert_name" t-attf-style="width: 100px; height: 50px; font-size: 15px;"
+                                                                   />
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="pds_cert_provider"
-                                                                   placeholder="Add Provider"/>
+                                                            <input type="text" name="pds_cert_provider" t-attf-style="width: 100px; height: 50px; font-size: 15px;"
+                                                                   />
                                                         </td>
                                                         <td>
-                                                            <input type="date" name="pds_cert_issued_year"/>
+                                                            <input type="date" name="pds_cert_issued_year" t-attf-style="width: 100px; height: 50px; font-size: 15px;"/>
                                                         </td>
                                                         <td>
                                                             <button type="submit"
@@ -345,6 +343,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Institution Name</th>
+                                                        <th>Level</th>
                                                         <th>Major</th>
                                                         <th>Location</th>
                                                         <th>Start year</th>
@@ -356,6 +355,10 @@
                                                         <td>
 
                                                             <span t-esc="edu['pds_edu_inst_name']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="edu['pds_edu_level']"/>
                                                         </td>
                                                         <td>
 
@@ -385,21 +388,22 @@
                                                             <input type="text" name="pds_edu_inst_name"
                                                                    t-attf-style="height: 50px;"/>
                                                         </td>
-
                                                         <td>
-                                                            <select name="pds_edu_major"
+                                                            <select name="pds_edu_level"
                                                                     t-attf-class="form-select "
                                                                     t-attf-style="width: 100px; height: 50px; font-size: 15px;">
-                                                                <option t-att-value="pds_edu_major or 'Select'">
+                                                                <option t-att-value="pds_edu_level or 'Select'">
                                                                 </option>
                                                                 <option value="high_school">High School</option>
                                                                 <option value="bachelor">Bachelor</option>
                                                                 <option value="master">Master</option>
                                                                 <option value="doctor">Doctor</option>
                                                             </select>
-                                                            <!--                                                            <input type="text" name="pds_edu_major"/>-->
                                                         </td>
-
+                                                        <td>
+                                                            <input type="text" name="pds_edu_major"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
                                                         <td>
                                                             <input type="text" name="pds_edu_location"
                                                                    t-attf-style="height: 50px;"/>
@@ -637,7 +641,7 @@
                                 <div class="row">
                                     <div t-attf-class="mb-3 col-xl-12">
                                         <div class="col-md-10">
-                                            <table class="table table-condensed">
+                                            <table class="table table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Company name</th>

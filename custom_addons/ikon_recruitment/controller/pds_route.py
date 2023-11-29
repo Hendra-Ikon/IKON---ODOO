@@ -87,6 +87,7 @@ class PDSController(http.Controller):
                     education.create({
                         'applicant_id': applicant.id,
                         'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
+                        'pds_edu_level': kwargs.get("pds_edu_level"),
                         'pds_edu_major': kwargs.get("pds_edu_major"),
                         'pds_edu_location': kwargs.get("pds_edu_location"),
                         'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
