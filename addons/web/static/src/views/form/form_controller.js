@@ -344,7 +344,8 @@ export class FormController extends Component {
 
     get deleteConfirmationDialogProps() {
         return {
-            body: this.env._t("Are you sure you want to delete this record?"),
+            // body: this.env._t("Are you sure you want to delete this record?"),
+            body: this.env._t("Ntar doloo niih?"),
             confirm: async () => {
                 await this.model.root.delete();
                 if (!this.model.root.resId) {

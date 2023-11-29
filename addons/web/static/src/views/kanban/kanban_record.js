@@ -298,12 +298,14 @@ export class KanbanRecord extends Component {
                 const listOrGroup = group || list;
                 if (listOrGroup.deleteRecords) {
                     this.dialog.add(ConfirmationDialog, {
-                        body: env._t("Are you sure you want to delete this record?"),
+                        // body: env._t("Are you sure you want to delete this record?"),
+                        body: env._t("Yakinnn mau dihapuss?"),
                         confirm: () => listOrGroup.deleteRecords([record]),
                         cancel: () => {},
                     });
                 } else {
                     // static list case
+                    console.log("WADAWW")
                     listOrGroup.removeRecord(record);
                 }
                 return;

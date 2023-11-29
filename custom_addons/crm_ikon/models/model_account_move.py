@@ -3,10 +3,19 @@ from odoo.exceptions import UserError
 from contextlib import contextmanager
 from odoo.tools import formatLang, format_amount
 import inflect
+from collections import defaultdict
 import logging
 
 logger = logging.getLogger(__name__)
 
+# PAYMENT_STATE_SELECTION = [
+#         ('not_paid', 'Not Paid'),
+#         ('in_payment', 'In Payment'),
+#         ('paid', 'Paid'),
+#         ('partial', 'Partially Paid'),
+#         ('reversed', 'Reversed'),
+#         ('invoicing_legacy', 'Invoicing App Legacy'),
+# ]
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -59,6 +68,23 @@ class CrmAccountMove(models.Model):
 
     hide_post_button = fields.Boolean(compute='_compute_hide_post_button', readonly=True, default=True)
 
+    payment_state = fields.Selection(
+        selection=[
+        ('not_paid', ''),
+        ('in_payment', 'In Payment'),
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+        ('partial', 'Partially Paid'),
+        ('reversed', 'Reversed'),
+        ('invoicing_legacy', 'Invoicing App Legacy'),
+],
+        string="Payment Status",
+        compute='_compute_payment_state', store=True, readonly=True,
+        copy=False,
+        tracking=True,
+    )
+
+
     def action_approve(self):
         for move in self:
             if move.state == 'approved':
@@ -66,14 +92,105 @@ class CrmAccountMove(models.Model):
             else:
                 move.write({'state': 'approved'})
 
+    @api.depends('amount_residual', 'move_type', 'state', 'company_id')
+    def _compute_payment_state(self):
+        stored_ids = tuple(self.ids)
+        if stored_ids:
+            self.env['account.partial.reconcile'].flush_model()
+            self.env['account.payment'].flush_model(['is_matched'])
+
+            queries = []
+            for source_field, counterpart_field in (('debit', 'credit'), ('credit', 'debit')):
+                queries.append(f'''
+                        SELECT
+                            source_line.id AS source_line_id,
+                            source_line.move_id AS source_move_id,
+                            account.account_type AS source_line_account_type,
+                            ARRAY_AGG(counterpart_move.move_type) AS counterpart_move_types,
+                            COALESCE(BOOL_AND(COALESCE(pay.is_matched, FALSE))
+                                FILTER (WHERE counterpart_move.payment_id IS NOT NULL), TRUE) AS all_payments_matched,
+                            BOOL_OR(COALESCE(BOOL(pay.id), FALSE)) as has_payment,
+                            BOOL_OR(COALESCE(BOOL(counterpart_move.statement_line_id), FALSE)) as has_st_line
+                        FROM account_partial_reconcile part
+                        JOIN account_move_line source_line ON source_line.id = part.{source_field}_move_id
+                        JOIN account_account account ON account.id = source_line.account_id
+                        JOIN account_move_line counterpart_line ON counterpart_line.id = part.{counterpart_field}_move_id
+                        JOIN account_move counterpart_move ON counterpart_move.id = counterpart_line.move_id
+                        LEFT JOIN account_payment pay ON pay.id = counterpart_move.payment_id
+                        WHERE source_line.move_id IN %s AND counterpart_line.move_id != source_line.move_id
+                        GROUP BY source_line_id, source_move_id, source_line_account_type
+                    ''')
+
+            self._cr.execute(' UNION ALL '.join(queries), [stored_ids, stored_ids])
+
+            payment_data = defaultdict(lambda: [])
+            for row in self._cr.dictfetchall():
+                payment_data[row['source_move_id']].append(row)
+        else:
+            payment_data = {}
+
+        for invoice in self:
+            if invoice.payment_state == 'invoicing_legacy':
+                # invoicing_legacy state is set via SQL when setting setting field
+                # invoicing_switch_threshold (defined in account_accountant).
+                # The only way of going out of this state is through this setting,
+                # so we don't recompute it here.
+                continue
+
+            currencies = invoice._get_lines_onchange_currency().currency_id
+            currency = currencies if len(currencies) == 1 else invoice.company_id.currency_id
+            reconciliation_vals = payment_data.get(invoice.id, [])
+            payment_state_matters = invoice.is_invoice(True)
+
+            # Restrict on 'receivable'/'payable' lines for invoices/expense entries.
+            if payment_state_matters:
+                reconciliation_vals = [x for x in reconciliation_vals if
+                                       x['source_line_account_type'] in ('asset_receivable', 'liability_payable')]
+
+            new_pmt_state = 'not_paid'
+            if invoice.state == 'posted':
+                new_pmt_state = 'unpaid'
+                # Posted invoice/expense entry.
+                if payment_state_matters:
+
+                    if currency.is_zero(invoice.amount_residual):
+                        if any(x['has_payment'] or x['has_st_line'] for x in reconciliation_vals):
+
+                            # Check if the invoice/expense entry is fully paid or 'in_payment'.
+                            if all(x['all_payments_matched'] for x in reconciliation_vals):
+                                new_pmt_state = 'paid'
+                            else:
+                                new_pmt_state = invoice._get_invoice_in_payment_state()
+
+                        else:
+                            new_pmt_state = 'paid'
+
+                            reverse_move_types = set()
+                            for x in reconciliation_vals:
+                                for move_type in x['counterpart_move_types']:
+                                    reverse_move_types.add(move_type)
+
+                            in_reverse = (invoice.move_type in ('in_invoice', 'in_receipt')
+                                          and (reverse_move_types == {'in_refund'} or reverse_move_types == {
+                                        'in_refund', 'entry'}))
+                            out_reverse = (invoice.move_type in ('out_invoice', 'out_receipt')
+                                           and (reverse_move_types == {'out_refund'} or reverse_move_types == {
+                                        'out_refund', 'entry'}))
+                            misc_reverse = (invoice.move_type in ('entry', 'out_refund', 'in_refund')
+                                            and reverse_move_types == {'entry'})
+                            if in_reverse or out_reverse or misc_reverse:
+                                new_pmt_state = 'reversed'
+
+                    elif reconciliation_vals:
+                        new_pmt_state = 'partial'
+
+            invoice.payment_state = new_pmt_state
+
     @api.depends('restrict_mode_hash_table', 'state')
     def _compute_show_reset_to_draft_button(self):
         for move in self:
-            move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in ('posted', 'approved', 'cancel')
-
-
-
-
+            move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in (
+            'posted', 'approved', 'cancel')
 
     def action_post(self):
         # validate sales order  
@@ -90,12 +207,6 @@ class CrmAccountMove(models.Model):
         res = super(CrmAccountMove, self).action_post()
         return res
 
-
-
-    # @api.depends('pph', 'amount_total')
-    # def _compute_pph_price(self):
-    #     for rec in self:
-    #         rec.pph_price = -1 * (rec.pph * 0.01 * rec.amount_total)
 
     @api.depends(
         'invoice_line_ids.currency_rate',
@@ -171,18 +282,24 @@ class CrmAccountMove(models.Model):
                 move.tax_totals = self.env['account.tax']._prepare_tax_totals(**kwargs)
                 tax_totals = move.tax_totals
 
+
                 tax_totals['amount_total'] = tax_totals['amount_total']
                 tax_totals['formatted_amount_total'] = formatLang(self.env, tax_totals['amount_total'], currency_obj=move.currency_id)
+
                 if move.invoice_cash_rounding_id:
-                    rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id, move.tax_totals['amount_total'])
+                    rounding_amount = move.invoice_cash_rounding_id.compute_difference(move.currency_id,
+                                                                                       move.tax_totals['amount_total'])
                     totals = move.tax_totals
                     totals['display_rounding'] = True
                     if rounding_amount:
                         if move.invoice_cash_rounding_id.strategy == 'add_invoice_line':
                             totals['rounding_amount'] = rounding_amount
-                            totals['formatted_rounding_amount'] = formatLang(self.env, totals['rounding_amount'], currency_obj=move.currency_id)
+                            totals['formatted_rounding_amount'] = formatLang(self.env, totals['rounding_amount'],
+                                                                             currency_obj=move.currency_id)
                             totals['amount_total_rounded'] = totals['amount_total'] + rounding_amount
-                            totals['formatted_amount_total_rounded'] = formatLang(self.env, totals['amount_total_rounded'], currency_obj=move.currency_id)
+                            totals['formatted_amount_total_rounded'] = formatLang(self.env,
+                                                                                  totals['amount_total_rounded'],
+                                                                                  currency_obj=move.currency_id)
                         elif move.invoice_cash_rounding_id.strategy == 'biggest_tax':
                             if totals['subtotals_order']:
                                 max_tax_group = max((
@@ -191,9 +308,11 @@ class CrmAccountMove(models.Model):
                                     for tax_group in tax_groups
                                 ), key=lambda tax_group: tax_group['tax_group_amount'])
                                 max_tax_group['tax_group_amount'] += rounding_amount
-                                max_tax_group['formatted_tax_group_amount'] = formatLang(self.env, max_tax_group['tax_group_amount'], currency_obj=move.currency_id)
+                                max_tax_group['formatted_tax_group_amount'] = formatLang(self.env, max_tax_group[
+                                    'tax_group_amount'], currency_obj=move.currency_id)
                                 totals['amount_total'] += rounding_amount
-                                totals['formatted_amount_total'] = formatLang(self.env, totals['amount_total'], currency_obj=move.currency_id)
+                                totals['formatted_amount_total'] = formatLang(self.env, totals['amount_total'],
+                                                                              currency_obj=move.currency_id)
             else:
                 # Non-invoice moves don't support that field (because of multicurrency: all lines of the invoice share the same currency)
                 move.tax_totals = None
@@ -239,12 +358,18 @@ class CrmAccountMove(models.Model):
         for line in move_selected.line_ids.filtered(lambda x: x.move_id != move_header and x.display_type == 'product'):
             line.copy(default={'move_id': move_header.id})
 
-        header_payment = move_header.line_ids.filtered(lambda x: x.display_type == 'payment_term' and x.is_downpayment == False)
-        header_payment.debit = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.balance = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_residual = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
-        header_payment.amount_residual_currency = sum([x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type=='product')])
+        header_payment = move_header.line_ids.filtered(
+            lambda x: x.display_type == 'payment_term' and x.is_downpayment == False)
+        header_payment.debit = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.balance = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_currency = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_residual = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
+        header_payment.amount_residual_currency = sum(
+            [x.credit for x in move_header.line_ids.filtered(lambda x: x.display_type == 'product')])
 
         fileterd_moves = move_selected.filtered(lambda x: x.id != move_header.id)
         for move in fileterd_moves:
