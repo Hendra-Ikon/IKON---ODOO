@@ -31,6 +31,9 @@ class CrmPartner(models.Model):
     @api.constrains('email')
     def _check_duplicate_email(self):
         for partner in self:
-            domain = [('id', '!=', partner.id), ('email', '=', partner.email)]
-            if self.search_count(domain) > 0:
-                raise ValidationError("A contact with this email already exists.")
+            if partner.email:
+                domain = [('id', '!=', partner.id), ('email', '=', partner.email)]
+                if self.search_count(domain) > 0:
+                    raise ValidationError("A contact with this email already exists.")
+            else:
+                raise ValidationError("Email cannot be empty.")
