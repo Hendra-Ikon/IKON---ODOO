@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 import json
 import logging
+
+from odoo.exceptions import ValidationError
+
 logger = logging.getLogger(__name__)
 
 class CrmPartner(models.Model):
@@ -87,7 +90,16 @@ class CrmPartner(models.Model):
         action['context'] = py_ctx
         return action
 
-    
+    @api.constrains('email')
+    def _check_duplicate_email(self):
+        for partner in self:
+            if partner.email:
+                domain = [('id', '!=', partner.id), ('email', '=', partner.email)]
+                if self.search_count(domain) > 0:
+                    raise ValidationError("A contact with this email already exists.")
+            else:
+                raise ValidationError("Email cannot be empty.")
+
 # class CustomeResPertner(models.TransientModel):
 
 #     _inherit = 'res.partner'
