@@ -136,7 +136,20 @@
                                 </form>
                             </field>
                         </group>
-
+                        <group string="Expected Salary">
+                            <field name="pds_exp_sal" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_expected_salary"/>
+                                    <field name="pds_expected_benefit"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_expected_salary"/>
+                                        <field name="pds_expected_benefit"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
                     </group>
                 </page>
             </xpath>
