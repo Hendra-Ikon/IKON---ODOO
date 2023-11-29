@@ -125,5 +125,8 @@ class HrApplWorkExperience(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_workex_company_name = fields.Char(string="Company name", help='Company name')
     pds_workex_lob = fields.Char(string="Line of bussiness", help="Line of bussiness")
+    pds_workex_last_pos = fields.Char(string="Last Position", help="Last Position")
+    pds_workex_reason_leave = fields.Char(string="Reason for leaving", help="Reason for leaving")
+    pds_workex_last_salary = fields.Char(string="Last salary", help="Last salary")
     pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
     pds_workex_period_to = fields.Date(string="to", help="Working period to")

@@ -542,34 +542,6 @@
             <div id="languageSection" class="accordion-collapse collapse show" aria-labelledby="nameHeader"
                  data-bs-parent="#pdsAccordion">
                 <div class="accordion-body">
-<!--                    <div t-attf-class="mb-3 col-xl-6">-->
-<!--                        <label class="col-form-label label-optional" for="pds_lang_name">Language name-->
-<!--                        </label>-->
-<!--                        <input type="text" name="pds_lang_name"-->
-<!--                               t-attf-class="form-control "-->
-<!--                        />-->
-
-<!--                    </div>-->
-<!--                    <div t-attf-class="mb-3 col-xl-6">-->
-<!--                        <label class="col-form-label" for="pds_lang_percen">Level-->
-<!--                        </label>-->
-<!--                        <select name="pds_lang_percen"-->
-<!--                                t-attf-class="form-select "-->
-<!--                                t-attf-style="width: 100px; height: 50px; font-size: 15px;">-->
-<!--                            <option t-att-value="pds_lang_percen or 'Select'">-->
-<!--                            </option>-->
-<!--                            <option value="1">1</option>-->
-<!--                            <option value="2">2</option>-->
-<!--                            <option value="3">3</option>-->
-<!--                            <option value="4">4</option>-->
-<!--                            <option value="5">5</option>-->
-<!--                            <option value="6">6</option>-->
-<!--                            <option value="7">7</option>-->
-<!--                            <option value="8">8</option>-->
-<!--                            <option value="9">9</option>-->
-<!--                            <option value="10">10</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
                     <form id="custom_nonformedu_form" action="/create_langprof" method="post"
                           enctype="multipart/form-data" class="o_mark_required row"
                           data-mark="*" data-model_name="custom.language.prof"
@@ -679,6 +651,9 @@
                                                         <th>Line of bussiness</th>
                                                         <th>Start From</th>
                                                         <th>End</th>
+                                                        <th>Last Position</th>
+                                                        <th>Reason for leaving</th>
+                                                        <th>Last salary</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -698,6 +673,18 @@
                                                         <td>
 
                                                             <span t-esc="work['pds_workex_period_to']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_last_pos']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_reason_leave']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_last_salary']"/>
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-sm btn-danger"
@@ -723,6 +710,18 @@
                                                         <td>
                                                             <input type="date" name="pds_workex_period_to"
                                                                    t-attf-style="height: 50px;"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="pds_workex_last_pos"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="pds_workex_reason_leave"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="pds_workex_last_salary"
+                                                                   t-attf-style="height: 50px;" value="Rp : "/>
                                                         </td>
                                                         <td>
                                                             <button type="submit"
