@@ -371,7 +371,6 @@
                 <!--Invoice Reference-->
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                 <t t-set="model" t-value="'account.move'" />
-
                 <t t-set="tax_totals" t-value="o.tax_totals" />
                 <div class="page" style="overflow: hidden;">
                     <!--Customer Address-->
@@ -532,228 +531,14 @@
                                 </tr>
                             </tbody>
 
-                <t t-set="tax_totals" t-value="o.tax_totals" />
-
-                <div class="page" style="overflow: hidden;">
-                    <!--Customer Address-->
-                    <t t-set="address">
-                        <address class="mb-0" itemscope="itemscope"
-                            itemtype="http://schema.org/Organization">
-                            <div itemprop="address" itemscope="itemscope"
-                                itemtype="http://schema.org/PostalAddress">
-                                <div class="d-flex align-items-baseline">
-                                    <span class="w-100 o_force_ltr" itemprop="streetAddress">
-                                        <span t-if="o.partner_id">
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id"/>
-                                        </span>
-                                        <br/>
-                                        <span t-if="o.partner_id.street">
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.street"/>
-                                        </span>
-                                        <br/>
-                                        <span t-if="o.partner_id.city">
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.city"/> 
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.state_id.code"/> 
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.zip"/>
-                                        </span>
-                                        <br/>
-                                        <span t-if="o.partner_id.country_id">
-                                            <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.country_id"/>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            
-                        </address>
-                        <tr t-if="o.attention">
-                            <td class="text-start" t-attf-style="color:#{o.theme_id.text_color};" style="margin-left:25% !important;"><span >Attention</span></td>
-                            <td class="text-center" style="width:5%"><span>:</span></td>
-                            <td class="text-start"><span style="font-weight:bold" t-field="o.attention"/></td>
-                        </tr>
-                    </t>
-                   
-                   
-                    <br/>
-
-                    <!--Product Table-->
-                    <div>
-                        <t t-set="display_discount"
-                            t-value="any([l.discount for l in o.invoice_line_ids])" />
-                        <table class="mb-3" style="border: 1px solid white" name="info_table">
-                            <tr t-attf-style="background-color: white" t-if="o.name">
-                                <td class="text-start" style="width:15%"><span>Invoice No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.name"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.po_no">
-                                <td class="text-start" style="width:25%"><span>PO No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.po_no"></span> dated <span style="font-weight:bold" t-field="o.po_date"></span></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.agreement_no">
-                                <td class="text-start" style="width:25%"><span>Agreement No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.agreement_no" /></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.month">
-                                <td class="text-start" style="width:25%"><span>Month</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.month" /></td>
-                            </tr>
-                           
-                            <tr t-attf-style="background-color: white" t-if="o.payment_for">
-                                <td class="text-start" style="width:25%"><span>Payment for</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_for"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.payment_for_service">
-                                <td class="text-start" style="width:25%"><span>Payment for Service</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_for_service"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.period">
-                                <td class="text-start" style="width:25%"><span>Period</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.period"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.invoice_date">
-                                <td class="text-start" style="width:25%"><span>Invoice Date</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.invoice_date"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.invoice_date_due">
-                                <td class="text-start" style="width:25%"><span>Due date</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.invoice_date_due"/></td>
-                            </tr>
-                            <tr t-attf-style="background-color: white" t-if="o.payment_reference">
-                                <td class="text-start" style="width:25%"><span>Payment Reference</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_reference"/></td>
-                            </tr>
-                        </table>
-                        <!--Product Details-->
-
-                        <table class="table table-sm table-borderless">
-                            <tr>
-                                <th class="text-start"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                </th>
-                                <th class="text-center"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                    Qty
-                                </th>
-                                <th class="text-center"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                    UOM
-                                </th>
-                                <th class="text-end"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                    Unite Price<br/>(IDR)
-                                </th>
-                                <th class="text-center"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                    Term
-                                </th>
-                                <th class="text-end"
-                                    t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                    Invoice Amount<br/>(IDR)
-                                </th>
-                            </tr>
-                            <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                <td class="text-start"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <!-- <span t-field="l.description" /> -->
-                                    <span t-field="l.debit" />
-                                </td>
-                                <td class="text-center"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <span t-field="l.quantity" />
-                                </td>
-                                <td class="text-center"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <!-- <span t-field="l.uom" /> -->
-                                </td>
-                                <td class="text-end"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <span t-field="l.price_unit" />
-                                </td>
-                                <td class="text-center"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <!-- <span t-field="l.term" /> -->
-                                </td>
-                                <td class="text-end"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <!-- <span t-field="l.invoice_amount" /> -->
-                                </td>
-                            </tr>
-
-                        <table class="table table-sm o_main_table table-borderless" name ="invoice_line_table">
-                            <thead>
-                                <tr>
-                                    <th class="text-start"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Description
-                                    </th>
-                                    <th class="text-center"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Qty
-                                    </th>
-                                    <th class="text-center"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        UOM
-                                    </th>
-                                    <th class="text-end"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Unite Price<br/>(IDR)
-                                    </th>
-
-                                    <th class="text-end"
-                                        t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Invoice Amount<br/>(IDR)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="o.invoice_line_ids" t-as="l" t-if="l.item_description or l.name">
-                                    <td class="text-start"
-                                    t-attf-style="color:#{o.theme_id.text_color};">
-                                    <span t-if="l.item_description" t-field="l.item_description" />
-                                    <span t-if="not l.item_description" t-field="l.name" />
-                                    </td>
-                                    
-                                    <td class="text-center"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.quantity" />
-                                    </td>
-                                    <td class="text-center"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.product_uom_id" />
-                                    </td>
-                                    <td class="text-end"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.price_unit" />
-                                    </td>
-                               
-                                    <td class="text-end"
-                                        t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.price_subtotal" />
-                                    </td>
-                                </tr>
-                            </tbody>
-
                         </table>
                         <!--Payment details-->
                         <div class="clearfix mb-4">
                             <div id="total" class="row">
-                                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                                    <table class="table table-sm table-borderless" style="page-break-inside: avoid;">
+                                <div
+                                    t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                    <table class="table table-sm table-borderless"
+                                        style="page-break-inside: avoid;">
                                      
                                         <div class="clearfix mb-4">
                                             <div id="total" class="row">
@@ -849,13 +634,7 @@
                         </p>
                         <p t-if="o.move_type in ('out_invoice','in_refund')"> Please use the
                             following communication for your payment : <b>
-
                                 <span t-field="o.name" />
-
-                                <span t-field="o.payment_reference" />
-
-                                <span t-field="o.name" />
-
                             </b>
                         </p>
                         <p t-if="o.invoice_payment_term_id" name="payment_term">
@@ -881,23 +660,11 @@
                             </p>
                         </div>
                     </div>
-
                     <xpath expr="//p[@name='payment_communication']" position="after">
                         <div class="row mt-4 mb-4 ml-5" id="sincerely">
                             
                             <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
                                 <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Sincerely,</strong>
-
-                    <xpath expr="//p[@name='payment_communication']" position="after">
-                        <div class="row mt-4 mb-4 ml-5" id="sincerely">
-                            
-                            <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
-<<<<<<< HEAD
-                                <strong>Sincerely,</strong>
-
-=======
-                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Sincerely,</strong>
->>>>>>> 6b0ae487 (update multiple invoice)
                                 <br />
                                 <br />
                                 <br />
@@ -940,14 +707,6 @@
            
             </t>
           
-                </div>
-            </div>
-                    
-                </div>
-               
-            </div>
-           
-            </t>
         </template>
     </data>
 </odoo>
