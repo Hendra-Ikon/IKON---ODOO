@@ -5,6 +5,7 @@ import { checkRainbowmanMessage } from "@crm/views/check_rainbowman_message";
 
 export class CrmKanbanModel extends KanbanModel {
     setup(params, { orm, effect }) {
+        console.log("SETUP CRM")
         super.setup(...arguments);
         this.ormService = orm;
         this.effect = effect;
@@ -32,8 +33,10 @@ export class CrmKanbanDynamicGroupList extends CrmKanbanModel.DynamicGroupList {
      * a rainbowman message if that's the case.
      */
     async moveRecord(dataRecordId, dataGroupId, refId, targetGroupId) {
+        console.log("Kanban Moveeeeeeedddd")
         const succeeded = await super.moveRecord(...arguments);
         if (!succeeded) {
+
             return;
         }
         const sourceGroup = this.groups.find((g) => g.id === dataGroupId);
@@ -44,6 +47,7 @@ export class CrmKanbanDynamicGroupList extends CrmKanbanModel.DynamicGroupList {
             targetGroup &&
             sourceGroup.groupByField.name === "stage_id"
         ) {
+            console.log("Horeeee")
             const record = targetGroup.list.records.find((r) => r.id === dataRecordId);
             await checkRainbowmanMessage(this.model.ormService, this.model.effect, record.resId);
         }

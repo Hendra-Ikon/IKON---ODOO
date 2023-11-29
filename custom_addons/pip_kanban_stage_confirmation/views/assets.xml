@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend_pip_kanban_stage_confirmation" inherit_id="web.assets_backend" name="pip_kanban_stage_confirmation">
+            <xpath expr="link[last()]" position="after">
+                <script type="text/javascript" src="/pip_kanban_stage_confirmation/static/src/js/kanban_view.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

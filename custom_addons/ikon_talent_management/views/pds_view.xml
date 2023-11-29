@@ -29,18 +29,6 @@
 
 
     </template>
-    <!-- your_module_name.xml -->
-
-    <!--    <template id="ikon_talent_management.pds">-->
-    <!--        <div class="o_web_client">-->
-    <!--            <MyScript/>-->
-    <!--        </div>-->
-    <!--        &lt;!&ndash;        <div>&ndash;&gt;-->
-    <!--        &lt;!&ndash;            &lt;!&ndash; Your component content here &ndash;&gt;&ndash;&gt;-->
-
-    <!--        &lt;!&ndash;        <button type="button" class="btn btn-primary my-script-selector">Click me</button>&ndash;&gt;-->
-    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-    <!--    </template>-->
 
 
     <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
@@ -108,7 +96,7 @@
                                         <div t-attf-class="mb-1 col-xl-6">
                                             <label class="col-form-label label-optional" for="pds_nik">NIK</label>
 
-                                            <input type="number" name="pds_nik"
+                                            <input type="text" name="pds_nik"
                                                    t-attf-class="form-control "
                                                    t-att-value="pds_data['pds_nik'] or 'Your NIK Number'"
                                             />
@@ -124,7 +112,7 @@
                                         </div>
                                         <div t-attf-class="mb-1  col-xl-6">
                                             <label class="col-form-label" for="pds_zipcode_addressNIK">Zip code</label>
-                                            <input type="number" name="pds_zipcode_addressNIK"
+                                            <input type="text" name="pds_zipcode_addressNIK"
                                                    t-attf-class="form-control"
                                                    t-att-value="pds_data['pds_zipcode_addressNIK'] or '0'"/>
 
@@ -207,7 +195,6 @@
                                                 <option value="married">Married</option>
                                                 <option value="divorced">Divorced</option>
                                             </select>
-                                        </div>
 
 
                                         <input type="hidden" name="redirect" t-att-value="redirect"/>
