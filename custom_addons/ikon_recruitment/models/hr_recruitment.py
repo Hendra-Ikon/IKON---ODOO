@@ -1,3 +1,4 @@
+
 from odoo import models, fields, api
 from odoo.http import request
 
@@ -64,12 +65,6 @@ class HrApplCrUsrSnEmail(models.Model):
 
     stage_name = fields.Char(related='stage_id.name', string='Stage Name', readonly=True)
 
-    # toggle_send_email = fields.Boolean(string="Send Email", default=False)
-    #
-    # @api.depends("stage_id")
-    # def toogle_email(self):
-    #     if(self.stage_id == "PDS Submission"):
-    #         self.toggle_send_email = True
 
     def action_create_user_and_send_email(self):
         name = self.partner_name  # Replace with the actual field you want to use for the user's name
@@ -83,95 +78,20 @@ class HrApplCrUsrSnEmail(models.Model):
             # Add other relevant fields for the user
         })
 
-        # Notify the user that the operation was successful
-        # wizard = self.env['create.user.wizard'].create({'message': "User creation successful for %s" % name})
-        # return {
-        #     'name': 'Create User Wizard',
-        #     'view_mode': 'form',
-        #     'res_id': wizard.id,
-        #     'view_id': self.env.ref('your_module.create_user_wizard_form_view').id,  # Replace with the actual view ID
-        #     'view_type': 'form',
-        #     'res_model': 'create.user.wizard',
-        #     'type': 'ir.actions.act_window',
-        #     'target': 'new',
-        # }
+        template_id = self.env.ref('ikon_recruitment.set_password_email')
+        if template_id:
+            template_id.send_mail(user.id, force_send=True)
 
-        return True
+        notification = {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Success',
+                'message': 'Successfully send login invitation',
+                # 'sticky': True,
+            }
+        }
 
-        # self.env.user.notify_success(message="User creation successful for %s" % 'Daimus')
 
-        # Add your logic to send an email to the new user
-        # ...
+        return notification
 
-        # return True
-
-        # Create a new user
-        # user = self.env['res.users'].create({
-        #     'name': name,
-        #     'login': email,
-        #     'email': email,
-        #     # Add other relevant fields for the user
-        # })
-
-        # Add your logic to send an email to the new user
-        # ...
-
-        # Show a wizard with a success message
-        # wizard = self.env['create.user.wizard'].create({'message': "User creation successful for %s" % name})
-        # return {
-        #     'name': 'Create User Wizard',
-        #     'view_mode': 'form',
-        #     'res_id': wizard.id,
-        #     'view_id': self.env.ref('your_module.create_user_wizard_form_view').id,
-        #     # Replace with the actual view ID
-        #     'view_type': 'form',
-        #     'res_model': 'create.user.wizard',
-        #     'type': 'ir.actions.act_window',
-        #     'target': 'current',
-        # }
-
-    # def action_create_user_and_send_email(self):
-    #     user = request.env.user
-    #
-    #     # Prepare email content
-    #     subject = "Login Information"
-    #     body = f"Dear {user.name},\n\nYour login information:\nUsername: {user.login}\nPassword: {user.password}\n"
-    #
-    #     # Send the email
-    #     mail_values = {
-    #         'subject': subject,
-    #         'body_html': body,
-    #         'email_from': 'your-email@example.com',  # Replace with your email
-    #         'email_to': "w.ikon.arif@gmail.com",
-    #         # 'res_id': user.id,
-    #         # 'model': 'your.model.name',  # Replace with the actual model name
-    #     }
-    #
-    #     # Use the mail template or create your own if needed
-    #     mail_template = self.env.ref('ikon_recruitment.set_password_email')  # Replace with your mail template
-    #     if mail_template:
-    #         mail_template.send_mail(user.id, force_send=True,)
-    #     # else:
-    #     #     self.env['mail.mail'].create(mail_values).send()
-    #
-    #     return True
-    # Get the applicant's email
-    # applicant_email = self.user_email
-    #
-    # # Create a user based on the email
-    # user_vals = {
-    #     'name': self.partner_name,
-    #     'email': applicant_email,
-    #     # Add other user fields as needed
-    # }
-    # new_user = self.env['res.users'].create(user_vals)
-    #
-    # # Send an email to the newly created user
-    # template_id = self.env.ref('ikon_recruitment.email_template_applicant')
-    # if template_id:
-    #     template_id.send_mail(new_user.id, force_send=True)
-    #
-    # return {
-    #     'type': 'ir.actions.client',
-    #     'tag': 'reload',
-    # }
