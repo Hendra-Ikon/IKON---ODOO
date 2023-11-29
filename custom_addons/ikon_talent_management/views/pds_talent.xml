@@ -48,6 +48,7 @@
                             <field name="pds_education" widget="section_and_note_one2many" mode="tree">
                                 <tree editable="top">
                                     <field name="pds_edu_inst_name"/>
+                                    <field name="pds_edu_level"/>
                                     <field name="pds_edu_major"/>
                                     <field name="pds_edu_location"/>
                                     <field name="pds_edu_start_year"/>
@@ -56,6 +57,7 @@
                                 <form editable="top">
                                     <group>
                                         <field name="pds_edu_inst_name"/>
+                                        <field name="pds_edu_level"/>
                                         <field name="pds_edu_major"/>
                                         <field name="pds_edu_location"/>
                                         <field name="pds_edu_start_year"/>
@@ -115,6 +117,9 @@
                                 <tree editable="top">
                                     <field name="pds_workex_company_name"/>
                                     <field name="pds_workex_lob"/>
+                                    <field name="pds_workex_last_pos"/>
+                                    <field name="pds_workex_reason_leave"/>
+                                    <field name="pds_workex_last_salary"/>
                                     <field name="pds_workex_period_from"/>
                                     <field name="pds_workex_period_to"/>
                                 </tree>
@@ -122,12 +127,16 @@
                                     <group>
                                         <field name="pds_workex_company_name"/>
                                         <field name="pds_workex_lob"/>
+                                        <field name="pds_workex_last_pos"/>
+                                        <field name="pds_workex_reason_leave"/>
+                                        <field name="pds_workex_last_salary"/>
                                         <field name="pds_workex_period_from"/>
                                         <field name="pds_workex_period_to"/>
                                     </group>
                                 </form>
                             </field>
                         </group>
+
                     </group>
                 </page>
             </xpath>

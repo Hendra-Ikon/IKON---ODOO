@@ -1,4 +1,16 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_pds_model,Access Custom PDS Model,model_pds_model,base.group_user,1,1,1,1
-access_custom_certif,access_custom_certif,model_custom_certif,base.group_user,1,1,1,1
+access_portal_user_custom_certif,custom_certif,model_custom_certif,base.group_portal,1,1,1,1
+access_internal_user_custom_certif,custom_certif,model_custom_certif,base.group_user,1,1,1,1
+
+access_portal_user_custom_edu,custom_edu,model_custom_edu,base.group_portal,1,1,1,1
+access_internal_user_custom_edu,custom_edu,model_custom_edu,base.group_user,1,1,1,1
+
+access_portal_user_custom_nonformaledu,custom_nonformaledu,model_custom_nonformaledu,base.group_portal,1,1,1,1
+access_internal_user_custom_nonformaledu,custom_nonformaledu,model_custom_nonformaledu,base.group_user,1,1,1,1
+
+access_portal_user_custom_language_prof,custom_language_prof,model_custom_language_prof,base.group_portal,1,1,1,1
+access_internal_user_custom_language_prof,custom_language_prof,model_custom_language_prof,base.group_user,1,1,1,1
+
+access_portal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_portal,1,1,1,1
+access_internal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_user,1,1,1,1
 

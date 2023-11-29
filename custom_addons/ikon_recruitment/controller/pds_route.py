@@ -87,6 +87,7 @@ class PDSController(http.Controller):
                     education.create({
                         'applicant_id': applicant.id,
                         'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
+                        'pds_edu_level': kwargs.get("pds_edu_level"),
                         'pds_edu_major': kwargs.get("pds_edu_major"),
                         'pds_edu_location': kwargs.get("pds_edu_location"),
                         'pds_edu_start_year': kwargs.get("pds_edu_start_year"),
@@ -143,6 +144,9 @@ class PDSController(http.Controller):
                         'applicant_id': applicant.id,
                         'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
                         'pds_workex_lob': kwargs.get("pds_workex_lob"),
+                        'pds_workex_last_pos': kwargs.get("pds_workex_last_pos"),
+                        'pds_workex_reason_leave': kwargs.get("pds_workex_reason_leave"),
+                        'pds_workex_last_salary': kwargs.get("pds_workex_last_salary"),
                         'pds_workex_period_from': kwargs.get("pds_workex_period_from"),
                         'pds_workex_period_to': kwargs.get("pds_workex_period_to"),
                     })
@@ -151,6 +155,8 @@ class PDSController(http.Controller):
             except Exception as e:
                 print(f'Error Language Proficiency {e}')
         return request.redirect('/pds/data')
+
+
 
     @http.route("/pds/data", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def pds_route(self, **kwargs):

@@ -11,6 +11,7 @@
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
+        'security/ir.model.access.csv',
         'views/talent_pool_import_data_views.xml',
         'views/talent_tree_view.xml',
         'views/talent_kanban_views.xml',
