@@ -38,6 +38,8 @@
         'views/inherit_stage_views.xml',
         'views/inherit_contact_views.xml',
         'views/inherit_categories_views.xml',
+        'views/view_crm_lead_form_inherit.xml',
+        'views/inherit_view_invoice_tree.xml',
 
         # report
         'report/sale_report_inherit.xml',

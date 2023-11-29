@@ -63,8 +63,10 @@ function makeTransactionManager() {
 }
 
 class KanbanGroup extends Group {
+
     setup(_params, state = {}) {
         super.setup(...arguments);
+        console.log("Kanban model new")
 
         /** @type {ProgressBar[]} */
         this.progressBars = this._generateProgressBars();

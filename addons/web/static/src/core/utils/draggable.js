@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { makeDraggableHook } from "@web/core/utils/draggable_hook_builder";
+import {makeDraggableHook} from "@web/core/utils/draggable_hook_builder";
 
 /**
  * @typedef DraggableParams
@@ -47,16 +47,16 @@ import { makeDraggableHook } from "@web/core/utils/draggable_hook_builder";
 /** @type {(params: DraggableParams) => DraggableState} */
 export const useDraggable = makeDraggableHook({
     name: "useDraggable",
-    onDragStart({ ctx, helpers }) {
-        helpers.execHandler("onDragStart", { element: ctx.currentElement });
+    onDragStart({ctx, helpers}) {
+        helpers.execHandler("onDragStart", {element: ctx.currentElement});
     },
-    onDrag({ ctx, helpers }) {
-        helpers.execHandler("onDrag", { element: ctx.currentElement });
+    onDrag({ctx, helpers}) {
+        helpers.execHandler("onDrag", {element: ctx.currentElement});
     },
-    onDragEnd({ ctx, helpers }) {
-        helpers.execHandler("onDragEnd", { element: ctx.currentElement });
+    onDragEnd({ctx, helpers}) {
+        helpers.execHandler("onDragEnd", {element: ctx.currentElement});
     },
-    onDrop({ ctx, helpers }) {
-        helpers.execHandler("onDrop", { element: ctx.currentElement });
+    onDrop({ctx, helpers}) {
+        helpers.execHandler("onDrop", {element: ctx.currentElement});
     },
 });

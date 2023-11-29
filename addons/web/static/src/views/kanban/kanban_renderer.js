@@ -66,6 +66,7 @@ export class KanbanRenderer extends Component {
                 cursor: "move",
                 // Hooks
                 onDragStart: (params) => {
+                            console.log("Drag START")
                     const { element, group } = params;
                     dataRecordId = element.dataset.id;
                     dataGroupId = group && group.dataset.id;
