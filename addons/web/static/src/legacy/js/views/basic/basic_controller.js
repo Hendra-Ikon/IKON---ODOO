@@ -379,8 +379,10 @@ var BasicController = AbstractController.extend(FieldManagerMixin, {
         }
         if (this.confirmOnDelete) {
             const message = ids.length > 1 ?
-                            _t("Are you sure you want to delete these records?") :
-                            _t("Are you sure you want to delete this record?");
+                            // _t("Are you sure you want to delete these records?") :
+                            // _t("Are you sure you want to delete this record?");
+                            _t("Yaquin?") :
+                            _t("Apa benarr?");
             let dialog;
             const confirmCallback = () => {
                 doIt().guardedCatch(() => dialog.destroy());

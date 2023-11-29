@@ -24,7 +24,7 @@ SEX = [
     ('female', 'Married'),
 ]
 
-MAJORDEGREE = [
+LEVELDEGREE = [
     ('select', 'Click to select'),
     ('high_school', 'High School'),
     ('bachelor', 'Bachelor Degree'),
@@ -56,10 +56,10 @@ class PDSData(models.Model):
     pds_fullname = fields.Char(string="Nama")
     pds_nik = fields.Char(string="NIK")
     pds_addressNIK = fields.Char(string="Alamat NIK")
-    pds_zipcode_addressNIK = fields.Integer(string="Zip")
+    pds_zipcode_addressNIK = fields.Char(string="Zip")
     pds_currentAddress = fields.Char(string="Alamat sekarang")
-    pds_zipcode_currentAddress = fields.Integer(string="Zip")
-    pds_phoneNumber = fields.Integer(string="No Hp")
+    pds_zipcode_currentAddress = fields.Char(string="Zip")
+    pds_phoneNumber = fields.Char(string="No Hp")
     pds_email = fields.Char(string="Personal Email")
     pds_placeOfBirth = fields.Char(string="Place of birth")
     pds_nationality = fields.Char(string="Nationality")
@@ -74,6 +74,7 @@ class PDSData(models.Model):
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
     pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
     pds_work_exp = fields.One2many('custom.work.experience', 'applicant_id', string='Working Experience')
+    pds_exp_sal = fields.One2many('custom.expected.salary', 'applicant_id', string='Expected Salary')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 
@@ -83,7 +84,8 @@ class HrApplEdu(models.Model):
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_edu_inst_name = fields.Char(string="Institution name")
-    pds_edu_major = fields.Selection(MAJORDEGREE, string="Major", default='select')
+    pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
+    pds_edu_major = fields.Char(string="Major")
     pds_edu_location = fields.Char(string="Location")
     pds_edu_start_year = fields.Date(string="Start year")
     pds_edu_end_year = fields.Date(string="End year")
@@ -124,5 +126,16 @@ class HrApplWorkExperience(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_workex_company_name = fields.Char(string="Company name", help='Company name')
     pds_workex_lob = fields.Char(string="Line of bussiness", help="Line of bussiness")
+    pds_workex_last_pos = fields.Char(string="Last Position", help="Last Position")
+    pds_workex_reason_leave = fields.Char(string="Reason for leaving", help="Reason for leaving")
+    pds_workex_last_salary = fields.Char(string="Last salary", help="Last salary")
     pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
     pds_workex_period_to = fields.Date(string="to", help="Working period to")
+
+class HrApplExpectedSalary(models.Model):
+
+    _name = "custom.expected.salary"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary")
+    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit")

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.http import request
 
 
 class AppliedJob(models.Model):
@@ -15,6 +16,8 @@ class AppliedJob(models.Model):
                 applicant.applied_jobs = [(6, 0, [applicant.job_id.id])]
             else:
                 applicant.applied_jobs = [(5, 0, 0)]  # Clear the Many2many field if no job is selected
+
+
 class CustomJobDescription(models.Model):
     _inherit = "hr.job"
 
@@ -65,26 +68,50 @@ class HrApplCrUsrSnEmail(models.Model):
 
 
     def action_create_user_and_send_email(self):
-        # Get the applicant's email
-        applicant_email = self.user_email
+        user = request.env.user
 
-        # Create a user based on the email
-        user_vals = {
-            'name': self.partner_name,
-            'email': applicant_email,
-            # Add other user fields as needed
+        # Prepare email content
+        subject = "Login Information"
+        body = f"Dear {user.name},\n\nYour login information:\nUsername: {user.login}\nPassword: {user.password}\n"
+
+        # Send the email
+        mail_values = {
+            'subject': subject,
+            'body_html': body,
+            'email_from': 'your-email@example.com',  # Replace with your email
+            'email_to': "w.ikon.arif@gmail.com",
+            # 'res_id': user.id,
+            # 'model': 'your.model.name',  # Replace with the actual model name
         }
-        new_user = self.env['res.users'].create(user_vals)
 
-        # Send an email to the newly created user
+        # Use the mail template or create your own if needed
+        mail_template = self.env.ref('ikon_recruitment.set_password_email')  # Replace with your mail template
+        if mail_template:
+            mail_template.send_mail(user.id, force_send=True,)
+        # else:
+        #     self.env['mail.mail'].create(mail_values).send()
+
+        return True
+        # Get the applicant's email
+        # applicant_email = self.user_email
+        #
+        # # Create a user based on the email
+        # user_vals = {
+        #     'name': self.partner_name,
+        #     'email': applicant_email,
+        #     # Add other user fields as needed
+        # }
+        # new_user = self.env['res.users'].create(user_vals)
+        #
+        # # Send an email to the newly created user
         # template_id = self.env.ref('ikon_recruitment.email_template_applicant')
         # if template_id:
         #     template_id.send_mail(new_user.id, force_send=True)
-
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
+        #
+        # return {
+        #     'type': 'ir.actions.client',
+        #     'tag': 'reload',
+        # }
 
 
 

@@ -11,6 +11,7 @@
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
+        'security/ir.model.access.csv',
         'views/inherit/jobs_portal.xml',
         'views/inherit/footer_login.xml',
         'views/inherit/custom_job_detail.xml',
