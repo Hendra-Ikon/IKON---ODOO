@@ -22,7 +22,9 @@ class CustomJobDescription(models.Model):
     _inherit = "hr.job"
 
 
+
     lead_data = fields.Char(String="Lead Article")
+
 
     nice_to_have = fields.One2many('custom.nice_to_have', 'job_id', string='Nice to Have Items')
     req_skill = fields.One2many('custom.reqskill', 'job_id', string='Req Skill Items')

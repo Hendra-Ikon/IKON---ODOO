@@ -1,0 +1,158 @@
+<odoo>
+    <data>
+        <!--Normal Template Preview-->
+        <template id="report_preview_bci_v1">
+            <t t-call="web.html_preview_container">
+                <t t-call="web.external_layout">
+                    <t t-set="address">
+                        <address class="mb-0" itemscope="itemscope"
+                            itemtype="http://schema.org/Organization">
+                            <div>
+                                <span itemprop="name">ini Name</span>
+                            </div>
+                            <div itemprop="address" itemscope="itemscope"
+                                itemtype="http://schema.org/PostalAddress">
+                                <div class="d-flex align-items-baseline">
+                                    <span class="w-100 o_force_ltr" itemprop="streetAddress">alamat
+                                        rumah<br />Pleasant Hill CA 94523<br />United States</span>
+                                </div>
+                            </div>
+                        </address>
+                    </t>
+                    <div class="page mt-5">
+                        <table style="border: 1px solid white" name="info_table">
+                            <tr t-attf-style="background-color: white">
+                                <td class="text-start" style="width:15%"><span>Invoice No.</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold">357/CS-10/2023</span></td>
+                            </tr>
+                            <tr t-attf-style="background-color: white">
+                                <td class="text-start" style="width:25%"><span>PO No.</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold">370-0000011026</span> dated <span style="font-weight:bold">21-Aug-2023</span></td>
+                            </tr>
+                            <tr t-attf-style="background-color: white">
+                                <td class="text-start" style="width:25%"><span>Due date</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold">immediate</span></td>
+                            </tr>
+                            <tr t-attf-style="background-color: white">
+                                <td class="text-start" style="width:25%"><span>Payment for</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold">PTBC Reward Management</span></td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm o_main_table table-borderless"
+                            name="invoice_line_table">
+                            <thead>
+                                <tr>
+                                    <th style="font-weight: bold" name="th_po" class="text-start">
+                                        <span>PO</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_date" class="text-start">
+                                        <span>Date</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_description" class="text-start d-md-table-cell">
+                                        <span>Description</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_price" class="text-end d-md-table-cell">
+                                        <span>Price/Unit</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_quantity" class="text-end d-md-table-cell">
+                                        <span>Quantity</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_amount" class="text-end">
+                                        <span>Amount</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr>
+                                    <td class="text-start">
+                                        <span class="text-wrap">370-0000011026</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span>21-Aug-2023</span>
+                                    </td>
+                                    <td class="text-start d-md-table-cell">
+                                        <span style="font-weight: bold">REIMBURSEMENT</span><br/>
+                                        <span>Voucher MAP (100rb)</span><br/>
+                                        <span>Voucher MAP (50rb)</span><br/>
+                                        <span>Delivery Cost Jabodetabek</span><br/>
+                                        <span>Delivery Cost Jawa Bali Madura</span><br/>
+                                        <span>Delivery Cost Luar Jawa</span><br/>
+                                        <span style="font-weight: bold">INVOICE</span><br/>
+                                        <span>Adm Fee Voucher (100rb)</span><br/>
+                                        <span>Adm Fee Voucher (50rb)</span>
+                                    </td>
+                                    <td class="text-end d-md-table-cell">
+                                        <span ></span><br/>
+                                        <span>100,000</span><br/>
+                                        <span>50,000</span><br/>
+                                        <span>11,000</span><br/>
+                                        <span>25,000</span><br/>
+                                        <span>40,000</span><br/>
+                                        <span ></span><br/>
+                                        <span>2,200</span><br/>
+                                        <span>1,100</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span ></span><br/>
+                                        <span>305</span><br/>
+                                        <span>30</span><br/>
+                                        <span>8</span><br/>
+                                        <span>6</span><br/>
+                                        <span>1</span><br/>
+                                        <span ></span><br/>
+                                        <span>305</span><br/>
+                                        <span>30</span>
+                                    </td>
+                                    <td class="text-end ">
+                                        <span ></span><br/>
+                                        <span>30,500,000</span><br/>
+                                        <span>1,500,000</span><br/>
+                                        <span>88,000</span><br/>
+                                        <span>150,000</span><br/>
+                                        <span>40,000</span><br/>
+                                        <span ></span><br/>
+                                        <span>671,000</span><br/>
+                                        <span>33,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span>Sub Total</span>
+                                        <br />
+                                        <span>PPN</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span>32,982,000</span>
+                                        <br />
+                                        <span>77,440</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span style="font-weight: bold">TOTAL</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span style="font-weight: bold">33,059,440</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span style="font-weight:bold; font-style:italic">Thirty three million fifty nine thousand four hundred forty Rupiah</span>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
