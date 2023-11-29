@@ -20,7 +20,7 @@
             </t>
         </xpath>
         <xpath expr="//div[@id='informations']" position="inside">
-            <div t-if="doc.po_fif_no and doc.state not in ['draft', 'sent', 'cancel']"
+            <!-- <div t-if="doc.po_fif_no and doc.state not in ['draft', 'sent', 'cancel']"
                 class="col-auto col-3 mw-100 mb-2" name="po_fif">
                 <strong>Test. :</strong>
                 <p class="m-0" t-field="doc.po_no" />
@@ -29,7 +29,7 @@
                 class="col-auto col-3 mw-100 mb-2" name="pr_no">
                 <strong>PR No. :</strong>
                 <p class="m-0" t-field="doc.po_date" />
-            </div>
+            </div> -->
         </xpath>
         <xpath expr="//div[@name='so_total_summary']" position="after">
             <t t-set="lines_to_report_payment" t-value="doc._get_order_lines_to_report_payment()" />

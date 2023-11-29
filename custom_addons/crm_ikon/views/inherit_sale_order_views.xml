@@ -37,6 +37,7 @@
                     <field name="item_id" optional="hide"/>
                     <field name="item_description" optional="hide"/>
                     <field name="period" widget="date" optional="hide"/>
+                    <field name="po_number" optional="hide" />
                     <!-- <field name="monthly_rate" optional="hide"/> -->
             </xpath>
             <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"

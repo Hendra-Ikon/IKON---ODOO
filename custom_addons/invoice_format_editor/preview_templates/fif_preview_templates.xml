@@ -90,7 +90,7 @@
                                     <td class="text-end">
                                         <span>Sub Total</span><br/>
                                         <span>PPN</span><br/>
-                                        <span>PPH</span>
+                                        <!-- <span>PPH</span> -->
                                     </td>
                                     <td class="text-end">
                                         <span>150,000,000-</span><br/>

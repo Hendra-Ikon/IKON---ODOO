@@ -52,11 +52,17 @@
             </xpath>
             <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
                 <field name="attention"/>
+                <field name="po_no"/>
+                <field name="po_date"/>
+                <field name="payment_for"/>
+                <field name="payment_for_service"/>
+                <field name="period"/>
             </xpath>
-            <xpath
-                    expr="//field[@name='currency_id' and @groups='!account.group_account_readonly,base.group_multi_currency']"
-                    position="after">
-                <field name="pph" attrs="{'invisible': [('name', '=', '/')]}"/>
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <field name="agreement_no" />
+                <field name="spk_no" />
+                <field name="month" widget="date" class="oe_inline" />
+                <field name="spv" />
             </xpath>
         </field>
     </record>

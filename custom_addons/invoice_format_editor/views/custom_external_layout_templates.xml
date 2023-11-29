@@ -237,7 +237,7 @@
 
 <!--STRIPED Layout-->
     <!--Inherited the striped external layout for changing company address position-->
-    <template id="custom_external_layout_striped" inherit_id="web.external_layout_striped">
+    <!-- <template id="custom_external_layout_striped" inherit_id="web.external_layout_striped">
         <xpath expr="//div[hasclass('o_background_header')]" position="replace">
             <t t-if="model == 'account.move'">
                 <div id="striped_header">
@@ -306,5 +306,5 @@
                 </div>
             </t>
         </xpath>
-    </template>
+    </template> -->
 </odoo>
