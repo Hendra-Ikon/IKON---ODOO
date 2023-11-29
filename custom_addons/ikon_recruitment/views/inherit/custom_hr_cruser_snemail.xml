@@ -5,12 +5,13 @@
         <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@class='oe_kanban_bottom_left']" position="inside">
+                <field name="stage_name" invisible="1"/>
                 <!-- Add your custom button here -->
                 <button string="Send"
                         type="object"
                         class="oe_highlight"
                         name="action_create_user_and_send_email"
-                attrs="{'invisible': [('stage_id', 'not in', 'PDS Submission')]}"/>
+                attrs="{'invisible': [('stage_name', '!=', 'PDS Submission')]}"/>
             </xpath>
         </field>
     </record>

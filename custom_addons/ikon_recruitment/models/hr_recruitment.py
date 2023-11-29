@@ -58,6 +58,7 @@ class WhatsGreat(models.Model):
 class HrApplCrUsrSnEmail(models.Model):
     _inherit = 'hr.applicant'
 
+    stage_name = fields.Char(related='stage_id.name', string='Stage Name', readonly=True)
 
     # toggle_send_email = fields.Boolean(string="Send Email", default=False)
     #
