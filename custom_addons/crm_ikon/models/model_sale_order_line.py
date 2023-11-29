@@ -14,7 +14,7 @@ class SaleOrderLine(models.Model):
     item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
     period = fields.Date(string="Period")
-   
+    po_number = fields.Char(string="PO")
     # monthly_rate = fields.Integer(string="Monthly Rate (IDR)")
     # monthly_rate = fields.Float(
     #     string="Monthly Rate (IDR)",
@@ -190,6 +190,7 @@ class SaleOrderLine(models.Model):
             'item_id': self.item_id,
             'item_description': self.item_description,
             'period': self.period,
+            'po_number': self.po_number,
         }
         analytic_account_id = self.order_id.analytic_account_id.id
         if self.analytic_distribution and not self.display_type:

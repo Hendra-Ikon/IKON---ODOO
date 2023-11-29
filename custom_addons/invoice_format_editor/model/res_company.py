@@ -27,20 +27,17 @@ class ReportCompanyTemplate(models.Model):
     """Inheriting the res company model"""
     _inherit = 'res.company'
 
-    base_layout = fields.Selection(selection=[('default', 'Default'),
-                                              ('modern', 'Modern'),
-                                              ('normal', 'Normal'),
-                                              ('old', 'Old Standard'),
-                                              ('fif', 'Fif'),
-                                              ('stp', 'Solusi Tunas Pratama'),
-                                              ('btpn', 'BTPN'),
+    base_layout = fields.Selection(selection=[
+                                              ('fif', 'PT Federal International Finance'),
+                                              ('stp', 'PT Solusi Tunas Pratama Tbk'),
+                                              ('btpn', 'PT Bank BTPN Tbk'),
                                               ('bciv1', 'Bank Commonwealth Indonesia V1'),
                                               ('bciv2', 'Bank Commonwealth Indonesia V2'),
                                               ('bbs', 'Basis Bay Singapore'),
                                               ('dkatalis', 'Dkatalis'),
-                                              ('mandiri', 'Mandiri'),
-                                              ('bni','BNI'),
-                                              ('aia','AIA'),
+                                              ('mandiri', 'PT Bank Mandiri (Persero) Tbk'),
+                                              ('bni','PT Bank Negara Indonesia Tbk '),
+                                              ('aia','PT Asuransi AIA Indonesia'),
                                               ('lps','Licences / Product Sales')],
                                    required=True,
                                    string="Invoice Document Layout",
