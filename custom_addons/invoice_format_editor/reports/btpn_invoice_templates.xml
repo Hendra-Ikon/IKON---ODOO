@@ -146,7 +146,7 @@
                                     <th class="text-start"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Monthly Rate <br/>(IDR)
-                                    </th> -->
+                                    </th>
                                     <th class="text-start"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Description
