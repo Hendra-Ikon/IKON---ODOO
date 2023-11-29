@@ -12,10 +12,7 @@ class CrmAccountMove(models.Model):
 
     attention = fields.Char(string="Attention")
     inv_no = fields.Char(string='Invoice No.')
-    # pph = fields.Float(string='PPH Invoice', default=0.00)
-    # pph_price = fields.Float(compute="_compute_pph_price", default=0.00)
     in_word = fields.Char(string="In Word", compute="_compute_in_word", store=True)
-    
     project_name = fields.Char(string="Project Name")
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
@@ -254,4 +251,3 @@ class CrmAccountMove(models.Model):
             move.state = 'cancel'
 
         return True
-

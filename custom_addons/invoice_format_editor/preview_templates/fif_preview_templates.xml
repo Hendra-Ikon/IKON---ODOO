@@ -82,22 +82,22 @@
                                         <span class="nowrap">50,000,000-</span>
                                     </td>
                                 </tr>
-<!--                                <tr>-->
-<!--                                    <td></td>-->
-<!--                                    <td></td>-->
-<!--                                    <td></td>-->
-<!--                                    <td></td>-->
-<!--                                    <td class="text-end">-->
-<!--                                        <span>Sub Total</span><br/>-->
-<!--                                        <span>PPN</span><br/>-->
-<!--                                        <span>PPH</span>-->
-<!--                                    </td>-->
-<!--                                    <td class="text-end">-->
-<!--                                        <span>150,000,000-</span><br/>-->
-<!--                                        <span>16,500,000-</span><br/>-->
-<!--                                        <span>(3,000,000)</span>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span>Sub Total</span><br/>
+                                        <span>PPN</span><br/>
+                                        <!-- <span>PPH</span> -->
+                                    </td>
+                                    <td class="text-end">
+                                        <span>150,000,000-</span><br/>
+                                        <span>16,500,000-</span><br/>
+                                        <span>(3,000,000)</span>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>

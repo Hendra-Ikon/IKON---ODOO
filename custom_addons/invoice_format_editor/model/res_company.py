@@ -27,7 +27,7 @@ class ReportCompanyTemplate(models.Model):
     """Inheriting the res company model"""
     _inherit = 'res.company'
 
-    base_layout = fields.Selection(selection=[
+    base_layout = fields.Selection(selection=[('default', 'Default'),
                                               ('fif', 'PT Federal International Finance'),
                                               ('stp', 'PT Solusi Tunas Pratama Tbk'),
                                               ('btpn', 'PT Bank BTPN Tbk'),
@@ -36,7 +36,7 @@ class ReportCompanyTemplate(models.Model):
                                               ('bbs', 'Basis Bay Singapore'),
                                               ('dkatalis', 'Dkatalis'),
                                               ('mandiri', 'PT Bank Mandiri (Persero) Tbk'),
-                                              ('bni','PT Bank Negara Indonesia Tbk '),
+                                              ('bni','PT Bank Negara Indonesia Tbk'),
                                               ('aia','PT Asuransi AIA Indonesia'),
                                               ('lps','Licences / Product Sales')],
                                    required=True,

@@ -54,9 +54,10 @@
                             
                         </address>
                         <tr t-if="o.attention">
-                            <td class="text-start" t-attf-style="color:#{o.theme_id.text_color};" style="margin-left:25% !important;"><span >Attention</span></td>
-                            <td class="text-center" style="width:5%"><span>:</span></td>
-                            <td class="text-start"><span style="font-weight:bold" t-field="o.attention"/></td>
+                            <td class="text-start"  style="margin-left:25% !important;">
+                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Attention:</strong>
+                            </td>
+                            <td class="text-start"><span t-attf-class="o_company_#{company.id}_layout footer o_background_footer" style="font-weight:bold" t-field="o.attention"/></td>
                         </tr>
                     </t>
                    
@@ -73,10 +74,20 @@
                                 <td class="text-center" style="width:5%"><span>:</span></td>
                                 <td class="text-start"><span style="font-weight:bold" t-field="o.name"/></td>
                             </tr>
+                            <tr t-attf-style="background-color: white" t-if="o.spk_no">
+                                <td class="text-start" style="width:15%"><span>SPK No.</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold" t-field="o.spk_no"/></td>
+                            </tr>
                             <tr t-attf-style="background-color: white" t-if="o.po_no">
                                 <td class="text-start" style="width:25%"><span>PO No.</span></td>
                                 <td class="text-center" style="width:5%"><span>:</span></td>
                                 <td class="text-start"><span style="font-weight:bold" t-field="o.po_no"></span> dated <span style="font-weight:bold" t-field="o.po_date"></span></td>
+                            </tr>
+                            <tr t-attf-style="background-color: white" t-if="o.po_date">
+                                <td class="text-start" style="width:25%"><span>PO Date</span></td>
+                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start"><span style="font-weight:bold" t-field="o.po_date"></span> </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.agreement_no">
                                 <td class="text-start" style="width:25%"><span>Agreement No.</span></td>
@@ -128,7 +139,7 @@
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Description
                                     </th>
-                                    <th class="text-start"
+                                    <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Qty
                                     </th>
@@ -145,7 +156,7 @@
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Period
                                     </th>
-                                    <th class="text-center"
+                                    <th class="text-end"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
                                         Total<br/>(IDR)
                                     </th>
@@ -153,9 +164,9 @@
                             </thead>
                             <tbody>
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                    <td class="text-start"
+                                    <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.item_description" />
+                                        <span t-field="l.name" />
                                     </td>
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
@@ -165,11 +176,11 @@
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.product_uom_id" />
                                     </td>
-                                    <td class="text-end"
+                                    <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.price_unit" />
                                     </td>
-                                    <td class="text-end"
+                                    <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
                                         <span t-field="l.period" />
                                     </td>
@@ -181,16 +192,13 @@
                             </tbody>
                         </table>
                         <!--Payment details-->
-                        <div class="clearfix mb-4">
+                        <div class="clearfix mb-4" style="padding-top:-200px;">
                             <div id="total" class="row">
                                 <div
                                     t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                                    <table class="table table-sm table-borderless"
-                                        style="page-break-inside: avoid;">
-                                     
-                                        <div class="clearfix mb-4">
+                                        <div class="clearfix">
                                             <div id="total" class="row">
-                                                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                                <div t-attf-class="#{'col-12' if report_type != 'html' else 'col-sm-12 col-md-12'} ms-auto">
                                                 <table class="table table-sm table-borderless">
                                                     <t t-set="tax_totals" t-value="o.tax_totals"/>
                                                     <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
@@ -267,8 +275,8 @@
                                                 <p style="font-size:15px; font-style: italic;">*<span t-esc="o.in_word" /></p>
                                             </div>
                                             </div>
-                                        </div>
-                                    </table>
+                                        
+                                    </div>
 
                                 </div>
                             </div>
@@ -309,8 +317,16 @@
                         </div>
                     </div>
                     <xpath expr="//p[@name='payment_communication']" position="after">
-                        <div class="row mt-4 mb-4 ml-5" id="sincerely">
-                            
+                        <!-- <small>
+                            Please transfer the above amount to: <br/>
+                                PT Ikonsultan Inovatama <br/>
+                                Bank Danamon <br/>
+                                A/C No. : 0056844020 (Rupiah Account) <br />
+                            Note: This invoice should be paid before <span t-field='o.invoice_date_due'
+                                t-options='{"widget": "date","format": "dd/MM/yyyy"}' />. <br />
+                            Please ensure that our invoice number is mentioned in your payment instruction.
+                        </small> -->
+                        <div class="row mt-4 mb-4 ml-5" id="sincerely">       
                             <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
                                 <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Sincerely,</strong>
                                 <br />
@@ -333,20 +349,7 @@
                         </p>
                     </div>
                       <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
-                <div class="text-center">
-                    <ul class="list-inline">
-                        <div t-field="company.report_footer"/>
-                    </ul>
-                    <div t-if="report_type == 'pdf'" class="text-muted">
-                        Page:
-                        <span class="page"/>
-                        of
-                        <span class="topage"/>
-                    </div>
-                    <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
-                        <span t-field="o.name"/>
-                    </div>
-                </div>
+              
             </div>
                     
                 </div>

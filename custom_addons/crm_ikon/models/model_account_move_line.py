@@ -35,6 +35,7 @@ class CrmAccountMoveLine(models.Model):
     po_number = fields.Char(string="PO")
     
     
+    
     @api.depends('product_id', 'product_uom_id')
     def _compute_price_unit(self):
         for line in self:

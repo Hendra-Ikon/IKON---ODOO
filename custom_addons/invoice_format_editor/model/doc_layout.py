@@ -68,7 +68,6 @@ class AddDocumentTemplate(models.Model):
                              help="Country")
     vat = fields.Boolean(string='VAT', default=True,
                          help='Customer vat id')
-    
     spk = fields.Boolean(string='SPK No.', default=True,
                                   help="SPK No" )
     agreement_no = fields.Boolean(string="Agreement No", default=True,
@@ -77,18 +76,9 @@ class AddDocumentTemplate(models.Model):
                                   help="Payment For Service")
     payment_for = fields.Boolean(string='Payment For',default=True,
                                   help="Payment For")
-    
-    project_name = fields.Boolean(string="Project Name")
-    # po_fif_no = fields.Boolean(string="PO No.")
-    po_date = fields.Date(string="PO. Date")
-    
-    po_no = fields.Date(string="PO No.")
-
+    po_no = fields.Boolean(string="PO No.")
     period = fields.Boolean(string="Period")
-
     top = fields.Boolean(string="Term Of Payment")
-    
-    
     item_id = fields.Boolean(string="Item ID")
     item_description = fields.Boolean(string="Item Description")
     period = fields.Boolean(string="Period")

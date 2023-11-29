@@ -22,7 +22,7 @@
             </t>
         </xpath>
         <xpath expr="//div[@id='informations']" position="inside">
-            <div t-if="doc.po_no and doc.state not in ['draft', 'sent', 'cancel']"
+            <div t-if="doc.po_fif_no and doc.state not in ['draft', 'sent', 'cancel']"
                 class="col-auto col-3 mw-100 mb-2" name="po_fif">
                 <strong>PO No. :</strong>
                 <p class="m-0" t-field="doc.po_no" />

@@ -28,31 +28,30 @@ class TemplateInvoice(models.Model):
     a relational field to doc layout model"""
     _inherit = 'account.move'
 
-    base_layout = fields.Selection(selection=[
-                                              ('old', 'Old Standard'),
-                                              ('fif', 'Fif'),
-                                              ('stp', 'Solusi Tunas Pratama'),
-                                              ('btpn', 'BTPN'),
+    base_layout = fields.Selection(selection=[('default', 'Default'),
+                                              ('fif', 'PT Federal International Finance'),
+                                              ('stp', 'PT Solusi Tunas Pratama Tbk'),
+                                              ('btpn', 'PT Bank BTPN Tbk'),
                                               ('bciv1', 'Bank Commonwealth Indonesia V1'),
                                               ('bciv2', 'Bank Commonwealth Indonesia V2'),
                                               ('bbs', 'Basis Bay Singapore'),
                                               ('dkatalis', 'Dkatalis'),
-                                              ('mandiri', 'Mandiri'),
-                                              ('bni','BNI'),
-                                              ('aia','AIA'),
+                                              ('mandiri', 'PT Bank Mandiri (Persero) Tbk'),
+                                              ('bni','PT Bank Negara Indonesia Tbk'),
+                                              ('aia','PT Asuransi AIA Indonesia'),
                                               ('lps','Licences / Product Sales')],
                                    required=True,
                                    string="Invoice Document Layout",
                                    default="default")
     theme_id = fields.Many2one('doc.layout',
                                related='company_id.document_layout_id')
-    # spk = fields.Char(string='SPK No.')
-    # agreement_no = fields.Char(string="Agreement No")
-    # payment_for_service = fields.Char(string='Payment For Service')
-    # payment_for = fields.Char(string='Payment For')
-    # project_name = fields.Boolean(string="Project Name")
+    spk = fields.Char(string='SPK No.')
+    agreement_no = fields.Char(string="Agreement No")
+    payment_for_service = fields.Char(string='Payment For Service')
+    payment_for = fields.Char(string='Payment For')
+    project_name = fields.Char(string="Project Name")
     # po_fif_no = fields.Boolean(string="PO No.")
-    # po_date = fields.Boolean(string="PO. Date")
+    # po_date = fields.Date(string="PO. Date")
     
     # pr_no = fields.Boolean(string="PR No.")
 
