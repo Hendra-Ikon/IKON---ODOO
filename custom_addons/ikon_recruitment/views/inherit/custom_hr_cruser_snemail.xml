@@ -15,14 +15,6 @@
         </field>
     </record>
 
-    <!--    <template id="email_template_applicant">-->
-    <!--        <div>-->
-    <!--            <p>Hello User,</p>-->
-    <!--            <p>Congratulations! Your application has been accepted.</p>-->
-    <!--            <p>Best regards,</p>-->
-    <!--            <p>Your Company</p>-->
-    <!--        </div>-->
-    <!--    </template>-->
 
     <record id="set_password_email" model="mail.template">
             <field name="name">Settings: New Portal Signup</field>

@@ -14,3 +14,6 @@ access_internal_user_custom_language_prof,custom_language_prof,model_custom_lang
 access_portal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_portal,1,1,1,1
 access_internal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_user,1,1,1,1
 
+access_portal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_portal,1,1,1,1
+access_internal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_user,1,1,1,1
+

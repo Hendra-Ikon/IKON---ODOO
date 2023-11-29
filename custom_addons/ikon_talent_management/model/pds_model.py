@@ -74,6 +74,7 @@ class PDSData(models.Model):
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
     pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
     pds_work_exp = fields.One2many('custom.work.experience', 'applicant_id', string='Working Experience')
+    pds_exp_sal = fields.One2many('custom.expected.salary', 'applicant_id', string='Expected Salary')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 
@@ -130,3 +131,11 @@ class HrApplWorkExperience(models.Model):
     pds_workex_last_salary = fields.Char(string="Last salary", help="Last salary")
     pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
     pds_workex_period_to = fields.Date(string="to", help="Working period to")
+
+class HrApplExpectedSalary(models.Model):
+
+    _name = "custom.expected.salary"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary")
+    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit")

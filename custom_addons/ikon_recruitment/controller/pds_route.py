@@ -56,6 +56,13 @@ class PDSController(http.Controller):
         work_record.unlink()
         return request.redirect('/pds/data')
 
+    @http.route("/delete_exp/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
+                csrf=False)
+    def delete_exp(self, edu_id):
+        work_record = request.env['custom.expected.salary'].browse(edu_id)
+        work_record.unlink()
+        return request.redirect('/pds/data')
+
     @http.route("/create_cert", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_cert(self, **kwargs):
         user = request.env.user
@@ -153,7 +160,26 @@ class PDSController(http.Controller):
 
 
             except Exception as e:
-                print(f'Error Language Proficiency {e}')
+                print(f'Error Working Exp {e}')
+        return request.redirect('/pds/data')
+
+    @http.route("/create_expected_salary", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_workexp(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        work_exp = request.env['custom.expected.salary'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                for applicant in applicant_to_update:
+                    work_exp.create({
+                        'applicant_id': applicant.id,
+                        'pds_expected_salary': kwargs.get("pds_expected_salary"),
+                        'pds_expected_benefit': kwargs.get("pds_expected_benefit"),
+                    })
+
+
+            except Exception as e:
+                print(f'Error Expected Salary {e}')
         return request.redirect('/pds/data')
 
 
