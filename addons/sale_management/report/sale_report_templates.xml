@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<template id="report_saleorder_document_inherit_sale_management" inherit_id="sale.report_saleorder_document">
-    <xpath expr="//div[@name='signature']" position="after">
+<template id="report_saleorder_document_inherit_sale_management_custom" inherit_id="sale.report_saleorder_document">
+    <xpath expr="//div[@class='page']" position="after">
         <div t-if="doc.sale_order_option_ids and doc.state in ['draft', 'sent']">
             <t t-set="has_option_discount" t-value="any(option.discount != 0.0 for option in doc.sale_order_option_ids)" />
             <h4 name="h_optional_products">
@@ -10,7 +10,7 @@
             <table name="table_optional_products" class="table table-sm">
                 <thead>
                     <tr>
-                        <th name="th_option_name" class="text-start">Description</th>
+                        <th name="th_option_name" class="text-start">Test</th>
                         <th t-if="has_option_discount" name="th_option_discount" groups="product.group_discount_per_so_line" class="text-start">Disc.%</th>
                         <th name="th_option_price_unit" class="text-end">Unit Price</th>
                     </tr>
@@ -40,6 +40,7 @@
                 </tbody>
             </table>
         </div>
+        
     </xpath>
 </template>
 </odoo>
