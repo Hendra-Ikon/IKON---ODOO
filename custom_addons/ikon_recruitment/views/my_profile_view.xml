@@ -1,0 +1,194 @@
+<odoo>
+    <template id="custom_my_home" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[contains(@class, 'dropdown-item') and contains(., 'My Account')]"
+               position="replace">
+            <a href="/my/profile" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
+                My Profile
+            </a>
+        </xpath>
+
+    </template>
+    <template id="custom_profile_view">
+        <t t-call="website.layout">
+            <link rel="stylesheet" type="text/css" href="/ikon_recruitment/static/src/scss/my_profile.css"/>
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+                    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+                    crossorigin="anonymous"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+                    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+                    crossorigin="anonymous"
+            />
+            <!--            <section style="background-color: #eee;">-->
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="/jobs">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">User profile</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <t t-esc="user_data.name"/>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body card-left-top text-center">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                     alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;"/>
+                                <h5 class="my-3">
+                                    <t t-esc="user_data.name"/>
+                                </h5>
+
+                                <t t-if="employment_status">
+                                    <p class="text-muted mb-1">
+                                        <t t-esc="employee_department"/>
+                                    </p>
+
+                                </t>
+                                <t t-else="">
+                                    <p class="text-muted mb-1">No Employment Status</p>
+                                </t>
+
+                            </div>
+                        </div>
+                        <div class="card mb-4 mb-lg-0">
+                            <div class="card-body p-0 row">
+                                <div t-if="user_stage > 0"
+                                     class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/pds/data'">
+                                        PDS Data
+                                    </button>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/my/account'">
+                                        Edit My data
+                                    </button>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
+                                    <button type="button"
+                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
+                                            onclick="window.location.href='/my/security'">
+                                        Edit Password
+                                    </button>
+                                </div>
+                                <!--                                <t t-esc="user_stage"/>-->
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-profile card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            <t t-esc="user_data.name"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            <t t-esc="user_data.email"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Phone</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            <t t-esc="user_data.partner_id.phone"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Address</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            <t t-esc="user_data.partner_id.contact_address"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div t-attf-class="mb-3 col-xl-12">
+                            <div class="col-md-10">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Applied on</th>
+                                            <th>Applied role</th>
+                                            <th>Stages</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="applied_jobs" t-as="job">
+                                            <td>
+
+                                                <span t-esc="job['created']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="job['job'].name"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="job['stage']"/>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -26,11 +26,13 @@ class CrmSaleOrder(models.Model):
     month = fields.Date(string="Month")
    
 
+
     name = fields.Text(
         string="Description",
         compute='_compute_name',
         tracking=True,
         store=True, readonly=False, required=True, precompute=True)
+
     
     def _get_mail_template(self):
         """
@@ -310,6 +312,3 @@ class CrmSaleOrder(models.Model):
 
    
 
-
-
-    
