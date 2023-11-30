@@ -72,7 +72,7 @@
                             <tr t-attf-style="background-color: white" t-if="o.name">
                                 <td class="text-start" style="width:15%"><span>Invoice No.</span></td>
                                 <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.name"/></td>
+                                <td class="text-start"><span style="font-weight:bold" t-field="o.inv_no"/></td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.spk_no">
                                 <td class="text-start" style="width:15%"><span>SPK No.</span></td>
@@ -280,7 +280,7 @@
                             </div>
                         </div>
      
-                    <div t-attf-style="color:#{o.theme_id.text_color};"
+                    <!-- <div t-attf-style="color:#{o.theme_id.text_color};"
                         class="col-12">
                         <p t-if="o.fiscal_position_id.note">
                             <strong>Fiscal Position Remark:</strong>
@@ -313,9 +313,9 @@
                                 <br />
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                     <xpath expr="//p[@name='payment_communication']" position="after">
-                        <!-- <small>
+                        <small>
                             Please transfer the above amount to: <br/>
                                 PT Ikonsultan Inovatama <br/>
                                 Bank Danamon <br/>
@@ -323,7 +323,7 @@
                             Note: This invoice should be paid before <span t-field='o.invoice_date_due'
                                 t-options='{"widget": "date","format": "dd/MM/yyyy"}' />. <br />
                             Please ensure that our invoice number is mentioned in your payment instruction.
-                        </small> -->
+                        </small>
                         <div class="row mt-4 mb-4 ml-5" id="sincerely">       
                             <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
                                 <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Sincerely,</strong>
@@ -342,7 +342,7 @@
                     </xpath>
                     <div t-attf-style="color:#{o.theme_id.text_color};" class="col-12">
                         <p t-if="not is_html_empty(o.narration)">
-                            <strong>Comment:</strong>
+                            <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Terms and Conditions:</strong>
                             <span t-field="o.narration"/>
                         </p>
                     </div>
