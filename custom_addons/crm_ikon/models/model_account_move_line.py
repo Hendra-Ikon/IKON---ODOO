@@ -6,12 +6,18 @@ logger = logging.getLogger(__name__)
 class CrmAccountMoveLine(models.Model):
     _inherit = "account.move.line"
     
-    
+    product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Service',
+        inverse='_inverse_product_id',
+        ondelete='restrict',
+    )
     price_unit = fields.Float(
         string='Unit Price',
         compute="_compute_price_unit", store=True, readonly=False, precompute=True,
         digits='Product Price',
     )
+
     name = fields.Char(
         string='Label',
         compute='_compute_name', store=True, readonly=False, precompute=True,
@@ -22,6 +28,13 @@ class CrmAccountMoveLine(models.Model):
         relation='sale_order_line_invoice_rel', column1='invoice_line_id', column2='order_line_id',
         string="order Lines",
         copy=False)
+    
+    item_id = fields.Char(string="Item ID")
+    item_description = fields.Char(string="Item Description")
+    period = fields.Date(string="Period")
+    po_number = fields.Char(string="PO")
+    
+    
     
     @api.depends('product_id', 'product_uom_id')
     def _compute_price_unit(self):

@@ -51,7 +51,7 @@ class CrmAccountTax(models.Model):
         """
 
         # ==== Compute the taxes ====
-
+    
         to_process = []
         for base_line in base_lines:
             to_update_vals, tax_values_list = self._compute_taxes_for_single_line(base_line)

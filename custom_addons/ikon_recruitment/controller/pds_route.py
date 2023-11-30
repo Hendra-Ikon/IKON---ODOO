@@ -164,7 +164,7 @@ class PDSController(http.Controller):
         return request.redirect('/pds/data')
 
     @http.route("/create_expected_salary", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
-    def create_workexp(self, **kwargs):
+    def create_expected_salary(self, **kwargs):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         work_exp = request.env['custom.expected.salary'].search([])
