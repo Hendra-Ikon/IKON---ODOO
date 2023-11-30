@@ -72,3 +72,26 @@ class JobsApplied(models.Model):
 
 
         return applied_jobs
+
+class StageSequenced(models.Model):
+
+    _inherit = "hr.applicant"
+
+    stage_id = fields.Many2one('hr.recruitment.stage', 'Stage', ondelete='restrict', tracking=True,
+                               compute='_compute_stage', store=True, readonly=False,
+                               domain="['|', ('job_ids', '=', False), ('job_ids', '=', job_id)]", track_visibility='onchange',
+                               copy=False, index=True,
+                               group_expand='_read_group_stage_ids')
+
+    @api.constrains('stage_id')
+    def _check_stage_sequence(self):
+        for rec in self:
+            stages = rec.stage_id.sorted(lambda r: r.sequence)
+            for i in range(len(stages) - 1):
+                if stages[i].sequence > stages[i + 1].sequence:
+                    raise exceptions.ValidationError('Invalid stage sequence!')
+
+    def _default_stage_ids(self):
+        # Set the default stages based on your requirements
+        stage_obj = self.env['hr.recruitment.stage']
+        return [(6, 0, stage_obj.search([]).ids)]

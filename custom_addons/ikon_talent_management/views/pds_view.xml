@@ -198,15 +198,15 @@
                                             </select>
 
 
-                                        <input type="hidden" name="redirect" t-att-value="redirect"/>
-                                    </div>
-                                    <div class="clearfix">
-                                        <button type="submit" class="btn btn-primary float-end mb32 ">
-                                            Update
-                                        </button>
+                                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                                        </div>
+                                        <div class="clearfix">
+                                            <button type="submit" class="btn btn-primary float-end mb32 ">
+                                                Update
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </form>
                     </div>
@@ -734,16 +734,16 @@
         </div>
     </template>
 
-        <template id="expected_salary">
+    <template id="expected_salary">
         <div class="accordion-item">
             <h2 class="accordion-header" id="nameHeader">
                 <button class="accordion-button" t-attf-style="background-color: white; margin-top: 10px;" type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#workSection" aria-expanded="true" aria-controls="nameCollapse">
+                        data-bs-target="#salarySection" aria-expanded="true" aria-controls="nameCollapse">
                     Expected Salary Section
                 </button>
             </h2>
-            <div id="workSection" class="accordion-collapse collapse show" aria-labelledby="nameHeader"
+            <div id="salarySection" class="accordion-collapse collapse show" aria-labelledby="nameHeader"
                  data-bs-parent="#pdsAccordion">
                 <div class="accordion-body">
                     <form id="custom_exp_salary" action="/create_expected_salary" method="post"
@@ -789,7 +789,8 @@
                                                         <td>
                                                             <input type="text" name="pds_expected_benefit"
                                                                    t-attf-style="height: 50px;" value="  Rp:  "/>
-                                                        </td><td>
+                                                        </td>
+                                                        <td>
                                                             <button type="submit"
                                                                     class="btn btn-primary float-end mb32 ">
                                                                 Add
