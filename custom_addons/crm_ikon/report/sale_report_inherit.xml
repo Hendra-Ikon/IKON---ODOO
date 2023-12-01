@@ -16,29 +16,31 @@
          <!-- header -->
         <xpath expr="//div[@class='page']" position="replace">
             <div class="oe_structure"/>
-     
+            <br />
+            <br />
+          
             <table class="mb-6" style="border: 1px solid white;" name="info_table">
                 <tr t-attf-style="background-color: white" t-if="doc.name">
-                    <td class="text-start" style="width:55%">
+                    <td class="text-start" style="width:120px">
                         <span>Quotation</span>
                     </td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.name"/></td>
                 </tr>
                 <tr t-attf-style="background-color: white" t-if="doc.date_order">
-                    <td class="text-start"  style="width:70px" ><span>Quotation Date</span></td>
+                    <td class="text-start"  style="width:120px" ><span>Quotation Date</span></td>
                     <td class="text-center"  style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.date_order" t-options="{'widget': 'date', 'date-format': 'YYYY-MM-DD'}"/></td>
                 </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.project_name">
-                    <td class="text-start"  style="width:70px"><span>Project Name</span></td>
+                    <td class="text-start"  style="width:120px"><span>Project Name</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.project_name"/></td>
                 </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.client_order_ref">
-                    <td class="text-start" style="width:70px"><span>Your Reference:</span></td>
+                    <td class="text-start" style="width:120px"><span>Your Reference:</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.client_order_ref"/></td>
                 </tr>
@@ -46,7 +48,7 @@
                
                 
                 <tr t-attf-style="background-color: white" t-if="doc.validity_date and doc.state in ['draft', 'sent']">
-                    <td class="text-start"  style="width:70px" t-if="doc.state in ['draft', 'sent']"><span>Expiration:</span></td>
+                    <td class="text-start"  style="width:120px" t-if="doc.state in ['draft', 'sent']"><span>Expiration</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.validity_date"/></td>
                 </tr>
