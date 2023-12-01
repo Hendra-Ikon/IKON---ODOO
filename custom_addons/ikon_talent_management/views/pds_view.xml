@@ -4,15 +4,22 @@
     <template id="custom_pds_view">
         <t t-call="portal.portal_layout">
             <t t-set="additional_title">Contact Details</t>
-            <t t-call="ikon_talent_management.personal_record"/>
-            <t t-call="ikon_talent_management.certificate_section"/>
-            <t t-call="ikon_talent_management.education_section"/>
-            <t t-call="ikon_talent_management.nonformal_education_section"/>
-            <t t-call="ikon_talent_management.language_section"/>
-            <t t-call="ikon_talent_management.work_section"/>
-            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>
-            <button class="btn btn-primary ms-2" t-on-click="showDialog">Dialog Service</button>
-            <button class="btn btn-primary ms-2" t-on-click="showEffect">Effect Service</button>
+            <t t-if="pds_data">
+                <t t-call="ikon_talent_management.personal_record"/>
+                <t t-call="ikon_talent_management.certificate_section"/>
+                <t t-call="ikon_talent_management.education_section"/>
+                <t t-call="ikon_talent_management.nonformal_education_section"/>
+                <t t-call="ikon_talent_management.language_section"/>
+                <t t-call="ikon_talent_management.work_section"/>
+                <t t-call="ikon_talent_management.expected_salary"/>
+            </t>
+            <t t-else="">
+                <h1>Forbidden Access</h1>
+            </t>
+
+            <!--            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>-->
+            <!--            <button class="btn btn-primary ms-2" t-on-click="showDialog">Dialog Service</button>-->
+            <!--            <button class="btn btn-primary ms-2" t-on-click="showEffect">Effect Service</button>-->
             <!--            <t t-call="ikon_talent_management.success_notif"/>-->
             <!--            <button class="o_popup_close_btn">Show Modal</button>-->
             <!--            <button t-on-click="widget.openAlert()">Open Alert</button>-->
@@ -189,8 +196,6 @@
                                                 <option value="married">Married</option>
                                                 <option value="divorced">Divorced</option>
                                             </select>
-                                        </div>
-
 
 
                                         <input type="hidden" name="redirect" t-att-value="redirect"/>
@@ -201,6 +206,7 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </form>
                     </div>
@@ -267,14 +273,17 @@
                                                     <tr>
                                                         <td>
                                                             <input type="text" name="pds_cert_name"
-                                                                   placeholder="Add Cert name"/>
+                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"
+                                                            />
                                                         </td>
                                                         <td>
                                                             <input type="text" name="pds_cert_provider"
-                                                                   placeholder="Add Provider"/>
+                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"
+                                                            />
                                                         </td>
                                                         <td>
-                                                            <input type="date" name="pds_cert_issued_year"/>
+                                                            <input type="date" name="pds_cert_issued_year"
+                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"/>
                                                         </td>
                                                         <td>
                                                             <button type="submit"
@@ -326,6 +335,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Institution Name</th>
+                                                        <th>Level</th>
                                                         <th>Major</th>
                                                         <th>Location</th>
                                                         <th>Start year</th>
@@ -337,6 +347,10 @@
                                                         <td>
 
                                                             <span t-esc="edu['pds_edu_inst_name']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="edu['pds_edu_level']"/>
                                                         </td>
                                                         <td>
 
@@ -366,21 +380,22 @@
                                                             <input type="text" name="pds_edu_inst_name"
                                                                    t-attf-style="height: 50px;"/>
                                                         </td>
-
                                                         <td>
-                                                            <select name="pds_edu_major"
+                                                            <select name="pds_edu_level"
                                                                     t-attf-class="form-select "
                                                                     t-attf-style="width: 100px; height: 50px; font-size: 15px;">
-                                                                <option t-att-value="pds_edu_major or 'Select'">
+                                                                <option t-att-value="pds_edu_level or 'Select'">
                                                                 </option>
                                                                 <option value="high_school">High School</option>
                                                                 <option value="bachelor">Bachelor</option>
                                                                 <option value="master">Master</option>
                                                                 <option value="doctor">Doctor</option>
                                                             </select>
-                                                            <!--                                                            <input type="text" name="pds_edu_major"/>-->
                                                         </td>
-
+                                                        <td>
+                                                            <input type="text" name="pds_edu_major"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
                                                         <td>
                                                             <input type="text" name="pds_edu_location"
                                                                    t-attf-style="height: 50px;"/>
@@ -618,13 +633,16 @@
                                 <div class="row">
                                     <div t-attf-class="mb-3 col-xl-12">
                                         <div class="col-md-10">
-                                            <table class="table table-condensed">
+                                            <table class="table table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Company name</th>
                                                         <th>Line of bussiness</th>
                                                         <th>Start From</th>
                                                         <th>End</th>
+                                                        <th>Last Position</th>
+                                                        <th>Reason for leaving</th>
+                                                        <th>Last salary</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -644,6 +662,18 @@
                                                         <td>
 
                                                             <span t-esc="work['pds_workex_period_to']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_last_pos']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_reason_leave']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="work['pds_workex_last_salary']"/>
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-sm btn-danger"
@@ -671,6 +701,18 @@
                                                                    t-attf-style="height: 50px;"/>
                                                         </td>
                                                         <td>
+                                                            <input type="text" name="pds_workex_last_pos"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="pds_workex_reason_leave"
+                                                                   t-attf-style="height: 50px;"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="pds_workex_last_salary"
+                                                                   t-attf-style="height: 50px;" value="  Rp:  "/>
+                                                        </td>
+                                                        <td>
                                                             <button type="submit"
                                                                     class="btn btn-primary float-end mb32 ">
                                                                 Add
@@ -691,6 +733,84 @@
             </div>
         </div>
     </template>
+
+        <template id="expected_salary">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="nameHeader">
+                <button class="accordion-button" t-attf-style="background-color: white; margin-top: 10px;" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#workSection" aria-expanded="true" aria-controls="nameCollapse">
+                    Expected Salary Section
+                </button>
+            </h2>
+            <div id="workSection" class="accordion-collapse collapse show" aria-labelledby="nameHeader"
+                 data-bs-parent="#pdsAccordion">
+                <div class="accordion-body">
+                    <form id="custom_exp_salary" action="/create_expected_salary" method="post"
+                          enctype="multipart/form-data" class="o_mark_required row"
+                          data-mark="*" data-model_name="custom.expected.salary"
+                          data-success-mode="redirect" data-success-page="/jobs"
+                          hide-change-model="true">
+                        <div class="row o_portal_details">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div t-attf-class="mb-3 col-xl-12">
+                                        <div class="col-md-10">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Expected Salary</th>
+                                                        <th>Expected Benefit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">
+                                                        <td>
+
+                                                            <span t-esc="exp['pds_expected_salary']"/>
+                                                        </td>
+                                                        <td>
+
+                                                            <span t-esc="exp['pds_expected_benefit']"/>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-danger"
+                                                               t-att-href="'/delete_exp/' + str(exp['id'])">Delete
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" name="pds_expected_salary"
+                                                                   t-attf-style="height: 50px;" value="  Rp:  "/>
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" name="pds_expected_benefit"
+                                                                   t-attf-style="height: 50px;" value="  Rp:  "/>
+                                                        </td><td>
+                                                            <button type="submit"
+                                                                    class="btn btn-primary float-end mb32 ">
+                                                                Add
+                                                            </button>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </template>
+
 
 </odoo>
         <!--        Master Accordion-->
