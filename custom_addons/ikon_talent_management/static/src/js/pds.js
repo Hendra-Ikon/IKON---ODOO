@@ -15,13 +15,8 @@ odoo.define('crm_ikon.access_toggle_confirm', function (require) {
         // 'result' is an array of record data, each containing the 'toggle_confirm' field
         result.forEach(function (recordData) {
             console.log('toggle_confirm value for record ' + recordData.id + ':', recordData.toggle_confirm);
-            // if (result === false) {
-            //     alert("HIYAAAA")
-            // }
+
         });
-        // if (result === false) {
-        //     alert("HIYAAAA")
-        // }
-        // console.log(result)
+
     });
 });

@@ -220,7 +220,7 @@ class PDSController(http.Controller):
 
         return request.render("ikon_talent_management.custom_pds_view", data)
 
-    @http.route("/my/profile", type='http', auth='user', website=True)
+    @http.route("/my/account", type='http', auth='user', website=True)
     def my_profile(self):
         user = request.env.user
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
