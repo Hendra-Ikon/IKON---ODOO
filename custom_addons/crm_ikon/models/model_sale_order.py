@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 import logging
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Command
@@ -22,17 +22,60 @@ class CrmSaleOrder(models.Model):
     spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
-
     month = fields.Date(string="Month")
-   
+    
+    name = fields.Char(
+        string="Order Reference",
+        required=True, copy=False, readonly=True,
+        index='trigram',
+        states={'draft': [('readonly', True)]},
+        default=lambda self: _('New'))
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'company_id' in vals:
+                self = self.with_company(vals['company_id'])
+            if vals.get('name', _("New")) == _("New"):
+                seq_date = fields.Datetime.context_timestamp(
+                    self, fields.Datetime.to_datetime(vals['date_order'])
+                ) if 'date_order' in vals else None
+                value = self._generate_default_name()
+                vals['name'] = value or _("New")
 
-    name = fields.Text(
-        string="Description",
-        compute='_compute_name',
-        tracking=True,
-        store=True, readonly=False, required=True, precompute=True)
+        return super().create(vals_list)
+        
+    def _generate_default_name(self):
+        # Get the sale.order.sequence
+        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
+         
+        # Ensure the sequence exists
+        if sequence:
+            # Get the next value from the sequence
+            sequence_value = sequence.next_by_id()
+            logger.info("sequence_value", sequence_value)
 
+            # Extract the last three digits
+            last_three_digits = sequence_value[-3:]
+
+            # Check if the last three digits are 999
+            if last_three_digits == '999':
+                # Extract the last four digits
+                last_four_digits = sequence_value[-4:]
+                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year} - Quotation"
+            else:
+                # Get the current month and year
+                current_month = fields.Date.today().month
+                current_year = fields.Date.today().year
+
+                # Format the name
+                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year} - Quotation"
+
+            logger.info("test %s", name)
+
+            return name
+
+        return False
     
     def _get_mail_template(self):
         """
