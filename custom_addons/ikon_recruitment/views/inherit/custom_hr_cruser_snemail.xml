@@ -13,6 +13,15 @@
                         name="action_create_user_and_send_email"
                         attrs="{'invisible': [('stage_name', '!=', 'PDS Submission')]}"/>
             </xpath>
+
+            <xpath expr="//div[@class='o_kanban_record_subtitle']" position="replace">
+                <div class="o_kanban_record_subtitle" t-attf-style="background-color: #cbe6f8; width: 150px">
+                    <field name="job_id"/>
+                </div>
+
+            </xpath>
+
+
         </field>
     </record>
 

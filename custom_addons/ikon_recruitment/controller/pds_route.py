@@ -182,8 +182,6 @@ class PDSController(http.Controller):
                 print(f'Error Expected Salary {e}')
         return request.redirect('/pds/data')
 
-
-
     @http.route("/pds/data", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def pds_route(self, **kwargs):
 
@@ -222,6 +220,43 @@ class PDSController(http.Controller):
 
     @http.route("/my/account", type='http', auth='user', website=True)
     def my_profile(self):
+        user = request.env.user
+        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+
+        stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+
+        for stage_check in stage_checks:
+            if stage_check.stage_id.name == "PDS Submission":
+                stage_check.write({'toggle_pds': 1})
+
+        user_stage = 0
+        applied_jobs = []
+        for applicant in applicants:
+            applied_jobs.append({
+                'job': applicant.job_id,
+                'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
+                "created": applicant.create_date
+            })
+            if user_stage is 0 and applicant.toggle_pds is not 0:
+                user_stage = applicant.toggle_pds
+
+        # Other profile data retrieval
+        uid = request.session.uid
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+
+        # Pass the data to the template
+        data = {
+            "user_data": user,
+            'employee_department': employment_status.department_id.name,
+            'employment_status': employment_status,
+            'applied_jobs': applied_jobs,
+            "user_stage": user_stage,
+        }
+
+        return request.render("ikon_recruitment.custom_profile_view", data)
+
+    @http.route("/my", type='http', auth='user', website=True)
+    def custom_route_my(self):
         user = request.env.user
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
