@@ -18,15 +18,21 @@ class TalentPoolImportWizard(models.TransientModel):
 
         for row in range(1, sheet.nrows):  # Start from the second row (skip header)
             data = {
-                # 'no': int(sheet.cell_value(row, 0)),
                 'sumber': sheet.cell_value(row, 1),
                 'posisi': sheet.cell_value(row, 2),
                 'nama': sheet.cell_value(row, 3),
                 'email': sheet.cell_value(row, 4),
                 'universitas': sheet.cell_value(row, 5),
-                'notes': sheet.cell_value(row, 6)
+                'degree': sheet.cell_value(row, 6),
+                'major': sheet.cell_value(row, 7),
+                'notes': sheet.cell_value(row, 8)
             }
-            talent_pool_model.create(data)
+
+            existing_record = talent_pool_model.search([('email', '=', data['email'])])
+            if not existing_record:
+                talent_pool_model.create(data)
+
+
 
 
 class TalentData(models.Model):
@@ -37,13 +43,13 @@ class TalentData(models.Model):
     posisi = fields.Char(string="Posisi")
     nama = fields.Char(string="Nama")
     email = fields.Char(string="Email")
+    universitas = fields.Char(string="Universitas")
     degree = fields.Selection([
         ('sma', 'SMA'),
         ('smk', 'SMK'),
         ('s1', 'S1'),
         ('s2', 'S2'),
     ])
-    # degree = fields.Selection(string="Degree", selection=DEGREES, default=DEGREES[2][2])
-    universitas = fields.Char(string="Universitas")
+    major = fields.Char(string="Major")
     notes = fields.Char(string="Additional Notes")
     attachment = fields.Binary(string="Attachment File")
