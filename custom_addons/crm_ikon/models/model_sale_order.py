@@ -62,14 +62,14 @@ class CrmSaleOrder(models.Model):
             if last_three_digits == '999':
                 # Extract the last four digits
                 last_four_digits = sequence_value[-4:]
-                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year} - Quotation"
+                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
             else:
                 # Get the current month and year
                 current_month = fields.Date.today().month
                 current_year = fields.Date.today().year
 
                 # Format the name
-                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year} - Quotation"
+                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year}"
 
             logger.info("test %s", name)
 
