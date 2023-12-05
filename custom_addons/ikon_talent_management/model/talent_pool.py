@@ -52,4 +52,4 @@ class TalentData(models.Model):
     ])
     major = fields.Char(string="Major")
     notes = fields.Char(string="Additional Notes")
-    attachment = fields.Binary(string="Attachment File")
+    attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
