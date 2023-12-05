@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images': [],
-    'depends': ['base', 'web', 'website', 'portal', 'website_hr_recruitment', ],
+    'depends': ['base', 'web', 'website', 'portal', 'website_hr_recruitment'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [

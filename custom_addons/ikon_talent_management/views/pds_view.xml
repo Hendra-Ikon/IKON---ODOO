@@ -58,6 +58,14 @@
                     <t t-call="ikon_talent_management.certificate_section"/>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm">
+                    <t t-call="ikon_talent_management.education_section"/>
+                </div>
+                <div class="col-sm">
+                    <t t-call="ikon_talent_management.nonformal_education_section"/>
+                </div>
+            </div>
         </div>
     </template>
 
@@ -79,172 +87,172 @@
                               data-mark="*" data-model_name="hr.applicant"
                               data-success-mode="redirect" data-success-page="/jobs"
                               hide-change-model="true" t-attf-style="margin-right: 0px;">
-<!--                            <div class="row o_portal_details">-->
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                <div t-if="error_message" class="alert alert-danger" role="alert">
-                                    <div class="col-lg-12">
-                                        <t t-foreach="error_message" t-as="err">
-                                            <t t-esc="err"/>
-                                            <br/>
-                                        </t>
-                                    </div>
+                            <!--                            <div class="row o_portal_details">-->
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div t-if="error_message" class="alert alert-danger" role="alert">
+                                <div class="col-lg-12">
+                                    <t t-foreach="error_message" t-as="err">
+                                        <t t-esc="err"/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!--        Personal Record-->
+
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_fullname">Fullname</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pds_fullname" class="form-control"
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>
+                                </div>
+                                <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pds_sex" class="form-control"
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_sex'] or 'Your Sex'"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_email">Email</label>
+                                <div class="col-sm-10">
+
+                                    <input type="email" name="pds_email" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_email'] or 'Your Email'"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label-optional" for="pds_nik">NIK</label>
+                                <div class="col-sm-10">
+
+                                    <input type="text" name="pds_nik" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_nik'] or 'Your NIK Number'"/>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label-optional" for="pds_addressNIK">NIK
+                                    address
+                                </label>
+                                <div class="col-sm-4">
+
+                                    <input type="text" name="pds_addressNIK" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_addressNIK'] or 'Your NIK Address'"/>
+                                </div>
+                                <label class="col-sm-2 col-form-label" for="pds_zipcode_addressNIK">Zip code
+                                </label>
+                                <div class="col-sm-4">
+
+                                    <input type="text" name="pds_zipcode_addressNIK"
+                                           t-attf-class="form-control" t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_zipcode_addressNIK'] or '0'"/>
                                 </div>
 
-                                <!--        Personal Record-->
+                            </div>
 
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_fullname">Fullname</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="pds_fullname" class="form-control"
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>
-                                    </div>
-                                    <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="pds_sex" class="form-control"
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_sex'] or 'Your Sex'"/>
-                                    </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_currentAddress">Current address
+                                </label>
+                                <div class="col-sm-4">
+
+                                    <input type="text" name="pds_currentAddress"
+                                           t-attf-class="form-control " t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_currentAddress'] or 'Your current address'"/>
                                 </div>
+                                <label class="col-sm-2 col-form-label" for="pds_zipcode_currentAddress">Zip code
+                                </label>
+                                <div class="col-sm-4">
 
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_email">Email</label>
-                                    <div class="col-sm-10">
-
-                                        <input type="email" name="pds_email" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_email'] or 'Your Email'"/>
-                                    </div>
+                                    <input type="text" name="pds_zipcode_currentAddress"
+                                           t-attf-class="form-control" t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_zipcode_currentAddress'] or '0'"/>
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label-optional" for="pds_nik">NIK</label>
-                                    <div class="col-sm-10">
+                            </div>
 
-                                        <input type="text" name="pds_nik" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_nik'] or 'Your NIK Number'"/>
-                                    </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_nik">Phone</label>
+                                <div class="col-sm-10">
+
+                                    <input type="text" name="pds_phoneNumber" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_phoneNumber'] or 'Your Phone Number'"/>
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label-optional" for="pds_addressNIK">NIK
-                                        address
-                                    </label>
-                                    <div class="col-sm-4">
+                            </div>
 
-                                        <input type="text" name="pds_addressNIK" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_addressNIK'] or 'Your NIK Address'"/>
-                                    </div>
-                                    <label class="col-sm-2 col-form-label" for="pds_zipcode_addressNIK">Zip code
-                                    </label>
-                                    <div class="col-sm-4">
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_placeOfBirth">Place of
+                                    birth
+                                </label>
+                                <div class="col-sm-10">
 
-                                        <input type="text" name="pds_zipcode_addressNIK"
-                                               t-attf-class="form-control" t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_zipcode_addressNIK'] or '0'"/>
-                                    </div>
-
+                                    <input type="text" name="pds_phoneNumber" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_placeOfBirth'] or 'Your Place of birth'"/>
                                 </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_dob">Date of birth</label>
+                                <div class="col-sm-10">
 
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_currentAddress">Current address
-                                    </label>
-                                    <div class="col-sm-4">
-
-                                        <input type="text" name="pds_currentAddress"
-                                               t-attf-class="form-control "
-                                               t-att-value="pds_data['pds_currentAddress'] or 'Your current address'"/>
-                                    </div>
-                                    <label class="col-sm-2 col-form-label" for="pds_zipcode_currentAddress">Zip code
-                                    </label>
-                                    <div class="col-sm-4">
-
-                                        <input type="text" name="pds_zipcode_currentAddress"
-                                               t-attf-class="form-control" t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_zipcode_currentAddress'] or '0'"/>
-                                    </div>
+                                    <input type="date" name="pds_dob" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_dob'] or 'Your Date of birth'"/>
                                 </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_nationality">Nationality</label>
+                                <div class="col-sm-10">
 
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_nik">Phone</label>
-                                    <div class="col-sm-10">
-
-                                        <input type="text" name="pds_phoneNumber" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_phoneNumber'] or 'Your Phone Number'"/>
-                                    </div>
+                                    <input type="text" name="pds_dob" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                           t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
                                 </div>
+                            </div>
 
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_placeOfBirth">Place of
-                                        birth
-                                    </label>
-                                    <div class="col-sm-10">
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
+                                <div class="col-sm-10">
 
-                                        <input type="text" name="pds_phoneNumber" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_placeOfBirth'] or 'Your Place of birth'"/>
-                                    </div>
+                                    <select name="pds_religion"
+                                            t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
+                                        <option value="">
+                                            <t t-esc="pds_data['pds_religion'] or 'Select'"/>
+                                        </option>
+                                        <option value="islam">islam</option>
+                                        <option value="kristen">kristen</option>
+                                        <option value="hindu">hindu</option>
+                                        <option value="budha">budha</option>
+                                        <option value="konghuchu">konghuchu</option>
+                                    </select>
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_dob">Date of birth</label>
-                                    <div class="col-sm-10">
+                            </div>
 
-                                        <input type="date" name="pds_dob" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_dob'] or 'Your Date of birth'"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_nationality">Nationality</label>
-                                    <div class="col-sm-10">
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_marital_status">Marital status</label>
+                                <div class="col-sm-10">
 
-                                        <input type="text" name="pds_dob" class="form-control "
-                                               t-attf-style="height: 30px;"
-                                               t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
-                                    <div class="col-sm-10">
-
-                                        <select name="pds_religion"
-                                                t-attf-class="form-select " t-attf-style="height: 30px;">
-                                            <option value="">
-                                                <t t-esc="pds_data['pds_religion'] or 'Select'"/>
-                                            </option>
-                                            <option value="islam">islam</option>
-                                            <option value="kristen">kristen</option>
-                                            <option value="hindu">hindu</option>
-                                            <option value="budha">budha</option>
-                                            <option value="konghuchu">konghuchu</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row mb-4">
-                                    <label class="col-sm-2 col-form-label" for="pds_marital_status">Marital status</label>
-                                    <div class="col-sm-10">
-
-                                        <select name="pds_marital_status"
-                                            t-attf-class="form-select " t-attf-style="height: 30px;">
+                                    <select name="pds_marital_status"
+                                            t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                                         <option t-att-value="pds_data['pds_marital_status'] or 'Select'">
                                         </option>
                                         <option value="single">Single</option>
                                         <option value="married">Married</option>
                                         <option value="divorced">Divorced</option>
                                     </select>
-                                    </div>
                                 </div>
-                                <input type="hidden" name="redirect" t-att-value="redirect"/>
+                            </div>
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
 
-                                <div class="clearfix">
-                                    <button type="submit" class="btn btn-primary float-start mb32 ">
-                                        Update
-                                    </button>
-                                </div>
-<!--                            </div>-->
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-primary float-end mb32 ">
+                                    Update
+                                </button>
+                            </div>
+                            <!--                            </div>-->
                         </form>
                     </div>
                 </div>
@@ -266,80 +274,84 @@
                 <div class="accordion-body">
                     <form id="custom_cert_form" action="/create_cert" method="post"
                           enctype="multipart/form-data" class="o_mark_required row"
-                          data-mark="*" data-model_name="hr.applicant"
+                          data-mark="*" data-model_name="custom.certif"
                           data-success-mode="redirect" data-success-page="/jobs"
                           hide-change-model="true">
                         <div class="row o_portal_details">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div t-attf-class="mb-3 col-xl-12">
-                                        <!--                                            <label for="pds_certifications" class="col-md-2 control-label mb-6">-->
-                                        <!--                                                Certifications-->
-                                        <!--                                            </label>-->
-                                        <div class="col-md-10">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Certification Name</th>
-                                                        <th>Certification Provider</th>
-                                                        <th>Issued Year</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr t-foreach="pds_data['pds_certifications']" t-as="cert">
-                                                        <td>
 
-                                                            <span t-esc="cert['pds_cert_name']"/>
-                                                        </td>
-                                                        <td>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_cert_name">Certificate name</label>
+                                <div class="col-sm-10">
 
-                                                            <span t-esc="cert['pds_cert_provider']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="cert['pds_cert_issued_year']"/>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-danger"
-                                                               t-att-href="'/remove_cert/' + str(cert['id'])">Delete
-                                                            </a>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="pds_cert_name"
-                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_cert_provider"
-                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input type="date" name="pds_cert_issued_year"
-                                                                   t-attf-style="width: 100px; height: 50px; font-size: 15px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary float-end mb32 ">
-                                                                Add
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-
-                                        </div>
-                                    </div>
+                                    <input type="text" name="pds_cert_name" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
                                 </div>
-
                             </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_cert_provider">Certificate provider
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pds_cert_provider" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_cert_issued_year">Certificate year
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="pds_cert_issued_year" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <button type="submit"
+                                        class="btn btn-primary float-end mb32 ">
+                                    Add
+                                </button>
+                            </div>
+
+
                         </div>
                     </form>
+                    <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Certification Name</th>
+                                    <th>Certification Provider</th>
+                                    <th>Issued Year</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="pds_data['pds_certifications']" t-as="cert">
+                                    <td>
+
+                                        <span t-esc="cert['pds_cert_name']"/>
+                                    </td>
+                                    <td>
+
+                                        <span t-esc="cert['pds_cert_provider']"/>
+                                    </td>
+                                    <td>
+
+                                        <span t-esc="cert['pds_cert_issued_year']"/>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-danger"
+                                           t-att-href="'/remove_cert/' + str(cert['id'])">Delete
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,101 +375,122 @@
                           data-success-mode="redirect" data-success-page="/jobs"
                           hide-change-model="true">
                         <div class="row o_portal_details">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div t-attf-class="mb-3 col-xl-12">
-                                        <!--                                        <label for="pds_education" class="col-md-2 control-label">Education</label>-->
-                                        <div class="col-md-10">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Institution Name</th>
-                                                        <th>Level</th>
-                                                        <th>Major</th>
-                                                        <th>Location</th>
-                                                        <th>Start year</th>
-                                                        <th>End year</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr t-foreach="pds_data['pds_education']" t-as="edu">
-                                                        <td>
 
-                                                            <span t-esc="edu['pds_edu_inst_name']"/>
-                                                        </td>
-                                                        <td>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_edu_inst_name">Institution name</label>
+                                <div class="col-sm-10">
 
-                                                            <span t-esc="edu['pds_edu_level']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_edu_major']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_edu_location']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_edu_start_year']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_edu_end_year']"/>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-danger"
-                                                               t-att-href="'/delete_edu/' + str(edu['id'])">Delete
-                                                            </a>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="pds_edu_inst_name"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <select name="pds_edu_level"
-                                                                    t-attf-class="form-select "
-                                                                    t-attf-style="width: 100px; height: 50px; font-size: 15px;">
-                                                                <option t-att-value="pds_edu_level or 'Select'">
-                                                                </option>
-                                                                <option value="high_school">High School</option>
-                                                                <option value="bachelor">Bachelor</option>
-                                                                <option value="master">Master</option>
-                                                                <option value="doctor">Doctor</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_edu_major"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_edu_location"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="date" name="pds_edu_start_year"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="date" name="pds_edu_end_year"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary float-end mb32 ">
-                                                                Add
-                                                            </button>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    <input type="text" name="pds_edu_inst_name" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
                                 </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
+                                <div class="col-sm-10">
+
+                                    <select name="pds_edu_level"
+                                            t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
+                                        <option value="select">
+                                        </option>
+                                        <option value="high_school">High School</option>
+                                        <option value="bachelor">Bachelor</option>
+                                        <option value="master">Master</option>
+                                        <option value="doctor">Doctor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_edu_major">Major
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pds_edu_major" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_edu_location">Location
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pds_edu_location" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_edu_start_year">Start year
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="pds_edu_start_year" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_edu_end_year">End year
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="pds_edu_end_year" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <button type="submit"
+                                        class="btn btn-primary float-end mb32 ">
+                                    Add
+                                </button>
+                            </div>
+
+                            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+                                <table class="table table-striped">
+                                    <thead >
+                                        <tr t-attf-style="font-size: 10px;">
+                                            <th>Institution Name</th>
+                                            <th>Level</th>
+                                            <th>Major</th>
+                                            <th>Location</th>
+                                            <th>Start year</th>
+                                            <th>End year</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="pds_data['pds_education']" t-as="edu" t-attf-style="font-size: 10px;">
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_inst_name']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_level']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_major']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_location']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_start_year']"/>
+                                            </td>
+                                            <td>
+
+                                                <span t-esc="edu['pds_edu_end_year']"/>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-danger"
+                                                   t-att-href="'/delete_edu/' + str(edu['id'])">Delete
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
 
                             </div>
                         </div>
@@ -485,72 +518,79 @@
                           data-success-mode="redirect" data-success-page="/jobs"
                           hide-change-model="true">
                         <div class="row o_portal_details">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div t-attf-class="mb-3 col-xl-12">
-                                        <div class="col-md-10">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Course Name</th>
-                                                        <th>Provider</th>
-                                                        <th>Issued year</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr t-foreach="pds_data['pds_course']" t-as="edu">
-                                                        <td>
 
-                                                            <span t-esc="edu['pds_course_name']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_course_provider']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="edu['pds_course_issued_year']"/>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-danger"
-                                                               t-att-href="'/delete_nonfromedu/' + str(edu['id'])">
-                                                                Delete
-                                                            </a>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="pds_course_name"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-
-                                                        <td>
-                                                            <input type="text" name="pds_course_provider"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-
-                                                        <td>
-                                                            <input type="date" name="pds_course_issued_year"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary float-end mb32 ">
-                                                                Add
-                                                            </button>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_course_name">Course name
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pds_course_name" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
                                 </div>
-
                             </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_course_provider">Provider
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pds_course_provider" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-sm-2 col-form-label" for="pds_course_issued_year">Issued on
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="pds_course_issued_year" class="form-control "
+                                           t-attf-style="height: 30px; font-size: 10px;"
+                                    />
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <button type="submit"
+                                        class="btn btn-primary float-end mb32 ">
+                                    Add
+                                </button>
+                            </div>
+
+
                         </div>
                     </form>
+                    <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Provider</th>
+                                    <th>Issued year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="pds_data['pds_course']" t-as="edu">
+                                    <td>
+
+                                        <span t-esc="edu['pds_course_name']"/>
+                                    </td>
+                                    <td>
+
+                                        <span t-esc="edu['pds_course_provider']"/>
+                                    </td>
+                                    <td>
+
+                                        <span t-esc="edu['pds_course_issued_year']"/>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-danger"
+                                           t-att-href="'/delete_nonfromedu/' + str(edu['id'])">
+                                            Delete
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -611,7 +651,7 @@
                                                         <td>
                                                             <select name="pds_lang_percen"
                                                                     t-attf-class="form-select "
-                                                                    t-attf-style="width: 100px; height: 50px; font-size: 15px;">
+                                                                    t-attf-style="width: 100px; height: 50px; font-size: 10px;">
                                                                 <option t-att-value="pds_lang_percen or 'Select'">
                                                                 </option>
                                                                 <option value="1">1</option>
