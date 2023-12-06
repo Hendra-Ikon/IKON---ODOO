@@ -1,0 +1,117 @@
+<odoo>
+    <data>
+        <!--Normal Template Preview-->
+        <template id="report_preview_btpn">
+            <t t-call="web.html_preview_container">
+                <t t-call="web.external_layout">
+                    <t t-set="address">
+                        <address class="mb-0" itemscope="itemscope"
+                            itemtype="http://schema.org/Organization">
+                            <div>
+                                <span itemprop="name">ini Name</span>
+                            </div>
+                            <div itemprop="address" itemscope="itemscope"
+                                itemtype="http://schema.org/PostalAddress">
+                                <div class="d-flex align-items-baseline">
+                                    <span class="w-100 o_force_ltr" itemprop="streetAddress">alamat
+                                        rumah<br />Pleasant Hill CA 94523<br />United States</span>
+                                </div>
+                            </div>
+                        </address>
+                    </t>
+                    <div class="page mt-5">
+                        <h2>
+                            <span>Invoice</span>
+                            <span>INV/2023/00321</span>
+                        </h2>
+                        <div id="informations" class="row mt-4 mb-4">
+                            <div class="col-auto col-3 mw-100 mb-2" name="invoice_date">
+                                <strong>Invoice Date:</strong>
+                                <p class="m-0">20/11/2023</p>
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" name="due_date">
+                                <strong>Due Date:</strong>
+                                <p class="m-0">23/11/2023</p>
+                            </div>
+                        </div>
+                        <table class="table table-sm o_main_table table-borderless"
+                            name="invoice_line_table">
+                            <thead>
+                                <tr>
+                                    <th style="font-weight: bold" name="th_project" class="text-start">
+                                        <span>Project</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_totalprojectamount" class="text-center">
+                                        <span>Total Project Amount <br/>(IDR)</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_monthlyrate" class="text-end d-md-table-cell">
+                                        <span>Monthly Rate <br/>(IDR)</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_term" class="text-start d-md-table-cell">
+                                        <span>Term I - 75% <br/>Fix Monthly</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_month" class="text-start d-md-table-cell">
+                                        <span>Monthly</span>
+                                    </th>
+                                    <th style="font-weight: bold" name="th_amount" class="text-end">
+                                        <span>Amount <br />(IDR)</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr>
+                                    <td class="text-start">
+                                        <span class="text-wrap">Core Banking Sistem Deferred Implementation (CBS Phase 2)</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span>1,056,000,000</span>
+                                    </td>
+                                    <td class="text-end d-md-table-cell">
+                                        <span>132,000,000</span>
+                                    </td>
+                                    <td class="text-end d-md-table-cell">
+                                        <span>99,000,000</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span>OCT'2023</span>
+                                    </td>
+                                    <td class="text-end ">
+                                        <span>99,000,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span>Sub Total</span>
+                                        <br />
+                                        <span>PPN 11%</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span>99,000,000</span>
+                                        <br />
+                                        <span>10,890,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span style="font-weight: bold">Total</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span style="font-weight: bold">109,890,000</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

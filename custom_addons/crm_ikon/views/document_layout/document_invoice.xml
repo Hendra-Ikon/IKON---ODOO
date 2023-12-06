@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_invoice_payment_invoice_loyout" model="ir.ui.view">
+        <field name="name">view.payment.invoice.loyout</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='advance_payment_method']" position="after"> 
+                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900"  style="width:100%;">
+                    <p>Template Invoice</p>
+                </div>
+                    <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break"> 
+                    <field name='base_layout' widget='selection' options="{'no_create_edit': False}"/>
+                    </div>
+                
+           
+            </xpath>
+          
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -25,15 +25,15 @@
                     <p class="m-0" t-field="o.invoice_origin" />
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.po_fif_no"
-                    name="po_fif_no">
+                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
+                    name="po_no">
                     <strong>PO FIF No.:</strong>
-                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.po_fif_no" />
+                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.po_no" />
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.pr_no"
-                    name="pr_no">
-                    <strong>PR No.:</strong>
+                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
+                    name="po_no">
+                    <strong>Test:</strong>
                     <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.pr_no" />
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     <span t-esc="tax_totals['formatted_rounding_amount']" />
                 </td>
             </t>
-            <t t-if="o.pph">
+            <!-- <t t-if="o.pph">
                 <t t-set="pph_price" t-value="o.pph_price" />
                 <tr class="border-black">
                     <td>PPH (<span t-field="o.pph" />%)</td>
@@ -91,7 +91,7 @@
                             t-options="{'widget': 'monetary', 'display_currency' : o.invoice_line_ids.order_lines.order_id.pricelist_id.currency_id}" />
                     </td>
                 </tr>
-            </t>
+            </t> -->
             <!--Total
             amount with all taxes-->
             <tr class="border-black o_total">
