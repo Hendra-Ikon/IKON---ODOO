@@ -28,7 +28,7 @@ class CrmSaleOrder(models.Model):
         string="Order Reference",
         required=True, copy=False, readonly=True,
         index='trigram',
-        states={'draft': [('readonly', True)]},
+        states={'draft': [('readonly', True)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
 
     @api.model_create_multi
