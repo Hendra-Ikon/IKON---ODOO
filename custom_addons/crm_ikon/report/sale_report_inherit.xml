@@ -73,7 +73,7 @@
                         <th name="th_discount" t-if="display_discount" class="text-end">
                             <span>Disc.%</span>
                         </th>
-                        <th name="th_taxes" class="text-cneter">Taxes</th>
+                
                         <th name="th_subtotal" class="text-end">
                             <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
                             <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
@@ -117,9 +117,7 @@
                                 <td t-if="display_discount" class="text-center">
                                     <span t-field="line.discount"/>
                                 </td>
-                                <td name="td_taxes" class="text-center">
-                                    <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
-                                </td>
+                               
                                 <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
                                     <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                     <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
@@ -214,13 +212,22 @@
             </div>
             <br />
             <br />
-            <br />
-            <br />
-            <br /> <br />
-            <br />
-            <br />
-            <br />
-            <br />
+             <div>
+                <p>
+                    <strong>Terms and Conditions:</strong>
+                </p>
+                <p t-field="doc.note" name="order_note"/>
+                
+                <p t-if="not is_html_empty(doc.payment_term_id.note)">
+                    <span t-field="doc.payment_term_id.note"/>
+                </p>
+                <p t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
+                    id="fiscal_position_remark">
+                    <strong>Fiscal Position Remark:</strong>
+                    <span t-field="doc.fiscal_position_id.sudo().note"/>
+                </p>
+            </div>
+        
             <xpath expr="//div[@name='so_total_summary']" position="after">
                 <div class="row mt-4 mb-4" id="sincerely">
                     <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
@@ -249,17 +256,7 @@
                 </div>
             </div>
 
-            <div>
-                <p t-field="doc.note" name="order_note"/>
-                <p t-if="not is_html_empty(doc.payment_term_id.note)">
-                    <span t-field="doc.payment_term_id.note"/>
-                </p>
-                <p t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
-                    id="fiscal_position_remark">
-                    <strong>Fiscal Position Remark:</strong>
-                    <span t-field="doc.fiscal_position_id.sudo().note"/>
-                </p>
-            </div>
+           
         </xpath>                        
     </template>
 
