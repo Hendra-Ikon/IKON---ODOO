@@ -1,7 +1,8 @@
 import xlrd
 from odoo import models, fields
 from base64 import b64decode
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class TalentPoolImportWizard(models.TransientModel):
     _name = 'talent.pool.import.wizard'
@@ -33,6 +34,18 @@ class TalentPoolImportWizard(models.TransientModel):
             else:
                 # Update only the specified fields, keep the existing values for others
                 existing_record.write({key: value for key, value in data.items() if key in existing_record._fields})
+
+        action = {
+            'name': 'Talent Data',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'list,form',
+            'res_model': 'talent.pool.data',
+            'view_id': False,
+            'target': 'current',
+            'menu_id': 273,
+        }
+
+        return action
 
     def get_field_name(self, column_name):
 
@@ -77,16 +90,94 @@ class TalentData(models.Model):
 
             applicant_name = f'{appl.nama} - {job_name}'
 
+            temp_degree = fields.Char(string="Temporary Degree Value")
+            if appl.degree:
+                temp_degree = appl.degree
+            source_id = self.env['utm.source'].search([('name', '=', appl.sumber)], limit=1)
+            degree_id = self.env['hr.recruitment.degree'].search([('name', '=', appl.degree.upper())], limit=1)
+
+
+            if not source_id:
+                source_id = self.env['utm.source'].create({
+                    'name': appl.sumber,
+                    # Add other fields as needed
+                })
+
+            if not degree_id:
+                degree_id = self.env['hr.recruitment.degree'].create({
+                    'name': appl.degree.upper(),
+                    # Add other fields as needed
+                })
+
+            print(f"********* DEGREE *********: {appl.degree}")
+
             hr_applicant = self.env['hr.applicant'].create({
                 'name': applicant_name,
+                'partner_name': appl.nama,
                 'email_from': appl.email,
+                "from_talent_posisi": appl.posisi,
+                'source_id': source_id.id if source_id else False,
+                "from_talent_sumber": appl.sumber,
+                'type_id': degree_id.id if degree_id else False,
+                "from_talent_degree": appl.degree,
+                "from_talent_major": appl.major,
+                "from_talent_universitas": appl.universitas,
+                "from_talent_notes": appl.notes,
+                "from_talent_attachment": appl.attachment,
                 'job_id': appl.job_id.id,
-                # 'cover_letter': record.skill,
             })
 
             self.unlink()
 
             message = "Successfully move to applicant"
+            action = {
+                'name': 'Talent Data',
+                'type': 'ir.actions.act_window',
+                'view_mode': 'list,form',
+                'res_model': 'talent.pool.data',
+                'view_id': False,
+                'target': 'current',
+                'menu_id': 273,
+            }
+
+            return action
+
+class HrApplicantInherit(models.Model):
+
+    _inherit = "hr.applicant"
+
+    from_talent_posisi = fields.Char(string="Posisi")
+    from_talent_sumber = fields.Char(string="Sumber")
+    from_talent_degree = fields.Selection([
+        ('sma', 'SMA'),
+        ('smk', 'SMK'),
+        ('s1', 'S1'),
+        ('s2', 'S2'),
+    ])
+    from_talent_major = fields.Char(string="Major")
+    from_talent_universitas = fields.Char(string="Universitas")
+    from_talent_notes = fields.Char(string="Additional Notes")
+    from_talent_attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
+
+    def move_to_talent_pool(self):
+
+        for data in self:
+
+            talent_data = self.env["talent.pool.data"].create({
+                "nama": data.partner_name,
+                "email": data.email_from,
+                "posisi": data.from_talent_posisi,
+                "sumber": data.from_talent_sumber,
+                "degree": data.from_talent_degree,
+                "major": data.from_talent_major,
+                "universitas": data.from_talent_universitas,
+                "notes": data.from_talent_notes,
+                "attachment": data.from_talent_attachment
+
+            })
+
+            self.unlink()
+
             action = {
                 'name': 'Talent Data',
                 'type': 'ir.actions.act_window',
