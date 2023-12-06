@@ -21,6 +21,7 @@ class TalentManagement(models.Model):
     _inherit = ['mail.thread']
 
     REGION_SELECTION = [
+        ('any', 'Any'),
         ('jabodetabek', 'Jabodetabek'),
         ('jakarta', 'Jakarta'),
         ('surabaya', 'Surabaya'),
@@ -37,7 +38,7 @@ class TalentManagement(models.Model):
     custom_search_link = fields.Char(string='Custom Search Link', compute='_compute_custom_search_link')
     custom_search_data = fields.Text(string='Custom Search Data', compute='_compute_custom_search_data', store=True)
     limit = fields.Integer(string='Limit', required=True, default=20)
-    region = fields.Selection(REGION_SELECTION, string='Region', default='')
+    region = fields.Selection(REGION_SELECTION, string='Domicile', default='any')
     opentowork = fields.Boolean(string='OpenToWork')
     talent_ids = fields.One2many('talent.management.talent.inherit', 'talent_id', string='Talent')
     approved = fields.Boolean(string='Approved')  # A field to mark as approved
@@ -59,14 +60,18 @@ class TalentManagement(models.Model):
     @api.depends('position', 'keyword', 'limit', 'opentowork', 'region')
     def _compute_custom_search_link(self):
         base_url = "https://www.google.com/search?q=site:linkedin.com/in/"
+        
         for record in self:
-            if record.position and record.keyword and record.region:
+            if record.position and record.keyword:
                 position = f'"{record.position}"'
                 keywords = record.keyword
                 opentowork = "opentowork" if record.opentowork else ""
                 ina = "work in indonesia"
-                region = record.region  # Ambil nilai region dari field
-                search_query = f'{position} {opentowork}  {keywords} {region} {ina}'  # Sertakan region dalam pencarian
+                
+                # Check if the region is set to "Any," and update it to "Indonesia"
+                region = record.region if record.region != 'any' else 'indonesia'
+                
+                search_query = f'{position} {opentowork}  {keywords} {region} {ina}'
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
                 _logger.info(custom_search_url)
