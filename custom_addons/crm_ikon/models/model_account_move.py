@@ -106,6 +106,13 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
+    # name = fields.Char(
+    #     string='Number',
+    #     readonly=False, store=True,
+    #     copy=False,
+    #     tracking=True,
+    #     index='trigram',
+    # )
 
 
     def action_approve(self):
@@ -400,6 +407,7 @@ class CrmAccountMove(models.Model):
 
         return True
     
+
     def action_post(self):
         moves_with_payments = self.filtered('payment_id')
         other_moves = self - moves_with_payments
@@ -598,3 +606,4 @@ class CrmAccountMove(models.Model):
         self._inverse_name()
 
     
+
