@@ -1,5 +1,6 @@
 import os
-from odoo import http, fields
+
+from odoo import http, fields, models
 from odoo.http import request
 import json
 
@@ -235,6 +236,10 @@ class PDSController(http.Controller):
                         'pds_health_year': kwargs.get("pds_health_year"),
                     })
 
+                # message = "Health Section successfully added."
+                #
+                # # Use the website controller to execute JavaScript
+                # return request.render("ikon_recruitment.display_notification_template", {'message': message})
 
             except Exception as e:
                 print(f'Error Health Activities {e}')
@@ -349,3 +354,27 @@ class PDSController(http.Controller):
         }
 
         return request.render("ikon_recruitment.custom_profile_view", data)
+
+
+
+
+class WebsiteNotifications(models.TransientModel):
+
+    _name = 'website.notification'
+
+
+    notification = fields.Char('Notification')
+    user_id = fields.Many2one('res.users', string="Users")
+    state = fields.Selection([('to_send', 'To Send'),
+                              ('sent', 'Sent')],
+                             string="Status", required=True,
+                             default='to_send')
+
+    def get_notifications(self, user_id):
+        notifications = self.env['website.notification'].search(
+            [('user_id', '=', user_id), ('state', '=', 'to_send')])
+
+        names = notifications.mapped('notification')
+        for rec in notifications:
+            rec.state = 'sent'
+        return names

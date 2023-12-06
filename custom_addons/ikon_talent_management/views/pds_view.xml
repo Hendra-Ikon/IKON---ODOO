@@ -6,13 +6,6 @@
             <t t-set="additional_title">Contact Details</t>
             <t t-if="pds_data">
                 <t t-call="ikon_talent_management.new_template"/>
-                <!--                <t t-call="ikon_talent_management.personal_record"/>-->
-                <!--                <t t-call="ikon_talent_management.certificate_section"/>-->
-                <!--                <t t-call="ikon_talent_management.education_section"/>-->
-                <!--                <t t-call="ikon_talent_management.nonformal_education_section"/>-->
-                <!--                <t t-call="ikon_talent_management.language_section"/>-->
-                <!--                <t t-call="ikon_talent_management.work_section"/>-->
-                <!--                <t t-call="ikon_talent_management.expected_salary"/>-->
             </t>
             <t t-else="">
                 <h1>Forbidden Access</h1>
@@ -38,18 +31,29 @@
             <li t-if="page_name == 'pds_data'" class="breadcrumb-item">PDS Data</li>
         </xpath>
     </template>
-    <!--    <template id="success_notif">-->
-    <!--        <t t-if="open_modal == 'True'">-->
-    <!--            <div class="alert alert-success">-->
-    <!--                <strong>Success!</strong>-->
-    <!--                Certification created successfully.-->
-    <!--            </div>-->
-    <!--            <t t-esc="open_modal"/>-->
-    <!--        </t>-->
-    <!--    </template>-->
+
+    <template id="success_notif">
+        <div id="success_notification" class="alert alert-success">
+            <strong>Success!</strong>
+            Data has been updated succesfully.
+        </div>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+            // After 2 seconds, hide the notification
+            setTimeout(function () {
+            var successNotification = document.getElementById('success_notification');
+            if (successNotification) {
+            successNotification.style.display = 'none';
+            }
+            }, 2000); // Adjust the time delay (in milliseconds) as needed
+            });
+        </script>
+    </template>
+
 
     <template id="new_template">
         <div class="container" t-attf-style="margin-top: 10px;">
+            <t t-call="ikon_talent_management.success_notif"/>
             <div class="row">
                 <div class="col-sm">
                     <div t-attf-style="position: relative;
@@ -802,7 +806,7 @@
                                 <span/>
                                 <input class="form-check-input position-static" name="pds_health_radio"
                                        type="radio" id="true"
-                                       value="True" aria-label="..." />
+                                       value="True" aria-label="..."/>
                             </label>
                             <label class="form-check-label">
                                 No
@@ -1050,35 +1054,35 @@
 
                 </div>
             </form>
-<!--            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; padding-right: 27px;">-->
-<!--                <table class="table table-striped">-->
-<!--                    <thead>-->
-<!--                        <tr t-attf-style="background-color: #E17726;">-->
-<!--                            <th>Expected Salary</th>-->
-<!--                            <th>Expected Benefit</th>-->
-<!--                            <th>Actions</th>-->
-<!--                        </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                        <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">-->
-<!--                            <td>-->
+            <!--            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; padding-right: 27px;">-->
+            <!--                <table class="table table-striped">-->
+            <!--                    <thead>-->
+            <!--                        <tr t-attf-style="background-color: #E17726;">-->
+            <!--                            <th>Expected Salary</th>-->
+            <!--                            <th>Expected Benefit</th>-->
+            <!--                            <th>Actions</th>-->
+            <!--                        </tr>-->
+            <!--                    </thead>-->
+            <!--                    <tbody>-->
+            <!--                        <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">-->
+            <!--                            <td>-->
 
-<!--                                <span t-esc="exp['pds_expected_salary']"/>-->
-<!--                            </td>-->
-<!--                            <td>-->
+            <!--                                <span t-esc="exp['pds_expected_salary']"/>-->
+            <!--                            </td>-->
+            <!--                            <td>-->
 
-<!--                                <span t-esc="exp['pds_expected_benefit']"/>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <a class="btn btn-sm btn-danger"-->
-<!--                                   t-att-href="'/delete_exp/' + str(exp['id'])">Delete-->
-<!--                                </a>-->
-<!--                            </td>-->
+            <!--                                <span t-esc="exp['pds_expected_benefit']"/>-->
+            <!--                            </td>-->
+            <!--                            <td>-->
+            <!--                                <a class="btn btn-sm btn-danger"-->
+            <!--                                   t-att-href="'/delete_exp/' + str(exp['id'])">Delete-->
+            <!--                                </a>-->
+            <!--                            </td>-->
 
-<!--                        </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
+            <!--                        </tr>-->
+            <!--                    </tbody>-->
+            <!--                </table>-->
+            <!--            </div>-->
 
         </div>
 
