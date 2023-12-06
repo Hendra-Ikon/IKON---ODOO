@@ -67,7 +67,7 @@ class TalentData(models.Model):
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
     attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
-    job_id = fields.Many2one('hr.job', string='Move to Applicant')
+    job_id = fields.Many2one('hr.job', string='Move to Applicant', required=True)
 
     def move_to_applicant(self):
 
@@ -75,27 +75,26 @@ class TalentData(models.Model):
 
             job_name = appl.job_id.name if appl.job_id else ''
 
-            applicant_name = f'{appl.name} - {job_name}'
+            applicant_name = f'{appl.nama} - {job_name}'
 
             hr_applicant = self.env['hr.applicant'].create({
                 'name': applicant_name,
-                'partner_name': appl.name,
-                'partner_mobile': appl.no_tlp,
+                'email_from': appl.email,
                 'job_id': appl.job_id.id,
                 # 'cover_letter': record.skill,
-                'linkedin_profile': appl.url,
-                'description': appl.experience,
             })
+
+            self.unlink()
 
             message = "Successfully move to applicant"
             action = {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': 'Success',
-                    'message': message,
-                    'sticky': False,
-                }
+                'name': 'Talent Data',
+                'type': 'ir.actions.act_window',
+                'view_mode': 'list,form',
+                'res_model': 'talent.pool.data',
+                'view_id': False,
+                'target': 'current',
+                'menu_id': 273,
             }
 
             return action
