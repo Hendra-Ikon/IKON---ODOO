@@ -18,6 +18,13 @@ MARITAL_STATUS = [
     ('divorced', 'Divorced'),
 ]
 
+ABILITY_AREA = [
+    ("reading", "Reading"),
+    ('writing', 'Writing'),
+    ('speaking', 'Speaking'),
+    ('listening', 'Listening'),
+]
+
 SEX = [
     ("select", "Click to select"),
     ('male', 'MALE'),
@@ -75,6 +82,8 @@ class PDSData(models.Model):
     pds_lang_prof = fields.One2many('custom.language.prof', 'applicant_id', string='Language Proficiency')
     pds_work_exp = fields.One2many('custom.work.experience', 'applicant_id', string='Working Experience')
     pds_exp_sal = fields.One2many('custom.expected.salary', 'applicant_id', string='Expected Salary')
+    pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
+    pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 
@@ -117,6 +126,7 @@ class HrApplLanguageProf(models.Model):
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_lang_name = fields.Char(string="Language name")
+    pds_ability = fields.Selection(ABILITY_AREA, string="Ability area")
     pds_lang_percen = fields.Selection(LANGUAGE_LEVEL, string="Level", default='1')
 
 class HrApplWorkExperience(models.Model):
@@ -139,3 +149,24 @@ class HrApplExpectedSalary(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary")
     pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit")
+
+class HrApplOrg(models.Model):
+
+    _name = "custom.org"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_org_name = fields.Char(string="Organization name")
+    pds_org_nature = fields.Char(string="Organization Nature Activities")
+    pds_org_position = fields.Char(string="Organization Position")
+    pds_org_year = fields.Date(string="Year")
+
+class HrApplHealth(models.Model):
+
+    _name = "custom.health"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_health_radio = fields.Boolean(string="Health history", default=False)
+    pds_health_period = fields.Char(string="Period")
+    pds_health_type = fields.Char(string="Type")
+    pds_health_hospital = fields.Char(string="Hospital name")
+    pds_health_year = fields.Date(string="Year")
