@@ -62,7 +62,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Personal Records
                     </div>
                     <t t-call="ikon_talent_management.personal_record"/>
@@ -78,7 +78,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Certification
                     </div>
                     <t t-call="ikon_talent_management.certificate_section"/>
@@ -96,7 +96,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Education
                     </div>
                     <t t-call="ikon_talent_management.education_section"/>
@@ -112,7 +112,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Nonformal Education
                     </div>
                     <t t-call="ikon_talent_management.nonformal_education_section"/>
@@ -130,7 +130,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Language
                     </div>
                     <t t-call="ikon_talent_management.language_section"/>
@@ -146,7 +146,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Organization
                     </div>
                     <t t-call="ikon_talent_management.org_section"/>
@@ -164,7 +164,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Health &amp; Illness
                     </div>
                     <t t-call="ikon_talent_management.health_section"/>
@@ -180,7 +180,7 @@
                             padding-top: 10px;
                             font-size: 20px;
                             font-weight: bold;
-                            font-style: italic;
+
                             text-decoration: underline;">Expected Salary
                     </div>
                     <t t-call="ikon_talent_management.expected_salary"/>
@@ -802,14 +802,14 @@
                                 <span/>
                                 <input class="form-check-input position-static" name="pds_health_radio"
                                        type="radio" id="true"
-                                       value="True" aria-label="..." checked="checked"/>
+                                       value="True" aria-label="..." />
                             </label>
                             <label class="form-check-label">
                                 No
                                 <span/>
                                 <input class="form-check-input position-static" name="pds_health_radio"
                                        type="radio" id="false"
-                                       value="False" aria-label="..."/>
+                                       value="False" aria-label="..." checked="checked"/>
                             </label>
 
                         </div>
@@ -1050,35 +1050,35 @@
 
                 </div>
             </form>
-            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; padding-right: 27px;">
-                <table class="table table-striped">
-                    <thead>
-                        <tr t-attf-style="background-color: #E17726;">
-                            <th>Expected Salary</th>
-                            <th>Expected Benefit</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">
-                            <td>
+<!--            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; padding-right: 27px;">-->
+<!--                <table class="table table-striped">-->
+<!--                    <thead>-->
+<!--                        <tr t-attf-style="background-color: #E17726;">-->
+<!--                            <th>Expected Salary</th>-->
+<!--                            <th>Expected Benefit</th>-->
+<!--                            <th>Actions</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">-->
+<!--                            <td>-->
 
-                                <span t-esc="exp['pds_expected_salary']"/>
-                            </td>
-                            <td>
+<!--                                <span t-esc="exp['pds_expected_salary']"/>-->
+<!--                            </td>-->
+<!--                            <td>-->
 
-                                <span t-esc="exp['pds_expected_benefit']"/>
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-danger"
-                                   t-att-href="'/delete_exp/' + str(exp['id'])">Delete
-                                </a>
-                            </td>
+<!--                                <span t-esc="exp['pds_expected_benefit']"/>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <a class="btn btn-sm btn-danger"-->
+<!--                                   t-att-href="'/delete_exp/' + str(exp['id'])">Delete-->
+<!--                                </a>-->
+<!--                            </td>-->
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
 
         </div>
 
