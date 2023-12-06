@@ -528,26 +528,7 @@ class CrmAccountMove(models.Model):
                 if p not in invoice.sudo().message_partner_ids
             ])
 
-            sequence_value = invoice.name
-            last_three_digits = sequence_value[-3:]
-
-            # Check if the last three digits are 999
-            if last_three_digits == '999':
-                # Extract the last four digits
-                last_four_digits = sequence_value[-4:]
-                yes = f"{last_four_digits}/CS-{current_month}/{current_year}"
-            else:
-                # Get the current month and year
-                current_month = fields.Date.today().month
-                current_year = fields.Date.today().year
-
-                # Format the name
-                yes = f"{last_three_digits}/CS-{current_month}/{current_year}"
-                
-                # to_post.write({
-                # 'name': yes,
-               
-                # })
+         
                 
 
             if (
