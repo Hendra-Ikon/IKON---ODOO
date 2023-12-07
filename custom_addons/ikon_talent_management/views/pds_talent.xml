@@ -102,36 +102,50 @@
                             <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">
                                 <tree editable="top">
                                     <field name="pds_lang_name"/>
+                                    <field name="pds_ability"/>
                                     <field name="pds_lang_percen"/>
                                 </tree>
                                 <form editable="top">
                                     <group>
                                         <field name="pds_lang_name"/>
+                                        <field name="pds_ability"/>
                                         <field name="pds_lang_percen"/>
                                     </group>
                                 </form>
                             </field>
                         </group>
-                        <group string="Working Experience">
-                            <field name="pds_work_exp" widget="section_and_note_one2many" mode="tree">
+                        <group string="Organization">
+                            <field name="pds_org" widget="section_and_note_one2many" mode="tree">
                                 <tree editable="top">
-                                    <field name="pds_workex_company_name"/>
-                                    <field name="pds_workex_lob"/>
-                                    <field name="pds_workex_last_pos"/>
-                                    <field name="pds_workex_reason_leave"/>
-                                    <field name="pds_workex_last_salary"/>
-                                    <field name="pds_workex_period_from"/>
-                                    <field name="pds_workex_period_to"/>
+                                    <field name="pds_org_name"/>
+                                    <field name="pds_org_nature"/>
+                                    <field name="pds_org_position"/>
+                                    <field name="pds_org_year"/>
                                 </tree>
                                 <form editable="top">
                                     <group>
-                                        <field name="pds_workex_company_name"/>
-                                        <field name="pds_workex_lob"/>
-                                        <field name="pds_workex_last_pos"/>
-                                        <field name="pds_workex_reason_leave"/>
-                                        <field name="pds_workex_last_salary"/>
-                                        <field name="pds_workex_period_from"/>
-                                        <field name="pds_workex_period_to"/>
+                                        <field name="pds_org_name"/>
+                                        <field name="pds_org_nature"/>
+                                        <field name="pds_org_position"/>
+                                        <field name="pds_org_year"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Health history">
+                            <field name="pds_health" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_health_period"/>
+                                    <field name="pds_health_type"/>
+                                    <field name="pds_health_hospital"/>
+                                    <field name="pds_health_year"/>
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_health_period"/>
+                                        <field name="pds_health_type"/>
+                                        <field name="pds_health_hospital"/>
+                                        <field name="pds_health_year"/>
                                     </group>
                                 </form>
                             </field>
@@ -150,6 +164,31 @@
                                 </form>
                             </field>
                         </group>
+                        <!--                        <group string="Working Experience">-->
+                        <!--                            <field name="pds_work_exp" widget="section_and_note_one2many" mode="tree">-->
+                        <!--                                <tree editable="top">-->
+                        <!--                                    <field name="pds_workex_company_name"/>-->
+                        <!--                                    <field name="pds_workex_lob"/>-->
+                        <!--                                    <field name="pds_workex_last_pos"/>-->
+                        <!--                                    <field name="pds_workex_reason_leave"/>-->
+                        <!--                                    <field name="pds_workex_last_salary"/>-->
+                        <!--                                    <field name="pds_workex_period_from"/>-->
+                        <!--                                    <field name="pds_workex_period_to"/>-->
+                        <!--                                </tree>-->
+                        <!--                                <form editable="top">-->
+                        <!--                                    <group>-->
+                        <!--                                        <field name="pds_workex_company_name"/>-->
+                        <!--                                        <field name="pds_workex_lob"/>-->
+                        <!--                                        <field name="pds_workex_last_pos"/>-->
+                        <!--                                        <field name="pds_workex_reason_leave"/>-->
+                        <!--                                        <field name="pds_workex_last_salary"/>-->
+                        <!--                                        <field name="pds_workex_period_from"/>-->
+                        <!--                                        <field name="pds_workex_period_to"/>-->
+                        <!--                                    </group>-->
+                        <!--                                </form>-->
+                        <!--                            </field>-->
+                        <!--                        </group>-->
+
                     </group>
                 </page>
             </xpath>

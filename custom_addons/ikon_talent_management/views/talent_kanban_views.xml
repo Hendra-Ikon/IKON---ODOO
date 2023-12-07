@@ -62,9 +62,16 @@
                             <field name="posisi"/>
                             <field name="sumber"/>
                             <field name="degree"/>
+                            <field name="major"/>
                             <field name="universitas"/>
                             <field name="notes"/>
-                            <field name="attachment" widget="binary" filename="attachment_filename" options="{'preview_image': true}"/>
+                            <field name="attachment" widget="download_link" filename="attachment_filename"/>
+                            <field name="job_id"/>
+                            <button string="Move"
+                                    type="object"
+                                    class="oe_highlight"
+                                    name="move_to_applicant"
+                                    />
                         </group>
                     </sheet>
                 </form>
