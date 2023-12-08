@@ -194,7 +194,7 @@
 
             <form id="custom_pds_form" action="/pds/data" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
-                  data-mark="*" data-model_name="hr.applicant"
+                  data-model_name="hr.applicant"
                   data-success-mode="redirect" data-success-page="/jobs"
                   hide-change-model="true" t-attf-style="margin-right: 0px; margin-top: 10px;">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -218,12 +218,14 @@
                     </div>
                     <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
                     <div class="col-sm-4">
+                        <t t-set="sex_mapping"
+                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
+<!--                        <t t-set="sex-val" t-value="sex_mapping.get(pds_data['pds_sex']"/>-->
                         <select name="pds_sex"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
-                                <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                                <t t-esc="sex_mapping.get(pds_data['pds_sex'], 'Select')"/>
+
+                                <t t-esc="sex_mapping.get(pds_data['pds_sex'] or 'Select')" t-att-selected="sex_mapping.get(pds_data['pds_sex'] or 'Select')"/>
                             </option>
                             <option value="male">MALE</option>
                             <option value="female">FEMALE</option>
@@ -333,13 +335,13 @@
                 <div class="form-group row mb-4">
                     <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
                     <div class="col-sm-10">
-
+                        <t t-set="religion_mapping"
+                                   t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
                         <select name="pds_religion"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
-                                <t t-set="religion_mapping"
-                                   t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
+
+                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')" t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
                             </option>
                             <option value="islam">ISLAM</option>
                             <option value="kristen">KRISTEN</option>
@@ -353,16 +355,16 @@
                 <div class="form-group row mb-4">
                     <label class="col-sm-2 col-form-label" for="pds_marital_status">Marital status</label>
                     <div class="col-sm-10">
-
-                        <select name="pds_marital_status"
-                                t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
-                            <option value="select">
-                                <t t-set="marital_mapping" t-value="{
+                        <t t-set="marital_mapping" t-value="{
                                  'select': 'SELECT',
                                 'single': 'SINGLE',
                                 'married': 'MARRIAGE',
                                 'divorced': 'DIVORCE'}"/>
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
+                        <select name="pds_marital_status"
+                                t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
+                            <option value="select">
+
+                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')" t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
                             </option>
                             <option value="single">SINGLE</option>
                             <option value="married">MARRIAGE</option>

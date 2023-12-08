@@ -193,10 +193,6 @@ class PDSController(http.Controller):
                         'pds_expected_benefit': kwargs.get("pds_expected_benefit"),
                     })
 
-                    print(f'**** Expected Salary is: ****: {kwargs.get("pds_expected_salary")}')
-                    print(f'**** Expected Salary is: ****: {kwargs.get("pds_expected_benefit")}')
-
-
             except Exception as e:
                 print(f'Error Expected Salary {e}')
         return request.redirect('/pds/data')
@@ -257,7 +253,7 @@ class PDSController(http.Controller):
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
-                applicant.write({
+                applicant.update({
                     "pds_fullname": kwargs.get("pds_fullname"),
                     "pds_nik": kwargs.get("pds_nik"),
                     "pds_addressNIK": kwargs.get("pds_addressNIK"),
