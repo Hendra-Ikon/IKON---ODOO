@@ -21,6 +21,10 @@
 
             </xpath>
 
+            <xpath expr="//div[@class='dropdown-menu']" position="inside">
+                <a role="menuitem" name="move_to_talent_pool" type="object" class="dropdown-item">Move to talent</a>
+            </xpath>
+
 
         </field>
     </record>

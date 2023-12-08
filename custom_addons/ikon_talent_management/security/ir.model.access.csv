@@ -17,3 +17,9 @@ access_internal_user_custom_work_experience,custom_work_experience,model_custom_
 access_portal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_portal,1,1,1,1
 access_internal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_user,1,1,1,1
 
+access_portal_user_custom_org,custom_org,model_custom_org,base.group_portal,1,1,1,1
+access_internal_user_custom_org,custom_org,model_custom_org,base.group_user,1,1,1,1
+
+access_portal_user_custom_health,custom_health,model_custom_health,base.group_portal,1,1,1,1
+access_internal_user_custom_health,custom_health,model_custom_health,base.group_user,1,1,1,1
+
