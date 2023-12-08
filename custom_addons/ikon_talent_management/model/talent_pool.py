@@ -59,7 +59,7 @@ class TalentPoolImportWizard(models.TransientModel):
             'Degree': 'degree',
             'Major': 'major',
             'Universitas': 'universitas',
-            'Notes': 'notes',
+            'Additional Notes': 'notes',
         }
         return field_mapping.get(column_name)
 
