@@ -1,5 +1,6 @@
 import os
-from odoo import http, fields
+
+from odoo import http, fields, models
 from odoo.http import request
 import json
 
@@ -61,6 +62,20 @@ class PDSController(http.Controller):
     def delete_exp(self, edu_id):
         work_record = request.env['custom.expected.salary'].browse(edu_id)
         work_record.unlink()
+        return request.redirect('/pds/data')
+
+    @http.route("/delete_org/<int:org_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
+                csrf=False)
+    def delete_org(self, org_id):
+        org_record = request.env['custom.org'].browse(org_id)
+        org_record.unlink()
+        return request.redirect('/pds/data')
+
+    @http.route("/delete_health/<int:health_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
+                csrf=False)
+    def delete_health(self, health_id):
+        health_record = request.env['custom.health'].browse(health_id)
+        health_record.unlink()
         return request.redirect('/pds/data')
 
     @http.route("/create_cert", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
@@ -133,6 +148,7 @@ class PDSController(http.Controller):
                     lang_prof.create({
                         'applicant_id': applicant.id,
                         'pds_lang_name': kwargs.get("pds_lang_name"),
+                        'pds_ability': kwargs.get("pds_ability"),
                         'pds_lang_percen': kwargs.get("pds_lang_percen"),
                     })
             except Exception as e:
@@ -167,22 +183,66 @@ class PDSController(http.Controller):
     def create_expected_salary(self, **kwargs):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-        work_exp = request.env['custom.expected.salary'].search([])
+        exp_sal = request.env['custom.expected.salary'].search([])
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    work_exp.create({
+                    exp_sal.create({
                         'applicant_id': applicant.id,
                         'pds_expected_salary': kwargs.get("pds_expected_salary"),
                         'pds_expected_benefit': kwargs.get("pds_expected_benefit"),
                     })
 
-
             except Exception as e:
                 print(f'Error Expected Salary {e}')
         return request.redirect('/pds/data')
 
+    @http.route("/create_org", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_org(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        work_exp = request.env['custom.org'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                for applicant in applicant_to_update:
+                    work_exp.create({
+                        'applicant_id': applicant.id,
+                        'pds_org_name': kwargs.get("pds_org_name"),
+                        'pds_org_nature': kwargs.get("pds_org_nature"),
+                        'pds_org_position': kwargs.get("pds_org_position"),
+                        'pds_org_year': kwargs.get("pds_org_year"),
+                    })
 
+
+            except Exception as e:
+                print(f'Error Organization {e}')
+        return request.redirect('/pds/data')
+
+    @http.route("/create_heealth_act", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_heealth_act(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        work_exp = request.env['custom.health'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                for applicant in applicant_to_update:
+                    work_exp.create({
+                        'applicant_id': applicant.id,
+                        'pds_health_radio': kwargs.get("pds_health_radio"),
+                        'pds_health_period': kwargs.get("pds_health_period"),
+                        'pds_health_type': kwargs.get("pds_health_type"),
+                        'pds_health_hospital': kwargs.get("pds_health_hospital"),
+                        'pds_health_year': kwargs.get("pds_health_year"),
+                    })
+
+                # message = "Health Section successfully added."
+                #
+                # # Use the website controller to execute JavaScript
+                # return request.render("ikon_recruitment.display_notification_template", {'message': message})
+
+            except Exception as e:
+                print(f'Error Health Activities {e}')
+        return request.redirect('/pds/data')
 
     @http.route("/pds/data", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def pds_route(self, **kwargs):
@@ -193,7 +253,7 @@ class PDSController(http.Controller):
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
-                applicant.write({
+                applicant.update({
                     "pds_fullname": kwargs.get("pds_fullname"),
                     "pds_nik": kwargs.get("pds_nik"),
                     "pds_addressNIK": kwargs.get("pds_addressNIK"),
@@ -222,6 +282,44 @@ class PDSController(http.Controller):
 
     @http.route("/my/profile", type='http', auth='user', website=True)
     def my_profile(self):
+        user = request.env.user
+        user_avatar = user.image_1920
+        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+
+        for stage_check in stage_checks:
+            if stage_check.stage_id.name == "PDS Submission":
+                stage_check.write({'toggle_pds': 1})
+
+        user_stage = 0
+        applied_jobs = []
+        for applicant in applicants:
+            applied_jobs.append({
+                'job': applicant.job_id,
+                'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
+                "created": applicant.create_date
+            })
+            if user_stage is 0 and applicant.toggle_pds is not 0:
+                user_stage = applicant.toggle_pds
+
+        # Other profile data retrieval
+        uid = request.session.uid
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+
+        # Pass the data to the template
+        data = {
+            "user_data": user,
+            "user_avatar": user_avatar,
+            'employee_department': employment_status.department_id.name,
+            'employment_status': employment_status,
+            'applied_jobs': applied_jobs,
+            "user_stage": user_stage,
+        }
+
+        return request.render("ikon_recruitment.custom_profile_view", data)
+
+    @http.route("/my", type='http', auth='user', website=True)
+    def custom_route_my(self):
         user = request.env.user
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
@@ -256,3 +354,27 @@ class PDSController(http.Controller):
         }
 
         return request.render("ikon_recruitment.custom_profile_view", data)
+
+
+
+
+class WebsiteNotifications(models.TransientModel):
+
+    _name = 'website.notification'
+
+
+    notification = fields.Char('Notification')
+    user_id = fields.Many2one('res.users', string="Users")
+    state = fields.Selection([('to_send', 'To Send'),
+                              ('sent', 'Sent')],
+                             string="Status", required=True,
+                             default='to_send')
+
+    def get_notifications(self, user_id):
+        notifications = self.env['website.notification'].search(
+            [('user_id', '=', user_id), ('state', '=', 'to_send')])
+
+        names = notifications.mapped('notification')
+        for rec in notifications:
+            rec.state = 'sent'
+        return names

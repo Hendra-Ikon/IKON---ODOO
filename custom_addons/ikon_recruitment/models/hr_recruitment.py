@@ -1,4 +1,3 @@
-
 from odoo import models, fields, api
 from odoo.http import request
 
@@ -21,7 +20,6 @@ class CustomJobDescription(models.Model):
     _inherit = "hr.job"
 
     lead_data = fields.Char(String="Lead Article")
-
 
     nice_to_have = fields.One2many('custom.nice_to_have', 'job_id', string='Nice to Have Items')
     req_skill = fields.One2many('custom.reqskill', 'job_id', string='Req Skill Items')
@@ -66,7 +64,6 @@ class HrApplCrUsrSnEmail(models.Model):
 
     stage_name = fields.Char(related='stage_id.name', string='Stage Name', readonly=True)
 
-
     def action_create_user_and_send_email(self):
         name = self.partner_name  # Replace with the actual field you want to use for the user's name
         email = self.email_from  # Replace with the actual field you want to use for the user's email
@@ -76,23 +73,45 @@ class HrApplCrUsrSnEmail(models.Model):
             'name': name,
             'login': email,
             'email': email,
-            # Add other relevant fields for the user
         })
 
-        template_id = self.env.ref('ikon_recruitment.set_password_email')
-        if template_id:
-            template_id.send_mail(user.id, force_send=True)
+        portal_group_id = self.env.ref('base.group_portal').id
+        if portal_group_id:
+            # Remove the user from existing groups
+            user.write({'groups_id': [(3, group_id) for group_id in user.groups_id.ids]})
 
-        notification = {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': 'Success',
-                'message': 'Successfully send login invitation',
-                # 'sticky': True,
-            }
-        }
+            # Add the user to the portal group
+            user.write({'groups_id': [(4, portal_group_id)]})
 
+            template_id = self.env.ref('ikon_recruitment.set_password_email')
+            if template_id:
+                template_id.send_mail(user.id, force_send=True)
 
-        return notification
+                notification = {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': 'Success',
+                        'message': 'Successfully sent login invitation',
+                        # 'sticky': True,
+                    }
+                }
 
+                return notification
+
+        # template_id = self.env.ref('ikon_recruitment.set_password_email')
+        # if template_id:
+        #     template_id.send_mail(user.id, force_send=True)
+        #
+        # notification = {
+        #     'type': 'ir.actions.client',
+        #     'tag': 'display_notification',
+        #     'params': {
+        #         'title': 'Success',
+        #         'message': 'Successfully send login invitation',
+        #         # 'sticky': True,
+        #     }
+        # }
+        #
+        #
+        # return notification

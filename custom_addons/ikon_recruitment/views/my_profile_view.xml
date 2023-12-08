@@ -2,7 +2,7 @@
     <template id="custom_my_home" inherit_id="portal.user_dropdown">
         <xpath expr="//a[contains(@class, 'dropdown-item') and contains(., 'My Account')]"
                position="replace">
-            <a href="/my/profile" role="menuitem" class="dropdown-item ps-3">
+            <a href="/my/account" role="menuitem" class="dropdown-item ps-3">
                 <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
                 My Profile
             </a>
@@ -56,9 +56,10 @@
                     <div class="col-lg-4">
                         <div class="card mb-4">
                             <div class="card-body card-left-top text-center">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                                     alt="avatar"
-                                     class="rounded-circle img-fluid" style="width: 150px;"/>
+<!--                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"-->
+<!--                                     alt="avatar"-->
+<!--                                     class="rounded-circle img-fluid" style="width: 150px;"/>-->
+                                <img t-if="user_avatar" t-att-src="'data:image/png;base64,'+user_avatar.decode('utf-8')" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/>
                                 <h5 class="my-3">
                                     <t t-esc="user_data.name"/>
                                 </h5>

@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _ , exceptions
 import logging
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Command
@@ -12,27 +12,77 @@ class CrmSaleOrder(models.Model):
     
     
     attention = fields.Char(string="Attention")
-    project_name = fields.Char(string="Project Name")
+    project_name = fields.Char(string="Project Name", required=True)
 
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     period = fields.Date(string="Period")
     payment_for_service = fields.Char(string="Payment For Service")
-    spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',False)]")
+    spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
-
     month = fields.Date(string="Month")
-   
+    
+    name = fields.Char(
+        string="Order Reference",
+        required=True, copy=False, readonly=True,
+        index='trigram',
+        states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
+        default=lambda self: _('New'))
+    
+    @api.constrains('name')
+    def _check_duplicate_name(self):
+        for record in self:
+            if record.name:
+                duplicate_exists = self.env['sale.order'].search_count([('name', '=', record.name)])
+                if duplicate_exists > 1:
+                    raise exceptions.ValidationError("Quotation number must be unique. This invoice number already exists.")
 
 
-    name = fields.Text(
-        string="Description",
-        compute='_compute_name',
-        tracking=True,
-        store=True, readonly=False, required=True, precompute=True)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            logger.info("name",vals.get('name'))
+            if 'company_id' in vals:
+                self = self.with_company(vals['company_id'])
+            if vals.get('name', _("New")) == _("New"):
+                seq_date = fields.Datetime.context_timestamp(
+                    self, fields.Datetime.to_datetime(vals['date_order'])
+                ) if 'date_order' in vals else None
+                value = CrmSaleOrder.generate_default_name(self)
+                vals['name'] = value or _("New")
 
+        return super().create(vals_list)
+        
+    def generate_default_name(self):
+        # Get the sale.order.sequence
+        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
+        # logger.info("new_name",new_name) 
+        # Ensure the sequence exists
+        if sequence:
+            # Get the next value from the sequence
+            sequence_value = sequence.next_by_id()
+
+            # Extract the last three digits
+            last_three_digits = sequence_value[-3:]
+
+            # Check if the last three digits are 999
+            if last_three_digits == '999':
+                # Extract the last four digits
+                last_four_digits = sequence_value[-4:]
+                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
+            else:
+                # Get the current month and year
+                current_month = fields.Date.today().month
+                current_year = fields.Date.today().year
+
+                # Format the name
+                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year}"
+
+            return name
+
+        return False
     
     def _get_mail_template(self):
         """
@@ -49,8 +99,6 @@ class CrmSaleOrder(models.Model):
         mail_template = self._find_mail_template()
         if mail_template and mail_template.lang:
             lang = mail_template._render_lang(self.ids)[self.id]
-
-        # logger.info("test",mail_template)
         ctx = {
             'default_model': 'sale.order',
             'default_res_id': self.id,
@@ -105,7 +153,6 @@ class CrmSaleOrder(models.Model):
         return self.order_line.filtered(show_line)
     
     def _create_invoices(self, grouped=False, final=False, date=None):
-        logger.info("test",self)
         """ Create invoice(s) for the given Sales Order(s).
 
         :param bool grouped: if True, invoices are grouped by SO id.
@@ -260,7 +307,7 @@ class CrmSaleOrder(models.Model):
             'invoice_origin': self.name,
             'invoice_payment_term_id': self.payment_term_id.id,
             'invoice_user_id': self.user_id.id,
-            'payment_reference': self.reference,
+            'payment_reference': self.name,
             'transaction_ids': [Command.set(self.transaction_ids.ids)],
             'company_id': self.company_id.id,
             'invoice_line_ids': [],

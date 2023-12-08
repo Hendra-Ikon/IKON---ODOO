@@ -3,49 +3,56 @@
 
     <template id="sales_report_inherit_crm_ikon" name="Sales Report By CRM IKON"
         inherit_id="sale.report_saleorder_document">
-
+        <xpath expr="//div[@t-field='doc.partner_id']" position="after">
+            <tr>
+                <td>
+                    <strong>Attention</strong>
+                </td>
+                <td>:</td>
+                <td><span t-field="doc.attention"/></td>
+            </tr>
+        
+        </xpath>
          <!-- header -->
         <xpath expr="//div[@class='page']" position="replace">
             <div class="oe_structure"/>
-     
-            <table class="mb-3" style="border: 1px solid white" name="info_table">
+            <br />
+            <br />
+          
+            <table class="mb-6" style="border: 1px solid white;" name="info_table">
                 <tr t-attf-style="background-color: white" t-if="doc.name">
-                    <td class="text-start" style="width:20%">
-                        <span t-if="doc.state in ['draft','sent']">Quotation</span>
-                        <span t-elif="">Order</span>
+                    <td class="text-start" style="width:120px">
+                        <span>Quotation</span>
                     </td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.name"/></td>
                 </tr>
+                <tr t-attf-style="background-color: white" t-if="doc.date_order">
+                    <td class="text-start"  style="width:120px" ><span>Quotation Date</span></td>
+                    <td class="text-center"  style="width:5%"><span>:</span></td>
+                    <td class="text-start"><span style="font-weight:bold" t-field="doc.date_order" t-options="{'widget': 'date', 'date-format': 'YYYY-MM-DD'}"/></td>
+                </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.project_name">
-                    <td class="text-start" style="width:20%"><span>Project Name</span></td>
+                    <td class="text-start"  style="width:120px"><span>Project Name</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.project_name"/></td>
                 </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.client_order_ref">
-                    <td class="text-start" style="width:20%" ><span>Your Reference:</span></td>
+                    <td class="text-start" style="width:120px"><span>Your Reference:</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.client_order_ref"/></td>
                 </tr>
 
-                <tr t-attf-style="background-color: white" t-if="doc.client_order_ref">
-                    <td class="text-start"  style="width:20%" t-if="doc.state in ['draft', 'sent']"><span>Quotation Date:</span></td>
-                    <td class="text-center" style="width:20%" t-else=""><span>Order Date:</span></td>
-                    <td class="text-center" style="width:5%"><span>:</span></td>
-                    <td class="text-start"><span style="font-weight:bold" t-field="doc.client_order_ref"/></td>
-                </tr>
+               
+                
                 <tr t-attf-style="background-color: white" t-if="doc.validity_date and doc.state in ['draft', 'sent']">
-                    <td class="text-start" style="width:20%" t-if="doc.state in ['draft', 'sent']"><span>Expiration:</span></td>
+                    <td class="text-start"  style="width:120px" t-if="doc.state in ['draft', 'sent']"><span>Expiration</span></td>
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.validity_date"/></td>
                 </tr>
-                <tr t-attf-style="background-color: white" t-if="doc.user_id.name">
-                    <td class="text-start" style="width:20%" t-if="doc.state in ['draft', 'sent']"><span>Salesperson:</span></td>
-                    <td class="text-center" style="width:5%"><span>:</span></td>
-                    <td class="text-start"><span style="font-weight:bold" t-field="doc.user_id"/></td>
-                </tr>
+
           
              </table>   
 
@@ -57,12 +64,16 @@
                 <thead style="display: table-row-group">
                     <tr>
                         <th name="th_description" class="text-start">Description</th>
-                        <th name="th_quantity" class="text-end">Quantity</th>
-                        <th name="th_priceunit" class="text-end">Unit Price</th>
+                        <th t-if="lines_to_report and any(line.item_id for line in lines_to_report)" name="th_item_id" class="text-start">Item ID</th>
+                        <th t-if="lines_to_report and any(line.item_description for line in lines_to_report)" name="th_item_description" class="text-start">Item Description</th>
+                        <th t-if="lines_to_report and any(line.period for line in lines_to_report)" name="th_period" class="text-start">Period</th>
+                        <th name="th_quantity" class="text-center">Quantity</th>
+                        <th name="th_quantity" class="text-center">UoM</th>
+                        <th name="th_priceunit" class="text-center">Unit Price</th>
                         <th name="th_discount" t-if="display_discount" class="text-end">
                             <span>Disc.%</span>
                         </th>
-                        <th name="th_taxes" class="text-end">Taxes</th>
+                
                         <th name="th_subtotal" class="text-end">
                             <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
                             <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
@@ -80,20 +91,33 @@
 
                         <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type">
-                                <td name="td_name"><span t-field="line.name"/></td>
-                                <td name="td_quantity" class="text-end">
+                                <td t-if="line.name" name="td_name">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td t-if="line.item_id" name="td_item_id" class="text-center">
+                                    <span t-field="line.item_id"/>
+                                </td>
+                                <td t-if="line.item_description" name="td_desc" class="text-center">
+                                    <span t-field="line.item_description"/>
+                                </td>
+                                <td t-if="line.period" name="td_period" class="text-center">
+                                    <span t-field="line.period"/>
+                                </td>
+                                <td  t-if="line.product_uom_qty" name="td_quantity" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
+                                    
+                                </td>
+                                <td  t-if="line.product_uom" name="td_product_uom" class="text-center">
+                            
                                     <span t-field="line.product_uom"/>
                                 </td>
-                                <td name="td_priceunit" class="text-end">
+                                <td t-if="line.price_unit" name="td_priceunit" class="text-center">
                                     <span t-field="line.price_unit"/>
                                 </td>
-                                <td t-if="display_discount" class="text-end">
+                                <td t-if="display_discount" class="text-center">
                                     <span t-field="line.discount"/>
                                 </td>
-                                <td name="td_taxes" class="text-end">
-                                    <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
-                                </td>
+                               
                                 <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
                                     <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                     <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
@@ -129,31 +153,72 @@
             </table>
 
             <div class="clearfix" name="so_total_summary">
-                <div id="total" class="row" name="total">
-                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                        <table class="table table-sm table-borderless">
-                            <!-- Tax totals -->
-                            <t t-set="tax_totals" t-value="doc.tax_totals"/>
-                            <t t-call="account.document_tax_totals"/>
-                        </table>
+                <div id="total" class="row">
+                    <div
+                        t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <div class="clearfix">
+                                <div id="total" class="row">
+                                    <div t-attf-class="#{'col-12' if report_type != 'html' else 'col-sm-12 col-md-12'} ms-auto">
+                                    <table class="table table-sm table-borderless">
+                                        <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                        <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
+                                            <tr class="border-black o_subtotal">
+                                                <td><strong />Sub Total</td>
+        
+                                                <td class="text-end" >
+                                                    <span 
+                                                        t-att-class="oe_subtotal_footer_separator"
+                                                        t-esc="subtotal['formatted_amount']"/>
+                                                </td>
+                                            </tr>
+                                            <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
+                                            <t t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]" t-as="amount_by_group">
+                                                <tr>
+                                                    <t t-if="tax_totals['display_tax_base']">
+                                                        <td>
+                                                            <span t-esc="amount_by_group['tax_group_name']"/>
+                                                            
+                                                        </td>
+                                                        <td class="text-end o_price_total">
+                                                            <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']"/>
+                                                        </td>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <td><span class="text-nowrap" t-esc="amount_by_group['tax_group_name']"/></td>
+                                                        <td class="text-end o_price_total">
+                                                            <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']" />
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <!--Total amount with all taxes-->
+                                        <tr class="border-black o_total">
+                                            <td><strong >Total</strong></td>
+                                            <td class="text-end">
+                                                <span t-esc="tax_totals['formatted_amount_total']" />
+                                            </td>
+                                        </tr>
+                                      
+                                    </table>
+                                    <!-- <p style="font-size:50px; font-style: italic;">*<span t-esc="o.in_word" /></p> -->
+                                </div>
+                                </div>
+                            
+                        </div>
+
                     </div>
                 </div>
             </div>
-
-            <div t-if="doc.signature" class="mt-4 ml64 mr4" name="signature">
-                <div class="offset-8">
-                    <strong>Signature</strong>
-                </div>
-                <div class="offset-8">
-                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
-                </div>
-                <div class="offset-8 text-center">
-                    <p t-field="doc.signed_by"/>
-                </div>
-            </div>
-
-            <div>
-                <p t-field="doc.note" name="order_note"/>
+            <br />
+            <br />
+             <div>
+                <p t-if="not is_html_empty(doc.note)">
+                    <strong>Terms and Conditions:</strong>
+                    <p t-field="doc.note" name="order_note"/>
+                </p>
+               
+                
                 <p t-if="not is_html_empty(doc.payment_term_id.note)">
                     <span t-field="doc.payment_term_id.note"/>
                 </p>
@@ -163,6 +228,28 @@
                     <span t-field="doc.fiscal_position_id.sudo().note"/>
                 </p>
             </div>
+        
+            <xpath expr="//div[@name='so_total_summary']" position="after">
+                <div class="row mt-4 mb-4" id="sincerely">
+                    <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Sincerely,</strong>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <p class="m-0"><span t-field="doc.spv" /><br/>
+                            <span t-field="doc.spv.function" />
+                        
+                        
+                        </p>
+                    </div>
+                </div>
+            </xpath>
+
+            
+
+           
         </xpath>                        
     </template>
 
