@@ -63,6 +63,8 @@ class CrmAccountMove(models.Model):
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     period = fields.Date(string="Period")
+    periods = fields.One2many("model.period", "account_move_id", string="Periods")
+ 
     payment_for_service = fields.Char(string="Payment For Service")
     spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
@@ -110,6 +112,31 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
+
+    # def action_add_period(self):
+    #     return {
+    #         "name": "Periods",
+    #         "type": "ir.actions.act_window",
+    #         "res_model": "model.period",
+    #         "view_mode": "tree,form",
+    #         "view_id": False,  # Let Odoo choose the view automatically
+    #         "domain": [("account_move_id", "=", self.id)],
+    #         "context": {
+    #             # Add any other context values you want to pass
+    #         },
+    #     }
+    def action_add_period(self):
+        return {
+    'name': 'Periods',
+    'type': 'ir.actions.act_window',
+    'res_model': 'model.period',
+    'view_mode': 'tree',
+    'view_id': False,
+    'target': 'new',
+    'context': {'default_account_move_id': 111},
+}
+
+
 
 
     @api.constrains('inv_no')
@@ -665,7 +692,13 @@ class CrmAccountMove(models.Model):
         self.filtered(lambda m: not m.name and not move.quick_edit_mode).name = '/'
         self._inverse_name()
 
-    
+class ModelPeriod(models.Model):
+    _name = "model.period"
+    _description = "Periods Model"
+
+    account_move_id = fields.Many2one("account.move", string="Account Move")
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string="Period End")
 
         
     

@@ -56,8 +56,12 @@
                 <field name="po_date"/>
                 <field name="payment_for"/>
                 <field name="payment_for_service"/>
-                <field name="period"/>
+                <button name="action_add_period" type="object" class="oe_highlight" string="Add Period"/>
             </xpath>
+           
+
+           
+
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field name="agreement_no" />
                 <field name="spk_no" />
