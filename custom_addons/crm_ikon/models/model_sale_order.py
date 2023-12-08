@@ -1,4 +1,4 @@
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _ , exceptions
 import logging
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Command
@@ -12,14 +12,14 @@ class CrmSaleOrder(models.Model):
     
     
     attention = fields.Char(string="Attention")
-    project_name = fields.Char(string="Project Name")
+    project_name = fields.Char(string="Project Name", required=True)
 
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     period = fields.Date(string="Period")
     payment_for_service = fields.Char(string="Payment For Service")
-    spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',False)]")
+    spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
     month = fields.Date(string="Month")
@@ -30,30 +30,39 @@ class CrmSaleOrder(models.Model):
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
+    
+    @api.constrains('name')
+    def _check_duplicate_name(self):
+        for record in self:
+            if record.name:
+                duplicate_exists = self.env['sale.order'].search_count([('name', '=', record.name)])
+                if duplicate_exists > 1:
+                    raise exceptions.ValidationError("Quotation number must be unique. This invoice number already exists.")
+
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            logger.info("name",vals.get('name'))
             if 'company_id' in vals:
                 self = self.with_company(vals['company_id'])
             if vals.get('name', _("New")) == _("New"):
                 seq_date = fields.Datetime.context_timestamp(
                     self, fields.Datetime.to_datetime(vals['date_order'])
                 ) if 'date_order' in vals else None
-                value = self._generate_default_name()
+                value = CrmSaleOrder.generate_default_name(self)
                 vals['name'] = value or _("New")
 
         return super().create(vals_list)
         
-    def _generate_default_name(self):
+    def generate_default_name(self):
         # Get the sale.order.sequence
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
-         
+        # logger.info("new_name",new_name) 
         # Ensure the sequence exists
         if sequence:
             # Get the next value from the sequence
             sequence_value = sequence.next_by_id()
-            logger.info("sequence_value", sequence_value)
 
             # Extract the last three digits
             last_three_digits = sequence_value[-3:]
@@ -70,8 +79,6 @@ class CrmSaleOrder(models.Model):
 
                 # Format the name
                 name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year}"
-
-            logger.info("test %s", name)
 
             return name
 
@@ -92,8 +99,6 @@ class CrmSaleOrder(models.Model):
         mail_template = self._find_mail_template()
         if mail_template and mail_template.lang:
             lang = mail_template._render_lang(self.ids)[self.id]
-
-        # logger.info("test",mail_template)
         ctx = {
             'default_model': 'sale.order',
             'default_res_id': self.id,
@@ -148,7 +153,6 @@ class CrmSaleOrder(models.Model):
         return self.order_line.filtered(show_line)
     
     def _create_invoices(self, grouped=False, final=False, date=None):
-        logger.info("test",self)
         """ Create invoice(s) for the given Sales Order(s).
 
         :param bool grouped: if True, invoices are grouped by SO id.
@@ -303,7 +307,7 @@ class CrmSaleOrder(models.Model):
             'invoice_origin': self.name,
             'invoice_payment_term_id': self.payment_term_id.id,
             'invoice_user_id': self.user_id.id,
-            'payment_reference': self.reference,
+            'payment_reference': self.name,
             'transaction_ids': [Command.set(self.transaction_ids.ids)],
             'company_id': self.company_id.id,
             'invoice_line_ids': [],
