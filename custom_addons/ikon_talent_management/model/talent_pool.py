@@ -1,3 +1,5 @@
+import base64
+
 import xlrd
 from odoo import models, fields
 from base64 import b64decode
@@ -75,12 +77,13 @@ class TalentData(models.Model):
         ('smk', 'SMK'),
         ('s1', 'S1'),
         ('s2', 'S2'),
-    ])
+        ('s3', 'S3'),
+    ], required=True)
     major = fields.Char(string="Major")
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
     attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
-    job_id = fields.Many2one('hr.job', string='Move to Applicant', required=True)
+    job_id = fields.Many2one('hr.job', string='Move to Applicant')
 
     def move_to_applicant(self):
 
@@ -90,7 +93,13 @@ class TalentData(models.Model):
 
             applicant_name = f'{appl.nama} - {job_name}'
 
-            temp_degree = fields.Char(string="Temporary Degree Value")
+            attachment_data = appl.attachment
+            attachment_data_base64 = False
+            attachment_name = "Attachment"  # Default name if attachment_data is not present
+            if attachment_data:
+                attachment_data_base64 = base64.b64encode(attachment_data).decode('utf-8')
+                attachment_name = f'CV-{appl.nama}' or "Attachment"
+
             if appl.degree:
                 temp_degree = appl.degree
             source_id = self.env['utm.source'].search([('name', '=', appl.sumber)], limit=1)
@@ -109,7 +118,7 @@ class TalentData(models.Model):
                     # Add other fields as needed
                 })
 
-            print(f"********* DEGREE *********: {appl.degree}")
+            # print(f"********* DEGREE *********: {appl.degree}")
 
             hr_applicant = self.env['hr.applicant'].create({
                 'name': applicant_name,
@@ -124,6 +133,11 @@ class TalentData(models.Model):
                 "from_talent_universitas": appl.universitas,
                 "from_talent_notes": appl.notes,
                 "from_talent_attachment": appl.attachment,
+                "attachment_ids": [(0, 0, {
+                    'name': attachment_name,
+                    'datas': appl.attachment,
+                    'res_model': 'hr.applicant',
+                })],
                 'job_id': appl.job_id.id,
             })
 

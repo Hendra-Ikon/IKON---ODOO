@@ -18,11 +18,6 @@
             <!--            <button class="o_popup_close_btn">Show Modal</button>-->
             <!--            <button t-on-click="widget.openAlert()">Open Alert</button>-->
         </t>
-        <!--        <t t-call="ikon_talent_management.pds_popup_template"/>-->
-        <!--                <script type="text/javascript" src="/ikon_talent_management/static/src/js/pds.js" defer="true"></script>-->
-        <!-- The Modal -->
-
-
     </template>
 
 
@@ -45,7 +40,7 @@
             if (successNotification) {
             successNotification.style.display = 'none';
             }
-            }, 2000); // Adjust the time delay (in milliseconds) as needed
+            }, 2000);
             });
         </script>
     </template>
@@ -169,7 +164,7 @@
                             font-size: 20px;
                             font-weight: bold;
 
-                            text-decoration: underline;">Health &amp; Illness
+                            text-decoration: underline;">Medical Records
                     </div>
                     <t t-call="ikon_talent_management.health_section"/>
                 </div>
@@ -223,10 +218,18 @@
                     </div>
                     <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
                     <div class="col-sm-4">
-                        <input type="text" name="pds_sex" class="form-control"
-                               t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_sex'] or 'Your Sex'"/>
+                        <select name="pds_sex"
+                                t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
+                            <option value="select">
+                                <t t-set="sex_mapping"
+                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
+                                <t t-esc="sex_mapping.get(pds_data['pds_sex'], 'Select')"/>
+                            </option>
+                            <option value="male">MALE</option>
+                            <option value="female">FEMALE</option>
+                        </select>
                     </div>
+
                 </div>
 
                 <div class="form-group row mb-4">
@@ -333,14 +336,16 @@
 
                         <select name="pds_religion"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
-                            <option value="">
-                                <t t-esc="pds_data['pds_religion'] or 'Select'"/>
+                            <option value="select">
+                                <t t-set="religion_mapping"
+                                   t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
+                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
                             </option>
-                            <option value="islam">islam</option>
-                            <option value="kristen">kristen</option>
-                            <option value="hindu">hindu</option>
-                            <option value="budha">budha</option>
-                            <option value="konghuchu">konghuchu</option>
+                            <option value="islam">ISLAM</option>
+                            <option value="kristen">KRISTEN</option>
+                            <option value="hindu">HINDU</option>
+                            <option value="budha">BUDHA</option>
+                            <option value="konghuchu">KONGHUCHU</option>
                         </select>
                     </div>
                 </div>
@@ -351,11 +356,17 @@
 
                         <select name="pds_marital_status"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
-                            <option t-att-value="pds_data['pds_marital_status'] or 'Select'">
+                            <option value="select">
+                                <t t-set="marital_mapping" t-value="{
+                                 'select': 'SELECT',
+                                'single': 'SINGLE',
+                                'married': 'MARRIAGE',
+                                'divorced': 'DIVORCE'}"/>
+                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
                             </option>
-                            <option value="single">Single</option>
-                            <option value="married">Married</option>
-                            <option value="divorced">Divorced</option>
+                            <option value="single">SINGLE</option>
+                            <option value="married">MARRIAGE</option>
+                            <option value="divorced">DIVORCE</option>
                         </select>
                     </div>
                 </div>
@@ -479,12 +490,14 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
+                        <label class="col-sm-2 col-form-label" for="pds_edu_level">Level</label>
                         <div class="col-sm-10">
-
+                            <t t-set="level_mapping"
+                               t-value="{'select': 'SELECT','high_school': 'High School', 'bachelor': 'Bachelor', 'master': 'Master', 'doctor': 'Doctor'}"/>
                             <select name="pds_edu_level"
                                     t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                                 <option value="select">
+                                    Click to Select
                                 </option>
                                 <option value="high_school">High School</option>
                                 <option value="bachelor">Bachelor</option>
@@ -560,7 +573,7 @@
                             </td>
                             <td>
 
-                                <span t-esc="edu['pds_edu_level']"/>
+                                <span t-esc="level_mapping.get(edu['pds_edu_level'], 'None')"/>
                             </td>
                             <td>
 
@@ -703,11 +716,11 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-2 col-form-label" for="pds_ability">Ability Area</label>
                         <div class="col-sm-10">
-
+                            <t t-set="area_mapping"
+                               t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
                             <select name="pds_ability"
                                     t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
-                                <option value="select">Select
-                                </option>
+                                <option value="select">Select</option>
                                 <option value="listening">Listening</option>
                                 <option value="speaking">Speaking</option>
                                 <option value="writing">Writing</option>
@@ -718,21 +731,14 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-2 col-form-label" for="pds_lang_percen">Level</label>
                         <div class="col-sm-10">
-
+                            <t t-set="percen_mapping"
+                               t-value="{'poor': 'POOR', 'fair': 'FAIR', 'fluent': 'FLUENT'}"/>
                             <select name="pds_lang_percen"
                                     t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
-                                <option value="select">Select
-                                </option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                                <option value="select">Select</option>
+                                <option value="poor">POOR</option>
+                                <option value="fair">FAIR</option>
+                                <option value="fluent">FLUENT</option>
                             </select>
                         </div>
                     </div>
@@ -762,12 +768,10 @@
                                 <span t-esc="edu['pds_lang_name']"/>
                             </td>
                             <td>
-
-                                <span t-esc="edu['pds_ability']"/>
+                                <span t-esc="area_mapping.get(edu['pds_ability'], 'None')"/>
                             </td>
                             <td>
-
-                                <span t-esc="edu['pds_lang_percen']"/>
+                                <span t-esc="percen_mapping.get(edu['pds_lang_percen'], 'None')"/>
                             </td>
                             <td>
                                 <a class="btn btn-sm btn-danger"
@@ -869,7 +873,6 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr t-attf-style="background-color: #E17726;">
-                            <th>Status</th>
                             <th>Period</th>
                             <th>Type</th>
                             <th>Hospital</th>
@@ -879,10 +882,6 @@
                     </thead>
                     <tbody>
                         <tr t-foreach="pds_data['pds_health']" t-as="health">
-                            <td>
-
-                                <span t-esc="health['pds_health_radio']"/>
-                            </td>
                             <td>
 
                                 <span t-esc="health['pds_health_period']"/>
@@ -1026,64 +1025,59 @@
                   hide-change-model="true">
                 <div class="row o_portal_details">
 
-                    <div class="form-group row mb-4">
-                        <label class="col-sm-2 col-form-label" for="pds_expected_salary">Expected salary</label>
-                        <div class="col-sm-10">
+                    <t t-set="sal" t-value="pds_data['pds_exp_sal'][-1]"/>
 
+<!--                    <div class="form-group row mb-4">-->
+<!--                        <label class="col-sm-2 col-form-label" for="pds_expected_salary">Expected salary</label>-->
+<!--                        <div class="col-sm-10">-->
+
+<!--                            <input type="text" name="pds_expected_salary" class="form-control "-->
+<!--                                   t-attf-style="height: 30px; font-size: 10px;"-->
+<!--                                   t-att-value="sal['pds_expected_salary']"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group row mb-4">-->
+<!--                        <label class="col-sm-2 col-form-label" for="pds_expected_benefit">Expected benefit</label>-->
+<!--                        <div class="col-sm-10">-->
+
+<!--                            <input type="text" name="pds_expected_benefit" class="form-control "-->
+<!--                                   t-attf-style="height: 30px; font-size: 10px;"-->
+<!--                                   t-att-value="sal['pds_expected_benefit']"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="pds_expected_salary">Expected salary</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" t-attf-style="height: 30px; font-size: 10px;">Rp :</div>
+                            </div>
                             <input type="text" name="pds_expected_salary" class="form-control "
                                    t-attf-style="height: 30px; font-size: 10px;"
+                                   t-att-value="sal['pds_expected_salary'] or '0'"
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-2 col-form-label" for="pds_expected_benefit">Expected benefit
+                        <label class="col-sm-3 col-form-label" for="pds_expected_benefit">Expected benefit
                         </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-6">
 
                             <input type="text" name="pds_expected_benefit" class="form-control "
-                                   t-attf-style="height: 30px; font-size: 10px;"
-                            />
+                                   t-att-value="sal['pds_expected_benefit'] or 'Input your expected benefit'"/>
                         </div>
                     </div>
                     <div class="clearfix">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
-                            Add
+                            Update
                         </button>
                     </div>
-
                 </div>
             </form>
-            <!--            <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; padding-right: 27px;">-->
-            <!--                <table class="table table-striped">-->
-            <!--                    <thead>-->
-            <!--                        <tr t-attf-style="background-color: #E17726;">-->
-            <!--                            <th>Expected Salary</th>-->
-            <!--                            <th>Expected Benefit</th>-->
-            <!--                            <th>Actions</th>-->
-            <!--                        </tr>-->
-            <!--                    </thead>-->
-            <!--                    <tbody>-->
-            <!--                        <tr t-foreach="pds_data['pds_exp_sal']" t-as="exp">-->
-            <!--                            <td>-->
-
-            <!--                                <span t-esc="exp['pds_expected_salary']"/>-->
-            <!--                            </td>-->
-            <!--                            <td>-->
-
-            <!--                                <span t-esc="exp['pds_expected_benefit']"/>-->
-            <!--                            </td>-->
-            <!--                            <td>-->
-            <!--                                <a class="btn btn-sm btn-danger"-->
-            <!--                                   t-att-href="'/delete_exp/' + str(exp['id'])">Delete-->
-            <!--                                </a>-->
-            <!--                            </td>-->
-
-            <!--                        </tr>-->
-            <!--                    </tbody>-->
-            <!--                </table>-->
-            <!--            </div>-->
-
         </div>
 
     </template>

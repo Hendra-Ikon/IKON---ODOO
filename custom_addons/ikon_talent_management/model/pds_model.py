@@ -2,7 +2,7 @@ from odoo import fields, models, api
 from odoo.http import request
 
 RELIGION = [
-    ("select", "Click to select"),
+    ('select', 'CLICK TO SELECT'),
     ("islam", "ISLAM"),
     ("kristen", "KRISTEN"),
     ("hindu", "HINDU"),
@@ -12,21 +12,22 @@ RELIGION = [
 ]
 
 MARITAL_STATUS = [
-    ("select", "Click to select"),
+    ('select', 'CLICK TO SELECT'),
     ('single', 'Single'),
     ('married', 'Married'),
     ('divorced', 'Divorced'),
 ]
 
 ABILITY_AREA = [
-    ("reading", "Reading"),
-    ('writing', 'Writing'),
-    ('speaking', 'Speaking'),
-    ('listening', 'Listening'),
+    ('select', 'Click to select'),
+    ("reading", "READING"),
+    ('writing', 'WRITING'),
+    ('speaking', 'SPEAKING'),
+    ('listening', 'LISTENING'),
 ]
 
 SEX = [
-    ("select", "Click to select"),
+    ('select', 'CLICK TO SELECT'),
     ('male', 'MALE'),
     ('female', 'Married'),
 ]
@@ -40,17 +41,10 @@ LEVELDEGREE = [
 ]
 
 LANGUAGE_LEVEL = [
-    ('0', '0'),
-    ('1', '1'),
-    ('2', '2'),
-    ('3', '3'),
-    ('4', '4'),
-    ('5', '5'),
-    ('6', '6'),
-    ('7', '7'),
-    ('8', '8'),
-    ('9', '9'),
-    ('10', '10'),
+    ('select', 'Click to select'),
+    ('poor', 'POOR'),
+    ('fair', 'FAIR'),
+    ('fluent', 'FLUENT'),
 ]
 
 
@@ -70,10 +64,10 @@ class PDSData(models.Model):
     pds_email = fields.Char(string="Personal Email")
     pds_placeOfBirth = fields.Char(string="Place of birth")
     pds_nationality = fields.Char(string="Nationality")
-    pds_religion = fields.Selection(RELIGION, default='select')
+    pds_religion = fields.Selection(RELIGION)
     pds_dob = fields.Date(string="Date of Birth")
-    pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", default='select')
-    pds_sex = fields.Selection(SEX, string="Sex", default=SEX[0][0])
+    pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status",)
+    pds_sex = fields.Selection(SEX, string="Sex",)
 
 
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
@@ -147,8 +141,8 @@ class HrApplExpectedSalary(models.Model):
     _name = "custom.expected.salary"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary")
-    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit")
+    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary", default=0)
+    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit", default="Your expected benefit")
 
 class HrApplOrg(models.Model):
 
