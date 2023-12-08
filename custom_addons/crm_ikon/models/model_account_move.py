@@ -1,4 +1,4 @@
-from odoo import models, _, fields, api
+from odoo import models, _, fields, api, exceptions
 from odoo.exceptions import UserError
 from contextlib import contextmanager
 from odoo.tools import formatLang, format_amount
@@ -31,39 +31,43 @@ logger = logging.getLogger(__name__)
 #         ('reversed', 'Reversed'),
 #         ('invoicing_legacy', 'Invoicing App Legacy'),
 # ]
+MONTH_SELECTION = [
+        ('01', 'January'),
+        ('02', 'February'),
+        ('03', 'March'),
+        ('04', 'April'),
+        ('05', 'May'),
+        ('06', 'June'),
+        ('07', 'July'),
+        ('08', 'August'),
+        ('09', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December'),
+    ]
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
+    month = fields.Selection(MONTH_SELECTION, string="Month")
     attention = fields.Char(string="Attention")
-    inv_no = fields.Char(string='Invoice No.')
+    inv_no = fields.Char(
+        string='Invoice No.',
+        store=True,
+        copy=False,
+        tracking=True,
+        index='trigram',
+        )
     in_word = fields.Char(string="In Word", compute="_compute_in_word", store=True)
-    project_name = fields.Char(string="Project Name")
+    project_name = fields.Char(string="Project Name", required=True)
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     period = fields.Date(string="Period")
     payment_for_service = fields.Char(string="Payment For Service")
-    spv = fields.Many2one('res.partner', string='SPV', domain="[('is_company','=',False)]")
+    spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
-    month = fields.Date(string="Month")
-    name = fields.Char(
-        string='Number',
-        inverse='_inverse_name', readonly=False, store=True,
-        copy=False,
-        tracking=True,
-        index='trigram',
-        
-    )
-
-    @api.depends('amount_total')
-    def _compute_in_word(self):
-        p = inflect.engine()
-        for record in self:
-            if record.amount_total:
-                amount_in_words = p.number_to_words(record.amount_total)
-                amount_in_words = amount_in_words.replace(" and", "").replace(" point zero", " Rupiah")
-                record.in_word = amount_in_words
+    month = fields.Selection(MONTH_SELECTION, string="Month")
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -106,13 +110,25 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
-    # name = fields.Char(
-    #     string='Number',
-    #     readonly=False, store=True,
-    #     copy=False,
-    #     tracking=True,
-    #     index='trigram',
-    # )
+
+
+    @api.constrains('inv_no')
+    def _check_duplicate_inv_no(self):
+        for record in self:
+            if record.inv_no:
+                duplicate_exists = self.env['account.move'].search_count([('inv_no', '=', record.inv_no)])
+                if duplicate_exists > 1:
+                    raise exceptions.ValidationError("Invoice number must be unique. This invoice number already exists.")
+
+    @api.depends('amount_total')
+    def _compute_in_word(self):
+        p = inflect.engine()
+        for record in self:
+            if record.amount_total:
+                amount_in_words = p.number_to_words(record.amount_total)
+                amount_in_words = amount_in_words.replace(" and", "").replace(" point zero", " Rupiah")
+                record.in_word = amount_in_words
+  
 
 
     def action_approve(self):
@@ -222,9 +238,11 @@ class CrmAccountMove(models.Model):
             move.show_reset_to_draft_button = not move.restrict_mode_hash_table and move.state in (
             'posted', 'approved', 'cancel')
 
+    
     def action_post(self):
         # validate sales order  
         for rec in self.invoice_line_ids:
+            logger.info("3", rec.name)
             if rec.sale_line_ids.order_id.state == 'draft':
                 raise UserError(_("You are not allowed to confirm, please confirm sale order first!"))
 
@@ -576,6 +594,47 @@ class CrmAccountMove(models.Model):
 
         return to_post
 
+    def generate_default_name(self,name):
+            # Get the sale.order.sequence
+            new_name = self.inv_no
+            old_name = name
+            
+            # Ensure the sequence exists
+            if name:
+                # Get the next value from the sequence
+                
+                # Extract the last three digits
+                last_three_digits = name[-3:]
+
+                # Check if the last three digits are 999
+                if last_three_digits == '999':
+                    # Extract the last four digits
+                    last_four_digits = name[-4:]
+                    name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
+                else:
+                    # Get the current month and year
+                    current_month = fields.Date.today().month
+                    current_year = fields.Date.today().year
+
+                    # Format the name
+                    name = f"{last_three_digits}/CS-{current_month}/{current_year}"
+                
+                    if new_name:
+                        data = self.env['account.resequence.wizard'].search([("first_name","=", old_name)], limit=1)
+                        current_first_name = data.first_name 
+                        prefix, number_part = current_first_name.rsplit('/', 1)
+                        new_number = str(int(number_part) - 1).zfill(len(number_part))
+                        new_first_name = f"{prefix}/{new_number}"
+                        data.write({'first_name': new_first_name})
+                        return new_name
+                    else:
+                        return name
+                    
+                
+
+            return False
+    
+
     
     @api.depends('posted_before', 'state', 'journal_id', 'date')
     def _compute_name(self):
@@ -598,12 +657,16 @@ class CrmAccountMove(models.Model):
                         # so we don't recompute the name
                         continue
             if move.date and (not move_has_name or not move._sequence_matches_date()):
-                a = move._set_next_sequence()
-                logger.info("a",a)
+                
                 move._set_next_sequence()
-
+                
+            move.inv_no = CrmAccountMove.generate_default_name(self,move.name)
+            
         self.filtered(lambda m: not m.name and not move.quick_edit_mode).name = '/'
         self._inverse_name()
 
+    
+
+        
     
 

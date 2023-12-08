@@ -43,6 +43,7 @@
         'views/inherit_account_move.xml',
         'views/view_crm_lead_form_inherit.xml',
         'views/inherit_view_invoice_tree.xml',
+        'views/inherit_view_sale_order_tree.xml',
 
 
         # report
@@ -63,7 +64,6 @@
             'crm_ikon/static/js/date_custom.js',
             'crm_ikon/static/xml/contact_kanban_import_button.xml',
             'crm_ikon/static/xml/contact_list_import_button.xml',
-
 
 
         ],

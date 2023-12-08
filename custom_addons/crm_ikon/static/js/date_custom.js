@@ -1,4 +1,4 @@
-odoo.define('your_module.date_custom', function (require) {
+odoo.define('crm_ikon.date_custom', function (require) {
     'use strict';
 
     var core = require('web.core');
@@ -14,6 +14,7 @@ odoo.define('your_module.date_custom', function (require) {
                 todayHighlight: true,
                 clearBtn: true
             });
+            console.log("test")
 
             // Customize initialization if needed
             this.$el.datepicker('setViewMode', 'months');
@@ -22,7 +23,7 @@ odoo.define('your_module.date_custom', function (require) {
         },
     });
 
-    fieldRegistry.add('date', CustomDatePicker);
+    fieldRegistry.add('datepicker', CustomDatePicker);
 
     return CustomDatePicker;
 });
