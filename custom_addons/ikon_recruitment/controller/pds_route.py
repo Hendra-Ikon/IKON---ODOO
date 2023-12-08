@@ -183,15 +183,18 @@ class PDSController(http.Controller):
     def create_expected_salary(self, **kwargs):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-        work_exp = request.env['custom.expected.salary'].search([])
+        exp_sal = request.env['custom.expected.salary'].search([])
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    work_exp.create({
+                    exp_sal.create({
                         'applicant_id': applicant.id,
                         'pds_expected_salary': kwargs.get("pds_expected_salary"),
                         'pds_expected_benefit': kwargs.get("pds_expected_benefit"),
                     })
+
+                    print(f'**** Expected Salary is: ****: {kwargs.get("pds_expected_salary")}')
+                    print(f'**** Expected Salary is: ****: {kwargs.get("pds_expected_benefit")}')
 
 
             except Exception as e:
@@ -281,11 +284,11 @@ class PDSController(http.Controller):
 
         return request.render("ikon_talent_management.custom_pds_view", data)
 
-    @http.route("/my/account", type='http', auth='user', website=True)
+    @http.route("/my/profile", type='http', auth='user', website=True)
     def my_profile(self):
         user = request.env.user
+        user_avatar = user.image_1920
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
-
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
         for stage_check in stage_checks:
@@ -310,6 +313,7 @@ class PDSController(http.Controller):
         # Pass the data to the template
         data = {
             "user_data": user,
+            "user_avatar": user_avatar,
             'employee_department': employment_status.department_id.name,
             'employment_status': employment_status,
             'applied_jobs': applied_jobs,
