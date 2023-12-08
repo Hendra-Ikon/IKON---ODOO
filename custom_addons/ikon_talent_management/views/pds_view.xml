@@ -707,7 +707,7 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-2 col-form-label" for="pds_lang_name">Languange</label>
+                        <label class="col-sm-2 col-form-label" for="pds_lang_name">Language</label>
                         <div class="col-sm-10">
 
                             <input type="text" name="pds_lang_name" class="form-control "
