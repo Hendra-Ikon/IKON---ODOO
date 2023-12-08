@@ -104,8 +104,9 @@
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="agreement_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="spk_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
-                <field name="month" widget="date" class="oe_inline" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
-                <field name="spv" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="month" widget="selection" class="oe_inline" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
+                />
+                <field name="spv" />
             </xpath>
             
         </field>

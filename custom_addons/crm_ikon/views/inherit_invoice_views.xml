@@ -39,24 +39,15 @@
                         highest number is<field class="oe_inline" name="highest_name"/>. You might
                         want to put a higher number here.
                     </div>
-
-                    <h1>
-                        <field name="name"
-                               attrs="{'invisible':[('name', '=', '/'), ('posted_before', '=', False), ('quick_edit_mode', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
-                               placeholder="Draft"/>
-
-                        <span
-                                attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('name', '!=', '/'), ('quick_edit_mode', '=', True)]}">
-                            Draft
-                        </span>
-                    </h1>
-
-                    <label for="inv_no"/>
+                    <small attrs="{'invisible': [('state', '!=', 'draft')]}">
+                        <p>*note: Invoice number is automatically generated and should not be manually specified.</p>
+                    </small>
+                  
                     <h1>
                         <field name="inv_no"
-                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                               attrs="{'invisible':[('inv_no', '=', '/'), ('posted_before', '=', False), ('quick_edit_mode', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                               placeholder="Invoice Number"/>                       
                     </h1>
-                    <field name="name" invisible="1"/>
                 </div>
             </xpath>
             <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
@@ -70,7 +61,7 @@
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field name="agreement_no" />
                 <field name="spk_no" />
-                <field name="month" widget="date" class="oe_inline" />
+                <field name="month" widget="selection" class="oe_inline"/>
                 <field name="spv" />
             </xpath>
         </field>
