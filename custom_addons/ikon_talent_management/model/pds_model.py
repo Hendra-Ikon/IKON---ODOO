@@ -141,7 +141,7 @@ class HrApplExpectedSalary(models.Model):
     _name = "custom.expected.salary"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary", default=0)
+    pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary", default="0")
     pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit", default="Your expected benefit")
 
 class HrApplOrg(models.Model):
