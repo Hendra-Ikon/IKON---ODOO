@@ -219,13 +219,14 @@
                     <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
                     <div class="col-sm-4">
                         <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-<!--                        <t t-set="sex-val" t-value="sex_mapping.get(pds_data['pds_sex']"/>-->
+                           t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
+                        <!--                        <t t-set="sex-val" t-value="sex_mapping.get(pds_data['pds_sex']"/>-->
                         <select name="pds_sex"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="sex_mapping.get(pds_data['pds_sex'] or 'Select')" t-att-selected="sex_mapping.get(pds_data['pds_sex'] or 'Select')"/>
+                                <t t-esc="sex_mapping.get(pds_data['pds_sex'] or 'Select')"
+                                   t-att-selected="sex_mapping.get(pds_data['pds_sex'] or 'Select')"/>
                             </option>
                             <option value="male">MALE</option>
                             <option value="female">FEMALE</option>
@@ -336,12 +337,13 @@
                     <label class="col-sm-2 col-form-label" for="pds_religion">Religion</label>
                     <div class="col-sm-10">
                         <t t-set="religion_mapping"
-                                   t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
+                           t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
                         <select name="pds_religion"
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')" t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
+                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"
+                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
                             </option>
                             <option value="islam">ISLAM</option>
                             <option value="kristen">KRISTEN</option>
@@ -364,7 +366,8 @@
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')" t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
+                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"
+                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
                             </option>
                             <option value="single">SINGLE</option>
                             <option value="married">MARRIAGE</option>
@@ -1026,41 +1029,23 @@
                   data-success-mode="redirect" data-success-page="/jobs"
                   hide-change-model="true">
                 <div class="row o_portal_details">
-
-                    <t t-set="sal" t-value="pds_data['pds_exp_sal'][-1]"/>
-
-<!--                    <div class="form-group row mb-4">-->
-<!--                        <label class="col-sm-2 col-form-label" for="pds_expected_salary">Expected salary</label>-->
-<!--                        <div class="col-sm-10">-->
-
-<!--                            <input type="text" name="pds_expected_salary" class="form-control "-->
-<!--                                   t-attf-style="height: 30px; font-size: 10px;"-->
-<!--                                   t-att-value="sal['pds_expected_salary']"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group row mb-4">-->
-<!--                        <label class="col-sm-2 col-form-label" for="pds_expected_benefit">Expected benefit</label>-->
-<!--                        <div class="col-sm-10">-->
-
-<!--                            <input type="text" name="pds_expected_benefit" class="form-control "-->
-<!--                                   t-attf-style="height: 30px; font-size: 10px;"-->
-<!--                                   t-att-value="sal['pds_expected_benefit']"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <t t-if="exp_sal">
+                        <t t-set="sal" t-value="exp_sal[-1]['pds_expected_salary']"/>
+                    </t>
+                    <t t-if="exp_sal">
+                        <t t-set="ben" t-value="exp_sal[-1]['pds_expected_benefit']"/>
+                    </t>
 
                     <div class="form-group row mb-4">
                         <label class="col-sm-3 col-form-label" for="pds_expected_salary">Expected salary</label>
                         <div class="input-group col-sm-5" t-attf-style="width: 250px;">
                             <div class="input-group-prepend">
-                                <div class="input-group-text" t-attf-style="height: 30px; font-size: 10px;">Rp :</div>
+                                <div class="input-group-text" t-attf-style="height: 30px; font-size: 10px;">Rp :
+                                </div>
                             </div>
-                            <input type="text" name="pds_expected_salary" class="form-control "
-                                   t-attf-style="height: 30px; font-size: 10px;"
-                                   t-att-value="sal['pds_expected_salary'] or '0'"
-                            />
+
+                            <input type="text" name="pds_expected_salary" class="form-control"
+                                   t-att-value="sal" t-attf-style="height: 30px; font-size: 10px;"/>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
@@ -1069,7 +1054,8 @@
                         <div class="col-sm-6">
 
                             <input type="text" name="pds_expected_benefit" class="form-control "
-                                   t-att-value="sal['pds_expected_benefit'] or 'Input your expected benefit'"/>
+                                   t-att-value="ben" t-attf-style="height: 30px; font-size: 10px;"/>
+
                         </div>
                     </div>
                     <div class="clearfix">
