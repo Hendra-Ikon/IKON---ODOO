@@ -184,6 +184,9 @@ class PDSController(http.Controller):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         exp_sal = request.env['custom.expected.salary'].search([])
+
+
+
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
@@ -249,8 +252,23 @@ class PDSController(http.Controller):
 
         user = request.env.user
         pds_data = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        exp_sal = request.env['custom.expected.salary'].search([("applicant_id", "=", applicant_to_update.id)])
+
+
+        # for applicant in applicant_to_update:
+        #     if not exp_sal[0].pds_expected_salary:
+        #         # print("***** TRUE ****")
+        #         exp_sal.create({
+        #             'applicant_id': applicant.id,
+        #             'pds_expected_salary': "0",
+        #             'pds_expected_benefit': "Your benefit",
+        #         })
+
+
+
+
+
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
                 applicant.update({
@@ -270,12 +288,15 @@ class PDSController(http.Controller):
                     "pds_sex": kwargs.get("pds_sex"),
                 })
 
+
+
         data = {}
         if pds_data:
             data = {
                 'pds_data': pds_data[-1],  # Assuming you want the last element if it exists
                 "page_name": "pds_data",
-                "open_modal": pds_data[-1].open_modal
+                "open_modal": pds_data[-1].open_modal,
+                "exp_sal": exp_sal
             }
 
         return request.render("ikon_talent_management.custom_pds_view", data)
