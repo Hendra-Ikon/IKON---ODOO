@@ -81,6 +81,7 @@ class TalentData(models.Model):
         ('d1', 'D1'),
         ('d2', 'D2'),
         ('d3', 'D3'),
+        ('d4', 'D4'),
         ('undergraduate', 'Undergraduate'),
     ], required=True)
     major = fields.Char(string="Major")
@@ -175,6 +176,7 @@ class HrApplicantInherit(models.Model):
         ('d1', 'D1'),
         ('d2', 'D2'),
         ('d3', 'D3'),
+        ('d4', 'D4'),
         ('undergraduate', 'Undergraduate'),
     ])
     from_talent_major = fields.Char(string="Major")
