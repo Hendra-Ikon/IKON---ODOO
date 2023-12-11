@@ -167,6 +167,11 @@ class HrApplicantInherit(models.Model):
         ('smk', 'SMK'),
         ('s1', 'S1'),
         ('s2', 'S2'),
+        ('s3', 'S3'),
+        ('d1', 'D1'),
+        ('d2', 'D2'),
+        ('d3', 'D3'),
+        ('undergraduate', 'Undergraduate'),
     ])
     from_talent_major = fields.Char(string="Major")
     from_talent_universitas = fields.Char(string="Universitas")
