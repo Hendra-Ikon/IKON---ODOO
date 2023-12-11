@@ -78,6 +78,10 @@ class TalentData(models.Model):
         ('s1', 'S1'),
         ('s2', 'S2'),
         ('s3', 'S3'),
+        ('d1', 'D1'),
+        ('d2', 'D2'),
+        ('d3', 'D3'),
+        ('undergraduate', 'Undergraduate'),
     ], required=True)
     major = fields.Char(string="Major")
     universitas = fields.Char(string="Universitas")
