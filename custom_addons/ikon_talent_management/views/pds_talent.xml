@@ -164,31 +164,37 @@
                                 </form>
                             </field>
                         </group>
-                        <!--                        <group string="Working Experience">-->
-                        <!--                            <field name="pds_work_exp" widget="section_and_note_one2many" mode="tree">-->
-                        <!--                                <tree editable="top">-->
-                        <!--                                    <field name="pds_workex_company_name"/>-->
-                        <!--                                    <field name="pds_workex_lob"/>-->
-                        <!--                                    <field name="pds_workex_last_pos"/>-->
-                        <!--                                    <field name="pds_workex_reason_leave"/>-->
-                        <!--                                    <field name="pds_workex_last_salary"/>-->
-                        <!--                                    <field name="pds_workex_period_from"/>-->
-                        <!--                                    <field name="pds_workex_period_to"/>-->
-                        <!--                                </tree>-->
-                        <!--                                <form editable="top">-->
-                        <!--                                    <group>-->
-                        <!--                                        <field name="pds_workex_company_name"/>-->
-                        <!--                                        <field name="pds_workex_lob"/>-->
-                        <!--                                        <field name="pds_workex_last_pos"/>-->
-                        <!--                                        <field name="pds_workex_reason_leave"/>-->
-                        <!--                                        <field name="pds_workex_last_salary"/>-->
-                        <!--                                        <field name="pds_workex_period_from"/>-->
-                        <!--                                        <field name="pds_workex_period_to"/>-->
-                        <!--                                    </group>-->
-                        <!--                                </form>-->
-                        <!--                            </field>-->
-                        <!--                        </group>-->
 
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Resume">
+                    <group string="Resume">
+                        <field name="pds_resume" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="top">
+                                <field name="resume_dateStart"/>
+                                <field name="resume_dateEnd"/>
+                                <field name="rsm_com_name"/>
+                                <field name="rsm_com_job_title"/>
+                                <field name="rsm_com_projectDes"/>
+                                <field name="resume_tech_used_backend" widget="many2many_tags"/>
+                                <field name="resume_tech_used_frontend" widget="many2many_tags"/>
+                                <field name="resume_tech_used_database" widget="many2many_tags"/>
+                            </tree>
+                            <form editable="top">
+                                <group>
+                                    <field name="resume_dateStart"/>
+                                    <field name="resume_dateEnd"/>
+                                    <field name="rsm_com_name"/>
+                                    <field name="rsm_com_job_title"/>
+                                    <field name="rsm_com_projectDes"/>
+                                    <field name="resume_tech_used_backend" widget="many2many_tags"/>
+                                    <field name="resume_tech_used_frontend" widget="many2many_tags"/>
+                                    <field name="resume_tech_used_database" widget="many2many_tags"/>
+                                </group>
+                            </form>
+                        </field>
                     </group>
                 </page>
             </xpath>

@@ -23,3 +23,13 @@ access_internal_user_custom_org,custom_org,model_custom_org,base.group_user,1,1,
 access_portal_user_custom_health,custom_health,model_custom_health,base.group_portal,1,1,1,1
 access_internal_user_custom_health,custom_health,model_custom_health,base.group_user,1,1,1,1
 
+
+access_portal_user_custom_resume_experience,custom_resume_experience,model_custom_resume_experience,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_experience,custom_resume_experience,model_custom_resume_experience,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_experience_company,custom_resume_experience_company,model_custom_resume_experience_company,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_experience_company,custom_resume_experience_company,model_custom_resume_experience_company,base.group_user,1,1,1,1
+
+access_portal_user_custom_technology_tag,custom_technology_tag,model_custom_technology_tag,base.group_portal,1,1,1,1
+access_internal_user_custom_technology_tag,custom_technology_tag,model_custom_technology_tag,base.group_user,1,1,1,1
+

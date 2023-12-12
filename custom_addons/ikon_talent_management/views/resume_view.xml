@@ -1,5 +1,109 @@
+<!--            <t t-call="ikon_talent_management.resume_view_form"/>-->
 <odoo>
     <template id="resume_talent_view">
-        <h1>Haloo</h1>
+        <t t-call="website.layout">
+            <table>
+                <!--                <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th>Experience</th>-->
+                <!--                    </tr>-->
+                <!--                </thead>-->
+                <tbody>
+                    <t t-foreach="data['pds_resume']" t-as="resume">
+
+
+                        <tr class="o_data_row" data-id="datapoint_4">
+                            <td class="o_resume_timeline_cell position-relative pe-lg-2">
+                                <div class="rounded-circle bg-red position-relative"></div>
+                            </td>
+                            <td class="o_data_cell pt-0">
+                                <div class="o_resume_line">
+                                    <small class="o_resume_line_dates fw-bold">
+                                        <t t-esc="resume['resume_dateStart']"/>
+                                        - Current
+                                    </small>
+                                    <h4 class="o_resume_line_title mt-2">
+                                        <t t-esc="resume['rsm_com_name']"/>
+                                    </h4>
+                                    <p class="o_resume_line_desc">As: <t t-esc="resume['rsm_com_job_title']"/></p>
+                                    <p class="o_resume_line_desc">Project description: <t t-esc="resume['rsm_com_projectDes']"/></p>
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+    </template>
+    <template id="resume_view_form">
+
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+
+            <form id="custom_exp_salary" action="/create_resume" method="post"
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="custom.resume.experience"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
+                <div class="row o_portal_details">
+                    <!--                        <t t-if="exp_sal">-->
+                    <!--                            <t t-set="sal" t-value="exp_sal[-1]['pds_expected_salary']"/>-->
+                    <!--                        </t>-->
+                    <!--                        <t t-if="exp_sal">-->
+                    <!--                            <t t-set="ben" t-value="exp_sal[-1]['pds_expected_benefit']"/>-->
+                    <!--                        </t>-->
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="resume_dateStart">Date start</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+
+                            <input type="date" name="resume_dateStart" class="form-control"
+                                   t-att-value="resume_dateStart" t-attf-style="height: 30px; font-size: 10px;"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="resume_dateEnd">Date end</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+
+                            <input type="date" name="resume_dateEnd" class="form-control"
+                                   t-att-value="resume_dateEnd" t-attf-style="height: 30px; font-size: 10px;"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="resume_company_name">Company</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+
+                            <input type="text" name="resume_company_name" class="form-control"
+                                   t-att-value="resume_company_name" t-attf-style="height: 30px; font-size: 10px;"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="resume_company_job_title">Job title</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+
+                            <input type="text" name="resume_company_job_title" class="form-control"
+                                   t-att-value="resume_company_job_title"
+                                   t-attf-style="height: 30px; font-size: 10px;"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="resume_company_projectDes">Job description</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+
+                            <input type="text" name="resume_company_projectDes" class="form-control"
+                                   t-att-value="resume_company_projectDes"
+                                   t-attf-style="height: 30px; font-size: 10px;"/>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <button type="submit"
+                                class="btn btn-primary float-end mb32 ">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </template>
 </odoo>
