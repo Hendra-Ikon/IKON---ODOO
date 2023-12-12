@@ -14,7 +14,35 @@ class ResumeModel(models.Model):
     resume_tech_used_backend = fields.Many2many('custom.backend.tag', "resume_backend_tag_rel", string='Backend Technology Used')
     resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
     resume_tech_used_database = fields.Many2many('custom.database.tag', "resume_database_tag_rel", string='Database Technology Used')
+    resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
+    resume_sys_int_appl = fields.Many2many('custom.resume.sysint.apl', "resume_sys_apl_tag_rel", string='Sys Int Application')
+    resume_sys_int_middleware = fields.Many2many('custom.resume.sysint.middleware', "resume_sys_middleware_tag_rel", string='Sys Int middleware')
+    resume_sys_int_email_notif = fields.Many2many('custom.resume.sysint.email.notif', "resume_sys_email_notif_tag_rel", string='Sys Int Email Notif')
 
+
+class ResumeSysIntEmailNotif(models.Model):
+    _name = 'custom.resume.sysint.email.notif'
+    _description = 'System Int email notif Tags'
+
+    name = fields.Char(string='Tag Name',)
+
+class ResumeSysIntMiddleware(models.Model):
+    _name = 'custom.resume.sysint.middleware'
+    _description = 'System Int middleware Tags'
+
+    name = fields.Char(string='Tag Name',)
+
+class ResumeSysIntAppl(models.Model):
+    _name = 'custom.resume.sysint.apl'
+    _description = 'System Int Apl Tags'
+
+    name = fields.Char(string='Tag Name',)
+
+class ResumeCertificate(models.Model):
+    _name = 'custom.resume.certif.tag'
+    _description = 'Certif Tags'
+
+    name = fields.Char(string='Tag Name',)
 
 class BackendTag(models.Model):
     _name = 'custom.backend.tag'
