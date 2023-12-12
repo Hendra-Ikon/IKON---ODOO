@@ -25,8 +25,58 @@
                                     <h4 class="o_resume_line_title mt-2">
                                         <t t-esc="resume['rsm_com_name']"/>
                                     </h4>
-                                    <p class="o_resume_line_desc">As: <t t-esc="resume['rsm_com_job_title']"/></p>
-                                    <p class="o_resume_line_desc">Project description: <t t-esc="resume['rsm_com_projectDes']"/></p>
+                                    <p class="o_resume_line_desc">As:
+                                        <t t-esc="resume['rsm_com_job_title']"/>
+                                    </p>
+                                    <p class="o_resume_line_desc">Project description:
+                                        <t t-esc="resume['rsm_com_projectDes']"/>
+                                    </p>
+                                    <br/>
+                                    <p class="o_resume_line_desc">Technology used:
+                                    </p>
+                                    <ul t-attf-style="margin-left: 20px;">
+
+                                        <li>
+                                            <span t-attf-style="font-size: 20px; margin-right: 20px; padding-top: 5px;">
+                                                &#8226;
+                                            </span>
+                                            Backend technology: <t t-foreach="resume['resume_tech_used_backend']" t-as="backend">
+                                            <t t-esc="backend.name"/>,
+                                        </t>
+                                        </li>
+                                        <li>
+                                            <span t-attf-style="font-size: 20px; margin-right: 20px; padding-top: 5px;">
+                                                &#8226;
+                                            </span>
+                                            Frontend technology: <t t-foreach="resume['resume_tech_used_frontend']" t-as="frontend">
+                                            <t t-esc="frontend.name"/>,
+                                        </t>
+                                        </li>
+                                        <li>
+                                            <span t-attf-style="font-size: 20px; margin-right: 20px; padding-top: 5px;">
+                                                &#8226;
+                                            </span>
+                                            Database technology: <t t-foreach="resume['resume_tech_used_database']" t-as="database">
+                                            <t t-esc="database.name"/>,
+                                        </t>
+                                        </li>
+                                    </ul>
+<!--                                    <p class="o_resume_line_desc">Backend technology:-->
+<!--                                        <t t-foreach="resume['resume_tech_used_backend']" t-as="backend">-->
+<!--                                            <t t-esc="backend.name"/>,-->
+<!--                                        </t>-->
+<!--                                    </p>-->
+<!--                                    <p class="o_resume_line_desc">Frontend technology:-->
+<!--                                        <t t-foreach="resume['resume_tech_used_frontend']" t-as="frontend">-->
+<!--                                            <t t-esc="frontend.name"/>,-->
+<!--                                        </t>-->
+<!--                                    </p>-->
+<!--                                    <p class="o_resume_line_desc">Database technology:-->
+<!--                                        <t t-foreach="resume['resume_tech_used_database']" t-as="database">-->
+<!--                                            <t t-esc="database.name"/>,-->
+<!--                                        </t>-->
+<!--                                    </p>-->
+
                                 </div>
                             </td>
                         </tr>

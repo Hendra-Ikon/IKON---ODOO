@@ -11,14 +11,26 @@ class ResumeModel(models.Model):
     rsm_com_name = fields.Char(string="Company Name")
     rsm_com_job_title = fields.Char(string="Job Title in Company")
     rsm_com_projectDes = fields.Char(string="Project Description")
-    resume_tech_used_backend = fields.Many2many('custom.technology.tag', "co_resume_tech_tag_rel", string='Backend Technology Used')
-    resume_tech_used_frontend = fields.Many2many('custom.technology.tag', "co_resume_tech_tag_rel", string='Frontend Technology Used')
-    resume_tech_used_database = fields.Many2many('custom.technology.tag', "co_resume_tech_tag_rel", string='Database Technology Used')
+    resume_tech_used_backend = fields.Many2many('custom.backend.tag', "resume_backend_tag_rel", string='Backend Technology Used')
+    resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
+    resume_tech_used_database = fields.Many2many('custom.database.tag', "resume_database_tag_rel", string='Database Technology Used')
 
 
-class TechnologyTag(models.Model):
-    _name = 'custom.technology.tag'
-    _description = 'Technology Tags'
+class BackendTag(models.Model):
+    _name = 'custom.backend.tag'
+    _description = 'Backend Tags'
+
+    name = fields.Char(string='Tag Name',)
+
+class FrontendTag(models.Model):
+    _name = 'custom.frontend.tag'
+    _description = 'Frontend Tags'
+
+    name = fields.Char(string='Tag Name',)
+
+class DatabaseTag(models.Model):
+    _name = 'custom.database.tag'
+    _description = 'Database Tags'
 
     name = fields.Char(string='Tag Name',)
 
