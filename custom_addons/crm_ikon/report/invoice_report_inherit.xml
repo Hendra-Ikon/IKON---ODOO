@@ -10,11 +10,58 @@
                 <span t-field="o.attention" />
             </t>
         </xpath>
+    
         <xpath expr="//div[@id='informations']" position="before">
-            <t name="project_name">
-                <strong>Project Name: </strong>
-                <span t-field="o.invoice_line_ids.order_lines.order_id.project_name" />
-            </t>
+            <table class="mb-3" name="info_table">
+                <tr>
+                    <td class="text-start" t-if="o.invoice_line_ids.order_lines.order_id.project_name" name="project_name">
+                            <strong>Project Name</strong>
+                    </td>
+                    <td class="text-start"><span style="margin:10px">:</span></td>
+                    <td class="text-start"><span>
+                        <span t-field="o.invoice_line_ids.order_lines.order_id.project_name" />
+                    </span></td>
+                </tr>
+                <tr>
+                    <td class="text-start" t-if="o.spk_no" name="spk_no">
+                            <strong>SPK No</strong>  
+                    </td>
+                    <td class="text-start"><span style="margin:10px">:</span></td>
+                    <td class="text-start"  >
+                        <span t-field="o.spk_no" />   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start" t-if="o.po_no" name="po_no">
+                            <strong>PO No</strong>  
+                    </td>
+                    <td class="text-start"><span style="margin:10px">:</span></td>
+                    <td class="text-start"  >
+                        <span t-field="o.po_no" />   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start" t-if="o.month" name="month">
+                            <strong>Month</strong>  
+                    </td>
+                    <td class="text-start"><span style="margin:10px">:</span></td>
+                    <td class="text-start"  >
+                        <span t-field="o.month" />   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start" t-if="o.agreement_no" name="agreement_no">
+                            <strong>Agreement No</strong>  
+                    </td>
+                    <td class="text-start"><span style="margin:10px">:</span></td>
+                    <td class="text-start"  >
+                        <span t-field="o.agreement_no" />   
+                    </td>
+                </tr>
+            
+            
+            </table>
+
         </xpath>
         <xpath expr="//div[@name='origin' and @t-if='o.invoice_origin']" position="replace">
         </xpath>
@@ -24,18 +71,7 @@
                     <strong>Source:</strong>
                     <p class="m-0" t-field="o.invoice_origin" />
                 </div>
-                <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
-                    name="po_no">
-                    <strong>PO FIF No.:</strong>
-                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.po_no" />
-                </div>
-                <div class="col-auto col-3 mw-100 mb-2"
-                    t-if="o.invoice_line_ids.order_lines.order_id.po_no"
-                    name="po_no">
-                    <strong>Test:</strong>
-                    <p class="m-0" t-field="o.invoice_line_ids.order_lines.order_id.pr_no" />
-                </div>
+                
             </div>
         </xpath>
         <xpath expr="//div[@name='invoice_date']" position="before">

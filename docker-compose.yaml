@@ -15,7 +15,7 @@ services:
       - ./config:/etc/odoo
       - ./custom_addons:/mnt/extra-addons
 
-    command: sh -c "pip install inflect && pip install openpyxl && pip3 install XlsxWriter && pip3 install python-Levenshtein && pip3 install fuzzywuzzy && pip3 install requests && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo && tail -f /dev/null"
+    # command: sh -c "pip install inflect && pip install openpyxl && pip3 install XlsxWriter && pip3 install python-Levenshtein && pip3 install fuzzywuzzy && pip3 install requests && pip install graphql-server && pip install graphene && pip install odoorpc && pip install wkhtmltopdf && exec odoo && tail -f /dev/null"
 
   db:
     platform: linux/x86_64

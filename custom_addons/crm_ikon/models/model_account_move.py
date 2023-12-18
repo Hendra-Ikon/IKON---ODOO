@@ -2,6 +2,7 @@ from odoo import models, _, fields, api, exceptions
 from odoo.exceptions import UserError
 from contextlib import contextmanager
 from odoo.tools import formatLang, format_amount
+from textwrap import shorten
 import inflect
 from collections import defaultdict
 import logging
@@ -659,6 +660,77 @@ class CrmAccountMove(models.Model):
             
         self.filtered(lambda m: not m.name and not move.quick_edit_mode).name = '/'
         self._inverse_name()
+
+    def action_invoice_print(self):
+        logger.info("print")
+        """ Print the invoice and mark it as sent, so that we can see more
+            easily the next step of the workflow
+        """
+        if any(not move.is_invoice(include_receipts=True) for move in self):
+            raise UserError(_("Only invoices could be printed."))
+
+        self.filtered(lambda inv: not inv.is_move_sent).write({'is_move_sent': True})
+        if self.user_has_groups('account.group_account_invoice'):
+            return self.env.ref('account.account_invoices').report_action(self)
+        else:
+            return self.env.ref('account.account_invoices_without_payment').report_action(self)
+        
+    def action_send_and_print(self):
+        return {
+            'name': _('Send Invoice'),
+            'res_model': 'account.invoice.send',
+            'view_mode': 'form',
+            'context': {
+                'default_email_layout_xmlid': 'mail.mail_notification_layout_with_responsible_signature',
+                'default_template_id': self.env.ref(self._get_mail_template()).id,
+                'mark_invoice_as_sent': True,
+                'active_model': 'account.move',
+                # Setting both active_id and active_ids is required, mimicking how direct call to
+                # ir.actions.act_window works
+                'active_id': self.ids[0],
+                'active_ids': self.ids,
+                
+            },
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+        
+        }
+    def _get_move_display_name(self, show_ref=False):
+        ''' Helper to get the display name of an invoice depending of its type.
+        :param show_ref:    A flag indicating of the display name must include or not the journal entry reference.
+        :return:            A string representing the invoice.
+        '''
+        self.ensure_one()
+        name = ''
+        if self.state == 'draft':
+            name += {
+                'out_invoice': _('Draft Invoice'),
+                'out_refund': _('Draft Credit Note'),
+                'in_invoice': _('Draft Bill'),
+                'in_refund': _('Draft Vendor Credit Note'),
+                'out_receipt': _('Draft Sales Receipt'),
+                'in_receipt': _('Draft Purchase Receipt'),
+                'entry': _('Draft Entry'),
+            }[self.move_type]
+            name += ' '
+        if not self.inv_no or self.inv_no == '/':
+            
+            name += '(* %s)' % str(self.id)
+        else:
+            
+            # name += self.inv_no.replace('-','_')
+            name += self.inv_no
+            
+            if self.env.context.get('input_full_display_name'):
+                logger.info("inv")
+                if self.partner_id:
+                    name += f', {self.partner_id.name}'
+                if self.date:
+                    name += f', {format_date(self.env, self.date)}'
+            
+            res =   name + (f" ({shorten(self.ref, width=50)})" if show_ref and self.ref else '')
+            logger.info("name", res)
+        return res
 
     
 

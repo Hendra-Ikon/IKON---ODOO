@@ -13,4 +13,4 @@ from . import model_partner
 from . import model_custom_invoice
 from . import crm_kanban
 from . import model_tour_upload_bill
-
+from . import account_invoice_send
