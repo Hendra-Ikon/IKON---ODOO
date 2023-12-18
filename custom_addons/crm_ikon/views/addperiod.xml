@@ -1,17 +1,27 @@
 <odoo>
     <data>
         <!-- Create a new XML file (e.g., views/period_popup.xml) -->
-        <record id="view_model_period_form" model="ir.ui.view">
-            <field name="name">model.period.tree</field>
+       
+        <record id="view_model_period_list" model="ir.ui.view">
+            <field name="name">model.period.list.period</field>
             <field name="model">model.period</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="account_move_id" string="Account Move ID" invisible="1"/>
                     <field name="period_start"/>
                     <field name="period_end"/>
+                   
                     <!-- Add other fields as needed -->
                 </tree>
+                <!-- <button string="Create Period" type="object" class="oe_highlight"
+                name="create"/> -->
             </field>
         </record>
+
+        
+        
+        
+        
         
 
     </data>
