@@ -17,19 +17,54 @@ class CrmSaleOrder(models.Model):
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
-    period = fields.Date(string="Period")
     payment_for_service = fields.Char(string="Payment For Service")
     spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
     month = fields.Date(string="Month")
-    
     name = fields.Char(
         string="Order Reference",
         required=True, copy=False, readonly=True,
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
+    
+    # @api.onchange('id')
+    def get_period_selection(self):
+        if self.product_id:
+            return
+
+        logger.info("order_id", self.id)
+        # logger.info("order_id", id)
+        record_id = self.env.context.get('#id')
+        logger.info("record_id", record_id)
+
+
+        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
+        period_selection = []
+        for period in periods:
+            period_label = f"{period.period_start}-{period.period_end}"
+            period_selection.append((period_label, period_label))
+        return period_selection
+    
+    def add_period(self):
+        return {
+            "name": "Periods",
+            "type": "ir.actions.act_window",
+            "res_model": "model.period",
+            "view_mode": "tree,form",
+            "view_id": False,  # To let Odoo choose the most suitable view
+            'domain': [('sale_order_id', "=", self.id)],
+            "context": {
+                "default_sale_order_id": self.id,  # Set default values for fields
+                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
+                "default_period_start": "2023-01-01",
+                "default_period_end": "2023-01-31",
+                "create": True,  # Set to False to hide the 'Create' button
+                "edit": True,  # Set to True to show the 'Edit' button
+            },
+            "target": "save",  # Open the window in a modal dialog
+        }
     
     @api.constrains('name')
     def _check_duplicate_name(self):
@@ -348,33 +383,6 @@ class CrmSaleOrder(models.Model):
     #         order.amount_untaxed = amount_untaxed
     #         order.amount_tax = amount_tax
     #         order.amount_total = order.amount_untaxed + order.amount_tax
-    def action_view_invoice(self):
-        invoices = self.mapped('invoice_ids')
-        action = self.env['ir.actions.actions']._for_xml_id('account.action_move_out_invoice_type')
-        if len(invoices) > 1:
-            action['domain'] = [('id', 'in', invoices.ids)]
-        elif len(invoices) == 1:
-            form_view = [(self.env.ref('account.view_move_form').id, 'form')]
-            if 'views' in action:
-                action['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
-            else:
-                action['views'] = form_view
-            action['res_id'] = invoices.id
-        else:
-            action = {'type': 'ir.actions.act_window_close'}
-
-        context = {
-            'default_move_type': 'out_invoice',
-        }
-        if len(self) == 1:
-            context.update({
-                'default_partner_id': self.partner_id.id,
-                'default_partner_shipping_id': self.partner_shipping_id.id,
-                'default_invoice_payment_term_id': self.payment_term_id.id or self.partner_id.property_payment_term_id.id or self.env['account.move'].default_get(['invoice_payment_term_id']).get('invoice_payment_term_id'),
-                'default_invoice_origin': self.name,
-            })
-        action['context'] = context
-        return action
 
 
 
