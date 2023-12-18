@@ -620,12 +620,7 @@ class CrmAccountMove(models.Model):
                     name = f"{last_three_digits}/CS-{current_month}/{current_year}"
                 
                     if new_name:
-                        data = self.env['account.resequence.wizard'].search([("first_name","=", old_name)], limit=1)
-                        current_first_name = data.first_name 
-                        prefix, number_part = current_first_name.rsplit('/', 1)
-                        new_number = str(int(number_part) - 1).zfill(len(number_part))
-                        new_first_name = f"{prefix}/{new_number}"
-                        data.write({'first_name': new_first_name})
+
                         return new_name
                     else:
                         return name
