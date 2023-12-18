@@ -56,8 +56,16 @@
                 <field name="po_date"/>
                 <field name="payment_for"/>
                 <field name="payment_for_service"/>
-                <field name="period"/>
+                
+                
+                <!-- <field name="show_periods"/> -->
+                <p>Periods</p>
+                <button name='add_period' type="object" string="Add Periods" />
             </xpath>
+
+            
+           
+
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field name="agreement_no" />
                 <field name="spk_no" />

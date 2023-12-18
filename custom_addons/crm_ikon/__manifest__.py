@@ -44,6 +44,8 @@
         'views/view_crm_lead_form_inherit.xml',
         'views/inherit_view_invoice_tree.xml',
         'views/inherit_view_sale_order_tree.xml',
+        'views/addperiod.xml',
+   
 
 
         # report

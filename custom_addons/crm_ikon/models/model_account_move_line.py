@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 class CrmAccountMoveLine(models.Model):
     _inherit = "account.move.line"
-    
+ 
     product_id = fields.Many2one(
         comodel_name='product.product',
         string='Service',
@@ -31,8 +31,69 @@ class CrmAccountMoveLine(models.Model):
     
     item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
-    period = fields.Date(string="Period")
+    # period = fields.Selection([], string="Period", compute="_onchange_account_id")
     po_number = fields.Char(string="PO")
+    # period = fields.One2many("model.period", "account_move_id", string="Periods")
+    period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
+    # period = fields.Selection(selection=lambda self: self._get_period_selection(), string="Period", help="Select the period for the account move line.")
+    move_id = fields.Many2one(
+        comodel_name='account.move',
+        auto_join=True,
+        string='Journal Entry', required=True, readonly=True, ondelete='cascade',
+        check_company=True)
+    
+
+    # @api.depends('period','move_id')
+    # def _get_period_selection(self):
+        
+    #     for data in self:
+    #         logger.info("1", data.move_id.id)
+    #     id = CrmAccountMoveLine._get_move_id(self)
+    #     logger.info("id", id)
+    #     logger.info("move", self)
+    #     periods = self.env['model.period'].search([('account_move_id', '=', 187)])
+    #     period_selection = []
+    #     for period in periods:
+    #         period_label = f"{period.period_start}-{period.period_end}"
+    #         period_selection.append((period_label, period_label))
+    #     return period_selection
+    
+    # # @api.onchange('product_id','move_id')
+    # def _get_move_id(self):
+    #     logger.info("self.move_id.id",self.move_id.id)
+    #     # Ensure move_id is a NewId object
+    #     if self.move_id and hasattr(self.move_id.id, 'origin'):
+    #         origin_value = getattr(self.move_id.id, 'origin', None)
+    #         if origin_value is not None:
+    #             numeric_value = int(origin_value)
+    #             logger.info("Numeric Value:", numeric_value)
+    #             return numeric_value
+
+    #     return {}
+    
+
+
+    # @api.onchange('move_id')
+    # def _get_period_selection(self):
+    #     """
+    #     Returns a list of tuples representing the period selection options.
+
+    #     Returns:
+    #         list: A list of tuples with the format `(period_string,)`.
+    #     """
+    #     self.period = period_selections = []
+    #     # Use the provided move_id in the domain
+    #     periods = self.env['model.period'].search([('account_move_id', '=', self.move_id.id)])
+
+    #     # Create a list of tuples for the selection field
+        
+    #     for period in periods:
+    #         logger.info("period", period)
+    #         period_string = f"{period.period_start} - {period.period_end}"
+    #         period_selections.append((period_string,))
+
+    #     return period_selections
+
     
     
     

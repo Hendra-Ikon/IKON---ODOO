@@ -49,7 +49,7 @@ class BaseDocumentLayout(models.TransientModel):
                     preview_css = self._get_css_for_preview(styles, wizard.id)
                     ir_ui_view = wizard.env['ir.ui.view']
                     wizard.preview = ir_ui_view._render_template(
-                        'web.report_invoice_wizard_preview',
+                        'invoice_format_editor.custom_template_report_invoice_default',
                         {'company': wizard, 'preview_css': preview_css})
                 elif wizard.base_layout == 'normal':
                     preview_css = self._get_css_for_preview(styles, wizard.id)
