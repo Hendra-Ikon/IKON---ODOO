@@ -50,7 +50,7 @@
                         <span t-field="o.agreement_no" />   
                     </td>
                 </tr>
-                <tr t-attf-style="background-color: white"t-if="o.month" >
+                <!-- <tr t-attf-style="background-color: white" t-if="o.month" >
                     <td class="text-start"  name="month">
                             <strong>Month</strong>  
                     </td>
@@ -58,7 +58,7 @@
                     <td class="text-start"  >
                         <span t-field="o.month" />   
                     </td>
-                </tr>
+                </tr> -->
 
                 <tr t-attf-style="background-color: white" t-if="o.payment_for" >
                     <td class="text-start"  name="payment_for">

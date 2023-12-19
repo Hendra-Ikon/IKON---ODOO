@@ -5,7 +5,20 @@ from odoo.fields import Command
 logger = logging.getLogger(__name__)
 from itertools import groupby
 
-
+MONTH_SELECTION = [
+        ('01', 'January'),
+        ('02', 'February'),
+        ('03', 'March'),
+        ('04', 'April'),
+        ('05', 'May'),
+        ('06', 'June'),
+        ('07', 'July'),
+        ('08', 'August'),
+        ('09', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December'),
+    ]
 
 class CrmSaleOrder(models.Model):
     _inherit = "sale.order"
@@ -21,13 +34,14 @@ class CrmSaleOrder(models.Model):
     spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
-    month = fields.Date(string="Month")
+    month = fields.Selection(MONTH_SELECTION, string="Month")
     name = fields.Char(
         string="Order Reference",
         required=True, copy=False, readonly=True,
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
+    period = fields.Date(string="Period")
     
     # @api.onchange('id')
     def get_period_selection(self):

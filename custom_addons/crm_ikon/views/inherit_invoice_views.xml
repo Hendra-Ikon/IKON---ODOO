@@ -58,9 +58,9 @@
                 <field name="payment_for_service"/>
                 
                 
-                <!-- <field name="show_periods"/> -->
-                <p>Periods</p>
-                <button name='add_period' type="object" string="Add Periods" />
+                <field name="period" widget="date" optional="hide" />
+                <!-- <p>Periods</p>
+                <button name='add_period' type="object" string="Add Periods" /> -->
             </xpath>
 
             
