@@ -64,14 +64,12 @@ class TalentManagement(models.Model):
         for record in self:
             if record.position and record.keyword:
                 position = f'"{record.position}"'
-                keywords = record.keyword + "Location: Indonesia"
-                opentowork = "opentowork" if record.opentowork else ""
-                ina = "work in indonesia"
-                
+                keywords = record.keyword + "Location: IDN or Loc: IDN"
+                opentowork = "opentowork" if record.opentowork else ""                
                 # Check if the region is set to "Any," and update it to "Indonesia"
                 region = record.region if record.region != 'any' else 'indonesia'
                 
-                search_query = f'{position} {opentowork}  {keywords} {region} {ina}'
+                search_query = f'{position} {opentowork}  {keywords} {region}'
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
                 _logger.info("custom_search_url",custom_search_url)

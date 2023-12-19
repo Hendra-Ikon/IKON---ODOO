@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--modern Template View-->
-        <template id="custom_template_report_invoice_aia">
+        <template id="custom_template_report_invoice_default">
             <!--External layout template-->
             <t t-if="o and 'company_id' in o">
                 <t t-set="company" t-value="o.company_id"/>

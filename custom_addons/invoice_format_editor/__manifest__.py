@@ -53,6 +53,7 @@
              'reports/bni_invoice_templates.xml',
              'reports/aia_invoice_templates.xml',
              'reports/lps_invoice_templates.xml',
+             'reports/default_template_custom.xml',
              'preview_templates/normal_preview_templates.xml',
              'preview_templates/modern_preview_templates.xml',
              'preview_templates/fif_preview_templates.xml',

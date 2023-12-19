@@ -13,13 +13,10 @@
 
                 <field name="item_id" optional="hide" />
                 <field name="item_description" optional="hide" />
+                <!-- <field name="period"  widget="selection" optional="hide" /> -->
                 <field name="period" widget="date" optional="hide" />
                 <field name="po_number" optional="hide" />
             </xpath>
-            <!-- <xpath expr="//field[@name='invoice_line_ids']//field[@name='account_id']" position="after">
-                <field name='need_vehicle' invisible='1'/>
-                <field name='vehicle_id' attrs="{'required': [('need_vehicle', '=', True), ('parent.move_type', 'in', ('in_invoice', 'in_refund'))], 'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}" optional='hidden'/>
-            </xpath> -->
         </field>
     </record>
     </odoo>
