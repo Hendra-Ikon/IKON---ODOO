@@ -67,7 +67,9 @@ class CrmAccountMove(models.Model):
     # periods = fields.One2many("model.period", "account_move_id", string="Periods")
     # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
     payment_for_service = fields.Char(string="Payment For Service")
+
     spv = fields.Many2one('res.partner', string='Signature', domain="[('is_company','=',False)]")
+
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
     month = fields.Selection(MONTH_SELECTION, string="Month")
