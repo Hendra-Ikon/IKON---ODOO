@@ -31,7 +31,7 @@ class CrmSaleOrder(models.Model):
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     payment_for_service = fields.Char(string="Payment For Service")
-    spv = fields.Many2one('res.partner', string='Signature',required=True, domain="[('is_company','=',False)]")
+    spv = fields.Many2one('res.partner', string='Signature',required=False, domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
     month = fields.Selection(MONTH_SELECTION, string="Month")
