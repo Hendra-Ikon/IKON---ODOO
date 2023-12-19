@@ -65,7 +65,7 @@
                         </t>
 
                         <t t-if="o.company_id.base_layout == 'default'">
-                            <t t-call="account.report_invoice_document"
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_default"
                                t-lang="o.partner_id.lang"/>
                         </t>
                         <!-- <t t-if="o.company_id.base_layout == 'solusi_tunas_pratama'">
@@ -96,6 +96,7 @@
                             <t t-call="invoice_format_editor.custom_template_report_invoice_modern"
                                t-lang="o.partner_id.lang"/>
                         </t>
+                      
                         <t t-if="o.company_id.base_layout == 'fif'">
                             <t t-call="invoice_format_editor.custom_template_report_invoice_fif"
                                t-lang="o.partner_id.lang"/>
@@ -143,7 +144,7 @@
                         </t>
 
                         <t t-if="o.company_id.base_layout == 'default'">
-                            <t t-call="account.report_invoice_document"
+                            <t t-call="invoice_format_editor.custom_template_report_invoice_default"
                                t-lang="o.partner_id.lang"/>
                         </t>
                         <!-- <t t-if="o.company_id.base_layout == 'solusi_tunas_pratama'">

@@ -1,7 +1,8 @@
-from odoo import models, _, fields, api, exceptions
+from odoo import models, _, fields, api, exceptions, http
 from odoo.exceptions import UserError
 from contextlib import contextmanager
 from odoo.tools import formatLang, format_amount
+from textwrap import shorten
 import inflect
 from collections import defaultdict
 import logging
@@ -63,8 +64,10 @@ class CrmAccountMove(models.Model):
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
     period = fields.Date(string="Period")
+    # periods = fields.One2many("model.period", "account_move_id", string="Periods")
+    # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
     payment_for_service = fields.Char(string="Payment For Service")
-    spv = fields.Many2one('res.partner', string='Signature',required=False, domain="[('is_company','=',False)]")
+    spv = fields.Many2one('res.partner', string='Signature', domain="[('is_company','=',False)]")
     agreement_no = fields.Char(string="Agreement No")
     spk_no = fields.Char(string="SPK No")
     month = fields.Selection(MONTH_SELECTION, string="Month")
@@ -110,6 +113,150 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
+    show_periods = fields.Boolean(string='Add Periods', default=False)
+    
+    # def add_period(self):
+    #     account_move_id = self.id
+    #     logger.info("account_move_id", account_move_id)
+        
+    #     return {
+    #         'name': _('Add Period'),
+    #         'view_mode': 'tree',
+    #         'view_id': False,  # Set to False to allow Odoo to choose the best view
+    #         'view_type': 'tree',
+    #         'res_model': 'model.period',
+    #         'type': 'ir.actions.act_window',
+    #         'target': 'new',
+    #         'context': {
+    #             'search_default_account_move_id': account_move_id,
+    #             'default_account_move_id': account_move_id,  # Pass account_move_id as default value
+    #         },
+    #     }
+
+           
+
+        # return True
+
+    # def add_period(self):
+    #     return {
+    #         "name": "Periods",
+    #         "type": "ir.actions.act_window",
+    #         "res_model": "model.period",
+    #         "view_mode": "tree",
+    #         'view_type': 'tree',
+    #         "view_id": False,  # Let Odoo choose the view automatically
+    #         "domain": [("account_move_id", "=", self.id)],
+    #         "context": {
+    #             # Add any other context values you want to pass
+    #         },
+    #     }
+
+    def _get_period_selection(self):
+        request = http.request
+
+        # Retrieve the 'id' parameter from the URL
+        # id_param = request.params.get('id')
+        active_ids = self.env.context.get("active_ids")
+        if active_ids:
+            logger.info("test",active_ids[0])
+            data = self.env["sale.order"].browse(active_ids[0])
+
+        # return self.env["account.move"]
+
+        id_param = self._context.get('id')
+        # tets = http.request.get('active_id')
+        # to_param = kwargs.get( 'id' )
+        # a = CrmAccountMove._get_move_id(self)
+        # logger.info("id", a)
+        # a = self.env.context.get('id') 
+        # logger.info("tets", tets)
+        logger.info("a", self.id)
+     
+
+        periods = self.env['model.period'].search([('account_move_id', '=', 187)])
+        period_selection = []
+        for period in periods:
+            period_label = f"{period.period_start}-{period.period_end}"
+            period_selection.append((period_label, period_label))
+        return period_selection
+    
+    # @api.onchange('product_id','move_id')
+    def _get_move_id(self):
+        for data in self:
+
+            logger.info("self.move_id.id",data.id)
+        # # Ensure move_id is a NewId object
+        # if self.move_id and hasattr(self.move_id.id, 'origin'):
+        #     origin_value = getattr(self.move_id.id, 'origin', None)
+        #     if origin_value is not None:
+        #         numeric_value = int(origin_value)
+        #         logger.info("Numeric Value:", numeric_value)
+        #         return numeric_value
+
+        return {}
+    def add_period(self):
+        return {
+            "name": "Periods",
+            "type": "ir.actions.act_window",
+            "res_model": "model.period",
+            "view_mode": "tree,form",
+            "view_id": False,  # To let Odoo choose the most suitable view
+            'domain': [('account_move_id', "=", self.id)],
+            "context": {
+                "default_account_move_id": self.id,  # Set default values for fields
+                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
+                "default_period_start": "2023-01-01",
+                "default_period_end": "2023-01-31",
+                "create": True,  # Set to False to hide the 'Create' button
+                "edit": True,  # Set to True to show the 'Edit' button
+            },
+            "target": "save",  # Open the window in a modal dialog
+        }
+    # def action_add_period(self):
+    #     """
+    #     Opens a pop-up window to add a new period.
+    #     """
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Add Period',
+    #         'res_model': 'account.move',
+    #          'view_id': self.env.ref('crm_ikon.view_period_form').id,
+    #         'target': 'new',
+    #         'view_type': 'form',
+    #         'view_mode': 'form',
+            
+    #     }
+    # def action_add_period(self):
+    #     """
+    #     Opens a pop-up window with a split view: form at the top, tree at the bottom.
+    #     """
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': _('Add Period'),
+    #         'res_model': 'account.move',
+    #         'view_id' : self.env.ref('crm_ikon.view_period_form').id,
+    #         'view_mode': 'form',
+    #         'view_type': 'form',
+            
+    #         'target': 'new',
+    #     }
+    
+    def action_add_period(self):
+        # Your logic to open the popup goes here
+        # This method is called when the button is clicked
+        return {
+            'name': _('Add Period'),
+            'view_mode': 'form',
+            'view_id': self.env.ref('crm_ikon.view_model_period_form').id,
+            'view_type': 'form',
+            'res_model': 'account.move',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+   
+
+        
+
 
 
     @api.constrains('inv_no')
@@ -620,7 +767,6 @@ class CrmAccountMove(models.Model):
                     name = f"{last_three_digits}/CS-{current_month}/{current_year}"
                 
                     if new_name:
-
                         return new_name
                     else:
                         return name
@@ -660,7 +806,85 @@ class CrmAccountMove(models.Model):
         self.filtered(lambda m: not m.name and not move.quick_edit_mode).name = '/'
         self._inverse_name()
 
+    def action_invoice_print(self):
+        logger.info("print")
+        """ Print the invoice and mark it as sent, so that we can see more
+            easily the next step of the workflow
+        """
+        if any(not move.is_invoice(include_receipts=True) for move in self):
+            raise UserError(_("Only invoices could be printed."))
+
+        self.filtered(lambda inv: not inv.is_move_sent).write({'is_move_sent': True})
+        if self.user_has_groups('account.group_account_invoice'):
+            return self.env.ref('account.account_invoices').report_action(self)
+        else:
+            return self.env.ref('account.account_invoices_without_payment').report_action(self)
+        
+    def action_send_and_print(self):
+        return {
+            'name': _('Send Invoice'),
+            'res_model': 'account.invoice.send',
+            'view_mode': 'form',
+            'context': {
+                'default_email_layout_xmlid': 'mail.mail_notification_layout_with_responsible_signature',
+                'default_template_id': self.env.ref(self._get_mail_template()).id,
+                'mark_invoice_as_sent': True,
+                'active_model': 'account.move',
+                # Setting both active_id and active_ids is required, mimicking how direct call to
+                # ir.actions.act_window works
+                'active_id': self.ids[0],
+                'active_ids': self.ids,
+                
+            },
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+        
+        }
+    def _get_move_display_name(self, show_ref=False):
+        ''' Helper to get the display name of an invoice depending of its type.
+        :param show_ref:    A flag indicating of the display name must include or not the journal entry reference.
+        :return:            A string representing the invoice.
+        '''
+        self.ensure_one()
+        name = ''
+        if self.state == 'draft':
+            name += {
+                'out_invoice': _('Draft Invoice'),
+                'out_refund': _('Draft Credit Note'),
+                'in_invoice': _('Draft Bill'),
+                'in_refund': _('Draft Vendor Credit Note'),
+                'out_receipt': _('Draft Sales Receipt'),
+                'in_receipt': _('Draft Purchase Receipt'),
+                'entry': _('Draft Entry'),
+            }[self.move_type]
+            name += ' '
+        if not self.inv_no or self.inv_no == '/':
+            
+            name += '(* %s)' % str(self.id)
+        else:
+            
+            # name += self.inv_no.replace('-','_')
+            name += self.inv_no
+            
+            if self.env.context.get('input_full_display_name'):
+                logger.info("inv")
+                if self.partner_id:
+                    name += f', {self.partner_id.name}'
+                if self.date:
+                    name += f', {format_date(self.env, self.date)}'
+            
+            return name + (f" ({shorten(self.ref, width=50)})" if show_ref and self.ref else '')
+           
+         
+
     
+    # def create(self):
+    #     # Implement the logic to create a new period record
+    #     new_period = self.create({
+    #         'account_move_id': self.account_move_id,  # Set the account move ID as needed
+    #         # Add other field values as needed
+    #     })
+    #     return new_period
 
         
     
