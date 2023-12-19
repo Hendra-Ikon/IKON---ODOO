@@ -97,9 +97,9 @@
                 <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
-                <!-- <field name="period" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" /> -->
-                <p attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" >Periods</p>
-                <button attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" name='add_period' type="object" string="Add Periods" />
+                <field name="period" widget="date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <!-- <p attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" >Periods</p>
+                <button attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" name='add_period' type="object" string="Add Periods" /> -->
 
                
                 

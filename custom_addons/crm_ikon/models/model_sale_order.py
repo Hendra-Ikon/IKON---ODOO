@@ -43,6 +43,7 @@ class CrmSaleOrder(models.Model):
         default=lambda self: _('New'))
     period = fields.Date(string="Period")
     
+    
     # @api.onchange('id')
     def get_period_selection(self):
         if self.product_id:
