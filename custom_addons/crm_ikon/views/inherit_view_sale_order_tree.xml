@@ -1,0 +1,13 @@
+<odoo>
+    <record id="inherit_view_sale_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" optional="show" string="Quotation Number" decoration-bf="1"/>
+                </xpath>
+
+            </field>
+        </record>
+</odoo>

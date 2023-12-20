@@ -12,6 +12,11 @@
                            attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"
                            optional="show"/>
                 </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                   
+                    <field name="inv_no" string="Invoice Number" optional="show"/>
+                    <field name="name" optional="hide"/>
+                </xpath>
 <!--                <tree string="Invoices"-->
 <!--                      js_class="account_tree"-->
 <!--                      decoration-info="state == 'draft'"-->
