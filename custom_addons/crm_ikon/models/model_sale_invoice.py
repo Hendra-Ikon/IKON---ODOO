@@ -106,10 +106,7 @@ class CrmSaleInvoice(models.TransientModel):
                 monthly_amount = total_amount / int(line.monthly_payment_duration)
                 line.amount = monthly_amount
                 line.fixed_amount = 0
-                print(total_amount)
-
-                logger.info("Total Amount: %s", total_amount)
-                logger.info("Monthly Amount: %s", monthly_amount)
+               
             # if line.advance_plan_payment_method == 'monthly' and line.monthly_payment_duration:
             #     total_amount = line.sale_order_id.amount_total
             #     monthly_amount = total_amount / int(line.monthly_payment_duration)
@@ -143,33 +140,35 @@ class CrmSaleInvoice(models.TransientModel):
                 amount = order.amount_untaxed * self.amount / 100
         elif self.advance_payment_method == 'fixed':
             amount = self.fixed_amount
+
         elif self.advance_payment_method == 'monthly':
-            amount = order.amount_total / int(self.monthly_payment_duration)
+            amount = order.amount_untaxed / int(self.monthly_payment_duration)
+            # logger.info('amount', amount)
+            return amount
         else:
             amount = 0.0
         return amount
 
-    def _prepare_invoice_values(self, order, so_line):
+    def _prepare_invoice_values(self, order, so_line, month):
         self.ensure_one()
-
         invoice_line_ids = []
         amount_per_month = self._get_down_payment_amount(order)
-        taxes = so_line.tax_id.ids
 
-        for month in range(1, int(self.monthly_payment_duration) + 1):
-            description = self._get_down_payment_description(order, month)
-
-            invoice_line_ids.append(
-                Command.create(
-                    so_line._prepare_invoice_line(
-                        name=description,
-                        quantity=1.0,
-                        price_unit=amount_per_month,
-                        tax_ids=[(6, 0, taxes)],
+        line_data = self.env['sale.order.line'].search([('order_id','=', order.id)])
+        for lines in line_data:
+        # Check if the name contains 'Term Payments'
+            if 'Term Payment' not in lines.name:
+                invoice_line_ids.append(
+                    Command.create(
+                        so_line._prepare_invoice_line(
+                            product_id= lines.product_id.id,
+                            name=lines.name,
+                            quantity=1.0,
+                            price_unit=amount_per_month,
+                            tax_ids=lines.tax_id,
+                        )
                     )
                 )
-            )
-
         return {
             **order._prepare_invoice(),
             'invoice_line_ids': invoice_line_ids,

@@ -93,7 +93,6 @@ class CrmSaleOrder(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            logger.info("name",vals.get('name'))
             if 'company_id' in vals:
                 self = self.with_company(vals['company_id'])
             if vals.get('name', _("New")) == _("New"):

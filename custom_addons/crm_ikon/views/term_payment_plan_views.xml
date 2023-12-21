@@ -19,11 +19,11 @@
                     <field name="advance_plan_payment_method" string="Payment Plan"
                            class="oe_inline" widget="radio"
                            attrs="{'invisible': [('count', '&gt;', 1)]}"/>
-                    <field name="monthly_payment_duration"
+                    <!-- <field name="monthly_payment_duration" string="Monthly Payment"
                            attrs="{'required': [('advance_payment_method', '=', 'monthly')],
                'invisible': [('advance_payment_method', '!=', 'monthly')]}" placeholder="Please select">
 
-                    </field>
+                    </field> -->
                 </group>
                 <group name="down_payment_specification"
                        attrs="{'invisible': [('advance_payment_method', 'not in', ('fixed', 'percentage'))]}">
