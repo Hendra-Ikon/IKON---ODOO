@@ -25,6 +25,8 @@ class CustomInvoiceLayout(models.TransientModel):
     #=== BUSINESS METHODS ===#
 
     def _create_invoices(self, sale_orders):
+        invoice = None  # Initializing the variable outside the loop
+
         if self.advance_payment_method == 'delivered':
             return sale_orders._create_invoices(final=self.deduct_down_payments)
         else:
@@ -46,20 +48,34 @@ class CustomInvoiceLayout(models.TransientModel):
                     self._prepare_down_payment_section_values(order)
                 )
             
-            for i in range(1, int(self.monthly_payment_duration) + 1):
-                month = i
+            if self.advance_payment_method == 'monthly':
+                for i in range(1, int(self.monthly_payment_duration) + 1):
+                        month = i
+                        down_payment_so_line = self.env['sale.order.line'].create(
+                        self._prepare_so_line_values(order, month)
+                    ) 
+                        invoice_values = self._prepare_invoice_values(order, down_payment_so_line, month)
+                        invoice = self.env['account.move'].sudo().create(invoice_values).with_user(self.env.uid) 
+                
+                return invoice.message_post_with_view(
+                        'mail.message_origin_link',
+                        values={'self': invoice, 'origin': order},
+                        subtype_id=self.env.ref('mail.mt_note').id)
+            else:
                 down_payment_so_line = self.env['sale.order.line'].create(
-                self._prepare_so_line_values(order, month)
-            ) 
-                invoice_values = self._prepare_invoice_values(order, down_payment_so_line, month)
-                invoice = self.env['account.move'].sudo().create(invoice_values).with_user(self.env.uid) 
-            
-            invoice.message_post_with_view(
-                'mail.message_origin_link',
-                values={'self': invoice, 'origin': order},
-                subtype_id=self.env.ref('mail.mt_note').id)
+                self._prepare_so_line_values(order, month=0)
+            )
+
+                invoice = self.env['account.move'].sudo().create(
+                    self._prepare_invoice_values(order, down_payment_so_line, month=0)
+                ).with_user(self.env.uid)  # Unsudo the invoice after creation
+
+                invoice.message_post_with_view(
+                    'mail.message_origin_link',
+                    values={'self': invoice, 'origin': order},
+                    subtype_id=self.env.ref('mail.mt_note').id)
+        return invoice
         
-            return invoice
     
             
     def _prepare_so_line_values(self, order, month):
@@ -74,8 +90,14 @@ class CustomInvoiceLayout(models.TransientModel):
             for account, distribution_amount in analytic_distribution.items():
                 analytic_distribution[account] = distribution_amount/amount_total
         context = {'lang': order.partner_id.lang}
+        if month != 0:
+            name = _('Monthly Payment %s: %s') % (int(month), time.strftime('%m %Y'))
+            logger.info("1")
+        else:
+            name = _('Down Payment: %s ', time.strftime('%m %Y'))
+            logger.info("2")
         so_values = {
-            'name': _('Down Payment %s: %s') % (int(month), time.strftime('%m %Y')),
+            'name': name,
             'price_unit': self._get_down_payment_amount(order),
             'product_uom_qty': 0.0,
             'order_id': order.id,

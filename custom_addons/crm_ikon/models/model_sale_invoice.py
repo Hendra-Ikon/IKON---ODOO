@@ -151,28 +151,55 @@ class CrmSaleInvoice(models.TransientModel):
 
     def _prepare_invoice_values(self, order, so_line, month):
         self.ensure_one()
-        invoice_line_ids = []
-        amount_per_month = self._get_down_payment_amount(order)
+        if self.advance_payment_method == 'monthly':
+            invoice_line_ids = []
+            amount_per_month = self._get_down_payment_amount(order)
 
-        line_data = self.env['sale.order.line'].search([('order_id','=', order.id)])
-        for lines in line_data:
-        # Check if the name contains 'Term Payments'
-            if 'Term Payment' not in lines.name:
-                invoice_line_ids.append(
-                    Command.create(
-                        so_line._prepare_invoice_line(
-                            product_id= lines.product_id.id,
-                            name=lines.name,
-                            quantity=1.0,
-                            price_unit=amount_per_month,
-                            tax_ids=lines.tax_id,
+            line_data = self.env['sale.order.line'].search([('order_id','=', order.id)])
+            for lines in line_data:
+            # Check if the name contains 'Term Payments'
+                if ('Monthly Payment' not in lines.name) and ('Term Payments' not in lines.name):
+                    invoice_line_ids.append(
+                        Command.create(
+                            so_line._prepare_invoice_line(
+                                product_id= lines.product_id.id,
+                                name=lines.name,
+                                quantity=1.0,
+                                price_unit=amount_per_month,
+                                tax_ids=lines.tax_id,
+                            )
                         )
                     )
-                )
-        return {
+            return {
             **order._prepare_invoice(),
             'invoice_line_ids': invoice_line_ids,
         }
+        else:
+            return {
+            **order._prepare_invoice(),
+            'invoice_line_ids': [
+                Command.create(
+                    so_line._prepare_invoice_line(
+                        name=self._get_down_payment_description(order, month),
+                        quantity=1.0,
+                    )
+                )
+            ],
+        }
+            
+    # def _prepare_invoice_values(self, order, so_line, month):
+    #     self.ensure_one()
+    #     return {
+    #         **order._prepare_invoice(),
+    #         'invoice_line_ids': [
+    #             Command.create(
+    #                 so_line._prepare_invoice_line(
+    #                     name=self._get_down_payment_description(order,month),
+    #                     quantity=1.0,
+    #                 )
+    #             )
+    #         ],
+    #     }
 
 
 
