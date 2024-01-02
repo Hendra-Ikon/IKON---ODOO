@@ -236,6 +236,28 @@
     </template>
 
 <!--STRIPED Layout-->
+<template id="custom_external_layout_striped" inherit_id="web.external_layout_striped">
+    
+    <xpath expr="//div[@class='text-center']" position='replace'>
+
+    </xpath>
+    <!-- <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
+        <div class="text-center">
+            <ul class="list-inline">
+                <div t-field="company.report_footer"/>
+            </ul>
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                Page:
+                <span class="page"/>
+                of
+                <span class="topage"/>
+            </div>
+            <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                <span t-field="o.name"/>
+            </div>
+        </div>
+    </div> -->
+</template>
     <!--Inherited the striped external layout for changing company address position-->
     <!-- <template id="custom_external_layout_striped" inherit_id="web.external_layout_striped">
         <xpath expr="//div[hasclass('o_background_header')]" position="replace">
