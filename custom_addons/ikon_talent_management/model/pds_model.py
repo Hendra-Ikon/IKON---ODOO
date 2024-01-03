@@ -66,9 +66,8 @@ class PDSData(models.Model):
     pds_nationality = fields.Char(string="Nationality")
     pds_religion = fields.Selection(RELIGION)
     pds_dob = fields.Date(string="Date of Birth")
-    pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status",)
-    pds_sex = fields.Selection(SEX, string="Sex",)
-
+    pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", )
+    pds_sex = fields.Selection(SEX, string="Sex", )
 
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
@@ -78,8 +77,31 @@ class PDSData(models.Model):
     pds_exp_sal = fields.One2many('custom.expected.salary', 'applicant_id', string='Expected Salary')
     pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
     pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
+    pds_resume = fields.One2many('custom.resume.experience', 'applicant_id', string='Resume')
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
+
+    # Resume
+#     resume_dateStart = fields.Date(string="Resume Start")
+#     resume_dateEnd = fields.Date(string="Resume End")
+#     rsm_com_name = fields.Char(string="Company Name")
+    rsm_com_job_title = fields.Char(related="pds_resume.rsm_com_job_title", string="Job Title in Company")
+#     rsm_com_projectDes = fields.Char(string="Project Description")
+#     resume_tech_used_backend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+#                                                 string='Backend Technology Used')
+#     resume_tech_used_frontend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+#                                                  string='Frontend Technology Used')
+#     resume_tech_used_database = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+#                                                  string='Database Technology Used')
+#
+#
+# class TechnologyTag(models.Model):
+#     _name = 'custom.technology.tag'
+#     _description = 'Technology Tags'
+#
+#     name = fields.Char(string='Tag Name', )
+
+    # resume_company_id = fields.One2many("custom.resume.experience.company", "resume_experience_id", string="Company ID")
 
 
 class HrApplEdu(models.Model):
@@ -95,7 +117,6 @@ class HrApplEdu(models.Model):
 
 
 class HrApplCertif(models.Model):
-
     _name = 'custom.certif'
 
     # Certification
@@ -106,7 +127,6 @@ class HrApplCertif(models.Model):
 
 
 class HrApplNonFormalEdu(models.Model):
-
     _name = "custom.nonformaledu"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
@@ -114,8 +134,8 @@ class HrApplNonFormalEdu(models.Model):
     pds_course_provider = fields.Char(string="Provider")
     pds_course_issued_year = fields.Date(string='Issued year')
 
-class HrApplLanguageProf(models.Model):
 
+class HrApplLanguageProf(models.Model):
     _name = "custom.language.prof"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
@@ -123,8 +143,8 @@ class HrApplLanguageProf(models.Model):
     pds_ability = fields.Selection(ABILITY_AREA, string="Ability area")
     pds_lang_percen = fields.Selection(LANGUAGE_LEVEL, string="Level", default='1')
 
-class HrApplWorkExperience(models.Model):
 
+class HrApplWorkExperience(models.Model):
     _name = "custom.work.experience"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
@@ -136,16 +156,17 @@ class HrApplWorkExperience(models.Model):
     pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
     pds_workex_period_to = fields.Date(string="to", help="Working period to")
 
-class HrApplExpectedSalary(models.Model):
 
+class HrApplExpectedSalary(models.Model):
     _name = "custom.expected.salary"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary", default="0")
-    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit", default="Your expected benefit")
+    pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit",
+                                       default="Your expected benefit")
+
 
 class HrApplOrg(models.Model):
-
     _name = "custom.org"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
@@ -154,8 +175,8 @@ class HrApplOrg(models.Model):
     pds_org_position = fields.Char(string="Organization Position")
     pds_org_year = fields.Date(string="Year")
 
-class HrApplHealth(models.Model):
 
+class HrApplHealth(models.Model):
     _name = "custom.health"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
