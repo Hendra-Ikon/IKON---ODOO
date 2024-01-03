@@ -85,7 +85,7 @@ class PDSData(models.Model):
 #     resume_dateStart = fields.Date(string="Resume Start")
 #     resume_dateEnd = fields.Date(string="Resume End")
 #     rsm_com_name = fields.Char(string="Company Name")
-#     rsm_com_job_title = fields.Char(string="Job Title in Company")
+    rsm_com_job_title = fields.Char(related="pds_resume.rsm_com_job_title", string="Job Title in Company")
 #     rsm_com_projectDes = fields.Char(string="Project Description")
 #     resume_tech_used_backend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
 #                                                 string='Backend Technology Used')

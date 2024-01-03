@@ -71,7 +71,7 @@
                                     type="object"
                                     class="oe_highlight"
                                     name="move_to_applicant"
-                                    />
+                            />
                         </group>
                     </sheet>
                 </form>
@@ -91,6 +91,28 @@
             <field name="res_model">talent.pool.data</field>
             <field name="view_mode">kanban</field>
             <field name="view_id" ref="view_talent_pool_kanban"/>
+        </record>
+
+        <record id="view_talent_pool_search" model="ir.ui.view">
+            <field name="name">view.search.talent.pool</field>
+            <field name="model">talent.pool.data</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nama"/>
+                    <field name="email"/>
+                    <field name="posisi"/>
+                    <field name="sumber"/>
+                    <field name="degree"/>
+                    <field name="major"/>
+                    <field name="universitas"/>
+                    <field name="notes"/>
+                    <field name="job_id"/>
+<!--                    <filter string="Archived" name="active" domain="[('active', '=', False)]"/>-->
+<!--                    <group expand="0" string="Group By">-->
+<!--                        <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>-->
+<!--                    </group>-->
+                </search>
+            </field>
         </record>
 
 
