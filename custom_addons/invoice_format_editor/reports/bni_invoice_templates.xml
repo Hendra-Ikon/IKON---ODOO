@@ -10,126 +10,197 @@
             <t t-if="not o or not 'company_id' in o">
                 <t t-set="company" t-value="res_company"/>
             </t>
-               
+
             <t t-call="web.external_layout">
                 <!--Invoice Reference-->
-                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
-                <t t-set="model" t-value="'account.move'" />
-                <t t-set="tax_totals" t-value="o.tax_totals" />
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <t t-set="model" t-value="'account.move'"/>
+                <t t-set="tax_totals" t-value="o.tax_totals"/>
                 <div class="page" style="overflow: hidden;">
                     <!--Customer Address-->
                     <t t-set="address">
                         <address class="mb-0" itemscope="itemscope"
-                            itemtype="http://schema.org/Organization">
+                                 itemtype="http://schema.org/Organization">
                             <div itemprop="address" itemscope="itemscope"
-                                itemtype="http://schema.org/PostalAddress">
+                                 itemtype="http://schema.org/PostalAddress">
                                 <div class="d-flex align-items-baseline" style="padding-top:20px;">
                                     <span class="w-100 o_force_ltr" itemprop="streetAddress">
                                         <span t-if="o.partner_id">
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id"/>
+                                                  t-field="o.partner_id"/>
                                         </span>
                                         <br/>
                                         <span t-if="o.partner_id.street">
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.street"/>
+                                                  t-field="o.partner_id.street"/>
                                         </span>
                                         <br/>
                                         <span t-if="o.partner_id.city">
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.city"/> 
+                                                  t-field="o.partner_id.city"/>
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.state_id.code"/> 
+                                                  t-field="o.partner_id.state_id.code"/>
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.zip"/>
+                                                  t-field="o.partner_id.zip"/>
                                         </span>
                                         <br/>
                                         <span t-if="o.partner_id.country_id">
                                             <span style="color:#{o.theme_id.customer_text_color} !important;"
-                                              t-field="o.partner_id.country_id"/>
+                                                  t-field="o.partner_id.country_id"/>
                                         </span>
                                     </span>
                                 </div>
                             </div>
-                            
+
                         </address>
                         <tr t-if="o.attention">
-                            <td class="text-start"  style="margin-left:25% !important;">
-                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Attention:</strong>
+                            <td class="text-start" style="margin-left:25% !important;">
+                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Attention:
+                                </strong>
                             </td>
-                            <td class="text-start"><span t-attf-class="o_company_#{company.id}_layout footer o_background_footer" style="font-weight:bold" t-field="o.attention"/></td>
+                            <td class="text-start">
+                                <span t-attf-class="o_company_#{company.id}_layout footer o_background_footer"
+                                      style="font-weight:bold" t-field="o.attention"/>
+                            </td>
                         </tr>
                     </t>
-                   
-                   
+
+
                     <br/>
 
                     <!--Product Table-->
                     <div>
                         <t t-set="display_discount"
-                            t-value="any([l.discount for l in o.invoice_line_ids])" />
+                           t-value="any([l.discount for l in o.invoice_line_ids])"/>
                         <table class="mb-3" style="border: 1px solid white" name="info_table">
                             <tr t-attf-style="background-color: white" t-if="o.name">
-                                <td class="text-start" style="width:15%"><span>Invoice No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.inv_no"/></td>
+                                <td class="text-start" style="width:15%">
+                                    <span>Invoice No.</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.inv_no"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.spk_no">
-                                <td class="text-start" style="width:15%"><span>SPK No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.spk_no"/></td>
+                                <td class="text-start" style="width:15%">
+                                    <span>SPK No.</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.spk_no"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.po_no">
-                                <td class="text-start" style="width:25%"><span>PO No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.po_no"></span> dated <span style="font-weight:bold" t-field="o.po_date"></span></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>PO No.</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.po_no"></span>
+                                    dated
+                                    <span style="font-weight:bold" t-field="o.po_date"></span>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.agreement_no">
-                                <td class="text-start" style="width:25%"><span>Agreement No.</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.agreement_no" /></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Agreement No.</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.agreement_no"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.month">
-                                <td class="text-start" style="width:25%"><span>Month</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Month</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
                                 <td class="text-start">
                                     <span style="font-weight:bold" t-field="o.month"/>
                                 </td>
                             </tr>
-                           
+
                             <tr t-attf-style="background-color: white" t-if="o.payment_for">
-                                <td class="text-start" style="width:25%"><span>Payment for</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_for"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Payment for</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.payment_for"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.payment_for_service">
-                                <td class="text-start" style="width:25%"><span>Payment for Service</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_for_service"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Payment for Service</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.payment_for_service"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.period">
-                                <td class="text-start" style="width:25%"><span>Period</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.period"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Period</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.period"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.invoice_date">
-                                <td class="text-start" style="width:25%"><span>Invoice Date</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.invoice_date"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Invoice Date</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.invoice_date"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.invoice_date_due">
-                                <td class="text-start" style="width:25%"><span>Due date</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.invoice_date_due"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Due date</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.invoice_date_due"/>
+                                </td>
                             </tr>
                             <tr t-attf-style="background-color: white" t-if="o.payment_reference">
-                                <td class="text-start" style="width:25%"><span>Payment Reference</span></td>
-                                <td class="text-center" style="width:5%"><span>:</span></td>
-                                <td class="text-start"><span style="font-weight:bold" t-field="o.payment_reference"/></td>
+                                <td class="text-start" style="width:25%">
+                                    <span>Payment Reference</span>
+                                </td>
+                                <td class="text-center" style="width:5%">
+                                    <span>:</span>
+                                </td>
+                                <td class="text-start">
+                                    <span style="font-weight:bold" t-field="o.payment_reference"/>
+                                </td>
                             </tr>
                         </table>
                         <!--Product Details-->
-                        <table class="table table-sm o_main_table table-borderless" name ="invoice_line_table">
+                        <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>
                                     <th class="text-center"
@@ -138,7 +209,7 @@
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
-                                        Total Project Amount <br/>(IDR) - excl PPN
+                                        Total Project Amount<br/>(IDR) - excl PPN
                                     </th>
                                     <th class="text-center"
                                         t-attf-style=" background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
@@ -154,15 +225,15 @@
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.product_id" />
+                                        <span t-field="l.product_id"/>
                                     </td>
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.price_unit" />
+                                        <span t-field="l.price_unit"/>
                                     </td>
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.name" />
+                                        <span t-field="l.name"/>
                                     </td>
                                     <!-- <td class="text-start"
                                         t-attf-style="color:#{o.theme_id.text_color};">
@@ -170,7 +241,7 @@
                                     </td> -->
                                     <td class="text-center"
                                         t-attf-style="color:#{o.theme_id.text_color};">
-                                        <span t-field="l.price_subtotal" />
+                                        <span t-field="l.price_subtotal"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -179,38 +250,47 @@
                         <div class="clearfix mb-4" style="padding-top:-200px;">
                             <div id="total" class="row">
                                 <div
-                                    t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                                        <div class="clearfix">
-                                            <div id="total" class="row">
-                                                <div t-attf-class="#{'col-12' if report_type != 'html' else 'col-sm-12 col-md-12'} ms-auto">
+                                        t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                    <div class="clearfix">
+                                        <div id="total" class="row">
+                                            <div t-attf-class="#{'col-12' if report_type != 'html' else 'col-sm-12 col-md-12'} ms-auto">
                                                 <table class="table table-sm table-borderless">
                                                     <t t-set="tax_totals" t-value="o.tax_totals"/>
                                                     <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
                                                         <tr class="border-black o_subtotal">
-                                                            <td><strong t-attf-style="color:#{o.theme_id.text_color}"/>Sub Total</td>
-                    
-                                                            <td class="text-end" t-attf-style="color:#{o.theme_id.text_color}">
+                                                            <td><strong t-attf-style="color:#{o.theme_id.text_color}"/>
+                                                                Sub Total
+                                                            </td>
+
+                                                            <td class="text-end"
+                                                                t-attf-style="color:#{o.theme_id.text_color}">
                                                                 <span t-attf-style="color:#{o.theme_id.text_color}"
-                                                                    t-att-class="oe_subtotal_footer_separator"
-                                                                    t-esc="subtotal['formatted_amount']"/>
+                                                                      t-att-class="oe_subtotal_footer_separator"
+                                                                      t-esc="subtotal['formatted_amount']"/>
                                                             </td>
                                                         </tr>
                                                         <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
-                                                        <t t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]" t-as="amount_by_group">
+                                                        <t t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]"
+                                                           t-as="amount_by_group">
                                                             <tr>
                                                                 <t t-if="tax_totals['display_tax_base']">
                                                                     <td>
                                                                         <span t-esc="amount_by_group['tax_group_name']"/>
-                                                                        
+
                                                                     </td>
                                                                     <td class="text-end o_price_total">
-                                                                        <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']"/>
+                                                                        <span class="text-nowrap"
+                                                                              t-esc="amount_by_group['formatted_tax_group_amount']"/>
                                                                     </td>
                                                                 </t>
                                                                 <t t-else="">
-                                                                    <td><span class="text-nowrap" t-esc="amount_by_group['tax_group_name']"/></td>
+                                                                    <td>
+                                                                        <span class="text-nowrap"
+                                                                              t-esc="amount_by_group['tax_group_name']"/>
+                                                                    </td>
                                                                     <td class="text-end o_price_total">
-                                                                        <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']" />
+                                                                        <span class="text-nowrap"
+                                                                              t-esc="amount_by_group['formatted_tax_group_amount']"/>
                                                                     </td>
                                                                 </t>
                                                             </tr>
@@ -218,26 +298,35 @@
                                                     </t>
                                                     <!--Total amount with all taxes-->
                                                     <tr class="border-black o_total">
-                                                        <td><strong t-attf-style="color:#{o.theme_id.customer_text_color}">Total</strong></td>
+                                                        <td>
+                                                            <strong t-attf-style="color:#{o.theme_id.customer_text_color}">
+                                                                Total
+                                                            </strong>
+                                                        </td>
                                                         <td class="text-end">
-                                                            <span t-esc="tax_totals['formatted_amount_total']" t-attf-style="color:#{o.theme_id.customer_text_color}"/>
+                                                            <span t-esc="tax_totals['formatted_amount_total']"
+                                                                  t-attf-style="color:#{o.theme_id.customer_text_color}"/>
                                                         </td>
                                                     </tr>
                                                     <!--Paid amount details-->
-                                                        <t t-if="print_with_payments">
+                                                    <t t-if="print_with_payments">
                                                         <t t-if="o.payment_state != 'invoicing_legacy'">
                                                             <t t-set="payments_vals"
                                                                t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
                                                             <t t-foreach="payments_vals" t-as="payment_vals">
                                                                 <tr>
                                                                     <td>
-                                                                        <i class="oe_form_field text-end oe_payment_label" t-attf-style="color:#{o.theme_id.text_color}">Paid on
+                                                                        <i class="oe_form_field text-end oe_payment_label"
+                                                                           t-attf-style="color:#{o.theme_id.text_color}">
+                                                                            Paid on
                                                                             <t
-                                                                                t-esc="payment_vals['date']"
-                                                                                t-options='{"widget": "date"}' t-attf-style="color:#{o.theme_id.text_color}"/>
+                                                                                    t-esc="payment_vals['date']"
+                                                                                    t-options='{"widget": "date"}'
+                                                                                    t-attf-style="color:#{o.theme_id.text_color}"/>
                                                                         </i>
                                                                     </td>
-                                                                    <td class="text-end" t-attf-style="color:#{o.theme_id.text_color}">
+                                                                    <td class="text-end"
+                                                                        t-attf-style="color:#{o.theme_id.text_color}">
                                                                         <span t-esc="payment_vals['amount']"
                                                                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                                                     </td>
@@ -246,69 +335,99 @@
                                                             <t t-if="len(payments_vals) > 0">
                                                                 <tr class="border-black o_total">
                                                                     <td>
-                                                                        <strong t-attf-style="color:#{o.theme_id.customer_text_color}">Amount Due</strong>
+                                                                        <strong t-attf-style="color:#{o.theme_id.customer_text_color}">
+                                                                            Amount Due
+                                                                        </strong>
                                                                     </td>
                                                                     <td class="text-end">
-                                                                        <span t-field="o.amount_residual" t-attf-style="color:#{o.theme_id.customer_text_color}"/>
+                                                                        <span t-field="o.amount_residual"
+                                                                              t-attf-style="color:#{o.theme_id.customer_text_color}"/>
                                                                     </td>
                                                                 </tr>
                                                             </t>
                                                         </t>
                                                     </t>
                                                 </table>
-                                                <p style="font-size:15px; font-style: italic;">*<span t-esc="o.in_word" /></p>
+                                                <p style="font-size:15px; font-style: italic;">*
+                                                    <span t-esc="o.in_word"/>
+                                                </p>
                                             </div>
-                                            </div>
-                                        
+                                        </div>
+
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-     
+
                         <div t-attf-style="color:#{o.theme_id.text_color};" class="col-12">
                             <p t-if="not is_html_empty(o.narration)">
-                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Terms and Conditions:</strong>
+                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                    Terms and Conditions:
+                                </strong>
                                 <span t-field="o.narration"/>
                             </p>
                         </div>
-                    <xpath expr="//p[@name='payment_communication']" position="after">
-                        <small>
-                            Please transfer the above amount to: <br/>
-                                PT Ikonsultan Inovatama <br/>
-                                Bank Danamon <br/>
-                                A/C No. : 0056844020 (Rupiah Account) <br />
-                            Note: This invoice should be paid before <span t-field='o.invoice_date_due'
-                                t-options='{"widget": "date","format": "dd/MM/yyyy"}' />. <br />
-                            Please ensure that our invoice number is mentioned in your payment instruction.
-                        </small>
-                        <div class="row mt-4 mb-4 ml-5" id="sincerely">       
-                            <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
-                                <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">Sincerely,</strong>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <p class="m-0"><span t-field="o.spv" /><br/>
-                                    <span t-field="o.spv.function" />
-                                
-                                
-                                </p>
+                        <xpath expr="//p[@name='payment_communication']" position="after">
+                            <t t-set="bank" t-value="o.partner_bank_id"/>
+
+                            <small>
+                                Please transfer the above amount to:
+                                <br/>
+                                <div style="margin-left: 250px;">
+                                    <span style="font-weight: bold;">PT Ikonsultan Inovatama</span>
+                                    <br/>
+                                    <div style="display: inline-block;">
+                                        <div style="width: 80px; display: inline-block;">Bank Name</div>:
+                                        <span style="font-weight: bold;" t-esc="bank.bank_id.name"/>
+                                        <br/>
+                                        <div style="width: 80px; display: inline-block;">Branch</div>:
+                                        <span style="font-weight: bold;" t-esc="bank.custom_bank_branch"/>
+                                        <br/>
+                                        <div style="width: 80px; display: inline-block;">IDR Account</div>:
+                                        <span style="font-weight: bold;" t-esc="bank.acc_number"/>
+                                    </div>
+
+                                </div>
+                                Note: This invoice should be paid before
+                                <span t-field='o.invoice_date_due'
+                                      t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                .
+                                <br/>
+                                Please ensure that our invoice number is mentioned in your payment instruction.
+
+                            </small>
+                            <div class="row mt-4 mb-4 ml-5" id="sincerely">
+                                <div t-if="o.spv.name" class="col-auto col-3 mw-100 mb-2">
+                                    <strong t-attf-style="background-color:#{o.theme_id.base_color};color:#{o.theme_id.heading_text_color};">
+                                        Sincerely,
+                                    </strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <p class="m-0">
+                                        <span t-field="o.spv"/>
+                                        <br/>
+                                        <span t-field="o.spv.function"/>
+
+
+                                    </p>
+                                </div>
                             </div>
+                        </xpath>
+
+                        <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
+
                         </div>
-                    </xpath>
-                  
-                      <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
-              
-            </div>
-                    
+
+                    </div>
+
                 </div>
-               
-            </div>
-           
+
             </t>
-          
+
         </template>
     </data>
 </odoo>
