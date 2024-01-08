@@ -64,8 +64,10 @@ class TalentManagement(models.Model):
         for record in self:
             if record.position and record.keyword:
                 position = f'"{record.position}"'
-                keywords = record.keyword + "Location: IDN or Loc: IDN"
-                opentowork = "opentowork" if record.opentowork else ""                
+                keywords = record.keyword + ",location: [idn]"
+                opentowork = "opentowork" if record.opentowork else ""
+                ina = "work in indonesia"
+                
                 # Check if the region is set to "Any," and update it to "Indonesia"
                 region = record.region if record.region != 'any' else 'indonesia'
                 
