@@ -30,7 +30,7 @@
                 <tr t-attf-style="background-color: white" t-if="doc.date_order">
                     <td class="text-start"  style="width:120px" ><span>Quotation Date</span></td>
                     <td class="text-center"  style="width:5%"><span>:</span></td>
-                    <td class="text-start"><span style="font-weight:bold" t-field="doc.date_order" t-options="{'widget': 'date', 'date-format': 'YYYY-MM-DD'}"/></td>
+                    <td class="text-start"><span style="font-weight:bold" t-field="doc.date_order" t-options="{'widget': 'date', 'date-format': '%d/%m/%Y'}"/></td>
                 </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.project_name">
@@ -213,10 +213,11 @@
             <br />
             <br />
              <div>
-                <p>
+                <p t-if="not is_html_empty(doc.note)">
                     <strong>Terms and Conditions:</strong>
+                    <p t-field="doc.note" name="order_note"/>
                 </p>
-                <p t-field="doc.note" name="order_note"/>
+               
                 
                 <p t-if="not is_html_empty(doc.payment_term_id.note)">
                     <span t-field="doc.payment_term_id.note"/>
@@ -237,24 +238,16 @@
                         <br />
                         <br />
                         <br />
-                        <br />
-                        <br />
-                        <p class="m-0"><span t-field="doc.user_id.name" /></p>
+                        <p class="m-0"><span t-field="doc.spv" /><br/>
+                            <span t-field="doc.spv.function" />
+                        
+                        
+                        </p>
                     </div>
                 </div>
             </xpath>
 
-            <div t-if="doc.signature" class="mt-4 ml64 mr4" name="signature">
-                <div class="offset-8">
-                    <strong>Signature</strong>
-                </div>
-                <div class="offset-8">
-                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
-                </div>
-                <div class="offset-8 text-center">
-                    <p t-field="doc.signed_by"/>
-                </div>
-            </div>
+            
 
            
         </xpath>                        

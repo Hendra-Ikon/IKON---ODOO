@@ -71,10 +71,10 @@ class TalentManagement(models.Model):
                 # Check if the region is set to "Any," and update it to "Indonesia"
                 region = record.region if record.region != 'any' else 'indonesia'
                 
-                search_query = f'{position} {opentowork}  {keywords} {region} {ina}'
+                search_query = f'{position} {opentowork}  {keywords} {region}'
                 custom_search_url = f"{base_url}+{search_query}"
                 record.custom_search_link = custom_search_url
-                _logger.info(custom_search_url)
+                _logger.info("custom_search_url",custom_search_url)
             else:
                 record.custom_search_link = False
 
@@ -85,7 +85,7 @@ class TalentManagement(models.Model):
                 limit = record.limit
                 self._get_custom_search_data(record, limit)
 
-    #update
+    #update1
     def _get_custom_search_data(self, record, limit):
         try:
             response = requests.get(record.custom_search_link)

@@ -14,7 +14,9 @@ class SaleOrderLine(models.Model):
     invoice_count = fields.Integer(related='order_id.invoice_count')
     item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
-    period = fields.Date(string="Period")
+    # period = fields.Selection(selection="_get_period_selection", string="Period", help="Select the period for the account move line.")
+    period = fields.Date(string='Period')
+    
     po_number = fields.Char(string="PO")
     # monthly_rate = fields.Integer(string="Monthly Rate (IDR)")
     # monthly_rate = fields.Float(
@@ -27,8 +29,24 @@ class SaleOrderLine(models.Model):
     price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     
     invoice_count = fields.Integer(related='order_id.invoice_count')
-    
+  
+    def get_period_selection(self):
+        logger.info("order_id", self.id)
+        # logger.info("order_id", id)
+        # record_id = self.env.context.get('#id')
+        logger.info("record_id", self.order_id.id)
 
+
+        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
+        period_selection = []
+        for period in periods:
+            period_label = f"{period.period_start}-{period.period_end}"
+            period_selection.append((period_label, period_label))
+        return period_selection
+    
+    def check_id(self):
+        logger.info("self.order_id.id", self.order_id.id)
+        return self.order_id.id
 
     @api.model_create_multi
     def create(self, vals_list):

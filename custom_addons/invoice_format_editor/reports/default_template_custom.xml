@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--modern Template View-->
-        <template id="custom_template_report_invoice_aia">
+        <template id="custom_template_report_invoice_default">
             <!--External layout template-->
             <t t-if="o and 'company_id' in o">
                 <t t-set="company" t-value="o.company_id"/>
@@ -16,7 +16,6 @@
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
                 <t t-set="model" t-value="'account.move'"/>
                 <t t-set="tax_totals" t-value="o.tax_totals"/>
-
                 <div class="page" style="overflow: hidden;">
                     <!--Customer Address-->
                     <t t-set="address">
@@ -308,8 +307,7 @@
                                                     <t t-set="tax_totals" t-value="o.tax_totals"/>
                                                     <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
                                                         <tr class="border-black o_subtotal">
-                                                            <td>
-                                                                <strong t-attf-style="color:#{o.theme_id.text_color}"/>
+                                                            <td><strong t-attf-style="color:#{o.theme_id.text_color}"/>
                                                                 Sub Total
                                                             </td>
 
@@ -420,6 +418,7 @@
                         </div>
 
                         <xpath expr="//p[@name='payment_communication']" position="after">
+
                             <t t-set="bank" t-value="o.partner_bank_id"/>
 
                             <small>

@@ -8,13 +8,19 @@
         <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='advance_payment_method']" position="after"> 
+                   
+                <field name="monthly_payment_duration" string="Monthly Payment"
+                attrs="{'required': [('advance_payment_method', '=', 'monthly')],
+    'invisible': [('advance_payment_method', '!=', 'monthly')]}" placeholder="Please select">
+
+         </field>
                 <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900"  style="width:100%;">
                     <p>Template Invoice</p>
                 </div>
                     <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break"> 
                     <field name='base_layout' widget='selection' options="{'no_create_edit': False}"/>
                     </div>
-                
+                 
            
             </xpath>
           

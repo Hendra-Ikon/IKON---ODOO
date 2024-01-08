@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <template id="display_notification_template" name="Display Notification">
+            <t t-call="website.layout">
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                    // Display a notification popup
+                    odoo.define('your_module.display_notification', function (require) {
+                    'use strict';
+
+                    var core = require('web.core');
+                    var _t = core._t;
+
+                    // Display notification
+                    core.bus.trigger('notification', 'success', _t("&lt;%= message %>"));
+                    });
+                    });
+                </script>
+            </t>
+        </template>
+    </data>
+
+</odoo>
