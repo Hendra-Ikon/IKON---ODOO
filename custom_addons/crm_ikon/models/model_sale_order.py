@@ -42,7 +42,10 @@ class CrmSaleOrder(models.Model):
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
     period = fields.Date(string="Period")
-    
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
+    period_id = fields.Many2many('model.period', string='Period')
+
     
     # @api.onchange('id')
     def get_period_selection(self):
@@ -63,23 +66,35 @@ class CrmSaleOrder(models.Model):
         return period_selection
     
     def add_period(self):
+        # return {
+        #     "name": "Periods",
+        #     "type": "ir.actions.act_window",
+        #     "res_model": "model.period",
+        #     "view_mode": "tree",
+        #     "view_id": False,  # To let Odoo choose the most suitable view
+        #     'domain': [('sale_order_id', "=", self.id)],
+        #     "context": {
+        #         "default_sale_order_id": self.id,  # Set default values for fields
+        #         "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
+        #         "default_period_start": "2023-01-01",
+        #         "default_period_end": "2023-01-31",
+        #         "create": True,  # Set to False to hide the 'Create' button
+        #         "edit": True,  # Set to True to show the 'Edit' button
+        #     },
+        #     "target": "save",  # Open the window in a modal dialog
+        # }
         return {
-            "name": "Periods",
-            "type": "ir.actions.act_window",
-            "res_model": "model.period",
-            "view_mode": "tree,form",
-            "view_id": False,  # To let Odoo choose the most suitable view
-            'domain': [('sale_order_id', "=", self.id)],
-            "context": {
-                "default_sale_order_id": self.id,  # Set default values for fields
-                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
-                "default_period_start": "2023-01-01",
-                "default_period_end": "2023-01-31",
-                "create": True,  # Set to False to hide the 'Create' button
-                "edit": True,  # Set to True to show the 'Edit' button
-            },
-            "target": "save",  # Open the window in a modal dialog
-        }
+                'type': 'ir.actions.act_window',
+                'name': 'Add Period',
+                'res_model': 'model.period',
+                'view_mode': 'form',
+                'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
+                'target': 'new',
+                'context': {
+                    'default_period_start': fields.Date.today(),
+                    'default_sale_order_id': self.id,
+                },
+            }
     
     @api.constrains('name')
     def _check_duplicate_name(self):

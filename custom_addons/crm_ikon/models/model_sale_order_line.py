@@ -16,7 +16,11 @@ class SaleOrderLine(models.Model):
     item_description = fields.Char(string="Item Description")
     # period = fields.Selection(selection="_get_period_selection", string="Period", help="Select the period for the account move line.")
     period = fields.Date(string='Period')
-    
+    period_start = fields.Date(string="Period")
+    period_end = fields.Date(string='Period End')
+    periods = fields.One2many("model.period", "sale_order_id", string="Periods")
+
+    line = fields.Integer(string="Line")
     po_number = fields.Char(string="PO")
     # monthly_rate = fields.Integer(string="Monthly Rate (IDR)")
     # monthly_rate = fields.Float(
@@ -29,7 +33,21 @@ class SaleOrderLine(models.Model):
     price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     
     invoice_count = fields.Integer(related='order_id.invoice_count')
-  
+    
+    def add_period(self):
+        return {
+    'type': 'ir.actions.act_window',
+    'name': 'Add Period',
+    'res_model': 'sale.order.line',  # Ensure it matches the model in your view definition
+    'view_mode': 'form',
+    'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
+    'target': 'new',
+    'context': {
+        'default_period_start': fields.Date.today(),
+        'default_sale_order_id': self.id,
+    },
+}
+
     def get_period_selection(self):
         logger.info("order_id", self.id)
         # logger.info("order_id", id)
@@ -217,6 +235,7 @@ class SaleOrderLine(models.Model):
             'item_description': self.item_description,
             'period': self.period,
             'po_number': self.po_number,
+            'line': self.line,
         }
         analytic_account_id = self.order_id.analytic_account_id.id
         if self.analytic_distribution and not self.display_type:

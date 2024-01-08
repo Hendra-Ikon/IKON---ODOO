@@ -37,6 +37,7 @@ class CrmAccountMoveLine(models.Model):
     # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
     # period = fields.Selection(selection=lambda self: self._get_period_selection(), string="Period", help="Select the period for the account move line.")
     period = fields.Date(string="Period")
+    line = fields.Integer(string="Line")
     move_id = fields.Many2one(
         comodel_name='account.move',
         auto_join=True,
@@ -59,18 +60,18 @@ class CrmAccountMoveLine(models.Model):
     #         period_selection.append((period_label, period_label))
     #     return period_selection
     
-    # # @api.onchange('product_id','move_id')
-    # def _get_move_id(self):
-    #     logger.info("self.move_id.id",self.move_id.id)
-    #     # Ensure move_id is a NewId object
-    #     if self.move_id and hasattr(self.move_id.id, 'origin'):
-    #         origin_value = getattr(self.move_id.id, 'origin', None)
-    #         if origin_value is not None:
-    #             numeric_value = int(origin_value)
-    #             logger.info("Numeric Value:", numeric_value)
-    #             return numeric_value
+    # @api.onchange('product_id','move_id')
+    def _get_move_id(self):
+        logger.info("self.move_id.id",self.move_id.id)
+        # Ensure move_id is a NewId object
+        if self.move_id and hasattr(self.move_id.id, 'origin'):
+            origin_value = getattr(self.move_id.id, 'origin', None)
+            if origin_value is not None:
+                numeric_value = int(origin_value)
+                logger.info("Numeric Value:", numeric_value)
+                return numeric_value
 
-    #     return {}
+        return {}
     
 
 

@@ -15,3 +15,4 @@ from . import crm_kanban
 from . import model_tour_upload_bill
 from . import account_invoice_send
 from . import model_bank_acc
+from . import model_periods
