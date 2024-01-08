@@ -64,7 +64,7 @@ class TalentManagement(models.Model):
         for record in self:
             if record.position and record.keyword:
                 position = f'"{record.position}"'
-                keywords = record.keyword
+                keywords = record.keyword + "location: [idn]"
                 opentowork = "opentowork" if record.opentowork else ""
                 ina = "work in indonesia"
                 
