@@ -38,6 +38,8 @@
         'views/inherit_stage_views.xml',
         'views/inherit_contact_views.xml',
         'views/inherit_categories_views.xml',
+        'views/custom_bank_acc_view.xml',
+
 
         'views/document_layout/document_invoice.xml',
         'views/inherit_account_move.xml',
