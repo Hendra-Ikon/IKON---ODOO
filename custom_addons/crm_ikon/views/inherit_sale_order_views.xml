@@ -40,10 +40,10 @@
                     <!-- <field name="period" widget="date" optional="hide" /> -->
                    
                     <field name="po_number" optional="hide" />
-                    <!-- <field name="period_start" widget="daterange" nolabel="1"  options="{'related_end_date': 'period_end'}" optional="show" /> -->
+                    <field name="period_start" widget="date"  optional="hide" />
                     <!-- <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/> -->
-                    <!-- <field name="period_end" widget="daterange" nolabel="1" options="{'related_start_date': 'period_start'}" optional="show"/> -->
-                    <button name='add_period' label="Periods" icon="fa-calendar" string="Periods" type="object" />
+                    <field name="period_end" widget="date" optional="hide"/>
+                    <!-- <button name='add_period' label="Periods" icon="fa-calendar" string="Periods" type="object" /> -->
 
                     <!-- <field name="monthly_rate" optional="hide"/> -->
             </xpath>
@@ -108,20 +108,13 @@
                 <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="name" placeholder="e.g. Conference for Architects"/>
-                    <label for="period_start" string="Period Start"/>
-                    <div class="o_row">
+                    <label for="period_start" string="Period Start" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                    <div class="o_row" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}">
                         <field name="period_start" widget="daterange" options="{'related_end_date': 'period_end'}"/>
                         <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                         <field name="period_end" widget="daterange" options="{'related_start_date': 'period_start'}"/>
                     </div>
-                <!-- <field name="period" widget="date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" /> -->
-                <p attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" >Periods</p>
-                <button attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" name='add_period' type="object" string="Add Periods" />
-                <field name="id" invisible="1"/>
-                <!-- <field name="period_id" widget="many2many" /> -->
-                <field name="period_id" widget="many2many" options="{'no_create_edit': True}" domain="[('sale_order_id', 'in', [id])]"/>
-
-               
+             
                 
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">

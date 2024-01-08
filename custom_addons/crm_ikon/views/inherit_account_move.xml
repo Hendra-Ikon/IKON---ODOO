@@ -7,15 +7,11 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_unit']" position="after">
-                <!-- <field name="item_id" attrs="{'invisible': [('item_id', '=', False)]}" />
-                <field name="item_description" attrs="{'invisible': [('item_description', '=', False)]}" />
-                <field name="period" widget="date" attrs="{'invisible': [('period', '=', False)]}" /> -->
-
                 <field name="item_id" optional="hide" />
                 <field name="item_description" optional="hide" />
-                <!-- <field name="period"  widget="selection" optional="hide" /> -->
-                <field name="period" widget="date" optional="hide" />
                 <field name="po_number" optional="hide" />
+                <field name="period_start" widget="date" optional="hide" />
+                <field name="period_end" widget="date" optional="hide" />
             </xpath>
         </field>
     </record>

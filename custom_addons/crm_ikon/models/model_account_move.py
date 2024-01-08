@@ -32,20 +32,24 @@ logger = logging.getLogger(__name__)
 #         ('reversed', 'Reversed'),
 #         ('invoicing_legacy', 'Invoicing App Legacy'),
 # ]
+from datetime import datetime
+
+YEAR = str(datetime.now().year)
+
 MONTH_SELECTION = [
-        ('01', 'January'),
-        ('02', 'February'),
-        ('03', 'March'),
-        ('04', 'April'),
-        ('05', 'May'),
-        ('06', 'June'),
-        ('07', 'July'),
-        ('08', 'August'),
-        ('09', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December'),
-    ]
+    ('01', f'January {YEAR}'),
+    ('02', f'February {YEAR}'),
+    ('03', f'March {YEAR}'),
+    ('04', f'April {YEAR}'),
+    ('05', f'May {YEAR}'),
+    ('06', f'June {YEAR}'),
+    ('07', f'July {YEAR}'),
+    ('08', f'August {YEAR}'),
+    ('09', f'September {YEAR}'),
+    ('10', f'October {YEAR}'),
+    ('11', f'November {YEAR}'),
+    ('12', f'December {YEAR}'),
+]
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -63,9 +67,8 @@ class CrmAccountMove(models.Model):
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
-    period = fields.Date(string="Period")
-    # periods = fields.One2many("model.period", "account_move_id", string="Periods")
-    # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
     payment_for_service = fields.Char(string="Payment For Service")
 
     spv = fields.Many2one('res.partner', string='Signature', domain="[('is_company','=',False)]")

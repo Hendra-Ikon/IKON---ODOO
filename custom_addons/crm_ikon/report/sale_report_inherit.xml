@@ -66,7 +66,8 @@
                         <th name="th_description" class="text-start">Description</th>
                         <th t-if="lines_to_report and any(line.item_id for line in lines_to_report)" name="th_item_id" class="text-start">Item ID</th>
                         <th t-if="lines_to_report and any(line.item_description for line in lines_to_report)" name="th_item_description" class="text-start">Item Description</th>
-                        <th t-if="lines_to_report and any(line.period for line in lines_to_report)" name="th_period" class="text-start">Period</th>
+                        <!-- <th t-if="lines_to_report and any(line.period_start for line in lines_to_report)" name="th_period_start" class="text-start">Period Start</th>
+                        <th t-if="lines_to_report and any(line.period_end for line in lines_to_report)" name="th_period_end" class="text-start">Period End</th> -->
                         <th name="th_quantity" class="text-center">Quantity</th>
                         <th name="th_quantity" class="text-center">UoM</th>
                         <th name="th_priceunit" class="text-center">Unit Price</th>
@@ -100,9 +101,12 @@
                                 <td t-if="line.item_description" name="td_desc" class="text-center">
                                     <span t-field="line.item_description"/>
                                 </td>
-                                <td t-if="line.period" name="td_period" class="text-center">
-                                    <span t-field="line.period"/>
+                                <!-- <td t-if="line.period_start" name="td_period_start" class="text-center">
+                                    <span t-field="line.period_start"/>
                                 </td>
+                                <td t-if="line.period_end" name="td_period_end" class="text-center">
+                                    <span t-field="line.period_end"/>
+                                </td> -->
                                 <td  t-if="line.product_uom_qty" name="td_quantity" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                     

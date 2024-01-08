@@ -58,9 +58,12 @@
                 <field name="payment_for_service"/>
                 
                 
-                <field name="period" widget="date" optional="hide" />
-                <!-- <p>Periods</p>
-                <button name='add_period' type="object" string="Add Periods" /> -->
+                <label for="period_start" string="Period" />
+                    <div class="o_row" >
+                        <field name="period_start" widget="daterange" options="{'related_end_date': 'period_end'}"/>
+                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                        <field name="period_end" widget="daterange" options="{'related_start_date': 'period_start'}"/>
+                </div>
             </xpath>
 
             

@@ -36,7 +36,9 @@ class CrmAccountMoveLine(models.Model):
     # period = fields.One2many("model.period", "account_move_id", string="Periods")
     # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
     # period = fields.Selection(selection=lambda self: self._get_period_selection(), string="Period", help="Select the period for the account move line.")
+    period_start = fields.Date(string="Period Start")
     period = fields.Date(string="Period")
+    period_end = fields.Date(string='Period End')
     line = fields.Integer(string="Line")
     move_id = fields.Many2one(
         comodel_name='account.move',

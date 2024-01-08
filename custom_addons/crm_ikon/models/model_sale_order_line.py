@@ -9,62 +9,30 @@ logger = logging.getLogger(__name__)
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-
-    # price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     invoice_count = fields.Integer(related='order_id.invoice_count')
     item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
-    # period = fields.Selection(selection="_get_period_selection", string="Period", help="Select the period for the account move line.")
-    period = fields.Date(string='Period')
-    period_start = fields.Date(string="Period")
+    period_start = fields.Date(string="Period Start")
     period_end = fields.Date(string='Period End')
-    periods = fields.One2many("model.period", "sale_order_id", string="Periods")
-
     line = fields.Integer(string="Line")
     po_number = fields.Char(string="PO")
-    # monthly_rate = fields.Integer(string="Monthly Rate (IDR)")
-    # monthly_rate = fields.Float(
-    #     string="Monthly Rate (IDR)",
-    #     compute='_compute_monthly_rate',
-    #     digits='Product Price',
-    #     store=True, readonly=False, required=True, precompute=True)
- 
-
     price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     
     invoice_count = fields.Integer(related='order_id.invoice_count')
     
-    def add_period(self):
-        return {
-    'type': 'ir.actions.act_window',
-    'name': 'Add Period',
-    'res_model': 'sale.order.line',  # Ensure it matches the model in your view definition
-    'view_mode': 'form',
-    'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
-    'target': 'new',
-    'context': {
-        'default_period_start': fields.Date.today(),
-        'default_sale_order_id': self.id,
-    },
-}
-
-    def get_period_selection(self):
-        logger.info("order_id", self.id)
-        # logger.info("order_id", id)
-        # record_id = self.env.context.get('#id')
-        logger.info("record_id", self.order_id.id)
-
-
-        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
-        period_selection = []
-        for period in periods:
-            period_label = f"{period.period_start}-{period.period_end}"
-            period_selection.append((period_label, period_label))
-        return period_selection
-    
-    def check_id(self):
-        logger.info("self.order_id.id", self.order_id.id)
-        return self.order_id.id
+#     def add_period(self):
+#         return {
+#     'type': 'ir.actions.act_window',
+#     'name': 'Add Period',
+#     'res_model': 'sale.order.line',  # Ensure it matches the model in your view definition
+#     'view_mode': 'form',
+#     'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
+#     'target': 'new',
+#     'context': {
+#         'default_period_start': fields.Date.today(),
+#         'default_sale_order_id': self.id,
+#     },
+# }
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -233,9 +201,10 @@ class SaleOrderLine(models.Model):
             'is_downpayment': self.is_downpayment,
             'item_id': self.item_id,
             'item_description': self.item_description,
-            'period': self.period,
             'po_number': self.po_number,
             'line': self.line,
+            'period_start': self.period_start,
+            'period_end': self.period_end,
         }
         analytic_account_id = self.order_id.analytic_account_id.id
         if self.analytic_distribution and not self.display_type:
