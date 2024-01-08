@@ -457,14 +457,11 @@
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <br/>
-                                    <br/>
+ 
                                     <p class="m-0">
                                         <span t-field="o.spv"/>
                                         <br/>
                                         <span t-field="o.spv.function"/>
-
-
                                     </p>
                                 </div>
                             </div>
