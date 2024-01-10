@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="ikon_talent_management.CustomKanbanView" owl="1">
+            <div style="background-color: green;">
+<!--                <div t-foreach="props.value" t-as="data" t-key="data.id">-->
+<!--                    <span t-esc="data"/>-->
+<!--                </div>-->
+                <div t-esc="record.data"></div>
+            </div>
+    </t>
+</templates>
+

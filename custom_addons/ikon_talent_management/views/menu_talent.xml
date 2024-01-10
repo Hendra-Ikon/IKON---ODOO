@@ -7,6 +7,8 @@
         <!-- sub menu talent pool -->
         <menuitem id="menu_talent_pool_kanban" name="Talent's Data" action="action_talent_pool_tree"
                   parent="menu_talent_management"/>
+        <menuitem id="menu_talent_pool_resume" name="Custom Resume" action="action_custom_resume_view"
+                  parent="menu_talent_management"/>
         <menuitem id="menu_talent_pool_form" name="Add New Talent" action="action_talent_pool_form"
                   parent="menu_talent_management"/>
         <menuitem id="menu_talent_pool_import" name="Talent Pool Import" action="action_talent_pool_import" parent="menu_talent_management" sequence="10"/>

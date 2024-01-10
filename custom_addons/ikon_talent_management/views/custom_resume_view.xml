@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_custom_resume" model="ir.ui.view">
+            <field name="name">Custom Resume View</field>
+            <field name="model">custom.resume.experience</field>
+            <field name="arch" type="xml">
+                <kanban js_class="custom_resume_view">
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_custom_resume_view" model="ir.actions.act_window">
+            <field name="name">Custom Resume View Action</field>
+            <field name="res_model">custom.resume.experience</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="view_custom_resume"/>
+        </record>
+
+    </data>
+</odoo>
