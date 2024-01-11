@@ -32,15 +32,22 @@
                                         }"
                     domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                     widget="sol_product_many2one"
-                    optional="hide"
+                    optional="show"
                     />
                     <field name="item_id" optional="hide"/>
                     <field name="item_description" optional="hide"/>
-                    <!-- <field name="period"  widget="selection" optional="hide" /> -->
-                    <field name="period" widget="date" optional="hide" />
+        
+                   
                     <field name="po_number" optional="hide" />
-                    <!-- <field name="monthly_rate" optional="hide"/> -->
+                    <field name="period_start" widget="date"  optional="hide" />
+                    <field name="period_end" widget="date" optional="hide"/>
+             
             </xpath>
+            <xpath expr="//field[@name='product_template_id']"
+            position="before">
+            <field name="line" optional="hide" />
+        </xpath>
+    
             <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"
                 position="attributes">
                
@@ -97,11 +104,14 @@
                 <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
-                <field name="period" widget="date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
-                <!-- <p attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" >Periods</p>
-                <button attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" name='add_period' type="object" string="Add Periods" /> -->
-
-               
+                <field name="name" placeholder="e.g. Conference for Architects"/>
+                    <label for="period_start" string="Period Start" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                    <div class="o_row" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}">
+                        <field name="period_start" widget="daterange" options="{'related_end_date': 'period_end'}"/>
+                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                        <field name="period_end" widget="daterange" options="{'related_start_date': 'period_start'}"/>
+                    </div>
+             
                 
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">

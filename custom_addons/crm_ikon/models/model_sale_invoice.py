@@ -50,7 +50,7 @@ class CrmSaleInvoice(models.TransientModel):
             ('fixed', "Term payment (fixed amount)"),
             ('monthly', "Monthly Payment Plan"),
         ])
-
+    
     def _prepare_down_payment_product_values(self):
         self.ensure_one()
         return {

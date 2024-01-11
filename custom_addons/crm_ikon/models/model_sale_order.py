@@ -4,21 +4,25 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Command
 logger = logging.getLogger(__name__)
 from itertools import groupby
+from datetime import datetime
+
+YEAR = str(datetime.now().year)
 
 MONTH_SELECTION = [
-        ('01', 'January'),
-        ('02', 'February'),
-        ('03', 'March'),
-        ('04', 'April'),
-        ('05', 'May'),
-        ('06', 'June'),
-        ('07', 'July'),
-        ('08', 'August'),
-        ('09', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December'),
-    ]
+    ('01', f'January {YEAR}'),
+    ('02', f'February {YEAR}'),
+    ('03', f'March {YEAR}'),
+    ('04', f'April {YEAR}'),
+    ('05', f'May {YEAR}'),
+    ('06', f'June {YEAR}'),
+    ('07', f'July {YEAR}'),
+    ('08', f'August {YEAR}'),
+    ('09', f'September {YEAR}'),
+    ('10', f'October {YEAR}'),
+    ('11', f'November {YEAR}'),
+    ('12', f'December {YEAR}'),
+]
+
 
 class CrmSaleOrder(models.Model):
     _inherit = "sale.order"
@@ -41,8 +45,11 @@ class CrmSaleOrder(models.Model):
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
-    period = fields.Date(string="Period")
-    
+    # period = fields.Date(string="Period")
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
+    # period_id = fields.Many2many('model.period', string='Period')
+
     
     # @api.onchange('id')
     def get_period_selection(self):
@@ -63,23 +70,35 @@ class CrmSaleOrder(models.Model):
         return period_selection
     
     def add_period(self):
+        # return {
+        #     "name": "Periods",
+        #     "type": "ir.actions.act_window",
+        #     "res_model": "model.period",
+        #     "view_mode": "tree",
+        #     "view_id": False,  # To let Odoo choose the most suitable view
+        #     'domain': [('sale_order_id', "=", self.id)],
+        #     "context": {
+        #         "default_sale_order_id": self.id,  # Set default values for fields
+        #         "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
+        #         "default_period_start": "2023-01-01",
+        #         "default_period_end": "2023-01-31",
+        #         "create": True,  # Set to False to hide the 'Create' button
+        #         "edit": True,  # Set to True to show the 'Edit' button
+        #     },
+        #     "target": "save",  # Open the window in a modal dialog
+        # }
         return {
-            "name": "Periods",
-            "type": "ir.actions.act_window",
-            "res_model": "model.period",
-            "view_mode": "tree,form",
-            "view_id": False,  # To let Odoo choose the most suitable view
-            'domain': [('sale_order_id', "=", self.id)],
-            "context": {
-                "default_sale_order_id": self.id,  # Set default values for fields
-                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
-                "default_period_start": "2023-01-01",
-                "default_period_end": "2023-01-31",
-                "create": True,  # Set to False to hide the 'Create' button
-                "edit": True,  # Set to True to show the 'Edit' button
-            },
-            "target": "save",  # Open the window in a modal dialog
-        }
+                'type': 'ir.actions.act_window',
+                'name': 'Add Period',
+                'res_model': 'model.period',
+                'view_mode': 'form',
+                'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
+                'target': 'new',
+                'context': {
+                    'default_period_start': fields.Date.today(),
+                    'default_sale_order_id': self.id,
+                },
+            }
     
     @api.constrains('name')
     def _check_duplicate_name(self):
@@ -365,12 +384,13 @@ class CrmSaleOrder(models.Model):
             'po_no': self.po_no,
             'po_date': self.po_date,
             'payment_for': self.payment_for,
-            'period': self.period,
             'payment_for_service': self.payment_for_service,
             'spv': self.spv.id,
             'spk_no': self.spk_no,
             'month': self.month,
             'attention': self.attention,
+            'period_start': self.period_start,
+            'period_end': self.period_end,
 
         }
 

@@ -32,20 +32,24 @@ logger = logging.getLogger(__name__)
 #         ('reversed', 'Reversed'),
 #         ('invoicing_legacy', 'Invoicing App Legacy'),
 # ]
+from datetime import datetime
+
+YEAR = str(datetime.now().year)
+
 MONTH_SELECTION = [
-        ('01', 'January'),
-        ('02', 'February'),
-        ('03', 'March'),
-        ('04', 'April'),
-        ('05', 'May'),
-        ('06', 'June'),
-        ('07', 'July'),
-        ('08', 'August'),
-        ('09', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December'),
-    ]
+    ('01', f'January {YEAR}'),
+    ('02', f'February {YEAR}'),
+    ('03', f'March {YEAR}'),
+    ('04', f'April {YEAR}'),
+    ('05', f'May {YEAR}'),
+    ('06', f'June {YEAR}'),
+    ('07', f'July {YEAR}'),
+    ('08', f'August {YEAR}'),
+    ('09', f'September {YEAR}'),
+    ('10', f'October {YEAR}'),
+    ('11', f'November {YEAR}'),
+    ('12', f'December {YEAR}'),
+]
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -63,9 +67,8 @@ class CrmAccountMove(models.Model):
     po_no = fields.Char(string="PO No.")
     po_date = fields.Date(string="PO. Date")
     payment_for = fields.Char(string="Payment For")
-    period = fields.Date(string="Period")
-    # periods = fields.One2many("model.period", "account_move_id", string="Periods")
-    # period = fields.Selection(selection=lambda self: self.env['account.move']._get_period_selection(), string="Period", help="Select the period for the account move line.")
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
     payment_for_service = fields.Char(string="Payment For Service")
 
     spv = fields.Many2one('res.partner', string='Signature', domain="[('is_company','=',False)]")
@@ -115,151 +118,7 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
-    show_periods = fields.Boolean(string='Add Periods', default=False)
     
-    # def add_period(self):
-    #     account_move_id = self.id
-    #     logger.info("account_move_id", account_move_id)
-        
-    #     return {
-    #         'name': _('Add Period'),
-    #         'view_mode': 'tree',
-    #         'view_id': False,  # Set to False to allow Odoo to choose the best view
-    #         'view_type': 'tree',
-    #         'res_model': 'model.period',
-    #         'type': 'ir.actions.act_window',
-    #         'target': 'new',
-    #         'context': {
-    #             'search_default_account_move_id': account_move_id,
-    #             'default_account_move_id': account_move_id,  # Pass account_move_id as default value
-    #         },
-    #     }
-
-           
-
-        # return True
-
-    # def add_period(self):
-    #     return {
-    #         "name": "Periods",
-    #         "type": "ir.actions.act_window",
-    #         "res_model": "model.period",
-    #         "view_mode": "tree",
-    #         'view_type': 'tree',
-    #         "view_id": False,  # Let Odoo choose the view automatically
-    #         "domain": [("account_move_id", "=", self.id)],
-    #         "context": {
-    #             # Add any other context values you want to pass
-    #         },
-    #     }
-
-    def _get_period_selection(self):
-        request = http.request
-
-        # Retrieve the 'id' parameter from the URL
-        # id_param = request.params.get('id')
-        active_ids = self.env.context.get("active_ids")
-        if active_ids:
-            logger.info("test",active_ids[0])
-            data = self.env["sale.order"].browse(active_ids[0])
-
-        # return self.env["account.move"]
-
-        id_param = self._context.get('id')
-        # tets = http.request.get('active_id')
-        # to_param = kwargs.get( 'id' )
-        # a = CrmAccountMove._get_move_id(self)
-        # logger.info("id", a)
-        # a = self.env.context.get('id') 
-        # logger.info("tets", tets)
-        logger.info("a", self.id)
-     
-
-        periods = self.env['model.period'].search([('account_move_id', '=', 187)])
-        period_selection = []
-        for period in periods:
-            period_label = f"{period.period_start}-{period.period_end}"
-            period_selection.append((period_label, period_label))
-        return period_selection
-    
-    # @api.onchange('product_id','move_id')
-    def _get_move_id(self):
-        for data in self:
-
-            logger.info("self.move_id.id",data.id)
-        # # Ensure move_id is a NewId object
-        # if self.move_id and hasattr(self.move_id.id, 'origin'):
-        #     origin_value = getattr(self.move_id.id, 'origin', None)
-        #     if origin_value is not None:
-        #         numeric_value = int(origin_value)
-        #         logger.info("Numeric Value:", numeric_value)
-        #         return numeric_value
-
-        return {}
-    def add_period(self):
-        return {
-            "name": "Periods",
-            "type": "ir.actions.act_window",
-            "res_model": "model.period",
-            "view_mode": "tree,form",
-            "view_id": False,  # To let Odoo choose the most suitable view
-            'domain': [('account_move_id', "=", self.id)],
-            "context": {
-                "default_account_move_id": self.id,  # Set default values for fields
-                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
-                "default_period_start": "2023-01-01",
-                "default_period_end": "2023-01-31",
-                "create": True,  # Set to False to hide the 'Create' button
-                "edit": True,  # Set to True to show the 'Edit' button
-            },
-            "target": "save",  # Open the window in a modal dialog
-        }
-    # def action_add_period(self):
-    #     """
-    #     Opens a pop-up window to add a new period.
-    #     """
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'Add Period',
-    #         'res_model': 'account.move',
-    #          'view_id': self.env.ref('crm_ikon.view_period_form').id,
-    #         'target': 'new',
-    #         'view_type': 'form',
-    #         'view_mode': 'form',
-            
-    #     }
-    # def action_add_period(self):
-    #     """
-    #     Opens a pop-up window with a split view: form at the top, tree at the bottom.
-    #     """
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': _('Add Period'),
-    #         'res_model': 'account.move',
-    #         'view_id' : self.env.ref('crm_ikon.view_period_form').id,
-    #         'view_mode': 'form',
-    #         'view_type': 'form',
-            
-    #         'target': 'new',
-    #     }
-    
-    def action_add_period(self):
-        # Your logic to open the popup goes here
-        # This method is called when the button is clicked
-        return {
-            'name': _('Add Period'),
-            'view_mode': 'form',
-            'view_id': self.env.ref('crm_ikon.view_model_period_form').id,
-            'view_type': 'form',
-            'res_model': 'account.move',
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-        }
-   
-
-        
-
-
 
     @api.constrains('inv_no')
     def _check_duplicate_inv_no(self):
@@ -879,14 +738,6 @@ class CrmAccountMove(models.Model):
            
          
 
-    
-    # def create(self):
-    #     # Implement the logic to create a new period record
-    #     new_period = self.create({
-    #         'account_move_id': self.account_move_id,  # Set the account move ID as needed
-    #         # Add other field values as needed
-    #     })
-    #     return new_period
 
         
     
