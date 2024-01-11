@@ -32,25 +32,22 @@
                                         }"
                     domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                     widget="sol_product_many2one"
-                    optional="hide"
+                    optional="show"
                     />
                     <field name="item_id" optional="hide"/>
                     <field name="item_description" optional="hide"/>
-                    <!-- <field name="period"  widget="selection" optional="hide" /> -->
-                    <!-- <field name="period" widget="date" optional="hide" /> -->
+        
                    
                     <field name="po_number" optional="hide" />
                     <field name="period_start" widget="date"  optional="hide" />
-                    <!-- <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/> -->
                     <field name="period_end" widget="date" optional="hide"/>
-                    <!-- <button name='add_period' label="Periods" icon="fa-calendar" string="Periods" type="object" /> -->
-
-                    <!-- <field name="monthly_rate" optional="hide"/> -->
+             
             </xpath>
-            <xpath expr="//field[@name='po_number']" position="attributes">
-                <button name='add_period' icon="fa-calendar" string="Periods" type="object" />
-
-            </xpath>
+            <xpath expr="//field[@name='product_template_id']"
+            position="before">
+            <field name="line" optional="hide" />
+        </xpath>
+    
             <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"
                 position="attributes">
                

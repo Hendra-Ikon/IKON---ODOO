@@ -13,6 +13,9 @@
                 <field name="period_start" widget="date" optional="hide" />
                 <field name="period_end" widget="date" optional="hide" />
             </xpath>
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="line" optional="hide" />
+            </xpath>
         </field>
     </record>
     </odoo>

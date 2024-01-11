@@ -17,23 +17,9 @@ class SaleOrderLine(models.Model):
     line = fields.Integer(string="Line")
     po_number = fields.Char(string="PO")
     price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
-    
+    line = fields.Integer(string="Line")
     invoice_count = fields.Integer(related='order_id.invoice_count')
     
-#     def add_period(self):
-#         return {
-#     'type': 'ir.actions.act_window',
-#     'name': 'Add Period',
-#     'res_model': 'sale.order.line',  # Ensure it matches the model in your view definition
-#     'view_mode': 'form',
-#     'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
-#     'target': 'new',
-#     'context': {
-#         'default_period_start': fields.Date.today(),
-#         'default_sale_order_id': self.id,
-#     },
-# }
-
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -146,39 +132,7 @@ class SaleOrderLine(models.Model):
                 'price_tax': amount_tax,
                 'price_total': amount_untaxed + amount_tax,
             })
-    # @api.depends('monthly_rate', 'product_uom_qty','price_subtotal','tax_id','price_total','order_id')
-    # def _compute_monthly_rate(self):      
-    #     for line in self:
-    #         tax_id_str = str(line.tax_id.id)
-    #         order_ids = str(line.order_id.id)
-    #         match_orderID = re.search(r'_(\d+)', tax_id_str)
-    #         match = re.search(r'_(\d+)', tax_id_str)
-    #         if match:
-    #             tax_id = int(match.group(1))
-    #             order_id = int(match_orderID.group(1))
-    #             tax = self.env['account.tax'].browse(tax_id)
-
-            
-    #             if line.monthly_rate:
-    #                 line.price_subtotal = line.product_uom_qty * line.monthly_rate
-    #                 line.price_tax = (line.price_subtotal * tax.amount) / 100
-    #                 line.price_total = line.price_subtotal + line.price_tax
-
-    #                 price_subtotal = line.price_subtotal
-    #                 price_tax = line.price_tax
-    #                 price_total = line.price_total
-    #                 # line.update({
-    #                 #     'price_subtotal': price_subtotal,
-    #                 #     'price_tax': price_tax,
-    #                 #     'price_total': price_total 
-    #                 # })
-    #                 sale_order_line = self.env['sale.order.line'].search([('order_id', '=', order_id)])  # Sesuaikan dengan kriteria pencarian yang sesuai
-    #                 sale_order_line.write({
-    #                     'price_subtotal': price_subtotal,
-    #                     'price_tax': price_tax,
-    #                     'price_total': price_total,
-    #                 })
-    #                 logger.info("test",sale_order_line)
+    
 
     def _prepare_invoice_line(self, **optional_values):
         """Prepare the values to create the new invoice line for a sales order line.
