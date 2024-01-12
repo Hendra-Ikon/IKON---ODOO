@@ -225,8 +225,14 @@
                         <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>
+                                    <th name="th_line" class="text-start" t-if="line">
+                                        <span>Line</span>
+                                    </th>
                                     <th name="th_description" class="text-start">
                                         <span>Description</span>
+                                    </th>
+                                    <th name="th_period" class="text-center" t-if="period_start">
+                                        <span>Period</span>
                                     </th>
                                     <th name="th_quantity" class="text-end">
                                         <span>Quantity</span>
@@ -263,8 +269,19 @@
                                     <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                                         <t t-if="line.display_type == 'product'"
                                            name="account_invoice_line_accountable">
+                                           
+                                            <td t-if="line.line" class="text-start">
+                                                <span t-field="line.line"/>
+                                            </td>
+
                                             <td name="account_invoice_line_name">
                                                 <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                            </td>
+
+                                            <td t-if="line.period_start" class="text-center">
+                                                <span t-field="line.period_start"/>
+                                                <span>-</span>
+                                                <span t-field="line.period_end"/>
                                             </td>
                                             <td class="text-end">
                                                 <span t-field="line.quantity"/>

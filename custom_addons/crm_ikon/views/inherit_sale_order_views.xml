@@ -111,14 +111,27 @@
                         <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                         <field name="period_end" widget="daterange" options="{'related_start_date': 'period_start'}"/>
                     </div>
-             
+
+                    
                 
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="agreement_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
                 <field name="spk_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
-                <field name="month" widget="selection" class="oe_inline" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
-                />
+                
+                <label for="month" string="Month" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                    <div class="o_row" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}">
+                     <div class="o_input">  
+                         <field name="month"  widget="selection"  attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
+                        /></div>
+                        <span>Year</span>
+                        <div class="o_input">  
+                        <field name="year" widget="selection"  attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
+                    />
+                        </div>
+                    </div>
+
+            
                 <field name="spv" />
             </xpath>
             
