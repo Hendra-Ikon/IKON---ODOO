@@ -72,7 +72,17 @@
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field name="agreement_no" />
                 <field name="spk_no" />
-                <field name="month" widget="selection" class="oe_inline"/>
+                <label for="month" string="Month" />
+                <div class="o_row">
+                 <div class="o_input">  
+                     <field name="month"  widget="selection"  
+                    /></div>
+                    <span>Year</span>
+                    <div class="o_input">  
+                    <field name="year" widget="selection" 
+                />
+                    </div>
+                </div>
                 <field name="spv" />
             </xpath>
         </field>

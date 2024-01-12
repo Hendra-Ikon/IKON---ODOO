@@ -34,22 +34,24 @@ logger = logging.getLogger(__name__)
 # ]
 from datetime import datetime
 
-YEAR = str(datetime.now().year)
-
+YEARS = datetime.now().year
 MONTH_SELECTION = [
-    ('01', f'January {YEAR}'),
-    ('02', f'February {YEAR}'),
-    ('03', f'March {YEAR}'),
-    ('04', f'April {YEAR}'),
-    ('05', f'May {YEAR}'),
-    ('06', f'June {YEAR}'),
-    ('07', f'July {YEAR}'),
-    ('08', f'August {YEAR}'),
-    ('09', f'September {YEAR}'),
-    ('10', f'October {YEAR}'),
-    ('11', f'November {YEAR}'),
-    ('12', f'December {YEAR}'),
+    ('01', f'January'),
+    ('02', f'February'),
+    ('03', f'March'),
+    ('04', f'April'),
+    ('05', f'May'),
+    ('06', f'June'),
+    ('07', f'July'),
+    ('08', f'August'),
+    ('09', f'September'),
+    ('10', f'October'),
+    ('11', f'November'),
+    ('12', f'December'),
 ]
+
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 10, YEARS + 4)]
+
 class CrmAccountMove(models.Model):
     _inherit = "account.move"
 
@@ -118,6 +120,8 @@ class CrmAccountMove(models.Model):
         copy=False,
         tracking=True,
     )
+    year = fields.Selection(YEAR_SELECTION, string='Year', default=str(YEARS))
+
     
 
     @api.constrains('inv_no')
