@@ -29,12 +29,14 @@
 
     "assets": {
         "web.assets_frontend": [
-            # "ikon_talent_management/static/src/js/pds.js",
+            "ikon_talent_management/static/src/js/pds.js",
         ],
         "web.assets_backend": [
             # "ikon_talent_management/static/src/js/pds.js",
             "ikon_talent_management/static/src/js/custom_resume.js",
+            "ikon_talent_management/static/src/scss/*",
             "ikon_talent_management/static/src/views/**/*.xml",
+            'addons/hr_skills/static/src/fields/*',
             # "ikon_talent_management/static/src/js/custom_one2many_list.js",
             # 'hr_skills/static/src/fields/skills_one2many.xml',
             # 'hr_skills/static/src/fields/*',

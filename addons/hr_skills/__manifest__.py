@@ -14,7 +14,7 @@ Skills and Resume for HR
 
 This module introduces skills and resume management for employees.
         """,
-    'depends': ['hr'],
+    'depends': ['hr', 'hr_skills'],
     'data': [
         'security/ir.model.access.csv',
         'security/hr_skills_security.xml',

@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.http import request
 
 
 class ResumeModel(models.Model):
@@ -8,16 +9,32 @@ class ResumeModel(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     resume_dateStart = fields.Date(string="Resume Start")
     resume_dateEnd = fields.Date(string="Resume End")
-    rsm_com_name = fields.Char(string="Company Name", default="Only for Test")
+    rsm_com_name = fields.Char(string="Company Name",)
     rsm_com_job_title = fields.Char(string="Job Title in Company")
     rsm_com_projectDes = fields.Char(string="Project Description")
-    resume_tech_used_backend = fields.Many2many('custom.backend.tag', "resume_backend_tag_rel", string='Backend Technology Used')
-    resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
-    resume_tech_used_database = fields.Many2many('custom.database.tag', "resume_database_tag_rel", string='Database Technology Used')
+    # resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
+    resume_tech_used_frontend = fields.Text(string="Frontend Technology Used")
+    resume_tech_used_backend = fields.Text(string="Backend Technology Used")
+    resume_tech_used_database = fields.Text(string="Database Technology Used")
+    resume_sys_int_appl = fields.Text(string="Sys Int Application")
+    resume_sys_int_middleware = fields.Text(string="Sys Int middleware")
+    resume_sys_int_email_notif = fields.Text(string="Sys Int Email Notif")
     resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
-    resume_sys_int_appl = fields.Many2many('custom.resume.sysint.apl', "resume_sys_apl_tag_rel", string='Sys Int Application')
-    resume_sys_int_middleware = fields.Many2many('custom.resume.sysint.middleware', "resume_sys_middleware_tag_rel", string='Sys Int middleware')
-    resume_sys_int_email_notif = fields.Many2many('custom.resume.sysint.email.notif', "resume_sys_email_notif_tag_rel", string='Sys Int Email Notif')
+    company_image = fields.Image(string="Company Image")
+    # resume_tech_used_backend = fields.Many2many('custom.backend.tag', "resume_backend_tag_rel", string='Backend Technology Used')
+    # resume_tech_used_database = fields.Many2many('custom.database.tag', "resume_database_tag_rel", string='Database Technology Used')
+    # resume_sys_int_appl = fields.Many2many('custom.resume.sysint.apl', "resume_sys_apl_tag_rel", string='Sys Int Application')
+    # resume_sys_int_middleware = fields.Many2many('custom.resume.sysint.middleware', "resume_sys_middleware_tag_rel", string='Sys Int middleware')
+    # resume_sys_int_email_notif = fields.Many2many('custom.resume.sysint.email.notif', "resume_sys_email_notif_tag_rel", string='Sys Int Email Notif')
+
+    fr_test = fields.Char(string="Frontend Used", compute="_compute_frontend_tech")
+
+
+    @api.depends("resume_tech_used_frontend")
+    def _compute_frontend_tech(self):
+        for resume in self:
+            tech_used_frontend_names = [tag.name for tag in resume.resume_tech_used_frontend]
+            resume.fr_test = ', '.join(tech_used_frontend_names)
 
 
 class ResumeSysIntEmailNotif(models.Model):
@@ -82,19 +99,5 @@ class SummaryResume(models.Model):
     resume_id = fields.Many2one(string="Resume Id")
     rsm_sum_name = fields.Char("Summary Field")
 
-# class ResumeTechUse(models.Model):
-#
-#     _name = "custom.resume.techUsed"
-#
-#     resume_id = fields.Many2one(string="Resume Id")
-#     resume_tech_use_backend = fields.One2many(string="Backend Technology Used")
-#     resume_tech_use_frontend = fields.One2many(string="Frontend Technology Used")
-#     resume_tech_use_database = fields.Char(string="Database Technology Used")
-#     skill_id = fields.One2many("custom.resume.skill", "resume_techUse_id", string="Skill ID")
-#
-# class ResumeSkill(models.Model):
-#
-#     _name = "custom.resume.skill"
-#
-#     resume_techUse_id = fields.Many2one(string="Techuse ID")
-#     skill_name = fields.Char(string="Skill Name")
+
+
