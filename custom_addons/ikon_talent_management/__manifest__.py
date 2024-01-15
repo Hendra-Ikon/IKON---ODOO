@@ -21,17 +21,22 @@
         'views/pds_talent.xml',
         'views/pds_view.xml',
         'views/resume_view.xml',
-        'views/custom_resume_template.xml',
+        'views/custom_resume_view.xml',
+        # 'views/custom_resume_template.xml',
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
     ],
 
     "assets": {
         "web.assets_frontend": [
-            # "ikon_talent_management/static/src/js/pds.js",
+            "ikon_talent_management/static/src/js/pds.js",
         ],
         "web.assets_backend": [
-            "ikon_talent_management/static/src/js/pds.js",
+            # "ikon_talent_management/static/src/js/pds.js",
+            "ikon_talent_management/static/src/js/custom_resume.js",
+            "ikon_talent_management/static/src/scss/*",
+            "ikon_talent_management/static/src/views/**/*.xml",
+            'addons/hr_skills/static/src/fields/*',
             # "ikon_talent_management/static/src/js/custom_one2many_list.js",
             # 'hr_skills/static/src/fields/skills_one2many.xml',
             # 'hr_skills/static/src/fields/*',

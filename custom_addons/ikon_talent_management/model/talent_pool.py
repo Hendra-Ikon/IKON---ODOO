@@ -1,7 +1,7 @@
 import base64
 
 import xlrd
-from odoo import models, fields
+from odoo import models, fields, api
 from base64 import b64decode
 import logging
 _logger = logging.getLogger(__name__)
@@ -64,8 +64,10 @@ class TalentPoolImportWizard(models.TransientModel):
         return field_mapping.get(column_name)
 
 
+
 class TalentData(models.Model):
     _name = "talent.pool.data"
+    _description = 'Talent Pool Data'
 
     no = fields.Integer(string="No")
     nama = fields.Char(string="Nama")
@@ -87,8 +89,16 @@ class TalentData(models.Model):
     major = fields.Char(string="Major")
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
-    attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
+    attachment = fields.Binary(string="Attachment File", max_file_size=1048576, filename="attachment_filename")
+    attachment_filename = fields.Char(string="Attachment filename", default="Nama file")
     job_id = fields.Many2one('hr.job', string='Move to Applicant')
+
+    @api.model
+    def create(self, values):
+        # Extract the file name from the imported file and set it to the "attachment" field
+        if 'attachment' in values and 'filename' in values['attachment']:
+            values['attachment_filename'] = values['attachment']['filename']
+        return super(TalentData, self).create(values)
 
     def move_to_applicant(self):
 
