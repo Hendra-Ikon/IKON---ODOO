@@ -1,3 +1,5 @@
+import base64
+
 from odoo import http, fields, models
 from odoo.http import request
 import json
@@ -9,11 +11,13 @@ class ResumeTalent(http.Controller):
     def resume_view(self):
         user = request.env.user
         resume = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        applicant = request.env['hr.applicant'].search([("email_from", '=', user.email)])
 
         data = {}
         if resume:
             data = {
                 'data': resume,
+                'applicant': applicant,
             }
 
         return request.render("ikon_talent_management.resume_talent_view", data)
@@ -38,7 +42,10 @@ class ResumeTalent(http.Controller):
                         'resume_tech_used_frontend': kwargs.get("resume_tech_used_frontend"),
                         'resume_tech_used_backend': kwargs.get("resume_tech_used_backend"),
                         'resume_tech_used_database': kwargs.get("resume_tech_used_database"),
-                        'company_image': image_data.read(),
+                        'resume_sys_int_appl': kwargs.get("resume_sys_int_appl"),
+                        'resume_sys_int_middleware': kwargs.get("resume_sys_int_middleware"),
+                        'resume_sys_int_email_notif': kwargs.get("resume_sys_int_email_notif"),
+                        'company_image': base64.b64encode(image_data.read()),
                         # 'resume_tech_used_frontend': [
                         #     (6, 0, [tag.id for tag in kwargs.get("resume_tech_used_frontend")])],
 
@@ -57,4 +64,23 @@ class ResumeTalent(http.Controller):
         # 'resume_tech_used_database': kwargs.get("resume_tech_used_database"),
         # 'resume_tech_used_certificate': kwargs.get("resume_tech_used_certificate"),
 
+    @http.route("/cv", methods=['POST', 'GET'], type="http", auth="user", website=True, csrf=False)
+    def cv_view(self):
+        user = request.env.user
+        applicant = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        applicant_skill = request.env['hr.skill'].search([])
+        skill_type = request.env['hr.skill.type'].search([])
+        resume = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+
+        data = {}
+        if applicant:
+            data = {
+                'applicant': applicant,
+                'data': resume,
+                'skill': applicant_skill,
+                'skill_type': skill_type,
+
+            }
+
+        return request.render("ikon_talent_management.custom_cv_view", data)
 
