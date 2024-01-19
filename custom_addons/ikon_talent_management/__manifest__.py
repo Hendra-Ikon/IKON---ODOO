@@ -22,6 +22,7 @@
         'views/pds_view.xml',
         'views/resume_view.xml',
         'views/custom_resume_view.xml',
+        'views/CV_view.xml',
         # 'views/custom_resume_template.xml',
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',

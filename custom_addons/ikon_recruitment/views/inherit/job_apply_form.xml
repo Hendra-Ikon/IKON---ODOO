@@ -1,0 +1,187 @@
+<odoo>
+    <template id="custom_job_apply_form" inherit_id="website_hr_recruitment.apply">
+
+        <xpath expr="//div[@class='col-12 mb-0 py-2 s_website_form_field s_website_form_required'][2]" position="after">
+            <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"
+                 data-type="char" data-name="Field">
+
+                <div class="row s_col_no_resize s_col_no_bgcolor">
+
+                    <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="pds_dob">
+                        <span class="s_website_form_label_content">Date of birth</span>
+                    </label>
+                    <div class="col-sm" style="position: relative">
+                        <input id="pds_dob" type="date"
+                               class="form-control s_website_form_input pl64"
+                               style="padding-left: 14px"
+                               name="pds_dob"
+                        />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='col-12 mb-0 py-2 s_website_form_field s_website_form_required'][2]" position="after">
+            <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"
+                 data-type="char" data-name="Field">
+
+                <div class="row s_col_no_resize s_col_no_bgcolor">
+
+                    <!--                    <t name="dob" t-set="dob" t-attf-value="env['hr.applicant'].search([])"/>-->
+                    <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px"
+                           for="from_talent_universitas">
+                        <span class="s_website_form_label_content">University</span>
+                    </label>
+                    <div class="col-sm" style="position: relative">
+                        <input id="from_talent_universitas" type="text"
+                               class="form-control s_website_form_input pl64"
+                               placeholder="Universitas Indonesia"
+                               style="padding-left: 14px"
+                               name="from_talent_universitas"
+
+                        />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//section[@class='col-12 col-md-3 ps-5']/a[@class='btn btn-outline-primary btn-lg mb16 o_apply_description_link']/i"
+               position="attributes">
+            <!-- Empty tag to remove the icon -->
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+
+        <!--        <xpath expr="//div[@class='col-12 mb-0 py-2 s_website_form_field s_website_form_required'][4]" position="replace">-->
+        <!--&lt;!&ndash;        <xpath expr="//div[@class='col-12 mb-0 py-2 s_website_form_field s_website_form_required']//div[@class='col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required']//div[@class='row s_col_no_resize s_col_no_bgcolor']" position="replace">&ndash;&gt;-->
+        <!--            <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"-->
+        <!--                 data-type="text" data-name="Field">-->
+
+        <!--                <div class="row s_col_no_resize s_col_no_bgcolor">-->
+
+        <!--                    &lt;!&ndash;                    <t name="dob" t-set="dob" t-attf-value="env['hr.applicant'].search([])"/>&ndash;&gt;-->
+        <!--                    <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="custom_skill">-->
+        <!--                        <span class="s_website_form_label_content">Skills</span>-->
+        <!--                    </label>-->
+        <!--                    <div class="col-sm" style="position: relative">-->
+        <!--                        &lt;!&ndash;                        <input id="custom_skill" type="text"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                               class="form-control s_website_form_input pl64"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                               placeholder="Example : HTML, CSS, English, Microsoft Excell"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                               style="padding-left: 14px"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                               name="custom_skill"&ndash;&gt;-->
+
+        <!--                        &lt;!&ndash;                        />&ndash;&gt;-->
+        <!--                        <div class="col-sm">-->
+        <!--                            <textarea id="custom_skill" type="text"-->
+        <!--                                      class="form-control s_website_form_input"-->
+        <!--                                      placeholder="Example : HTML, CSS, English, Microsoft Excell"-->
+        <!--                                      name="custom_skill" rows="5"/>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </xpath>-->
+
+
+        <!--        <xpath expr="//div[label/span[text()='Your Phone Number']]" position="after">-->
+        <!--            <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"-->
+        <!--                 data-type="many2one" data-name="Field">-->
+
+        <!--                <div class="row s_col_no_resize s_col_no_bgcolor">-->
+
+        <!--                    <t name="deg" t-set="deg" t-value="env['hr.recruitment.degree'].search([])"/>-->
+        <!--                    <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="type_id">-->
+        <!--                        <span class="s_website_form_label_content">Degree</span>-->
+        <!--                    </label>-->
+        <!--                    <div class="col-sm" style="position: relative">-->
+        <!--                        <select class="form-select s_website_form_input" name="type_id" required="1" id="type_id" style="">-->
+        <!--                            <t t-foreach="type_id" t-as="degree" t-key="degree" >-->
+        <!--                                <option t-field="type_id.name" t-esc="halo">-->
+
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+
+
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </xpath>-->
+    </template>
+    <!--    <data>-->
+    <!--        &lt;!&ndash; Update the formbuilder_whitelist function to include 'pds_dob' &ndash;&gt;-->
+    <!--        <function model="ir.model.fields" name="formbuilder_whitelist">-->
+    <!--            <value>your_custom_model</value>-->
+    <!--            <value eval="[-->
+    <!--                'description',-->
+    <!--                'email_from',-->
+    <!--                'partner_name',-->
+    <!--                'partner_mobile',-->
+    <!--                'job_id',-->
+    <!--                'department_id',-->
+    <!--                'linkedin_profile',-->
+    <!--                'pds_dob',-->
+    <!--            ]"/>-->
+    <!--        </function>-->
+    <!--    </data>-->
+</odoo>
+
+        <!--                    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+        <!--                    <script type="text/javascript">-->
+        <!--                        var s = document.getElementsByName('skill_type')[0];-->
+
+        <!--                        s.addEventListener("change", changeOrg);-->
+
+        <!--                        function changeOrg() {-->
+        <!--                        var value = s.options[s.selectedIndex].value;-->
+        <!--                        console.log(value);-->
+        <!--&lt;!&ndash;                        document.getElementsByName("ini")[0].value = `env['hr.skill'].search([('skill_type_id.name', '=', ${value})])`;&ndash;&gt;-->
+        <!--                        $('t[tes="default_value"]').attr('t-attf-value', 'default_value', `env['hr.skill'].search([('skill_type_id.name', '=', ${value})])`);-->
+
+        <!--                        }-->
+
+        <!--                        // On page load-->
+        <!--                        changeOrg();-->
+        <!--                    </script>-->
+
+        <!--                    <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment18">-->
+        <!--                        <span class="s_website_form_label_content">Skill</span>-->
+        <!--                        <span class="s_website_form_mark">*</span>-->
+        <!--                    </label>-->
+        <!--                    <t t-set="data" t-value="env['hr.skill.type'].search([])"/>-->
+        <!--                    <t name="skill_val" t-set="tes" t-attf-value="env['hr.skill'].search([('skill_type_id.name', '=', '#{skill_val or ''}')])"/>-->
+        <!--                    <select name="skill_type" class="form-select" style="height: 30px; font-size: 10px;"-->
+        <!--                            t-att-data-skill_id="0">-->
+        <!--                        <div t-foreach="data" t-as="skill" t-key="skill">-->
+        <!--                            <option t-att-value="skill.name" t-esc="skill.name"-->
+        <!--                            />-->
+        <!--                        </div>-->
+        <!--                    </select>-->
+        <!--                    <t name="skill_val" t-set="d" t-attf-value="#{skill_val or ''}"/>-->
+        <!--                    <select name="skill_type_tes" class="form-select" style="height: 30px; font-size: 10px;"-->
+        <!--                            t-att-data-skill_id="0">-->
+        <!--                        <div t-foreach="tes" t-as="skill" t-key="skill">-->
+        <!--                            <option t-attf-value="skill.name" t-esc="skill.name"-->
+        <!--                            />-->
+        <!--                        </div>-->
+        <!--                    </select>-->
+        <!--                    <t t-set="data" t-value="env['hr.skill.type'].search([])"/>-->
+        <!--                    <select name="skill_type" class="form-select" style="height: 30px; font-size: 10px;"-->
+        <!--                            t-att-data-skill_id="0" t-on-change="changeOrg">-->
+        <!--                        <div t-foreach="data" t-as="skill" t-key="skill">-->
+        <!--                            <option t-att-value="skill.name" t-esc="skill.name"/>-->
+        <!--                        </div>-->
+        <!--                    </select>-->
+
+        <!--                    <div>-->
+        <!--                        <input name="ini" type="text" class="form-control" t-attf-value=""/>-->
+        <!--                    </div>-->
+
+        <!--                    <t name="ini" t-set="tes" t-attf-value="default_value"/>-->
+        <!--                    <select name="skill_type_tes" class="form-select" style="height: 30px; font-size: 10px;"-->
+        <!--                            t-att-data-skill_id="0">-->
+        <!--                        <div t-foreach="tes" t-as="skill" t-key="skill">-->
+        <!--                            <option t-attf-value="skill.name" t-esc="skill.name"/>-->
+        <!--                        </div>-->
+        <!--                    </select>-->

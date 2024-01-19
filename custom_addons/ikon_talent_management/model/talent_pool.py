@@ -90,8 +90,26 @@ class TalentData(models.Model):
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
     attachment = fields.Binary(string="Attachment File", max_file_size=1048576, filename="attachment_filename")
-    attachment_filename = fields.Char(string="Attachment filename", default="Nama file")
+    attachment_filename = fields.Char(string="Attachment filename", compute="_compute_attachment_filename")
+    cv_ikon = fields.Binary(string="IKON CV", max_file_size=1048576, filename="cv_ikon_filename")
+    cv_ikon_filename = fields.Char(string="IKON CV filename", compute="_compute_cv_ikon_attachment_filename")
     job_id = fields.Many2one('hr.job', string='Move to Applicant')
+
+    @api.depends('nama')
+    def _compute_attachment_filename(self):
+        for record in self:
+            if record.nama:
+                record.attachment_filename = f"{record.nama}.pdf"
+            else:
+                record.attachment_filename = False
+
+    @api.depends('nama')
+    def _compute_cv_ikon_attachment_filename(self):
+        for record in self:
+            if record.nama:
+                record.cv_ikon_filename = f"{record.nama} IKON CV.pdf"
+            else:
+                record.cv_ikon_filename = False
 
     @api.model
     def create(self, values):

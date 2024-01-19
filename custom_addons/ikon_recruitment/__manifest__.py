@@ -21,6 +21,8 @@
         'views/custom_job_detail.xml',
         'views/my_profile_view.xml',
         'views/notification_message.xml',
+        'views/inherit/job_apply_form.xml',
+        'views/inherit/hr_recruitment.xml',
         'views/tes_popup.xml',
         'static/src/js/user_profile.js',
         'views/custom_hr_applicant_kanban.xml',

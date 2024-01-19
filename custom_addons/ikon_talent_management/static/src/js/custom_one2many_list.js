@@ -4,6 +4,9 @@
 //     var FieldOne2Many = require('web.relational_fields').FieldOne2Many;
 //     var registry = require('web.core.registry');
 //
+//     var test = "hai"
+//
+//     var test2 = "halo" + {}
 //     var CustomResumeWidget = FieldOne2Many.extend({
 //         init: function () {
 //             this._super.apply(this, arguments);

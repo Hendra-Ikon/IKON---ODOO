@@ -172,16 +172,16 @@
                                         aria-label="Publication date" />
                                     <span t-field="job.write_date" />
                                 </div>
-                                <div class="oe_structure">
-                                    <section class="o_job_bottom_bar mt32 mb32">
-                                        <div class="text-center">
-                                            <a role="button"
-                                                t-attf-href="/jobs/apply/#{job.id}"
-                                                class="btn btn-primary btn-lg">Apply
-                                                Now!</a>
-                                        </div>
-                                    </section>
-                                </div>
+<!--                                <div class="oe_structure">-->
+<!--                                    <section class="o_job_bottom_bar mt32 mb32">-->
+<!--                                        <div class="text-center">-->
+<!--                                            <a role="button"-->
+<!--                                                t-attf-href="/jobs/apply/#{job.id}"-->
+<!--                                                class="btn btn-primary btn-lg">Apply-->
+<!--                                                Now!</a>-->
+<!--                                        </div>-->
+<!--                                    </section>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>

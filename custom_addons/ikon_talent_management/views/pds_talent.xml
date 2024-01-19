@@ -184,6 +184,9 @@
                                     <field name="resume_tech_used_frontend"/>
                                     <field name="resume_tech_used_backend"/>
                                     <field name="resume_tech_used_database"/>
+                                    <field name="resume_sys_int_appl"/>
+                                    <field name="resume_sys_int_middleware"/>
+                                    <field name="resume_sys_int_email_notif"/>
 <!--                                    <field name="fr_test"/>-->
                                     <field name="company_image"/>
 
