@@ -78,6 +78,7 @@ class PDSData(models.Model):
     pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
     pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
     pds_resume = fields.One2many('custom.resume.experience', 'applicant_id', string='Resume')
+    summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 

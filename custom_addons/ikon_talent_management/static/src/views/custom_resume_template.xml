@@ -74,6 +74,24 @@
                         Database:
                         <span t-esc="data.resume_tech_used_database"/>
                     </p>
+                    <br/>
+                    <p>System integration:
+                    </p>
+                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">
+                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>
+                        Frontend application:
+                        <span t-esc="data.resume_sys_int_appl"/>
+                    </p>
+                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">
+                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>
+                        Backend application:
+                        <span t-esc="data.resume_sys_int_middleware"/>
+                    </p>
+                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">
+                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>
+                        Database:
+                        <span t-esc="data.resume_sys_int_email_notif"/>
+                    </p>
 
                     <br/>
                     <br/>

@@ -65,9 +65,12 @@
                             <field name="major"/>
                             <field name="universitas"/>
                             <field name="notes"/>
-<!--                            <field name="attachment" widget="binary" filename="attachment_filename"/>-->
-                            <field name="attachment" widget="pdf_viewer" options="{'readonly': True}" filename="attachment_filename" attrs="{'readonly': [('attachment', '=', '')]}"/>
+                            <field name="attachment" widget="binary" filename="attachment_filename"/>
+                            <field name="attachment" widget="pdf_viewer" options="{'readonly': True}" filename="attachment_filename" attrs="{'invisible': [('attachment', '=', False)]}"/>
                             <field name="attachment_filename" invisible="1"/>
+                            <field name="cv_ikon" widget="binary" filename="cv_ikon_filename"/>
+                            <field name="cv_ikon" widget="pdf_viewer" options="{'readonly': True}" filename="cv_ikon_filename" attrs="{'invisible': [('cv_ikon', '=', False)]}"/>
+                            <field name="cv_ikon_filename" invisible="1"/>
                             <field name="job_id"/>
                             <button string="Move"
                                     type="object"
