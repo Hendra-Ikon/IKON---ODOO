@@ -51,6 +51,11 @@ class ResumeTalent(http.Controller):
 
                     })
 
+                    applicant.update({
+                        "custom_skill": kwargs.get("custom_skill"),
+                        "summary_experience": kwargs.get("summary_experience"),
+                    })
+
                     # print(kwargs.get("company_image"))
                     print(f"Data Image : {image_data.read()}")
 
@@ -63,6 +68,31 @@ class ResumeTalent(http.Controller):
         # 'resume_tech_used_backend': kwargs.get("resume_tech_used_backend"),
         # 'resume_tech_used_database': kwargs.get("resume_tech_used_database"),
         # 'resume_tech_used_certificate': kwargs.get("resume_tech_used_certificate"),
+
+    @http.route("/create_applicant_custom_data", methods=['POST', 'GET'], type="http", auth="user", website=True, csrf=False)
+    def create_applicant_custom_data(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        resume = request.env['custom.resume.experience'].search([])
+        image_data = request.httprequest.files.get('company_image')
+
+        if request.httprequest.method == 'POST':
+            try:
+                for applicant in applicant_to_update:
+
+                    applicant.update({
+                        "custom_skill": kwargs.get("custom_skill"),
+                        "summary_experience": kwargs.get("summary_experience"),
+                    })
+
+                    # print(kwargs.get("company_image"))
+
+
+
+            except Exception as e:
+                print(f'create_applicant_custom_data {e}')
+
+        return request.redirect('/resume')
 
     @http.route("/cv", methods=['POST', 'GET'], type="http", auth="user", website=True, csrf=False)
     def cv_view(self):

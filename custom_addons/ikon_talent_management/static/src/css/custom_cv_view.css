@@ -1,8 +1,12 @@
 
 body {
     background-color: #969696 !important;
+
 }
 
+/*.wrap-outer {*/
+/*    width: 1000px !important;*/
+/*}*/
 .left-col {
     background-color: darkorange;
     height: 100vh;

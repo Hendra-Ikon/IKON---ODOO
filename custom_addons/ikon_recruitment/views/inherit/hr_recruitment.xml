@@ -1,0 +1,16 @@
+<odoo>
+    <record id="custom_hr_applicant_view_form" model="ir.ui.view">
+        <field name="name">custom.hr.applicant.view.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_ids']" position="after">
+                <field name="custom_skill"/>
+                <field name="summary_experience"/>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="from_talent_universitas"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -26,22 +26,24 @@
                     crossorigin="anonymous"
             />
 
-            <div class="container">
+
+<!--            <div class="container">-->
                 <div class="row">
-                    <div>
-                        <t t-call="ikon_talent_management.resume_view_form"/>
-                    </div>
+                    <t t-call="ikon_talent_management.resume_view_form" style="width: 700px;"/>
+                    <t t-call="ikon_talent_management.cv" style="width: 1000px;"/>
+<!--                    <div>-->
+<!--                    </div>-->
 <!--                    <div>-->
 <!--                        <t t-call="ikon_talent_management.custom_cv_view"/>-->
 <!--                    </div>-->
                 </div>
-            </div>
+<!--            </div>-->
         </t>
     </template>
     <template id="resume_view_form">
 
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; width: 700px; overflow: scroll;">
 
             <form id="custom_exp_salary" action="/create_resume" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -182,25 +184,29 @@
                     </div>
                 </div>
             </form>
-            <form id="custom_form_test" action="/create_resume" method="post"
+            <form id="custom_form_test" action="/create_applicant_custom_data" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
-                  data-mark="*" data-model_name="custom.resume.experience"
+                  data-mark="*" data-model_name="hr.applicant"
                   data-success-mode="redirect" data-success-page="/resume"
                   hide-change-model="true">
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-3 col-form-label" for="resume_dateStart">Date start</label>
+                        <label class="col-sm-3 col-form-label" for="custom_skill">Skills</label>
                         <div class="input-group col-sm-5" t-attf-style="width: 250px;">
 
-                            <input type="date" name="resume_dateStart" class="form-control"
-                                   t-attf-style="height: 30px; font-size: 10px;"/>
+                            <input type="text" name="custom_skill" class="form-control"
+                                   t-attf-style="height: 30px; font-size: 10px;" t-att-value="applicant.custom_skill"/>
                         </div>
                     </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-3 col-form-label" for="summary_experience">Summary</label>
+                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
 
-
-
-
+                            <input type="text" name="summary_experience" class="form-control"
+                                   t-attf-style="height: 30px; font-size: 10px;" t-att-value="applicant.summary_experience"/>
+                        </div>
+                    </div>
 
 <!--                    Tombol update-->
 
@@ -216,57 +222,34 @@
 
     </template>
 
-<!--    <template id="recruitment_form_template">-->
-<!--    <form method="post" action="/recruitment-form-action">-->
-<!--        <label for="applicant_name">Applicant Name:</label>-->
-<!--        <input type="text" id="applicant_name" name="applicant_name"/>-->
-
-<!--        &lt;!&ndash; Other fields... &ndash;&gt;-->
-
-<!--        <label for="skills_input">Skills:</label>-->
-<!--        <input type="text" id="skills_input" name="skills_input"/>-->
-<!--        <button type="button" id="add_skill">Add Skill</button>-->
-
-<!--        &lt;!&ndash; Display the selected skills &ndash;&gt;-->
-<!--        <ul id="selected_skills"></ul>-->
-
-<!--        &lt;!&ndash; Hidden input for submitting selected skills &ndash;&gt;-->
-<!--        <input type="hidden" name="selected_skills" id="selected_skills_input" />-->
-
-<!--        &lt;!&ndash; Other fields and submit button... &ndash;&gt;-->
-<!--    </form>-->
-
-<!--    <script>-->
-<!--        $(document).ready(function () {-->
-<!--            var selectedSkills = [];-->
-
-<!--            $('#add_skill').click(function () {-->
-<!--                var skillInputValue = $('#skills_input').val();-->
-<!--                if (skillInputValue &amp;&amp; !selectedSkills.includes(skillInputValue)) {-->
-<!--                    selectedSkills.push(skillInputValue);-->
-<!--                    $('#selected_skills').append($('<li>').text(skillInputValue));-->
-<!--                    $('#skills_input').val(''); // Clear the input field-->
-<!--                }-->
-<!--            });-->
-
-<!--            // Update the hidden input with selected skills on form submission-->
-<!--            $('form').submit(function () {-->
-<!--                $('#selected_skills_input').val(selectedSkills.join(','));-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
-<!--</template>-->
-
-
-    <template id="custom_cv_view">
-
-        <div>
+    <template id="cv">
             <!-- Your template content goes here -->
+            <link rel="stylesheet" type="text/css"
+                  href="/ikon_talent_management/static/src/css/custom_cv_view.css"/>
+            <!-- Include Bootstrap CSS -->
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+                    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+                    crossorigin="anonymous"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+                    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+                    crossorigin="anonymous"
+            />
 
 
-
-            <div class="container">
-                <div class="row">
+                <div class="row wrap-outer">
                     <div class="left-col">
                         <div class="skill_header">
                             SKILL &amp; KNOWLEDGE
@@ -274,6 +257,30 @@
                         <div class="white_line">
 
                         </div>
+                        <div class="skills_content">
+                            <t t-set="skill_data" t-value="env['hr.skill'].search([])"/>
+                            <div name="skill_type"
+                                     t-attf-style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
+
+                                <t t-if="applicant.custom_skill != False">
+                                    <ul t-foreach="applicant.custom_skill.split(',') or []" t-as="skill" t-key="skill">
+<!--                                    <option t-att-value="skill.id" t-esc="skill.id">-->
+
+<!--                                    </option>-->
+                                    <li><t t-esc="skill"/></li>
+                                </ul>
+                                </t>
+                            </div>
+<!--                            <select name="skill_type"-->
+<!--                                    t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">-->
+<!--                                <div t-foreach="skill_type" t-as="skill" t-key="skill">-->
+<!--                                    <option t-att-value="skill.name" t-esc="skill.name">-->
+
+<!--                                    </option>-->
+<!--                                </div>-->
+<!--                            </select>-->
+                        </div>
+
                     </div>
                     <div class="right-col">
                         <div class="company_logo">
@@ -283,18 +290,14 @@
                         <div class="right-container-wrapper">
                             <div class="applicant_name">
                                 <h1 t-esc="applicant.name"/>
-
-
                             </div>
                             <div class="summary_exp">
                                 SUMMARY OF EXPERIENCE
                             </div>
                             <td class="summary_content">
-                                    <small style="">
-                                        He is a skilled Fullstack developer who is passionate about
-                                        creating beautiful and responsive websites and powerful
-                                        backend servers.
-                                    </small>
+                                <small style="">
+                                    <t t-esc="applicant.summary_experience"/>
+                                </small>
                             </td>
                             <div class="key_relevance">
                                 KEY RELEVANCE EXPERIENCE
@@ -319,10 +322,12 @@
                                                     <div class="o_resume_line">
 
                                                         <h4 class="o_resume_line_title mt-2">
-                                                            <t t-esc="resume['rsm_com_name']" style="font-weight: bold;"/>
+                                                            <t t-esc="resume['rsm_com_name']"
+                                                               style="font-weight: bold;"/>
                                                         </h4>
                                                         <small class="o_resume_line_dates fw-bold">
-                                                            (<t t-esc="resume['resume_dateStart']"/>
+                                                            (
+                                                            <t t-esc="resume['resume_dateStart']"/>
                                                             <t t-esc="resume['resume_dateEnd']"/>)
                                                         </small>
                                                         <p class="o_resume_line_desc">As:
@@ -416,15 +421,51 @@
 
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
-        <!--        </t>-->
-        <!--        <t t-call="web.layout">-->
-        <!--        -->
-        <!--        </t>-->
-
     </template>
+
+<!--    <template id="recruitment_form_template">-->
+<!--    <form method="post" action="/recruitment-form-action">-->
+<!--        <label for="applicant_name">Applicant Name:</label>-->
+<!--        <input type="text" id="applicant_name" name="applicant_name"/>-->
+
+<!--        &lt;!&ndash; Other fields... &ndash;&gt;-->
+
+<!--        <label for="skills_input">Skills:</label>-->
+<!--        <input type="text" id="skills_input" name="skills_input"/>-->
+<!--        <button type="button" id="add_skill">Add Skill</button>-->
+
+<!--        &lt;!&ndash; Display the selected skills &ndash;&gt;-->
+<!--        <ul id="selected_skills"></ul>-->
+
+<!--        &lt;!&ndash; Hidden input for submitting selected skills &ndash;&gt;-->
+<!--        <input type="hidden" name="selected_skills" id="selected_skills_input" />-->
+
+<!--        &lt;!&ndash; Other fields and submit button... &ndash;&gt;-->
+<!--    </form>-->
+
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            var selectedSkills = [];-->
+
+<!--            $('#add_skill').click(function () {-->
+<!--                var skillInputValue = $('#skills_input').val();-->
+<!--                if (skillInputValue &amp;&amp; !selectedSkills.includes(skillInputValue)) {-->
+<!--                    selectedSkills.push(skillInputValue);-->
+<!--                    $('#selected_skills').append($('<li>').text(skillInputValue));-->
+<!--                    $('#skills_input').val(''); // Clear the input field-->
+<!--                }-->
+<!--            });-->
+
+<!--            // Update the hidden input with selected skills on form submission-->
+<!--            $('form').submit(function () {-->
+<!--                $('#selected_skills_input').val(selectedSkills.join(','));-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--</template>-->
+
+
 </odoo>
 
 <!--            <table>-->

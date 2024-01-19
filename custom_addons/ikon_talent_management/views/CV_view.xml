@@ -37,25 +37,29 @@
                         <div class="white_line">
 
                         </div>
-<!--                        <div class="skills_content">-->
+                        <div class="skills_content">
+                            <t t-set="skill_data" t-value="env['hr.skill'].search([])"/>
+                            <div name="skill_type"
+                                     t-attf-style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
+
+                                <t t-if="applicant.custom_skill != False">
+                                    <ul t-foreach="applicant.custom_skill.split(',') or []" t-as="skill" t-key="skill">
+<!--                                    <option t-att-value="skill.id" t-esc="skill.id">-->
+
+<!--                                    </option>-->
+                                    <li><t t-esc="skill"/></li>
+                                </ul>
+                                </t>
+                            </div>
 <!--                            <select name="skill_type"-->
 <!--                                    t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">-->
-
 <!--                                <div t-foreach="skill_type" t-as="skill" t-key="skill">-->
 <!--                                    <option t-att-value="skill.name" t-esc="skill.name">-->
 
 <!--                                    </option>-->
 <!--                                </div>-->
 <!--                            </select>-->
-<!--                            <select name="skill_type"-->
-<!--                                    t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">-->
-<!--                                <div t-foreach="skill_type" t-as="skill" t-key="skill">-->
-<!--                                    <option t-att-value="skill.name" t-esc="skill.name">-->
-
-<!--                                    </option>-->
-<!--                                </div>-->
-<!--                            </select>-->
-<!--                        </div>-->
+                        </div>
 
                     </div>
                     <div class="right-col">
@@ -66,17 +70,13 @@
                         <div class="right-container-wrapper">
                             <div class="applicant_name">
                                 <h1 t-esc="applicant.name"/>
-
-
                             </div>
                             <div class="summary_exp">
                                 SUMMARY OF EXPERIENCE
                             </div>
                             <td class="summary_content">
                                 <small style="">
-                                    He is a skilled Fullstack developer who is passionate about
-                                    creating beautiful and responsive websites and powerful
-                                    backend servers.
+                                    <t t-esc="applicant.summary_experience"/>
                                 </small>
                             </td>
                             <div class="key_relevance">
