@@ -39,6 +39,7 @@
         'views/inherit_contact_views.xml',
         'views/inherit_categories_views.xml',
         'views/custom_bank_acc_view.xml',
+        'views/addperiod.xml',
 
 
         'views/document_layout/document_invoice.xml',

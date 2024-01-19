@@ -9,45 +9,17 @@ logger = logging.getLogger(__name__)
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-
-    # price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
     invoice_count = fields.Integer(related='order_id.invoice_count')
     item_id = fields.Char(string="Item ID")
     item_description = fields.Char(string="Item Description")
-    # period = fields.Selection(selection="_get_period_selection", string="Period", help="Select the period for the account move line.")
-    period = fields.Date(string='Period')
-    
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
+    line = fields.Integer(string="Line")
     po_number = fields.Char(string="PO")
-    # monthly_rate = fields.Integer(string="Monthly Rate (IDR)")
-    # monthly_rate = fields.Float(
-    #     string="Monthly Rate (IDR)",
-    #     compute='_compute_monthly_rate',
-    #     digits='Product Price',
-    #     store=True, readonly=False, required=True, precompute=True)
- 
-
     price_unit = fields.Float('Unit Price', tracking=True, required=True, digits='Product Price', default=0.0, track_visibility = 'always')
-    
+    line = fields.Integer(string="Line")
     invoice_count = fields.Integer(related='order_id.invoice_count')
-  
-    def get_period_selection(self):
-        logger.info("order_id", self.id)
-        # logger.info("order_id", id)
-        # record_id = self.env.context.get('#id')
-        logger.info("record_id", self.order_id.id)
-
-
-        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
-        period_selection = []
-        for period in periods:
-            period_label = f"{period.period_start}-{period.period_end}"
-            period_selection.append((period_label, period_label))
-        return period_selection
     
-    def check_id(self):
-        logger.info("self.order_id.id", self.order_id.id)
-        return self.order_id.id
-
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -160,39 +132,7 @@ class SaleOrderLine(models.Model):
                 'price_tax': amount_tax,
                 'price_total': amount_untaxed + amount_tax,
             })
-    # @api.depends('monthly_rate', 'product_uom_qty','price_subtotal','tax_id','price_total','order_id')
-    # def _compute_monthly_rate(self):      
-    #     for line in self:
-    #         tax_id_str = str(line.tax_id.id)
-    #         order_ids = str(line.order_id.id)
-    #         match_orderID = re.search(r'_(\d+)', tax_id_str)
-    #         match = re.search(r'_(\d+)', tax_id_str)
-    #         if match:
-    #             tax_id = int(match.group(1))
-    #             order_id = int(match_orderID.group(1))
-    #             tax = self.env['account.tax'].browse(tax_id)
-
-            
-    #             if line.monthly_rate:
-    #                 line.price_subtotal = line.product_uom_qty * line.monthly_rate
-    #                 line.price_tax = (line.price_subtotal * tax.amount) / 100
-    #                 line.price_total = line.price_subtotal + line.price_tax
-
-    #                 price_subtotal = line.price_subtotal
-    #                 price_tax = line.price_tax
-    #                 price_total = line.price_total
-    #                 # line.update({
-    #                 #     'price_subtotal': price_subtotal,
-    #                 #     'price_tax': price_tax,
-    #                 #     'price_total': price_total 
-    #                 # })
-    #                 sale_order_line = self.env['sale.order.line'].search([('order_id', '=', order_id)])  # Sesuaikan dengan kriteria pencarian yang sesuai
-    #                 sale_order_line.write({
-    #                     'price_subtotal': price_subtotal,
-    #                     'price_tax': price_tax,
-    #                     'price_total': price_total,
-    #                 })
-    #                 logger.info("test",sale_order_line)
+    
 
     def _prepare_invoice_line(self, **optional_values):
         """Prepare the values to create the new invoice line for a sales order line.
@@ -215,8 +155,10 @@ class SaleOrderLine(models.Model):
             'is_downpayment': self.is_downpayment,
             'item_id': self.item_id,
             'item_description': self.item_description,
-            'period': self.period,
             'po_number': self.po_number,
+            'line': self.line,
+            'period_start': self.period_start,
+            'period_end': self.period_end,
         }
         analytic_account_id = self.order_id.analytic_account_id.id
         if self.analytic_distribution and not self.display_type:
