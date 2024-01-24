@@ -1,0 +1,253 @@
+<odoo>
+    <template id="custom_pds_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div t-attf-class="article">
+                    <div class="oe_structure"/>
+                    <t t-foreach="docs" t-as="data">
+                        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+                                    Personal Data
+                        </div>
+                        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+                            <table class="table">
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+
+                                            <span>Nama Lengkap</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_fullname"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>No. KTP</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_nik"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Alamat Tetap</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_addressNIK"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Alamat Sekarang</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_currentAddress"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>No. Hp</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_phoneNumber"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Personal Email</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_email"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Tempat Lahir</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_placeOfBirth"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Tanggal Lahir</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_dob"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Kewarganegaraan</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_nationality"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Agama</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_religion"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Status Perkawinan</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_marital_status"/>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+                                    Eduaction &amp; Skill
+                        </div>
+                        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Nama Institusi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+
+                                            <span>Nama Lengkap</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_fullname"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>No. KTP</span>
+                                        </td>
+                                        <td>
+
+                                            <span t-esc="data.pds_nik"/>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="template_pds">&lt;!DOCTYPE html&gt;
+        <html t-att-lang="lang and lang.replace('_', '-')"
+              t-att-data-report-margin-top="data_report_margin_top"
+              t-att-data-report-header-spacing="data_report_header_spacing"
+              t-att-data-report-dpi="data_report_dpi"
+              t-att-data-report-landscape="data_report_landscape"
+              t-att-web-base-url="web_base_url">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="initial-scale=1"/>
+                <title>
+                    <t t-esc="title or 'Odoo Report'"/>
+                </title>
+                <t t-call-assets="web.report_assets_common" t-js="false"/>
+                <!--The following is kind of a hack-->
+                <!--in an iframe, we don't want the session to perform qweb_templates rpc-->
+                <script type="text/javascript">
+                    window.odoo = {};
+                    window.odoo.__session_info__ = {is_report: true};
+                </script>
+                <t t-call-assets="web.assets_common"/>
+                <t t-call-assets="web.report_assets_common"/>
+            </head>
+            <body t-att-class="'container' if not full_width else 'container-fluid'">
+                <div id="wrapwrap">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </body>
+        </html>
+
+    </template>
+</odoo>
+
+        <!--<td>-->
+        <!--                            <t t-esc="data.pds_nik"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_addressNIK"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_zipcode_addressNIK"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_currentAddress"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_zipcode_currentAddress"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_phoneNumber"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_email"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_placeOfBirth"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_nationality"/>-->
+        <!--                        </td>-->
+        <!--                        <td>-->
+        <!--                            <t t-esc="data.pds_religion"/>-->
+        <!--                        </td>-->

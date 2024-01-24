@@ -225,7 +225,7 @@ class HrApplicantInherit(models.Model):
                 "major": data.from_talent_major,
                 "universitas": data.from_talent_universitas,
                 "notes": data.from_talent_notes,
-                "attachment": data.from_talent_attachment
+                # "attachment": data.from_talent_attachment
 
             })
 
