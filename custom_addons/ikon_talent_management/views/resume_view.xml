@@ -30,7 +30,7 @@
 <!--            <div class="container">-->
                 <div class="row">
                     <t t-call="ikon_talent_management.resume_view_form" style="width: 700px;"/>
-                    <t t-call="ikon_talent_management.cv" style="width: 1000px;"/>
+<!--                    <t t-call="ikon_talent_management.cv" style="width: 1000px;"/>-->
 <!--                    <div>-->
 <!--                    </div>-->
 <!--                    <div>-->
