@@ -301,7 +301,7 @@
                         background-color: #969696 !important;
                         margin: 0 !important;
                         padding: 0 !important;
-                        min-height: 100vh !important;
+                        min-height: 1750px !important;
                         }
 
                         :root {
@@ -324,7 +324,7 @@
 
                         .left-col {
                         background-color: #e77f00;
-                        height: 100vh !important;
+                        min-height: 1750px !important;
                         width: 350px !important;
                         }
 
@@ -466,6 +466,7 @@
             <style>
                 .row{
                 display: flex;
+
                 }
 
                 footer {

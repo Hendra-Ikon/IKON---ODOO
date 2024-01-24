@@ -24,6 +24,8 @@
         'views/custom_resume_view.xml',
         'report/cv_report.xml',
         'report/cv_template.xml',
+        'report/pds_report.xml',
+        'report/pds_report_template.xml',
         'views/CV_view.xml',
         # 'views/custom_resume_template.xml',
         'static/src/js/pds_popup_template.xml',
