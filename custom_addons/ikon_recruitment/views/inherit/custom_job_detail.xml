@@ -54,8 +54,8 @@
                         <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
                             <div class="card text-bg-primary">
                                 <h4 class="card-header">Minimum Requirement</h4>
-                                <ul class="list-group list-group-flush">
-                                        <t t-esc="min_req_item.name"/>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.min_req" placeholder="Paste Minimum required skill here ... " />
 <!--                                    <li t-foreach="job.min_req" t-as="min_req_item" t-key="min_req_item.id"-->
 <!--                                        class="list-group-item">-->
 <!--                                    </li>-->
@@ -65,8 +65,8 @@
                         <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
                             <div class="card text-bg-primary">
                                 <h4 class="card-header">Required Skills</h4>
-                                <ul class="list-group list-group-flush">
-                                        <t t-esc="req_skill_item.name"/>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.req_skill" placeholder="Paste required skill here ... " />
 <!--                                    <li t-foreach="job.req_skill" t-as="req_skill_item" t-key="req_skill_item.id"-->
 <!--                                        class="list-group-item">-->
 <!--                                    </li>-->
@@ -76,8 +76,8 @@
                         <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
                             <div class="card text-bg-primary">
                                 <h4 class="card-header">Nice to Have</h4>
-                                <ul class="list-group list-group-flush">
-                                        <t t-esc="nice_to_have.name"/>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.nice_to_have" placeholder="Paste Nice to have items here ... " />
 <!--                                    <li t-foreach="job.nice_to_have" t-as="nice_to_have" t-key="nice_to_have.id"-->
 <!--                                        class="list-group-item">-->
 <!--                                    </li>-->
