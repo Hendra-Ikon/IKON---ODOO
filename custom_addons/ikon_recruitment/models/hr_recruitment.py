@@ -21,9 +21,9 @@ class CustomJobDescription(models.Model):
 
     lead_data = fields.Char(String="Lead Article")
 
-    nice_to_have = fields.Text(string='Nice to Have Items')
-    req_skill = fields.Text(string='Req Skill Items')
-    min_req = fields.Text(string='Minimum Req Items')
+    nice_to_have = fields.Html(string='Nice to Have Items')
+    req_skill = fields.Html(string='Req Skill Items')
+    min_req = fields.Html(string='Minimum Req Items')
     # nice_to_have = fields.One2many('custom.nice_to_have', 'job_id', string='Nice to Have Items')
     # req_skill = fields.One2many('custom.reqskill', 'job_id', string='Req Skill Items')
     # min_req = fields.One2many('custom.minreq', 'job_id', string='Minimum Req Items')
