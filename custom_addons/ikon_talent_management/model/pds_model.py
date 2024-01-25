@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo import fields, models, api
 from odoo.http import request
 
@@ -82,6 +84,9 @@ class PDSData(models.Model):
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 
+    pds_created_at = fields.Datetime(string='Created At', readonly=True)
+    # pds_updated_at = fields.Datetime(string='Updated At', readonly=True)
+
     # Resume
 #     resume_dateStart = fields.Date(string="Resume Start")
 #     resume_dateEnd = fields.Date(string="Resume End")
@@ -104,6 +109,17 @@ class PDSData(models.Model):
 
     # resume_company_id = fields.One2many("custom.resume.experience.company", "resume_experience_id", string="Company ID")
 
+    @api.model
+    def create_pds(self, values):
+        if 'pds_nik' in values and not self.pds_created_at:
+            values['pds_created_at'] = datetime.now()
+            print(f'Tanggal Pengisian {values}')
+        return super(PDSData, self).write(values)
+
+    # def write(self, values):
+    #     if 'name' in values and not self.updated_at:
+    #         values['updated_at'] = datetime.now()
+    #     return super(YourModel, self).write(values)
 
 class HrApplEdu(models.Model):
     _name = 'custom.edu'

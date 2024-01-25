@@ -4,7 +4,7 @@
 
     <template id="custom_cv_template">
 
-<!--        <t t-call="ikon_talent_management.custom_report_template">-->
+        <!--        <t t-call="ikon_talent_management.custom_report_template">-->
         <t t-call="web.html_container">
 
             <style>
@@ -71,7 +71,7 @@
                        t-value="env['hr.applicant'].search([('email_from', '=', o.email_from)])"/>
 
                     <div t-attf-class="row" style="min-height: 100vh !important;">
-                        <div t-attf-class="left-col" >
+                        <div t-attf-class="left-col">
                             <div t-attf-class="kosong">
 
                             </div>
@@ -115,8 +115,9 @@
                                         <ul t-foreach="data['pds_education']" t-as="education"
                                             t-key="education">
                                             <li>
+                                                <span t-field="education.pds_edu_level"/>
                                                 <span>
-                                                    <t t-esc="education['pds_edu_level']"/>
+
                                                     in
                                                     <t t-esc="education['pds_edu_major']"/>
                                                     at
@@ -483,14 +484,14 @@
 
     <!-- custom_report_template.xml -->
 
-<!--    <template id="custom_report_template" inherit_id="web.basic_layout">-->
-<!--        <xpath expr="//div[1]" position="attributes">-->
-<!--            <attribute name="style">margin: 0; padding: 0; background-color: red;</attribute>-->
-<!--        </xpath>-->
-<!--        <xpath expr="//div[2]" position="attributes">-->
-<!--            <attribute name="style">margin: 0; padding: 0;</attribute>-->
-<!--        </xpath>-->
-<!--    </template>-->
+    <!--    <template id="custom_report_template" inherit_id="web.basic_layout">-->
+    <!--        <xpath expr="//div[1]" position="attributes">-->
+    <!--            <attribute name="style">margin: 0; padding: 0; background-color: red;</attribute>-->
+    <!--        </xpath>-->
+    <!--        <xpath expr="//div[2]" position="attributes">-->
+    <!--            <attribute name="style">margin: 0; padding: 0;</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
 
 
 </odoo>

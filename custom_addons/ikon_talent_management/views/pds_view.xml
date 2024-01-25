@@ -342,8 +342,8 @@
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"
-                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
+                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or '')"
+                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or '')"/>
                             </option>
                             <option value="islam">ISLAM</option>
                             <option value="kristen">KRISTEN</option>
@@ -366,8 +366,8 @@
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"
-                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
+                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or '')"
+                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or '')"/>
                             </option>
                             <option value="single">SINGLE</option>
                             <option value="married">MARRIAGE</option>
