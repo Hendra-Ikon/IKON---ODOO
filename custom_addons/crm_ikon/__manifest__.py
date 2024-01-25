@@ -11,7 +11,7 @@
     'license': 'AGPL-3',
     'data': [
         # security
-        # 'security/crm_ikon_groups.xml',
+        'security/crm_ikon_groups.xml',
         
         # data
         'data/load_medium.xml',
