@@ -17,7 +17,7 @@
         'views/inherit/custom_job_detail.xml',
         'views/inherit/custom_hr_cruser_snemail.xml',
         'views/inherit/custom_quick_create_appl.xml',
-        'views/custom_skill_form_view.xml',
+        # 'views/custom_skill_form_view.xml',
         'views/custom_job_detail.xml',
         'views/my_profile_view.xml',
         'views/notification_message.xml',

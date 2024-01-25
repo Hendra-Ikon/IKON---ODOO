@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="custom_cv_template">
+
+        <!--        <t t-call="ikon_talent_management.custom_report_template">-->
+        <t t-call="web.html_container">
+
+            <style>
+                :root {
+                margin: 0 !important;
+                padding: 0 !important;
+                }
+
+                #wrapwrap {
+                margin: 0 !important;
+                padding: 0 !important;
+
+                }
+
+                main {
+                margin: 0 !important;
+                padding: 0 !important;
+                }
+            </style>
+
+
+            <div t-attf-class="header">
+                <div t-attf-class="row">
+                    <div t-attf-class="header_left" style="background-color: #e77f00 !important;
+                height: 94px;
+                width: 335px !important;
+                ">
+
+                    </div>
+                    <div t-attf-class="header_right" style="background-color: white !important;
+                            height: 94px;
+                            width: 650px !important;
+                            padding-left: 500px;
+                            padding-top: 20px;
+                            padding-bottom: 50px;
+                            overflow: hidden;">
+                        <div t-attf-class="company_logo">
+                            <img t-attf-class="img-logo" src="ikon_talent_management/static/src/img/logo-ikon.png"
+                                 style="width: 50px; height: 70px;"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <style>
+                    header {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    }
+                    .o_background_header {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    }
+
+                </style>
+            </div>
+
+
+            <div t-attf-class="article">
+
+                <t t-foreach="docs" t-as="o">
+
+                    <t t-set="data"
+                       t-value="env['hr.applicant'].search([('email_from', '=', o.email_from)])"/>
+
+                    <div t-attf-class="row" style="min-height: 100vh !important;">
+                        <div t-attf-class="left-col">
+                            <div t-attf-class="kosong">
+
+                            </div>
+
+                            <div t-attf-class="skills_content">
+                                <div t-attf-class="skill_header">
+                                    SKILL &amp; KNOWLEDGE
+                                </div>
+                                <div t-attf-class="white_line">
+
+                                </div>
+                                <!--                                <t t-set="skill_data" t-value="env['hr.skill'].search([])"/>-->
+                                <div name="skill_type"
+                                     style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
+
+                                    <t t-if="o.custom_skill != False">
+                                        <ul t-foreach="data.custom_skill.split(',') or []" t-as="skill"
+                                            t-key="skill">
+                                            <li>
+                                                <t t-esc="skill"/>
+                                            </li>
+                                        </ul>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!--                            EDUCATION SECTION-->
+                            <div t-attf-class="kosong"/>
+                            <div t-attf-class="education_content">
+                                <div t-attf-class="education_header">
+                                    ACADEMIC HISTORY
+                                </div>
+                                <div t-attf-class="white_line">
+
+                                </div>
+                                <!--                                <t t-set="skill_data" t-value="env['hr.skill'].search([])"/>-->
+                                <div name="education_type"
+                                     style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
+
+                                    <t t-if="o.pds_education != False">
+                                        <ul t-foreach="data['pds_education']" t-as="education"
+                                            t-key="education">
+                                            <li>
+                                                <span t-field="education.pds_edu_level"/>
+                                                <span>
+
+                                                    in
+                                                    <t t-esc="education['pds_edu_major']"/>
+                                                    at
+                                                    <t t-esc="education['pds_edu_inst_name']"/>
+                                                    <t t-esc="education['pds_edu_location']"/>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </t>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div t-attf-class="right-col">
+
+                            <div t-attf-class="right-container-wrapper">
+                                <div t-attf-class="applicant_name">
+                                    <h1 t-esc="o.name" style="font-family: 'Fantasy', fantasy;"/>
+                                </div>
+                                <div t-attf-class="summary_exp">
+                                    SUMMARY OF EXPERIENCE
+                                </div>
+                                <div t-attf-class="brown_line"/>
+                                <td t-attf-class="summary_content">
+                                    <small style="">
+                                        <t t-esc="o.summary_experience"/>
+                                    </small>
+                                </td>
+                                <div t-attf-class="key_relevance">
+                                    KEY RELEVANCE EXPERIENCE
+                                </div>
+                                <div t-attf-class="key_relevance_brown_line"/>
+
+                                <div t-attf-class="content-data">
+
+                                    <!--                                    <t t-set="data"-->
+                                    <!--                                       t-value="env['hr.applicant'].search([('email_from', '=', o.email_from)])"/>-->
+                                    <t t-foreach="data['pds_resume']" t-as="resume">
+
+
+                                        <div t-attf-class="o_data_row" data-id="datapoint_4">
+                                            <!--                                                <td t-attf-class"o_resume_timeline_cell position-relative pe-lg-2">-->
+                                            <!--                                                    <div t-attf-class"rounded-circle bg-red position-relative"></div>-->
+                                            <!--                                                </td>-->
+
+                                            <div t-attf-class="o_data_cell pt-0">
+                                                <div t-attf-class="o_resume_line">
+
+                                                    <h4 t-attf-class="o_resume_line_title mt-2">
+                                                        <t t-esc="resume['rsm_com_name']"
+                                                           style="font-weight: bold;"/>
+                                                    </h4>
+                                                    <small t-attf-class="o_resume_line_dates fw-bold">
+                                                        (
+                                                        <t t-esc="resume['resume_dateStart']"/>
+                                                        <t t-esc="resume['resume_dateEnd']"/>)
+                                                    </small>
+                                                    <p t-attf-class="o_resume_line_desc">As:
+                                                        <t t-esc="resume['rsm_com_job_title']"/>
+                                                    </p>
+                                                    <p t-attf-class="o_resume_line_desc">Project description:
+                                                        <!--                                                        <t t-esc="resume['rsm_com_projectDes']"/>-->
+                                                        <small>
+                                                            <t t-esc="resume['rsm_com_projectDes']"
+                                                               t-attf-class="project_desc"/>
+                                                        </small>
+                                                    </p>
+                                                    <br/>
+                                                    <p t-attf-class="o_resume_line_desc">Technology used:
+                                                    </p>
+                                                    <ul t-attf-style="margin-left: 20px;">
+
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">Backend
+                                                                    technology</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_tech_used_backend']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">Frontend
+                                                                    technology</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_tech_used_frontend']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">Database
+                                                                    technology</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_tech_used_database']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+
+                                                    </ul>
+                                                    <p t-attf-class="o_resume_line_desc">System Integration:
+                                                    </p>
+                                                    <ul t-attf-style="margin-left: 20px;">
+
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">
+                                                                    Application</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_sys_int_appl']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">
+                                                                    Middleware</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_sys_int_middleware']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div t-attf-class="content-li row">
+                                                                <div t-attf-class="content-li-data-name">Email
+                                                                    Notification</div>:
+                                                                <div t-attf-class="spasi_kecil"/>
+                                                                <div t-attf-class="content-li-data-data">
+                                                                    <t t-esc="resume['resume_sys_int_email_notif']"/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <br/>
+                                                    <br/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div t-attf-class="footer"
+                         style="padding: 0 !important; margin: 0 !important;">
+                        <div t-attf-class="header_left" style="background-color: #e77f00 !important;
+                            height: 100px;
+                            width: 350px !important;
+                            ">
+
+                        </div>
+
+
+                        <style>
+                            header {
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            }
+                            .o_background_header {
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            }
+
+                        </style>
+                    </div>
+
+
+                    <style>
+
+                        body {
+                        background-color: #969696 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        min-height: 1750px !important;
+                        }
+
+                        :root {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        }
+
+                        #wrapwrap {
+                        margin: 0 !important;
+                        padding: 0 !important;
+
+                        }
+
+                        .container-fluid {
+                        margin: 0 !important;
+                        padding: 0 !important;
+
+                        }
+
+
+                        .left-col {
+                        background-color: #e77f00;
+                        min-height: 1750px !important;
+                        width: 350px !important;
+                        }
+
+
+                        .kosong{
+                        background-color: #e77f00;
+                        width: 250px !important;
+                        height: 260px;
+                        }
+
+                        .spasi_kecil {
+                        width: 5px;
+
+                        }
+
+                        .right-col {
+                        background-color: white;
+                        height: 100vh;
+                        width: 650px !important;
+                        padding-right: 20px;
+                        padding-top: 140px;
+                        overflow: hidden;
+                        }
+
+                        tbody{
+                        background-color: white !important;
+                        border: none !important;
+
+                        }
+
+                        .company_logo {
+                        margin-left: 500px;
+                        margin-top: 20px;
+                        }
+
+                        .skill_header{
+                        margin-left: 45px;
+                        font-weight: bold;
+                        color: white;
+                        letter-spacing: 2px;
+                        font-size: 20px;
+                        }
+
+                        .white_line{
+                        height: 10px;
+                        width: 335px;
+                        margin-top: 20px;
+                        margin-left: 45px;
+                        background-color: white;
+                        }
+
+                        .brown_line{
+                        height: 7px;
+                        width: 335px;
+                        margin-top: 20px;
+                        margin-bottom: 70px;
+                        background-color: saddlebrown;
+                        }
+
+                        .key_relevance_brown_line {
+                        height: 7px;
+                        width: 335px;
+                        margin-top: 20px;
+                        background-color: saddlebrown;
+                        margin-bottom: 70px;
+                        }
+
+                        .education_header{
+                        margin-left: 45px;
+                        font-weight: bold;
+                        color: white;
+                        letter-spacing: 2px;
+                        font-size: 20px;
+
+                        }
+
+                        .summary_exp{
+                        margin-top: 70px;
+                        margin-bottom: 20px;
+                        font-weight: bold;
+                        }
+
+                        .summary_content{
+                        margin-right: 40px;
+                        font-size: 20px;
+                        font-weight: bold;
+                        font-family: "Fantasy", fantasy;
+                        }
+
+                        .key_relevance{
+                        margin-top: 40px;
+                        margin-bottom: 20px;
+                        font-weight: bold;
+                        }
+
+                        .img-logo {
+                        width: 50px;
+                        height: 70px;
+                        }
+
+                        .right-container-wrapper {
+                        margin-left: 80px;
+                        margin-top: 50px;
+                        }
+
+                        .applicant_name {
+                        margin-top: 10px;
+                        color: saddlebrown;
+                        font-family: "Fantasy", fantasy;
+                        font-weight: bolder;
+                        }
+
+                        .content-data{
+                        width: 600px !important;
+                        }
+
+                        .content-li{
+                        display: flex;
+                        flex-direction: row;
+                        }
+
+                        .content-li-data-name{
+                        width: 160px;
+                        }
+
+                        .content-li-data-data{
+                        width: 280px;
+                        }
+
+                        .project_desc {
+                        margin-right: 40px;
+
+                        }
+                    </style>
+                </t>
+            </div>
+
+
+            <style>
+                .row{
+                display: flex;
+
+                }
+
+                footer {
+                margin: 0 !important;
+                padding: 0 !important;
+                }
+
+
+            </style>
+        </t>
+
+
+    </template>
+
+    <!-- custom_report_template.xml -->
+
+    <!--    <template id="custom_report_template" inherit_id="web.basic_layout">-->
+    <!--        <xpath expr="//div[1]" position="attributes">-->
+    <!--            <attribute name="style">margin: 0; padding: 0; background-color: red;</attribute>-->
+    <!--        </xpath>-->
+    <!--        <xpath expr="//div[2]" position="attributes">-->
+    <!--            <attribute name="style">margin: 0; padding: 0;</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+
+</odoo>
