@@ -16,7 +16,7 @@
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
                 <t t-set="model" t-value="'account.move'"/>
                 <t t-set="tax_totals" t-value="o.tax_totals"/>
-                <div class="page" style="overflow: hidden;">
+                <div class="page" style="overflow: hidden; font-color: black">
                     <!--Customer Address-->
                    <!-- <div class="col-6"> -->
                     <t t-set="address">
@@ -76,11 +76,11 @@
                         <t t-set="display_discount"
                            t-value="any([l.discount for l in o.invoice_line_ids])"/>
                            <div class="row">
-                           <div class="col-6">
+                           <div class="col-6" style="color: black;">
                             <table class="mb-3" style="border: 1px solid white" name="info_table">
                                 <tr t-attf-style="background-color: white" t-if="o.inv_no">
                                     <td class="text-start" style="width:40%; border-top:0px solid #ced4da !important" >
-                                        <span>Invoice No</span>
+                                        <span class="colors">Invoice No</span>
                                     </td>
                                     <td class="text-center" style="width:4%; border-top:0px solid #ced4da !important">
                                         <span>:</span>
@@ -89,6 +89,17 @@
                                         <span style="font-weight:bold" t-field="o.inv_no"/>
                                     </td>
                                 </tr>
+                                <tr t-attf-style="background-color: white" t-if="o.invoice_date">
+                                    <td class="text-start" style="width:40%; border-top:0px solid #ced4da !important">
+                                        <span>Invoice Date</span>
+                                    </td>
+                                    <td class="text-center" style="width:4%; border-top:0px solid #ced4da !important">
+                                        <span>:</span>
+                                    </td>
+                                    <td class="text-start" style="border-top:0px solid #ced4da !important">
+                                        <span style="font-weight:bold" t-field="o.invoice_date"/>
+                                    </td>
+                                 </tr>
                                 <tr t-attf-style="background-color: white" t-if="o.po_no">
                                     <td class="text-start" style="width:40%; border-top:0px solid #ced4da !important" >
                                         <span>PO No</span>
@@ -143,7 +154,7 @@
                             </table>
 
                             </div>
-                            <div class="col-6">
+                            <div class="col-6" >
                                 <table class="mb-3" style="border: 1px solid white" name="info_table">
                                     <tr t-attf-style="background-color: white;" t-if="o.payment_reference">                                      
                                         <td class="text-start" style="width:40%;border-top:0px solid #ced4da !important" >
@@ -200,19 +211,11 @@
                                         </td>
                                         <td class="text-start" style="border-top:0px solid #ced4da !important">
                                             <span style="font-weight:bold" t-field="o.month"/>
+                                            <span style="font-weight:bold" t-field="o.year"/>
+                                            
                                         </td>
                                     </tr>
-                                    <tr t-attf-style="background-color: white" t-if="o.invoice_date">
-                                        <td class="text-start" style="width:40%; border-top:0px solid #ced4da !important">
-                                            <span>Invoice Date</span>
-                                        </td>
-                                        <td class="text-center" style="width:4%; border-top:0px solid #ced4da !important">
-                                            <span>:</span>
-                                        </td>
-                                        <td class="text-start" style="border-top:0px solid #ced4da !important">
-                                            <span style="font-weight:bold" t-field="o.invoice_date"/>
-                                        </td>
-                                     </tr>
+                                   
                                 </table>
                             </div>
                         </div>
@@ -222,16 +225,19 @@
                         
                         
                         <!--Product Details-->
-                        <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
+                        <table class="table table-sm o_main_table table-borderless" name="invoice_line_table" >
+          
                             <thead>
                                 <tr>
-                                    <th name="th_line" class="text-start" t-if="line">
+                                  
+                                    <th name="th_line" t-if="any(lines.line for lines in o.invoice_line_ids)" class="text-start">
                                         <span>Line</span>
                                     </th>
+                                    
                                     <th name="th_description" class="text-start">
                                         <span>Description</span>
                                     </th>
-                                    <th name="th_period" class="text-center" t-if="period_start">
+                                    <th name="th_period" t-if="any(line.period_start for line in o.invoice_line_ids)" class="text-center">
                                         <span>Period</span>
                                     </th>
                                     <th name="th_quantity" class="text-end">
@@ -253,8 +259,10 @@
                                         <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
                                         <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                                     </th>
+                            
                                 </tr>
                             </thead>
+                            
                             <tbody class="invoice_tbody">
                                 <t t-set="current_subtotal" t-value="0"/>
                                 <t t-set="lines"
@@ -508,6 +516,11 @@
                         <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
 
                         </div>
+                        <!-- <style>
+                            .colors {
+                                color: #00000 !important;
+                            }
+                        </style> -->
 
                     </div>
 

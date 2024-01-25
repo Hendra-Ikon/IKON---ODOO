@@ -38,6 +38,19 @@
                     <td class="text-center" style="width:5%"><span>:</span></td>
                     <td class="text-start"><span style="font-weight:bold" t-field="doc.project_name"/></td>
                 </tr>
+                <tr t-attf-style="background-color: white" t-if="doc.period_start">
+                    <td class="text-start" style="width:40%; border-top:0px solid #ced4da !important" >
+                     <span>Period</span>
+                     </td>
+                     <td class="text-center" style="width:4%; border-top:0px solid #ced4da !important">
+                         <span>:</span>
+                     </td>
+                     <td class="text-start" style="border-top:0px solid #ced4da !important">
+                         <span style="font-weight:bold" t-field="doc.period_start"/>
+                         <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                         <span style="font-weight:bold" t-field="doc.period_end"/>
+                     </td>
+                 </tr>
 
                 <tr t-attf-style="background-color: white" t-if="doc.client_order_ref">
                     <td class="text-start" style="width:120px"><span>Your Reference:</span></td>
@@ -66,6 +79,7 @@
                         <th name="th_description" class="text-start">Description</th>
                         <th t-if="lines_to_report and any(line.item_id for line in lines_to_report)" name="th_item_id" class="text-start">Item ID</th>
                         <th t-if="lines_to_report and any(line.item_description for line in lines_to_report)" name="th_item_description" class="text-start">Item Description</th>
+                        <th t-if="lines_to_report and any(line.period_start for line in lines_to_report)" name="th_period" class="text-center">Period</th>
                         <!-- <th t-if="lines_to_report and any(line.period_start for line in lines_to_report)" name="th_period_start" class="text-start">Period Start</th>
                         <th t-if="lines_to_report and any(line.period_end for line in lines_to_report)" name="th_period_end" class="text-start">Period End</th> -->
                         <th name="th_quantity" class="text-center">Quantity</th>
@@ -101,12 +115,12 @@
                                 <td t-if="line.item_description" name="td_desc" class="text-center">
                                     <span t-field="line.item_description"/>
                                 </td>
-                                <!-- <td t-if="line.period_start" name="td_period_start" class="text-center">
+                                <td t-if="line.period_start" class="text-center">
                                     <span t-field="line.period_start"/>
-                                </td>
-                                <td t-if="line.period_end" name="td_period_end" class="text-center">
+                                    <span>-</span>
                                     <span t-field="line.period_end"/>
-                                </td> -->
+                                </td>
+                
                                 <td  t-if="line.product_uom_qty" name="td_quantity" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                     
@@ -221,6 +235,14 @@
                     <strong>Terms and Conditions:</strong>
                     <p t-field="doc.note" name="order_note"/>
                 </p>
+
+                <div>
+                    <p t-field="doc.note" name="order_note"/>
+                    <p t-if="not is_html_empty(doc.payment_term_id.note)">
+                        <span t-field="doc.payment_term_id.note"/>
+                    </p>
+                  
+                </div>
                
                 
                 <p t-if="not is_html_empty(doc.payment_term_id.note)">
