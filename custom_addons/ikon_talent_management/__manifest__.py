@@ -51,8 +51,11 @@
         ],
         # "web.assets_common": [
         #     # "ikon_talent_management/static/src/js/pds.js",
-        #     "ikon_talent_management/static/src/js/custom_one2many_list.js",
+        #
         # ],
+        'ikon_talent_management.report_assets_common': [
+            "ikon_talent_management/static/src/css/cv_pdf.css",
+        ]
     },
     # 'js': [
     #     'static/src/js/simple_alert.js',

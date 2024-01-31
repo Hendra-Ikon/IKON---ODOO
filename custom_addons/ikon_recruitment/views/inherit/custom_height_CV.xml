@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="custom_view_height_cv" model="ir.ui.view">
+        <field name="name">custom.hr.applicant.height</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="CV Config">
+                    <group>
+                        <field name="height_value"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

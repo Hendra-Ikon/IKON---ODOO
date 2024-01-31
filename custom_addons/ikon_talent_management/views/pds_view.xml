@@ -98,7 +98,7 @@
 
                             text-decoration: underline;">Education
                     </div>
-                    <t t-call="ikon_talent_management.education_section"/>
+                    <t t-call="ikon_talent_management.pds_education_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -132,7 +132,7 @@
 
                             text-decoration: underline;">Language
                     </div>
-                    <t t-call="ikon_talent_management.language_section"/>
+                    <t t-call="ikon_talent_management.pds_language_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -166,7 +166,7 @@
 
                             text-decoration: underline;">Medical Records
                     </div>
-                    <t t-call="ikon_talent_management.health_section"/>
+                    <t t-call="ikon_talent_management.pds_health_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -474,7 +474,7 @@
 
     </template>
 
-    <template id="education_section">
+    <template id="pds_education_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
 
@@ -698,7 +698,7 @@
 
     </template>
 
-    <template id="language_section">
+    <template id="pds_language_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
 
@@ -792,7 +792,7 @@
 
     </template>
 
-    <template id="health_section">
+    <template id="pds_health_section">
 
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
