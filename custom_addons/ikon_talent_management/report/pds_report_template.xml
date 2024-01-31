@@ -469,19 +469,19 @@
                         <tr>
                             <td>
 
-                                <span t-esc="nonformaledu.pds_org_year"/>
+                                <span t-esc="org.pds_org_year"/>
                             </td>
                             <td>
 
-                                <span t-esc="nonformaledu.pds_org_name"/>
+                                <span t-esc="org.pds_org_name"/>
                             </td>
                             <td>
 
-                                <span t-esc="nonformaledu.pds_org_nature"/>
+                                <span t-esc="org.pds_org_nature"/>
                             </td>
                             <td>
 
-                                <span t-esc="nonformaledu.pds_org_position"/>
+                                <span t-esc="org.pds_org_position"/>
                             </td>
                         </tr>
 
