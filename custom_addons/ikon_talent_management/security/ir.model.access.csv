@@ -1,4 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_portal_user_pds,Portal User PDS,model_hr_applicant,base.group_portal,1,1,1,1
+access_portal_user_recruitment_stage,Portal User Recruitment PDS,hr_recruitment.model_hr_recruitment_stage,base.group_portal,1,1,1,1
+access_portal_user_public_employee,Portal User PDS,hr.model_hr_employee_public,base.group_portal,1,1,1,1
+
 access_portal_user_custom_certif,custom_certif,model_custom_certif,base.group_portal,1,1,1,1
 access_internal_user_custom_certif,custom_certif,model_custom_certif,base.group_user,1,1,1,1
 
