@@ -70,6 +70,7 @@ class PDSData(models.Model):
     pds_dob = fields.Date(string="Date of Birth")
     pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", )
     pds_sex = fields.Selection(SEX, string="Sex", )
+    height_value = fields.Integer(string="Height Value")
 
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
@@ -140,7 +141,7 @@ class HrApplCertif(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_cert_name = fields.Char(string="Certification name", required=False)
     pds_cert_provider = fields.Char(string="Provider", required=False)
-    pds_cert_issued_year = fields.Date(string='Issued year', required=False, default="01/01/2001")
+    pds_cert_issued_year = fields.Date(string='Issued year', required=False)
 
 
 class HrApplNonFormalEdu(models.Model):
