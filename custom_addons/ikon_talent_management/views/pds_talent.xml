@@ -168,62 +168,62 @@
                     </group>
                 </page>
             </xpath>
-            <xpath expr="//notebook" position="inside">
-                <page string="Resume">
-                    <div class="row">
-                        <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
+<!--            <xpath expr="//notebook" position="inside">-->
+<!--                <page string="Resume">-->
+<!--                    <div class="row">-->
+<!--                        <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">-->
 
 
-                            <field name="pds_resume" widget="custom_one2many_resume">
-                                <tree>
-                                    <field name="rsm_com_name"/>
-                                    <field name="rsm_com_job_title"/>
-                                    <field name="rsm_com_projectDes"/>
-                                    <field name="resume_dateStart"/>
-                                    <field name="resume_dateEnd"/>
-                                    <field name="resume_tech_used_frontend"/>
-                                    <field name="resume_tech_used_backend"/>
-                                    <field name="resume_tech_used_database"/>
-                                    <field name="resume_sys_int_appl"/>
-                                    <field name="resume_sys_int_middleware"/>
-                                    <field name="resume_sys_int_email_notif"/>
-<!--                                    <field name="fr_test"/>-->
-                                    <field name="company_image"/>
+<!--                            <field name="pds_resume" widget="custom_one2many_resume">-->
+<!--                                <tree>-->
+<!--                                    <field name="rsm_com_name"/>-->
+<!--                                    <field name="rsm_com_job_title"/>-->
+<!--                                    <field name="rsm_com_projectDes"/>-->
+<!--                                    <field name="resume_dateStart"/>-->
+<!--                                    <field name="resume_dateEnd"/>-->
+<!--                                    <field name="resume_tech_used_frontend"/>-->
+<!--                                    <field name="resume_tech_used_backend"/>-->
+<!--                                    <field name="resume_tech_used_database"/>-->
+<!--                                    <field name="resume_sys_int_appl"/>-->
+<!--                                    <field name="resume_sys_int_middleware"/>-->
+<!--                                    <field name="resume_sys_int_email_notif"/>-->
+<!--&lt;!&ndash;                                    <field name="fr_test"/>&ndash;&gt;-->
+<!--                                    <field name="company_image"/>-->
 
-                                </tree>
-                                <form>
-                                    <group>
-                                    <group>
-                                        <field name="resume_dateStart"/>-->
-                                        <field name="resume_dateEnd"/>
-                                        <field name="company_image"/>
-                                    </group>
-                                    <group>
-                                        <field name="rsm_com_name"/>
-                                        <field name="rsm_com_job_title"/>
-                                        <field name="rsm_com_projectDes"/>
-                                    </group>
-                                    <group>
-                                        <field name="resume_tech_used_backend" />
-                                        <field name="resume_tech_used_frontend"/>
-                                        <field name="resume_tech_used_database" />
-                                        <field name="resume_tech_used_certificate" />
-                                    </group>
-                                    <group>
-                                        <field name="resume_sys_int_appl" />
-                                        <field name="resume_sys_int_middleware" />
-                                        <field name="resume_sys_int_email_notif" />
-                                    </group>
-                                    </group>
-                                </form>
-                            </field>
+<!--                                </tree>-->
+<!--                                <form>-->
+<!--                                    <group>-->
+<!--                                    <group>-->
+<!--                                        <field name="resume_dateStart"/>&ndash;&gt;-->
+<!--                                        <field name="resume_dateEnd"/>-->
+<!--                                        <field name="company_image"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="rsm_com_name"/>-->
+<!--                                        <field name="rsm_com_job_title"/>-->
+<!--                                        <field name="rsm_com_projectDes"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="resume_tech_used_backend" />-->
+<!--                                        <field name="resume_tech_used_frontend"/>-->
+<!--                                        <field name="resume_tech_used_database" />-->
+<!--                                        <field name="resume_tech_used_certificate" />-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="resume_sys_int_appl" />-->
+<!--                                        <field name="resume_sys_int_middleware" />-->
+<!--                                        <field name="resume_sys_int_email_notif" />-->
+<!--                                    </group>-->
+<!--                                    </group>-->
+<!--                                </form>-->
+<!--                            </field>-->
 
 
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
 
-                </page>
-            </xpath>
+<!--                </page>-->
+<!--            </xpath>-->
         </field>
     </record>
     <!--    <template id="assets_backend" name="custom_one2many_list" inherit_id="web.assets_backend">-->
