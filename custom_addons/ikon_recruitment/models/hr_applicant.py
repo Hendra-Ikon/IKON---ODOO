@@ -31,6 +31,9 @@ class HrApplicant(models.Model):
     fresh_grad = fields.Boolean(string="Fresh Graduate")
     experience_ids = fields.One2many('hr.experience', 'applicant_id', string="Experience")
     result = fields.Char('Result')
+    custom_skill = fields.Text(string="Custom skill")
+    skill_ids = fields.Many2many('hr.skill', compute='_compute_skill_ids', store=True, string="SkillID")
+
 
     # @api.constrains('email_from')
     # def _check_duplicate_email(self):
@@ -95,3 +98,4 @@ class StageSequenced(models.Model):
         # Set the default stages based on your requirements
         stage_obj = self.env['hr.recruitment.stage']
         return [(6, 0, stage_obj.search([]).ids)]
+

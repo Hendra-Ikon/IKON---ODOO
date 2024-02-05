@@ -1,0 +1,537 @@
+<odoo>
+    <template id="custom_pds_report">
+
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div t-attf-class="page">
+                    <!--                    <div class="oe_structure"/>-->
+
+
+                    <t t-call="ikon_talent_management.created"/>
+                    <t t-call="ikon_talent_management.personal_section"/>
+                    <t t-call="ikon_talent_management.education_section"/>
+                    <t t-call="ikon_talent_management.certification_section"/>
+                    <t t-call="ikon_talent_management.language_section"/>
+                    <t t-call="ikon_talent_management.health_section"/>
+                    <t t-call="ikon_talent_management.non_formal_education_section"/>
+                    <t t-call="ikon_talent_management.organization_section"/>
+                    <t t-call="ikon_talent_management.salary_section"/>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="created">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-top: 10px; margin-bottom: 50px; padding-bottom: 10px; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Tanggal Pengisian :
+            <span>
+                <t t-esc="data.pds_created_at"/>
+            </span>
+        </div>
+    </template>
+
+    <template id="personal_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Data Pribadi
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <tbody>
+
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Nama Lengkap</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fullname"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>No. KTP</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_nik"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Alamat Tetap</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_addressNIK"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Alamat Sekarang</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_currentAddress"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>No. Hp</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_phoneNumber"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Personal Email</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_email"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Tempat Lahir</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_placeOfBirth"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Tanggal Lahir</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_dob"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Kewarganegaraan</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_nationality"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Agama</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_religion"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Status Perkawinan</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_marital_status"/>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="education_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Pendidikan &amp; Keterampilan
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nama Institusi
+                        </th>
+                        <th>
+                            Tingkat
+                        </th>
+                        <th>
+                            Jurusan
+                        </th>
+                        <th>
+                            Lokasi
+                        </th>
+                        <th>
+                            Tahun Masuk
+                        </th>
+                        <th>
+                            Tahun Selesai
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_education" t-as="education">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="education.pds_edu_inst_name"/>
+                            </td>
+                            <td>
+
+                                <span t-field="education.pds_edu_level"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="education.pds_edu_major"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="education.pds_edu_location"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="education.pds_edu_start_year"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="education.pds_edu_end_year"/>
+                            </td>
+
+                        </tr>
+                    </t>
+
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="certification_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Sertifikasi
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nama Sertifikasi
+                        </th>
+                        <th>
+                            Provider
+                        </th>
+                        <th>
+                            Tahun diperoleh
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_certifications" t-as="certification">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="certification.pds_cert_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="certification.pds_cert_provider"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="certification.pds_cert_issued_year"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="language_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Keterampilan Bahasa
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nama Bahasa
+                        </th>
+                        <th>
+                            Jenis
+                        </th>
+                        <th>
+                            Level
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_lang_prof" t-as="language">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="language.pds_lang_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="language.pds_ability"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="language.pds_lang_percen"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="health_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Riwayat Kesehatan
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Tahun
+                        </th>
+                        <th>
+                            Lama sakit
+                        </th>
+                        <th>
+                            Penyakit
+                        </th>
+                        <th>
+                            Dirawat di
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_health" t-as="health">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="health.pds_health_year"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="health.pds_health_period"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="health.pds_health_type"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="health.pds_health_hospital"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="non_formal_education_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Pendidikan Non Formal
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Kursus/Pelatihan
+                        </th>
+                        <th>
+                            Penyelenggara
+                        </th>
+                        <th>
+                            Tahun
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_course" t-as="nonformaledu">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="nonformaledu.pds_course_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="nonformaledu.pds_course_provider"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="nonformaledu.pds_course_issued_year"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="organization_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Organisasi
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Tahun
+                        </th>
+                        <th>
+                            Nama Organisasi
+                        </th>
+                        <th>
+                            Sifat Kegiatan
+                        </th>
+                        <th>
+                            Jabatan
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_org" t-as="org">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="org.pds_org_year"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="org.pds_org_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="org.pds_org_nature"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="org.pds_org_position"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="salary_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Gaji &amp; Benefit
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Gaji yang diharapkan
+                        </th>
+                        <th>
+                            Benefit yang diharapkan
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_exp_sal" t-as="salary">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="salary.pds_expected_salary"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="salary.pds_expected_benefit"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+
+</odoo>
+

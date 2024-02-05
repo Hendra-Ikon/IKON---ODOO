@@ -98,7 +98,7 @@
 
                             text-decoration: underline;">Education
                     </div>
-                    <t t-call="ikon_talent_management.education_section"/>
+                    <t t-call="ikon_talent_management.pds_education_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -132,7 +132,7 @@
 
                             text-decoration: underline;">Language
                     </div>
-                    <t t-call="ikon_talent_management.language_section"/>
+                    <t t-call="ikon_talent_management.pds_language_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -166,7 +166,7 @@
 
                             text-decoration: underline;">Medical Records
                     </div>
-                    <t t-call="ikon_talent_management.health_section"/>
+                    <t t-call="ikon_talent_management.pds_health_section"/>
                 </div>
                 <div class="col-sm" t-attf-style="margin-top: 25px;">
                     <div t-attf-style="position: relative;
@@ -214,7 +214,7 @@
                     <div class="col-sm-4">
                         <input type="text" name="pds_fullname" class="form-control"
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_fullname'] or 'Your Fullname'"/>
+                               t-att-value="pds_data['pds_fullname'] or ''" placeholder="Your fullname"/>
                     </div>
                     <label class="col-sm-2 col-form-label" for="pds_sex">Sex</label>
                     <div class="col-sm-4">
@@ -241,7 +241,7 @@
 
                         <input type="email" name="pds_email" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_email'] or 'Your Email'"/>
+                               t-att-value="pds_data['pds_email'] or ''" placeholder="Your Email"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -250,7 +250,7 @@
 
                         <input type="text" name="pds_nik" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_nik'] or 'Your NIK Number'"/>
+                               t-att-value="pds_data['pds_nik'] or ''" placeholder="Your NIK Number"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -261,7 +261,7 @@
 
                         <input type="text" name="pds_addressNIK" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_addressNIK'] or 'Your NIK Address'"/>
+                               t-att-value="pds_data['pds_addressNIK'] or ''" placeholder="Your NIK Address"/>
                     </div>
                     <label class="col-sm-2 col-form-label" for="pds_zipcode_addressNIK">Zip code
                     </label>
@@ -269,7 +269,7 @@
 
                         <input type="text" name="pds_zipcode_addressNIK"
                                t-attf-class="form-control" t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_zipcode_addressNIK'] or '0'"/>
+                               t-att-value="pds_data['pds_zipcode_addressNIK'] or ''" placeholder="339863622333"/>
                     </div>
 
                 </div>
@@ -281,7 +281,7 @@
 
                         <input type="text" name="pds_currentAddress"
                                t-attf-class="form-control " t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_currentAddress'] or 'Your current address'"/>
+                               t-att-value="pds_data['pds_currentAddress'] or ''" placeholder="Your current address"/>
                     </div>
                     <label class="col-sm-2 col-form-label" for="pds_zipcode_currentAddress">Zip code
                     </label>
@@ -289,7 +289,7 @@
 
                         <input type="text" name="pds_zipcode_currentAddress"
                                t-attf-class="form-control" t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_zipcode_currentAddress'] or '0'"/>
+                               t-att-value="pds_data['pds_zipcode_currentAddress'] or ''" placeholder="67352"/>
                     </div>
                 </div>
 
@@ -299,7 +299,7 @@
 
                         <input type="text" name="pds_phoneNumber" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_phoneNumber'] or 'Your Phone Number'"/>
+                               t-att-value="pds_data['pds_phoneNumber'] or ''" placeholder="0812345678"/>
                     </div>
                 </div>
 
@@ -311,7 +311,7 @@
 
                         <input type="text" name="pds_phoneNumber" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_placeOfBirth'] or 'Your Place of birth'"/>
+                               t-att-value="pds_data['pds_placeOfBirth'] or ''" placeholder="Your Place of birth"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -329,7 +329,7 @@
 
                         <input type="text" name="pds_dob" class="form-control "
                                t-attf-style="height: 30px; font-size: 10px;"
-                               t-att-value="pds_data['pds_nationality'] or 'Your Nationality'"/>
+                               t-att-value="pds_data['pds_nationality'] or ''" placeholder="Your Nationality"/>
                     </div>
                 </div>
 
@@ -342,8 +342,8 @@
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"
-                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
+                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or '')"
+                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or '')"/>
                             </option>
                             <option value="islam">ISLAM</option>
                             <option value="kristen">KRISTEN</option>
@@ -366,8 +366,8 @@
                                 t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">
                             <option value="select">
 
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"
-                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
+                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or '')"
+                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or '')"/>
                             </option>
                             <option value="single">SINGLE</option>
                             <option value="married">MARRIAGE</option>
@@ -474,7 +474,7 @@
 
     </template>
 
-    <template id="education_section">
+    <template id="pds_education_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
 
@@ -698,7 +698,7 @@
 
     </template>
 
-    <template id="language_section">
+    <template id="pds_language_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
 
@@ -792,7 +792,7 @@
 
     </template>
 
-    <template id="health_section">
+    <template id="pds_health_section">
 
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">

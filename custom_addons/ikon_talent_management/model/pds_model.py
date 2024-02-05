@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo import fields, models, api
 from odoo.http import request
 
@@ -68,6 +70,7 @@ class PDSData(models.Model):
     pds_dob = fields.Date(string="Date of Birth")
     pds_marital_status = fields.Selection(MARITAL_STATUS, string="Marital Status", )
     pds_sex = fields.Selection(SEX, string="Sex", )
+    height_value = fields.Integer(string="Height Value")
 
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
@@ -78,8 +81,12 @@ class PDSData(models.Model):
     pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
     pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
     pds_resume = fields.One2many('custom.resume.experience', 'applicant_id', string='Resume')
+    summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
+
+    pds_created_at = fields.Datetime(string='Created At', readonly=True)
+    # pds_updated_at = fields.Datetime(string='Updated At', readonly=True)
 
     # Resume
 #     resume_dateStart = fields.Date(string="Resume Start")
@@ -103,6 +110,17 @@ class PDSData(models.Model):
 
     # resume_company_id = fields.One2many("custom.resume.experience.company", "resume_experience_id", string="Company ID")
 
+    @api.model
+    def create_pds(self, values):
+        if 'pds_nik' in values and not self.pds_created_at:
+            values['pds_created_at'] = datetime.now()
+            print(f'Tanggal Pengisian {values}')
+        return super(PDSData, self).write(values)
+
+    # def write(self, values):
+    #     if 'name' in values and not self.updated_at:
+    #         values['updated_at'] = datetime.now()
+    #     return super(YourModel, self).write(values)
 
 class HrApplEdu(models.Model):
     _name = 'custom.edu'
@@ -123,7 +141,7 @@ class HrApplCertif(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_cert_name = fields.Char(string="Certification name", required=False)
     pds_cert_provider = fields.Char(string="Provider", required=False)
-    pds_cert_issued_year = fields.Date(string='Issued year', required=False, default="01/01/2001")
+    pds_cert_issued_year = fields.Date(string='Issued year', required=False)
 
 
 class HrApplNonFormalEdu(models.Model):

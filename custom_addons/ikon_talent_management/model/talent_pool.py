@@ -1,7 +1,7 @@
 import base64
 
 import xlrd
-from odoo import models, fields
+from odoo import models, fields, api
 from base64 import b64decode
 import logging
 _logger = logging.getLogger(__name__)
@@ -64,8 +64,10 @@ class TalentPoolImportWizard(models.TransientModel):
         return field_mapping.get(column_name)
 
 
+
 class TalentData(models.Model):
     _name = "talent.pool.data"
+    _description = 'Talent Pool Data'
 
     no = fields.Integer(string="No")
     nama = fields.Char(string="Nama")
@@ -87,8 +89,34 @@ class TalentData(models.Model):
     major = fields.Char(string="Major")
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
-    attachment = fields.Binary(string="Attachment File", max_file_size=1048576)
+    attachment = fields.Binary(string="Attachment File", max_file_size=1048576, filename="attachment_filename")
+    attachment_filename = fields.Char(string="Attachment filename", compute="_compute_attachment_filename")
+    cv_ikon = fields.Binary(string="IKON CV", max_file_size=1048576, filename="cv_ikon_filename")
+    cv_ikon_filename = fields.Char(string="IKON CV filename", compute="_compute_cv_ikon_attachment_filename")
     job_id = fields.Many2one('hr.job', string='Move to Applicant')
+
+    @api.depends('nama')
+    def _compute_attachment_filename(self):
+        for record in self:
+            if record.nama:
+                record.attachment_filename = f"{record.nama}.pdf"
+            else:
+                record.attachment_filename = False
+
+    @api.depends('nama')
+    def _compute_cv_ikon_attachment_filename(self):
+        for record in self:
+            if record.nama:
+                record.cv_ikon_filename = f"{record.nama} IKON CV.pdf"
+            else:
+                record.cv_ikon_filename = False
+
+    @api.model
+    def create(self, values):
+        # Extract the file name from the imported file and set it to the "attachment" field
+        if 'attachment' in values and 'filename' in values['attachment']:
+            values['attachment_filename'] = values['attachment']['filename']
+        return super(TalentData, self).create(values)
 
     def move_to_applicant(self):
 
@@ -197,7 +225,7 @@ class HrApplicantInherit(models.Model):
                 "major": data.from_talent_major,
                 "universitas": data.from_talent_universitas,
                 "notes": data.from_talent_notes,
-                "attachment": data.from_talent_attachment
+                # "attachment": data.from_talent_attachment
 
             })
 
