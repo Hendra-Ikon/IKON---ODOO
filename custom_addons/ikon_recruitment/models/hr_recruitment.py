@@ -1,5 +1,8 @@
 from odoo import models, fields, api
 from odoo.http import request
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AppliedJob(models.Model):
@@ -101,6 +104,43 @@ class HrApplCrUsrSnEmail(models.Model):
                 }
 
                 return notification
+            
+    def pds_send_mail(self):
+        name = self.partner_name  # Replace with the actual field you want to use for the user's name
+        email = self.email_from  # Replace with the actual field you want to use for the user's email
+        
+        logger.info('name', name)
+        logger.info('eamil', email)
+        # Create a new user
+        # user = self.env['res.users'].create({
+        #     'name': name,
+        #     'login': email,
+        #     'email': email,
+        # })
+
+        # portal_group_id = self.env.ref('base.group_portal').id
+        # if portal_group_id:
+        #     # Remove the user from existing groups
+        #     user.write({'groups_id': [(3, group_id) for group_id in user.groups_id.ids]})
+
+        #     # Add the user to the portal group
+        #     user.write({'groups_id': [(4, portal_group_id)]})
+
+        #     template_id = self.env.ref('ikon_recruitment.set_password_email')
+        #     if template_id:
+        #         template_id.send_mail(user.id, force_send=True)
+
+        #         notification = {
+        #             'type': 'ir.actions.client',
+        #             'tag': 'display_notification',
+        #             'params': {
+        #                 'title': 'Success',
+        #                 'message': 'Successfully sent login invitation',
+        #                 # 'sticky': True,
+        #             }
+        #         }
+
+        #         return notification
 
         # template_id = self.env.ref('ikon_recruitment.set_password_email')
         # if template_id:

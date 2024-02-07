@@ -1,6 +1,8 @@
 $(document).ready(function() {
   const tabs = $('#pills-tab');
   const tabContent = $('#pills-tabContent');
+  var hash = window.location.hash;
+  var button =  document.getElementById('buttonclick')
 
   // Next Button
   $('.nextBtn').on('click', function() {
@@ -26,15 +28,46 @@ $(document).ready(function() {
       }
   });
 
-  // Activate tab based on URL
-  const urlParams = new URLSearchParams(window.location.href);
-  const id = urlParams.get('id');
-  console.log(urlParams)
-  
-  if (id) {
-      const tabElement = $(`.nav-link[href="#${id}"]`);
-      if (tabElement.length) {
-          tabElement.tab('show'); // Activate the tab
-      }
-  }
+
+    switch (hash) {
+        case "#education":
+            showTab('#pills-education');
+            resetUrl('/pds/data');
+            break;
+        case "#language":
+            showTab('#pills-language');
+            resetUrl('/pds/data');
+            break;
+        case "#medical":
+            showTab('#pills-medical_records');
+            resetUrl('/pds/data');
+            break;
+        case "#confirm":
+            console.log("confirm")
+            button.click()
+            resetUrl('/my/profile');
+            break;
+
+        // Add more cases for other tabs as needed
+    }
+
+    function showTab(tabId) {
+        $('#pills-tabContent .tab-pane').removeClass('show active');
+        $(tabId).addClass('show active');
+    }
+    function showModal(){
+        
+        setInterval(function(){
+            buttonclick.click()
+        },10)
+    }
+      
+
+    function resetUrl(url) {
+        history.replaceState(null, null, url);
+    }
 });
+
+
+
+
