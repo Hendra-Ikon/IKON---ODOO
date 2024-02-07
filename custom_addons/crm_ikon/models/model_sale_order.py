@@ -5,6 +5,7 @@ from odoo.fields import Command
 logger = logging.getLogger(__name__)
 from itertools import groupby
 from datetime import datetime
+import re
 
 YEARS = datetime.now().year
 MONTH_SELECTION = [
@@ -46,61 +47,28 @@ class CrmSaleOrder(models.Model):
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
-    # period = fields.Date(string="Period")
     period_start = fields.Date(string="Period Start")
     period_end = fields.Date(string='Period End')
-    # period_id = fields.Many2many('model.period', string='Period')
-    # year = fields.Integer(string='Year', required=True)
     year = fields.Selection(YEAR_SELECTION, string='Year', default=str(YEARS))
 
     # @api.onchange('id')
-    def get_period_selection(self):
-        if self.product_id:
-            return
+    # def get_period_selection(self):
+    #     if self.product_id:
+    #         return
 
-        logger.info("order_id", self.id)
-        # logger.info("order_id", id)
-        record_id = self.env.context.get('#id')
-        logger.info("record_id", record_id)
+    #     logger.info("order_id", self.id)
+    #     # logger.info("order_id", id)
+    #     record_id = self.env.context.get('#id')
+    #     logger.info("record_id", record_id)
 
 
-        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
-        period_selection = []
-        for period in periods:
-            period_label = f"{period.period_start}-{period.period_end}"
-            period_selection.append((period_label, period_label))
-        return period_selection
+    #     periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
+    #     period_selection = []
+    #     for period in periods:
+    #         period_label = f"{period.period_start}-{period.period_end}"
+    #         period_selection.append((period_label, period_label))
+    #     return period_selection
     
-    def add_period(self):
-        # return {
-        #     "name": "Periods",
-        #     "type": "ir.actions.act_window",
-        #     "res_model": "model.period",
-        #     "view_mode": "tree",
-        #     "view_id": False,  # To let Odoo choose the most suitable view
-        #     'domain': [('sale_order_id', "=", self.id)],
-        #     "context": {
-        #         "default_sale_order_id": self.id,  # Set default values for fields
-        #         "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
-        #         "default_period_start": "2023-01-01",
-        #         "default_period_end": "2023-01-31",
-        #         "create": True,  # Set to False to hide the 'Create' button
-        #         "edit": True,  # Set to True to show the 'Edit' button
-        #     },
-        #     "target": "save",  # Open the window in a modal dialog
-        # }
-        return {
-                'type': 'ir.actions.act_window',
-                'name': 'Add Period',
-                'res_model': 'model.period',
-                'view_mode': 'form',
-                'view_id': self.env.ref('crm_ikon.view_model_period_form_popup').id,
-                'target': 'new',
-                'context': {
-                    'default_period_start': fields.Date.today(),
-                    'default_sale_order_id': self.id,
-                },
-            }
     
     @api.constrains('name')
     def _check_duplicate_name(self):
@@ -128,27 +96,44 @@ class CrmSaleOrder(models.Model):
     def generate_default_name(self):
         # Get the sale.order.sequence
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
-        # logger.info("new_name",new_name) 
-        # Ensure the sequence exists
-        if sequence:
-            # Get the next value from the sequence
-            sequence_value = sequence.next_by_id()
 
-            # Extract the last three digits
-            last_three_digits = sequence_value[-3:]
+        seq = self.env['setting.seq.custom'].sudo().search([('ref', '=', 'Quo')])
 
-            # Check if the last three digits are 999
-            if last_three_digits == '999':
-                # Extract the last four digits
-                last_four_digits = sequence_value[-4:]
-                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
-            else:
-                # Get the current month and year
-                current_month = fields.Date.today().month
-                current_year = fields.Date.today().year
+        if seq:
+            formatted_data_str = seq.format_quo
 
-                # Format the name
-                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year}"
+            matches = re.findall(r"(@[A-Z]+): '([^']+)'", formatted_data_str)
+
+            result_array = []
+
+            for match in matches:
+                key, value = match
+
+                if key == '@SEQ':
+                    sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')],limit=1)
+                    if sequence:
+                        value = sequence.next_by_id()[-3:]
+                elif key == '@MONTH':
+                    value = fields.Date.today().month
+                elif key == '@YEAR':
+                    value = fields.Date.today().year
+
+                result_array.append({'key': key, 'value': value})
+            name = ''
+
+            for item in result_array:
+                key = item['key']
+                value = item['value']
+
+                if key == '@SEQ':
+                    # Tambahkan nilai dari @SEQ
+                    name += f"{value}/"
+                else:
+                    # Tambahkan nilai dari key dan value
+                    name += f"{value}/"
+
+            # Hapus trailing '/' jika ada
+            name = name.rstrip('/')
 
             return name
 
@@ -271,6 +256,7 @@ class CrmSaleOrder(models.Model):
                     ),
                 )
                 invoice_item_sequence += 1
+            logger.info("invoice_line_vals",invoice_line_vals)
 
             invoice_vals['invoice_line_ids'] += invoice_line_vals
             invoice_vals_list.append(invoice_vals)
@@ -394,32 +380,9 @@ class CrmSaleOrder(models.Model):
             'attention': self.attention,
             'period_start': self.period_start,
             'period_end': self.period_end,
+            'agreement_no': self.agreement_no,
 
         }
-
-    
-    # @api.depends('order_line.price_subtotal', 'order_line.price_tax', 'order_line.price_total')
-    # def _compute_amounts(self):
-    #     """Compute the total amounts of the SO."""
-    #     for order in self:
-    #         logger.info("order",order)
-    #         order_lines = order.order_line.filtered(lambda x: not x.display_type)
-
-    #         if order.company_id.tax_calculation_rounding_method == 'round_globally':
-    #             tax_results = self.env['account.tax']._compute_taxes([
-    #                 line._convert_to_tax_base_line_dict()
-    #                 for line in order_lines
-    #             ])
-    #             totals = tax_results['totals']
-    #             amount_untaxed = totals.get(order.currency_id, {}).get('amount_untaxed', 0.0)
-    #             amount_tax = totals.get(order.currency_id, {}).get('amount_tax', 0.0)
-    #         else:
-    #             amount_untaxed = sum(order_lines.mapped('price_subtotal'))
-    #             amount_tax = sum(order_lines.mapped('price_tax'))
-
-    #         order.amount_untaxed = amount_untaxed
-    #         order.amount_tax = amount_tax
-    #         order.amount_total = order.amount_untaxed + order.amount_tax
 
 
 

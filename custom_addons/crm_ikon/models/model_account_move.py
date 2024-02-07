@@ -6,6 +6,8 @@ from textwrap import shorten
 import inflect
 from collections import defaultdict
 import logging
+import re
+
 from odoo.tools import (
     date_utils,
     email_re,
@@ -254,16 +256,8 @@ class CrmAccountMove(models.Model):
     def action_post(self):
         # validate sales order  
         for rec in self.invoice_line_ids:
-            logger.info("3", rec.name)
             if rec.sale_line_ids.order_id.state == 'draft':
                 raise UserError(_("You are not allowed to confirm, please confirm sale order first!"))
-
-        # for move in self:
-        #     if move.state == 'approved':
-        #         move.write({'state': 'posted'})
-        #     else:
-        #         move.write({'state': 'approved'})
-
         res = super(CrmAccountMove, self).action_post()
         return res
 
@@ -610,31 +604,76 @@ class CrmAccountMove(models.Model):
             # Get the sale.order.sequence
             new_name = self.inv_no
             old_name = name
-            
-            # Ensure the sequence exists
-            if name:
-                # Get the next value from the sequence
-                
-                # Extract the last three digits
-                last_three_digits = name[-3:]
 
-                # Check if the last three digits are 999
-                if last_three_digits == '999':
-                    # Extract the last four digits
-                    last_four_digits = name[-4:]
-                    name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
-                else:
-                    # Get the current month and year
-                    current_month = fields.Date.today().month
-                    current_year = fields.Date.today().year
+         
 
-                    # Format the name
-                    name = f"{last_three_digits}/CS-{current_month}/{current_year}"
-                
-                    if new_name:
-                        return new_name
+            seq = self.env['setting.seq.custom'].sudo().search([('ref', '=', 'Inv')])
+            logger.info("seq", seq)
+
+            if seq:
+                formatted_data_str = seq.format_quo
+
+                matches = re.findall(r"(@[A-Z]+): '([^']+)'", formatted_data_str)
+
+                result_array = []
+
+                for match in matches:
+                    key, value = match
+
+                    if key == '@SEQ':
+                        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'account.move')],limit=1)
+                        if sequence:
+                            value = sequence.next_by_id()[-3:]
+                    elif key == '@MONTH':
+                        value = fields.Date.today().month
+                    elif key == '@YEAR':
+                        value = fields.Date.today().year
+
+                    result_array.append({'key': key, 'value': value})
+                name = ''
+
+                for item in result_array:
+                    key = item['key']
+                    value = item['value']
+
+                    if key == '@SEQ':
+                        # Tambahkan nilai dari @SEQ
+                        name += f"{value}/"
                     else:
-                        return name
+                        # Tambahkan nilai dari key dan value
+                        name += f"{value}/"
+
+                # Hapus trailing '/' jika ada
+                name = name.rstrip('/')
+                if new_name:
+                        return new_name
+                else:
+                    return name
+
+            # Ensure the sequence exists
+            # if name:
+            #     # Get the next value from the sequence
+                
+            #     # Extract the last three digits
+            #     last_three_digits = name[-3:]
+
+            #     # Check if the last three digits are 999
+            #     if last_three_digits == '999':
+            #         # Extract the last four digits
+            #         last_four_digits = name[-4:]
+            #         name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
+            #     else:
+            #         # Get the current month and year
+            #         current_month = fields.Date.today().month
+            #         current_year = fields.Date.today().year
+
+            #         # Format the name
+            #         name = f"{last_three_digits}/CS-{current_month}/{current_year}"
+                
+            #         if new_name:
+            #             return new_name
+            #         else:
+            #             return name
                     
                 
 

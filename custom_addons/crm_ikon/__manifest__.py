@@ -40,6 +40,8 @@
         'views/inherit_categories_views.xml',
         'views/custom_bank_acc_view.xml',
         'views/addperiod.xml',
+        'views/inherit_sequence.xml',
+        'views/components/inherit_sequence_form.xml',
 
 
         'views/document_layout/document_invoice.xml',
@@ -69,7 +71,9 @@
             'crm_ikon/static/xml/contact_kanban_import_button.xml',
             'crm_ikon/static/xml/contact_list_import_button.xml',
 
-
+        ],
+        'web.report_assets_common':  [
+            'crm_ikon/static/css/custom_css.scss',
         ],
     },
 }

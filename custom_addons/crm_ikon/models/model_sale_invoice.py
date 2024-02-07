@@ -62,6 +62,7 @@ class CrmSaleInvoice(models.TransientModel):
             'categ_id': 1,
             'taxes_id': [Command.set(self.deposit_taxes_id.ids)],
         }
+    
 
     # def _get_down_payment_description(self, order):
     #     self.ensure_one()
@@ -83,7 +84,7 @@ class CrmSaleInvoice(models.TransientModel):
     def _get_down_payment_description(self, order, month):
         self.ensure_one()
         context = {'lang': order.partner_id.lang}
-
+ 
         if self.advance_payment_method == 'percentage':
             name = _("Down payment of %s%% - Month %s", self.amount, month)
         elif self.advance_payment_method == 'fixed':
@@ -92,6 +93,7 @@ class CrmSaleInvoice(models.TransientModel):
             name = _("Monthly Installment - Month %s", month)
         else:
             name = _('Down Payment')
+            
 
         del context
         return name
@@ -106,29 +108,7 @@ class CrmSaleInvoice(models.TransientModel):
                 monthly_amount = total_amount / int(line.monthly_payment_duration)
                 line.amount = monthly_amount
                 line.fixed_amount = 0
-               
-            # if line.advance_plan_payment_method == 'monthly' and line.monthly_payment_duration:
-            #     total_amount = line.sale_order_id.amount_total
-            #     monthly_amount = total_amount / int(line.monthly_payment_duration)
-            #     line.advance_payment_method = monthly_amount
 
-    # def _get_down_payment_amount(self, order):
-    #     self.ensure_one()
-    #     if self.advance_payment_method == 'percentage':
-    #         untaxed_amount = order.amount_untaxed
-    #         advance_product_taxes = self.product_id.taxes_id.filtered(lambda tax: tax.company_id == order.company_id)
-    #         if all(order.fiscal_position_id.map_tax(advance_product_taxes).mapped('price_include')):
-    #             amount = untaxed_amount * self.amount / 100
-    #         else:
-    #             amount = untaxed_amount * self.amount / (1 + sum(advance_product_taxes.mapped('amount')) / 100)
-    #     elif self.advance_payment_method == 'monthly':
-    #         total_amount = order.amount_total
-    #         monthly_amount = total_amount / int(self.monthly_payment_duration)
-    #         amount = monthly_amount
-    #     else:
-    #         amount = 0.0
-    #
-    #     return amount
 
     def _get_down_payment_amount(self, order):
         self.ensure_one()
@@ -143,33 +123,51 @@ class CrmSaleInvoice(models.TransientModel):
 
         elif self.advance_payment_method == 'monthly':
             amount = order.amount_untaxed / int(self.monthly_payment_duration)
-            # logger.info('amount', amount)
             return amount
         else:
             amount = 0.0
         return amount
+    def _prepare_down_payment_section_values1(self, order, monthly):
+        context = {'lang': order.partner_id.lang}
+        so_values = {
+            'name': 'Term Payments',
+                    'quantity': 1.0,
+                    'price_unit': 0,
+                    'display_type': 'line_section',
+        }
+
+        del context
+        return so_values
 
     def _prepare_invoice_values(self, order, so_line, month):
         self.ensure_one()
         if self.advance_payment_method == 'monthly':
             invoice_line_ids = []
             amount_per_month = self._get_down_payment_amount(order)
-
             line_data = self.env['sale.order.line'].search([('order_id','=', order.id)])
+            
             for lines in line_data:
+                
             # Check if the name contains 'Term Payments'
                 if ('Monthly Payment' not in lines.name) and ('Term Payments' not in lines.name):
+                    
                     invoice_line_ids.append(
                         Command.create(
+                            
                             so_line._prepare_invoice_line(
                                 product_id= lines.product_id.id,
                                 name=lines.name,
                                 quantity=1.0,
                                 price_unit=amount_per_month,
                                 tax_ids=lines.tax_id,
+                         
                             )
-                        )
+                            
+                        ),
+                       
                     )
+                    invoice_line_ids.append(Command.create(self._prepare_move_line_values(order, month)))
+            logger.info("invoice_line_ids", invoice_line_ids) 
             return {
             **order._prepare_invoice(),
             'invoice_line_ids': invoice_line_ids,
@@ -180,8 +178,9 @@ class CrmSaleInvoice(models.TransientModel):
             'invoice_line_ids': [
                 Command.create(
                     so_line._prepare_invoice_line(
-                        name=self._get_down_payment_description(order, month),
+                        name=self._get_down_payment_description(order),
                         quantity=1.0,
+                        is_downpayment=False,
                     )
                 )
             ],
@@ -203,15 +202,15 @@ class CrmSaleInvoice(models.TransientModel):
 
 
 
-    # def _prepare_invoice_values(self, order, so_line):
+    # def _prepare_invoice_values(self, order, so_line, month):
     #     self.ensure_one()
     #     invoice_values = order._prepare_invoice()
-    #
+    
     #     # Remove original invoice line and add new lines based on the monthly payment plan
-    #     invoice_values['invoice_line_ids'] = [
-    #         Command.unlink([line.id]) for line in invoice_values.get('invoice_line_ids', [])
-    #     ]
-    #
+    #     # invoice_values['invoice_line_ids'] = [
+    #     #     Command.unlink([line.id]) for line in invoice_values.get('invoice_line_ids', [])
+    #     # ]
+    
     #     for month in range(1, int(self.monthly_payment_duration) + 1):
     #         invoice_line_values = {
     #             'name': self._get_down_payment_description(order, month),
@@ -221,7 +220,7 @@ class CrmSaleInvoice(models.TransientModel):
     #         }
     #         invoice_line_values.update(so_line._prepare_invoice_line(**invoice_line_values))
     #         invoice_values['invoice_line_ids'].append(Command.create(invoice_line_values))
-    #
+    
     #     return invoice_values
 
 # from odoo import models, fields, _, api
@@ -272,20 +271,20 @@ class CrmSaleInvoice(models.TransientModel):
 #             'taxes_id': [Command.set(self.deposit_taxes_id.ids)],
 #         }
 #
-#     def _get_down_payment_description(self, order):
-#         self.ensure_one()
-#         context = {'lang': order.partner_id.lang}
-#         if self.advance_payment_method == 'percentage':
-#             name = _("Term payment: %s%% of payment", self.amount)
-#         elif self.advance_payment_method == 'fixed':
-#             name = _(f'Term payment: {self.fixed_amount} fixed amount')
-#         elif self.advance_payment_method == 'monthly':
-#             name = _("Monthly Payment Plan")
-#         else:
-#             name = _("Regular Invoice")
-#         del context
-#
-#         return name
+    # def _get_down_payment_description(self, order):
+    #     self.ensure_one()
+    #     context = {'lang': order.partner_id.lang}
+    #     if self.advance_payment_method == 'percentage':
+    #         name = _("Term payment: %s%% of payment", self.amount)
+    #     elif self.advance_payment_method == 'fixed':
+    #         name = _(f'Term payment: {self.fixed_amount} fixed amount')
+    #     elif self.advance_payment_method == 'monthly':
+    #         name = _("Monthly Payment Plan")
+    #     else:
+    #         name = _("Regular Invoice")
+    #     del context
+
+    #     return name
 #
 #     @api.onchange('advance_plan_payment_method')
 #     def _depend_payment(self):
