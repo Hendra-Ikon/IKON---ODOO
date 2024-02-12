@@ -40,8 +40,8 @@
         'views/inherit_categories_views.xml',
         'views/custom_bank_acc_view.xml',
         'views/addperiod.xml',
-        'views/inherit_sequence.xml',
-        'views/components/inherit_sequence_form.xml',
+        # 'views/inherit_sequence.xml',
+        # 'views/components/inherit_sequence_form.xml',
 
 
         'views/document_layout/document_invoice.xml',
