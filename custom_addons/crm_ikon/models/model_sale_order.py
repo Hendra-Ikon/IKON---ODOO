@@ -92,52 +92,80 @@ class CrmSaleOrder(models.Model):
                 vals['name'] = value or _("New")
 
         return super().create(vals_list)
-        
     def generate_default_name(self):
         # Get the sale.order.sequence
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
+        # logger.info("new_name",new_name) 
+        # Ensure the sequence exists
+        if sequence:
+            # Get the next value from the sequence
+            sequence_value = sequence.next_by_id()
 
-        seq = self.env['setting.seq.custom'].sudo().search([('ref', '=', 'Quo')])
+            # Extract the last three digits
+            last_three_digits = sequence_value[-3:]
 
-        if seq:
-            formatted_data_str = seq.format_quo
+            # Check if the last three digits are 999
+            if last_three_digits == '999':
+                # Extract the last four digits
+                last_four_digits = sequence_value[-4:]
+                name = f"{last_four_digits}/EXT-QUOT/{current_month}/{current_year}"
+            else:
+                # Get the current month and year
+                current_month = fields.Date.today().month
+                current_year = fields.Date.today().year
 
-            matches = re.findall(r"(@[A-Z]+): '([^']+)'", formatted_data_str)
-
-            result_array = []
-
-            for match in matches:
-                key, value = match
-
-                if key == '@SEQ':
-                    sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')],limit=1)
-                    if sequence:
-                        value = sequence.next_by_id()[-3:]
-                elif key == '@MONTH':
-                    value = fields.Date.today().month
-                elif key == '@YEAR':
-                    value = fields.Date.today().year
-
-                result_array.append({'key': key, 'value': value})
-            name = ''
-
-            for item in result_array:
-                key = item['key']
-                value = item['value']
-
-                if key == '@SEQ':
-                    # Tambahkan nilai dari @SEQ
-                    name += f"{value}/"
-                else:
-                    # Tambahkan nilai dari key dan value
-                    name += f"{value}/"
-
-            # Hapus trailing '/' jika ada
-            name = name.rstrip('/')
+                # Format the name
+                name = f"{last_three_digits}/EXT-QUOT/{current_month}/{current_year}"
 
             return name
 
         return False
+        
+    # def generate_default_name(self):
+    #     # Get the sale.order.sequence
+    #     sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
+
+    #     seq = self.env['setting.seq.custom'].sudo().search([('ref', '=', 'Quo')])
+
+    #     if seq:
+    #         formatted_data_str = seq.format_quo
+
+    #         matches = re.findall(r"(@[A-Z]+): '([^']+)'", formatted_data_str)
+
+    #         result_array = []
+
+    #         for match in matches:
+    #             key, value = match
+
+    #             if key == '@SEQ':
+    #                 sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')],limit=1)
+    #                 if sequence:
+    #                     value = sequence.next_by_id()[-3:]
+    #             elif key == '@MONTH':
+    #                 value = fields.Date.today().month
+    #             elif key == '@YEAR':
+    #                 value = fields.Date.today().year
+
+    #             result_array.append({'key': key, 'value': value})
+    #         name = ''
+
+    #         for item in result_array:
+    #             key = item['key']
+    #             value = item['value']
+
+    #             if key == '@SEQ':
+    #                 # Tambahkan nilai dari @SEQ
+    #                 name += f"{value}/"
+    #             else:
+    #                 # Tambahkan nilai dari key dan value
+    #                 name += f"{value}/"
+
+    #         # Hapus trailing '/' jika ada
+    #         name = name.rstrip('/')
+
+    #         return name
+
+    #     return False
     
     def _get_mail_template(self):
         """
