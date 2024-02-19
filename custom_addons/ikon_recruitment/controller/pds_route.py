@@ -412,6 +412,7 @@ class PDSController(http.Controller):
     @http.route("/my", type='http', auth='user', website=True)
     def custom_route_my(self):
         user = request.env.user
+        user_avatar = user.image_1920
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
@@ -426,7 +427,15 @@ class PDSController(http.Controller):
             applied_jobs.append({
                 'job': applicant.job_id,
                 'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
-                "created": applicant.create_date
+                "created": applicant.create_date,
+                'from_talent_universitas': applicant.from_talent_universitas,
+                'partner_phone': applicant.partner_phone,
+                'email_from': applicant.email_from,
+                'pds_currentAddress': applicant.pds_currentAddress,
+                'degree': applicant.type_id.name,
+                'summary_experience': applicant.summary_experience,
+                'skill': applicant.custom_skill,
+                'fullname': applicant.pds_fullname,
             })
             if user_stage is 0 and applicant.toggle_pds is not 0:
                 user_stage = applicant.toggle_pds
@@ -438,6 +447,7 @@ class PDSController(http.Controller):
         # Pass the data to the template
         data = {
             "user_data": user,
+            "user_avatar": user_avatar,
             'employee_department': employment_status.department_id.name,
             'employment_status': employment_status,
             'applied_jobs': applied_jobs,
@@ -450,15 +460,15 @@ class PDSController(http.Controller):
     @http.route('/confirm', type='http', auth='user', website=True)
     def send_mail_route(self):
         user = request.env.user
-        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
-        job = request.env['hr.job'].browse(applicants.job_id.id)
-        recruiter = request.env['res.users'].browse(job.user_id.id)
+        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
+        job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
+        recruiter = request.env['res.users'].sudo().browse(job.user_id.id)
         
         
         # 'PDS Confirm '+ str(applicants.pds_percentage) +'%'+' from '+ applicants.partner_name,
         try:
-            link_to_pds_data = 'http://example.com/candidate_pds_data'
-            mail_template = request.env.ref('ikon_recruitment.set_pds_email_send')  # Ganti dengan nama template email yang sesuai      
+            link_to_pds_data = 'https://backofficedev.ikonsultan.co.id/my/profile'
+            mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
             mail_template.send_mail(
                 recruiter.id,
                 email_values = {
@@ -476,7 +486,7 @@ class PDSController(http.Controller):
     ''' % (recruiter.name, applicants.partner_name, job.name, link_to_pds_data),
             },
             force_send=True)
-            
+
         except ValidationError as e:
             return f"Error: {e}"
         

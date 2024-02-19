@@ -79,8 +79,11 @@
 
                                 <div class="row">
                                     <div class="col-12">
-                                        <p class="tex-center mb-0" style="margin:5px;">
+                                        <p class="text-center mb-0" style="margin:5px;" t-if="applied_jobs[0]['summary_experience']">
                                             <t t-esc="applied_jobs[0]['summary_experience']"/>
+                                        </p>
+                                        <p class="text-center mb-0" style="margin:5px;" t-else="">
+                                            <!-- String kosong jika summary_experience tidak ada datanya -->
                                         </p>
                                     </div>
                                     
@@ -99,10 +102,16 @@
                                 </div>
 
                                 <div class="col">
-                                    <t t-foreach="applied_jobs[0]['skill'].split(',')" t-as="skill">
-                                        <span class="badge badge-pill badge-info" style="margin:2px; width:45;" t-esc="skill.strip()"/>
+                                    <t t-if="applied_jobs[0]['skill']">
+                                        <t t-foreach="applied_jobs[0]['skill'].split(',')" t-as="skill">
+                                            <span class="badge badge-pill badge-info" style="margin:2px; width:45;" t-esc="skill.strip()"/>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <!-- String kosong jika skill tidak ada -->
                                     </t>
                                 </div>
+                                
                                 
                                 
                             </div>
