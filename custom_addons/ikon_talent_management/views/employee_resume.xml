@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_view_employee_form" model="ir.ui.view">
+        <field name="name">custom.hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[@name='public']" position="replace">
+<!--                <attribute name="invisible">1</attribute>-->
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Resumes">
+                    <div class="row">
+                        <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
+
+
+                            <field name="employee_resume" widget="custom_one2many_resume">
+                                <tree>
+                                    <field name="rsm_com_name"/>
+                                    <field name="rsm_com_job_title"/>
+                                    <field name="rsm_com_projectDes"/>
+                                    <field name="resume_dateStart"/>
+                                    <field name="resume_dateEnd"/>
+                                    <field name="resume_tech_used"/>
+                                    <field name="resume_sys_used"/>
+
+                                    <!--                                    <field name="fr_test"/>-->
+                                    <field name="company_image"/>
+
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="resume_dateStart"/>-->
+                                            <field name="resume_dateEnd"/>
+                                            <field name="company_image"/>
+                                        </group>
+                                        <group>
+                                            <field name="rsm_com_name"/>
+                                            <field name="rsm_com_job_title"/>
+                                            <field name="rsm_com_projectDes"/>
+                                        </group>
+                                        <group>
+                                            <field name="resume_tech_used"/>
+
+                                        </group>
+                                        <group>
+                                            <field name="resume_sys_used"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+
+
+                        </div>
+                    </div>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

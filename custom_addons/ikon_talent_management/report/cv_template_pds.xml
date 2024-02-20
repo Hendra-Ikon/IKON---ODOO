@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="test1">&lt;!DOCTYPE html&gt;
+    <template id="applicant_cv_template">&lt;!DOCTYPE html&gt;
         <html t-att-lang="lang and lang.replace('_', '-')"
               t-att-data-report-margin-top="data_report_margin_top"
               t-att-data-report-header-spacing="data_report_header_spacing"

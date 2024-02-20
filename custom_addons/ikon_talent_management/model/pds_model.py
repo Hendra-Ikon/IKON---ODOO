@@ -2,6 +2,10 @@ from datetime import datetime
 
 from odoo import fields, models, api
 from odoo.http import request
+from odoo.exceptions import AccessError, UserError
+from odoo.tools.translate import _
+
+
 
 RELIGION = [
     ('select', 'CLICK TO SELECT'),
@@ -89,24 +93,25 @@ class PDSData(models.Model):
     # pds_updated_at = fields.Datetime(string='Updated At', readonly=True)
 
     # Resume
-#     resume_dateStart = fields.Date(string="Resume Start")
-#     resume_dateEnd = fields.Date(string="Resume End")
-#     rsm_com_name = fields.Char(string="Company Name")
+    #     resume_dateStart = fields.Date(string="Resume Start")
+    #     resume_dateEnd = fields.Date(string="Resume End")
+    #     rsm_com_name = fields.Char(string="Company Name")
     rsm_com_job_title = fields.Char(related="pds_resume.rsm_com_job_title", string="Job Title in Company")
-#     rsm_com_projectDes = fields.Char(string="Project Description")
-#     resume_tech_used_backend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-#                                                 string='Backend Technology Used')
-#     resume_tech_used_frontend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-#                                                  string='Frontend Technology Used')
-#     resume_tech_used_database = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-#                                                  string='Database Technology Used')
-#
-#
-# class TechnologyTag(models.Model):
-#     _name = 'custom.technology.tag'
-#     _description = 'Technology Tags'
-#
-#     name = fields.Char(string='Tag Name', )
+
+    #     rsm_com_projectDes = fields.Char(string="Project Description")
+    #     resume_tech_used_backend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+    #                                                 string='Backend Technology Used')
+    #     resume_tech_used_frontend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+    #                                                  string='Frontend Technology Used')
+    #     resume_tech_used_database = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
+    #                                                  string='Database Technology Used')
+    #
+    #
+    # class TechnologyTag(models.Model):
+    #     _name = 'custom.technology.tag'
+    #     _description = 'Technology Tags'
+    #
+    #     name = fields.Char(string='Tag Name', )
 
     # resume_company_id = fields.One2many("custom.resume.experience.company", "resume_experience_id", string="Company ID")
 
@@ -121,6 +126,59 @@ class PDSData(models.Model):
     #     if 'name' in values and not self.updated_at:
     #         values['updated_at'] = datetime.now()
     #     return super(YourModel, self).write(values)
+
+    @api.depends('partner_id')
+    def _compute_partner_phone_email(self):
+        for applicant in self:
+            if applicant.partner_id:
+                applicant.partner_phone = applicant.partner_id.phone
+                applicant.partner_mobile = applicant.partner_id.mobile
+                applicant.email_from = applicant.partner_id.email
+                # applicant.email_from = "inihanyatest@mail.com"
+
+    def create_employee_from_applicant(self):
+        """ Create an employee from applicant """
+        self.ensure_one()
+        self._check_interviewer_access()
+
+        contact_name = False
+        if self.partner_id:
+            self.partner_id.unlink()
+            address_id = self.partner_id.address_get(['contact'])['contact']
+            contact_name = self.partner_id.display_name
+        else:
+            if not self.partner_name:
+                raise UserError(_('You must define a Contact Name for this applicant.'))
+            new_partner_id = self.env['res.partner'].create({
+                'is_company': False,
+                'type': 'private',
+                'name': self.partner_name,
+                'email': self.email_from,
+                'phone': self.partner_phone,
+                'mobile': self.partner_mobile
+            })
+            self.partner_id = new_partner_id
+            address_id = new_partner_id.address_get(['contact'])['contact']
+        employee_data = {
+            'default_name': self.partner_name or contact_name,
+            'default_job_id': self.job_id.id,
+            'default_job_title': self.job_id.name,
+            'default_address_home_id': address_id,
+            'default_department_id': self.department_id.id,
+            'default_address_id': self.company_id.partner_id.id,
+            # 'default_work_email': self.department_id.company_id.email or self.email_from,
+            'default_work_email': self.email_from,
+            # To have a valid email address by default
+            'default_work_phone': self.partner_phone or self.partner_mobile,
+            'form_view_initial_mode': 'edit',
+            'default_applicant_id': self.ids,
+            'summary_experience': self.summary_experience,
+
+        }
+        dict_act_window = self.env['ir.actions.act_window']._for_xml_id('hr.open_view_employee_list')
+        dict_act_window['context'] = employee_data
+        return dict_act_window
+
 
 class HrApplEdu(models.Model):
     _name = 'custom.edu'
