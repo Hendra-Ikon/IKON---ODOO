@@ -196,22 +196,17 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-md-3 mb-2">
-                                                    <button type="button" class="btn btn-rounded btn-sm btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
+                                                    <button type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
                                                         Export to PDF
                                                     </button>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
-                                                    <button type="button" class="btn btn-rounded btn-sm btn-block" style="background:#E17726; color:white;" onclick="window.location.href='/my/account'">
-                                                        Edit Profile
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-3 mb-2">
-                                                    <button t-if="user_stage > 0" type="button" class="btn btn-rounded btn-sm btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
+                                                    <button t-if="user_stage > 0" type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
                                                         Edit PDS Data
                                                     </button>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
-                                                    <button type="button" class="btn btn-rounded btn-sm btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/my/security'">
+                                                    <button type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/my/security'">
                                                         Edit Password
                                                     </button>
                                                 </div>
