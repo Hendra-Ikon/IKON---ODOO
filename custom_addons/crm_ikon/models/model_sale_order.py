@@ -50,7 +50,7 @@ class CrmSaleOrder(models.Model):
     period_start = fields.Date(string="Period Start")
     period_end = fields.Date(string='Period End')
     year = fields.Selection(YEAR_SELECTION, string='Year', default=str(YEARS))
-
+    reference_quot_number = fields.Char(string="Reference Quotation Number")
     # @api.onchange('id')
     # def get_period_selection(self):
     #     if self.product_id:
