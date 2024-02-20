@@ -33,6 +33,7 @@
         'web.assets_frontend': [
             '/ikon_recruitment/static/src/scss/my_profile.css',
             '/ikon_recruitment/static/src/js/notification_message.js',
+            '/ikon_recruitment/static/src/css/popup.css',
         ],
 
     },

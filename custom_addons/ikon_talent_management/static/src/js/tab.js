@@ -45,10 +45,10 @@ $(document).ready(function() {
         case "#confirm":
             console.log("confirm")
             button.click()
-            resetUrl('/my/profile');
+            setTimeout(function() {
+                window.location.href = '/my/profile';
+            }, 2000); // 2000 milliseconds = 2 seconds
             break;
-
-        // Add more cases for other tabs as needed
     }
 
     function showTab(tabId) {
