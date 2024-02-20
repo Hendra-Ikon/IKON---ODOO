@@ -59,7 +59,6 @@
         # ],
         'ikon_talent_management.report_assets_common': [
             "ikon_talent_management/static/src/css/cv_pdf.css",
-             "ikon_talent_management/static/src/css/popup.css",
   
         ]
     },

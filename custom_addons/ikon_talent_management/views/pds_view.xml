@@ -30,33 +30,41 @@
             <strong>Success!</strong>
             Data has been updated succesfully.
         </div>
-        <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
+        <!-- <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button> -->
 
         <!-- Modal -->
-        <div id="success_tic" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+        <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                <a class="close" href="#" data-dismiss="modal"></a>
-                <div class="page-body">
-                <div class="head">  
-                <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
-                <h4>Lorem ipsum dolor sit amet</h4>
-                </div>
+<!-- Modal -->
+<div id="success_tic" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-            <h1 style="text-align:center;">
-                <div class="checkmark-circle">
-            <div class="background"></div>
-            <div class="checkmark draw"></div>
-            </div>
-        </h1>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <a class="close" href="#" data-dismiss="modal"></a>
+      <div class="page-body">
+    <div class="head">  
+      <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
+      <h4>Lorem ipsum dolor sit amet</h4>
+    </div>
 
-            </div>
-            </div>
-                </div>
+  <div style="text-align:center;">
+        <div class="checkmark-circle">
+    <div class="background">
 
-        </div>
+    </div>
+    <div class="checkmark draw">
+        
+    </div>
+    </div>
+</div>
+
+  </div>
+</div>
+    </div>
+
+  </div>
+
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
             // After 2 seconds, hide the notification
@@ -74,30 +82,31 @@
   
         <button id="buttonclick" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
 
+<!-- Modal -->
+<div id="success_tic" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <a class="close" href="#" data-dismiss="modal"></a>
+        <div class="page-body">
+      <div class="head">  
+        <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
+      </div>
+  
+    <h1 style="text-align:center;"><div class="checkmark-circle">
+    <div class="background"></div>
+    <div class="checkmark draw"></div>
+  </div></h1>
+  
+    </div>
+  </div>
+      </div>
+  
+    </div>
+  
         <!-- Modal -->
-        <div id="success_tic" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                <a class="close" href="#" data-dismiss="modal"></a>
-                <div class="page-body">
-                <div class="head">  
-                <h3 style="margin-top:5px;">PDS Submit Successfuly </h3>
-                </div>
-
-            <h1 style="text-align:center;">
-                <div class="checkmark-circle">
-            <div class="background"></div>
-            <div class="checkmark draw"></div>
-            </div>
-        </h1>
-
-            </div>
-            </div>
-                </div>
-
-        </div>
+      
 
     </template>
 
@@ -105,7 +114,7 @@
     <template id="new_template">
        
         <link rel="stylesheet" type="text/css"
-        href="/ikon_talent_management/static/src/css/popup.css"/>
+        href="/ikon_recruitment/static/src/css/popup.css"/>
         
         <link
         rel="stylesheet"
@@ -118,6 +127,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous"></link>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xwIzINPMyM9W3Pds1LAdpYkZU8SB2z8kHiMPsZaNTvBYHvZQyyjQfnm+YEMj2Jf5eydPbLCsfATJRrBd/1n9+gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <div class="container" t-attf-style="margin-top: 10px;">
             <!-- <t t-call="ikon_talent_management.success_notif"/> -->
             <t t-call="ikon_talent_management.success_modal"/>
