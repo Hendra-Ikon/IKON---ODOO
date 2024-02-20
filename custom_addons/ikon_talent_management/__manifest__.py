@@ -35,6 +35,10 @@
     "assets": {
         "web.assets_frontend": [
             "ikon_talent_management/static/src/js/pds.js",
+             "ikon_talent_management/static/src/js/tab.js",
+        ],
+         "web.assets_frontend_min": [
+            "ikon_talent_management/static/src/css/popup.scss",
         ],
         "web.assets_backend": [
             # "ikon_talent_management/static/src/js/pds.js",
@@ -55,6 +59,8 @@
         # ],
         'ikon_talent_management.report_assets_common': [
             "ikon_talent_management/static/src/css/cv_pdf.css",
+             "ikon_talent_management/static/src/css/popup.css",
+  
         ]
     },
     # 'js': [

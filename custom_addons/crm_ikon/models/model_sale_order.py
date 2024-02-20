@@ -4,22 +4,28 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Command
 logger = logging.getLogger(__name__)
 from itertools import groupby
+from datetime import datetime
+import re
 
+YEARS = datetime.now().year
 MONTH_SELECTION = [
-        ('01', 'January'),
-        ('02', 'February'),
-        ('03', 'March'),
-        ('04', 'April'),
-        ('05', 'May'),
-        ('06', 'June'),
-        ('07', 'July'),
-        ('08', 'August'),
-        ('09', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December'),
-    ]
+    ('01', f'January'),
+    ('02', f'February'),
+    ('03', f'March'),
+    ('04', f'April'),
+    ('05', f'May'),
+    ('06', f'June'),
+    ('07', f'July'),
+    ('08', f'August'),
+    ('09', f'September'),
+    ('10', f'October'),
+    ('11', f'November'),
+    ('12', f'December'),
+]
 
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 10, YEARS + 4)]
+
+    
 class CrmSaleOrder(models.Model):
     _inherit = "sale.order"
     
@@ -41,45 +47,28 @@ class CrmSaleOrder(models.Model):
         index='trigram',
         states={'draft': [('readonly', False)],'sale': [('readonly', False)]},
         default=lambda self: _('New'))
-    period = fields.Date(string="Period")
-    
-    
+    period_start = fields.Date(string="Period Start")
+    period_end = fields.Date(string='Period End')
+    year = fields.Selection(YEAR_SELECTION, string='Year', default=str(YEARS))
+
     # @api.onchange('id')
-    def get_period_selection(self):
-        if self.product_id:
-            return
+    # def get_period_selection(self):
+    #     if self.product_id:
+    #         return
 
-        logger.info("order_id", self.id)
-        # logger.info("order_id", id)
-        record_id = self.env.context.get('#id')
-        logger.info("record_id", record_id)
+    #     logger.info("order_id", self.id)
+    #     # logger.info("order_id", id)
+    #     record_id = self.env.context.get('#id')
+    #     logger.info("record_id", record_id)
 
 
-        periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
-        period_selection = []
-        for period in periods:
-            period_label = f"{period.period_start}-{period.period_end}"
-            period_selection.append((period_label, period_label))
-        return period_selection
+    #     periods = self.env['model.period'].search([('sale_order_id', '=', 35)])
+    #     period_selection = []
+    #     for period in periods:
+    #         period_label = f"{period.period_start}-{period.period_end}"
+    #         period_selection.append((period_label, period_label))
+    #     return period_selection
     
-    def add_period(self):
-        return {
-            "name": "Periods",
-            "type": "ir.actions.act_window",
-            "res_model": "model.period",
-            "view_mode": "tree,form",
-            "view_id": False,  # To let Odoo choose the most suitable view
-            'domain': [('sale_order_id', "=", self.id)],
-            "context": {
-                "default_sale_order_id": self.id,  # Set default values for fields
-                "form_view_ref": "crm_ikon.view_model_period_form",  # Use the correct XML ID
-                "default_period_start": "2023-01-01",
-                "default_period_end": "2023-01-31",
-                "create": True,  # Set to False to hide the 'Create' button
-                "edit": True,  # Set to True to show the 'Edit' button
-            },
-            "target": "save",  # Open the window in a modal dialog
-        }
     
     @api.constrains('name')
     def _check_duplicate_name(self):
@@ -103,7 +92,6 @@ class CrmSaleOrder(models.Model):
                 vals['name'] = value or _("New")
 
         return super().create(vals_list)
-        
     def generate_default_name(self):
         # Get the sale.order.sequence
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
@@ -132,6 +120,52 @@ class CrmSaleOrder(models.Model):
             return name
 
         return False
+        
+    # def generate_default_name(self):
+    #     # Get the sale.order.sequence
+    #     sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')], limit=1)
+
+    #     seq = self.env['setting.seq.custom'].sudo().search([('ref', '=', 'Quo')])
+
+    #     if seq:
+    #         formatted_data_str = seq.format_quo
+
+    #         matches = re.findall(r"(@[A-Z]+): '([^']+)'", formatted_data_str)
+
+    #         result_array = []
+
+    #         for match in matches:
+    #             key, value = match
+
+    #             if key == '@SEQ':
+    #                 sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'sale.order')],limit=1)
+    #                 if sequence:
+    #                     value = sequence.next_by_id()[-3:]
+    #             elif key == '@MONTH':
+    #                 value = fields.Date.today().month
+    #             elif key == '@YEAR':
+    #                 value = fields.Date.today().year
+
+    #             result_array.append({'key': key, 'value': value})
+    #         name = ''
+
+    #         for item in result_array:
+    #             key = item['key']
+    #             value = item['value']
+
+    #             if key == '@SEQ':
+    #                 # Tambahkan nilai dari @SEQ
+    #                 name += f"{value}/"
+    #             else:
+    #                 # Tambahkan nilai dari key dan value
+    #                 name += f"{value}/"
+
+    #         # Hapus trailing '/' jika ada
+    #         name = name.rstrip('/')
+
+    #         return name
+
+    #     return False
     
     def _get_mail_template(self):
         """
@@ -250,6 +284,7 @@ class CrmSaleOrder(models.Model):
                     ),
                 )
                 invoice_item_sequence += 1
+            logger.info("invoice_line_vals",invoice_line_vals)
 
             invoice_vals['invoice_line_ids'] += invoice_line_vals
             invoice_vals_list.append(invoice_vals)
@@ -365,38 +400,17 @@ class CrmSaleOrder(models.Model):
             'po_no': self.po_no,
             'po_date': self.po_date,
             'payment_for': self.payment_for,
-            'period': self.period,
             'payment_for_service': self.payment_for_service,
             'spv': self.spv.id,
             'spk_no': self.spk_no,
             'month': self.month,
+            'year': self.year,
             'attention': self.attention,
+            'period_start': self.period_start,
+            'period_end': self.period_end,
+            'agreement_no': self.agreement_no,
 
         }
-
-    
-    # @api.depends('order_line.price_subtotal', 'order_line.price_tax', 'order_line.price_total')
-    # def _compute_amounts(self):
-    #     """Compute the total amounts of the SO."""
-    #     for order in self:
-    #         logger.info("order",order)
-    #         order_lines = order.order_line.filtered(lambda x: not x.display_type)
-
-    #         if order.company_id.tax_calculation_rounding_method == 'round_globally':
-    #             tax_results = self.env['account.tax']._compute_taxes([
-    #                 line._convert_to_tax_base_line_dict()
-    #                 for line in order_lines
-    #             ])
-    #             totals = tax_results['totals']
-    #             amount_untaxed = totals.get(order.currency_id, {}).get('amount_untaxed', 0.0)
-    #             amount_tax = totals.get(order.currency_id, {}).get('amount_tax', 0.0)
-    #         else:
-    #             amount_untaxed = sum(order_lines.mapped('price_subtotal'))
-    #             amount_tax = sum(order_lines.mapped('price_tax'))
-
-    #         order.amount_untaxed = amount_untaxed
-    #         order.amount_tax = amount_tax
-    #         order.amount_total = order.amount_untaxed + order.amount_tax
 
 
 

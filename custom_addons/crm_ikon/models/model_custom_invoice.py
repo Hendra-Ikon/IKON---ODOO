@@ -3,6 +3,7 @@ import logging
 from odoo.exceptions import UserError
 from odoo.tools import float_is_zero
 import time
+from odoo.fields import Command
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ class CustomInvoiceLayout(models.TransientModel):
                                    readonly=False,
                                    help="Base layout selection field inside "
                                         "document layout model")
-    
+   
     # document_layout_id = fields.Many2one(
     #     related='company_id.document_layout_id', readonly=False,
     #     help="custom document layouts")
@@ -45,22 +46,37 @@ class CustomInvoiceLayout(models.TransientModel):
             # Create down payment section if necessary
             if not any(line.display_type and line.is_downpayment for line in order.order_line):
                 self.env['sale.order.line'].create(
-                    self._prepare_down_payment_section_values(order)
+                    self._prepare_down_payment_section_values(order, self.advance_payment_method)
                 )
+
+            
+                
             
             if self.advance_payment_method == 'monthly':
                 for i in range(1, int(self.monthly_payment_duration) + 1):
-                        month = i
-                        down_payment_so_line = self.env['sale.order.line'].create(
+                    month = i
+                    down_payment_so_line = self.env['sale.order.line'].create(
                         self._prepare_so_line_values(order, month)
                     ) 
-                        invoice_values = self._prepare_invoice_values(order, down_payment_so_line, month)
-                        invoice = self.env['account.move'].sudo().create(invoice_values).with_user(self.env.uid) 
-                
-                return invoice.message_post_with_view(
-                        'mail.message_origin_link',
-                        values={'self': invoice, 'origin': order},
-                        subtype_id=self.env.ref('mail.mt_note').id)
+                    # Set is_downpayment to False
+                    down_payment_so_line.write({'is_downpayment': False})
+
+                    term_payments_line = {
+                        'name': 'Term Payments',
+                        'quantity': 1.0,
+                        'price_unit': 0,
+                        'display_type': 'line_section',
+                    }
+                    
+
+                    invoice_values = self._prepare_invoice_values(order, down_payment_so_line, month)
+                    invoice_values['invoice_line_ids'].insert(0, Command.create(term_payments_line))
+    
+                    logger.info('1',invoice_values)
+                    invoice = self.env['account.move'].sudo().create(invoice_values).with_user(self.env.uid)
+                    
+                  
+
             else:
                 down_payment_so_line = self.env['sale.order.line'].create(
                 self._prepare_so_line_values(order, month=0)
@@ -70,11 +86,44 @@ class CustomInvoiceLayout(models.TransientModel):
                     self._prepare_invoice_values(order, down_payment_so_line, month=0)
                 ).with_user(self.env.uid)  # Unsudo the invoice after creation
 
-                invoice.message_post_with_view(
+        invoice.message_post_with_view(
                     'mail.message_origin_link',
                     values={'self': invoice, 'origin': order},
                     subtype_id=self.env.ref('mail.mt_note').id)
+        
         return invoice
+    
+    def _prepare_down_payment_section_values(self, order, monthly):
+        context = {'lang': order.partner_id.lang}
+        if monthly:
+            name = 'Term Payments'
+            term = False
+        else:
+            name = _('Down Payments')
+            term = True
+        so_values = {
+            'name': name,
+            'product_uom_qty': 0.0,
+            'order_id': order.id,
+            'display_type': 'line_section',
+            'is_downpayment': term,
+            'sequence': order.order_line and order.order_line[-1].sequence + 1 or 10,
+        }
+
+        del context
+        return so_values
+    
+    def _prepare_down_payment_section_values1(self, order, monthly):
+        context = {'lang': order.partner_id.lang}
+        so_values = {
+            'name': 'Term Payments',
+                    'quantity': 1.0,
+                    'price_unit': 0,
+                    'display_type': 'line_section',
+        }
+
+        del context
+        return so_values
         
     
             
@@ -92,10 +141,9 @@ class CustomInvoiceLayout(models.TransientModel):
         context = {'lang': order.partner_id.lang}
         if month != 0:
             name = _('Monthly Payment %s: %s') % (int(month), time.strftime('%m %Y'))
-            logger.info("1")
         else:
             name = _('Down Payment: %s ', time.strftime('%m %Y'))
-            logger.info("2")
+
         so_values = {
             'name': name,
             'price_unit': self._get_down_payment_amount(order),
@@ -105,6 +153,38 @@ class CustomInvoiceLayout(models.TransientModel):
             'product_id': self.product_id.id,
             'analytic_distribution': analytic_distribution,
             'is_downpayment': True,
+            'sequence': order.order_line and order.order_line[-1].sequence + 1 or 10,
+        }
+        del context
+        return so_values
+    
+    def _prepare_move_line_values(self, order, month):
+        self.ensure_one()
+        analytic_distribution = {}
+        amount_total = sum(order.order_line.mapped("price_total"))
+        if not float_is_zero(amount_total, precision_rounding=self.currency_id.rounding):
+            for line in order.order_line:
+                distrib_dict = line.analytic_distribution or {}
+                for account, distribution in distrib_dict.items():
+                    analytic_distribution[account] = distribution * line.price_total + analytic_distribution.get(account, 0)
+            for account, distribution_amount in analytic_distribution.items():
+                analytic_distribution[account] = distribution_amount/amount_total
+        context = {'lang': order.partner_id.lang}
+        if month != 0:
+            name = _('Monthly Payment %s: %s') % (int(month), time.strftime('%m %Y'))
+            
+        else:
+            name = _('Down Payment: %s ', time.strftime('%m %Y'))
+
+        so_values = {
+            'name': name,
+            'price_unit': 0,
+            # 'product_uom_qty': 0.0,
+            # 'order_id': order.id,
+            'discount': 0.0,
+            'product_id': self.product_id.id,
+            'analytic_distribution': analytic_distribution,
+            'is_downpayment': False,
             'sequence': order.order_line and order.order_line[-1].sequence + 1 or 10,
         }
         del context

@@ -8,8 +8,27 @@
             <field name="arch" type="xml">
                     <xpath expr="//div[@class='o_kanban_record_headings']" position="after">
                        <span class='text-muted small' >
-                        Matched Skill <field name="result"/><br/>
-                        <field name="source_id"/>
+                        <p t-if="result">Matched Skill <field name="result"/><br/></p>
+                        <p t-else=""></p>
+                        <p t-if="source_id">
+                            <field name="source_id"/>
+                        </p>
+                        <p t-else=""></p>
+                      
+                     
+                        <field name="stage_name" invisible="1"/>
+                        <!-- <field name="result"/>
+                        <field name="source_id"/> -->
+                        <field name="pds_percentage" invisible="1"/>
+                            <span  attrs="{'invisible': [('stage_name', '!=', 'PDS Submission')]}" class="oe_stat_text">
+                                <span attrs="{'invisible': [('pds_percentage', '&lt;', 70)]}">
+                                    PDS Filled
+                                </span>
+                                
+                            </span>
+                        
+                      
+                        
                        </span> 
                     </xpath>
             
