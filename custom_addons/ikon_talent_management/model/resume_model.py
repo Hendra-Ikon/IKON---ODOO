@@ -16,6 +16,8 @@ class ResumeModel(models.Model):
     resume_sys_used = fields.Text(string="System Technology Used")
     resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
     company_image = fields.Image(string="Company Image")
+
+
     # resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
     # resume_tech_used_backend = fields.Many2many('custom.backend.tag', "resume_backend_tag_rel", string='Backend Technology Used')
     # resume_tech_used_database = fields.Many2many('custom.database.tag', "resume_database_tag_rel", string='Database Technology Used')
