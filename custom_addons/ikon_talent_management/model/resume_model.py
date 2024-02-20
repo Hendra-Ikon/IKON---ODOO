@@ -12,12 +12,8 @@ class ResumeModel(models.Model):
     rsm_com_name = fields.Char(string="Company Name",)
     rsm_com_job_title = fields.Char(string="Job Title in Company")
     rsm_com_projectDes = fields.Char(string="Project Description")
-    resume_tech_used_frontend = fields.Text(string="Frontend Technology Used")
-    resume_tech_used_backend = fields.Text(string="Backend Technology Used")
-    resume_tech_used_database = fields.Text(string="Database Technology Used")
-    resume_sys_int_appl = fields.Text(string="Sys Int Application")
-    resume_sys_int_middleware = fields.Text(string="Sys Int middleware")
-    resume_sys_int_email_notif = fields.Text(string="Sys Int Email Notif")
+    resume_tech_used = fields.Text(string="Frontend Technology Used")
+    resume_sys_used = fields.Text(string="System Technology Used")
     resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
     company_image = fields.Image(string="Company Image")
     # resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
@@ -30,10 +26,10 @@ class ResumeModel(models.Model):
     fr_test = fields.Char(string="Frontend Used", compute="_compute_frontend_tech")
 
 
-    @api.depends("resume_tech_used_frontend")
+    @api.depends("resume_tech_used")
     def _compute_frontend_tech(self):
         for resume in self:
-            tech_used_frontend_names = [tag.name for tag in resume.resume_tech_used_frontend]
+            tech_used_frontend_names = [tag.name for tag in resume.resume_tech_used]
             resume.fr_test = ', '.join(tech_used_frontend_names)
 
 

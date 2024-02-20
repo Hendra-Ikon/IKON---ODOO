@@ -4,8 +4,8 @@
        <field name="name">IKON CV</field>
        <field name="model">hr.applicant</field>
        <field name="report_type">qweb-pdf</field>
-       <field name="report_name">ikon_talent_management.custom_cv_template</field>
-       <field name="report_file">ikon_talent_management.custom_cv_template</field>
+       <field name="report_name">ikon_talent_management.test1</field>
+       <field name="report_file">ikon_talent_management.test1</field>
        <field name="print_report_name">'CV Ikon - %s' % (object.name)</field>
        <field name="binding_model_id" ref="model_hr_applicant"/>
        <field name="binding_type">report</field>
