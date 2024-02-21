@@ -463,12 +463,10 @@ class PDSController(http.Controller):
         applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
         job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
         recruiter = request.env['res.users'].sudo().browse(job.user_id.id)
-        menu_id= request.env['ir.ui.menu'].sudo().search([('name','ilike','Recruitment')])
-        parent_path = menu_id.parent_path 
-        menu_id_value = int(parent_path.split('/')[0])
-        
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+
         try:
-            link_to_pds_data = f'https://backofficedev.ikonsultan.co.id/web#model=hr.job&view_type=kanban&menu_id={menu_id_value}'
+            link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
             mail_template.send_mail(
                 recruiter.id,
