@@ -184,6 +184,7 @@ class HrApplEdu(models.Model):
     _name = 'custom.edu'
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_edu_inst_name = fields.Char(string="Institution name")
     pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
     pds_edu_major = fields.Char(string="Major")
@@ -197,6 +198,7 @@ class HrApplCertif(models.Model):
 
     # Certification
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_cert_name = fields.Char(string="Certification name", required=False)
     pds_cert_provider = fields.Char(string="Provider", required=False)
     pds_cert_issued_year = fields.Date(string='Issued year', required=False)
@@ -206,6 +208,7 @@ class HrApplNonFormalEdu(models.Model):
     _name = "custom.nonformaledu"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_course_name = fields.Char(string="Course name")
     pds_course_provider = fields.Char(string="Provider")
     pds_course_issued_year = fields.Date(string='Issued year')
@@ -215,6 +218,7 @@ class HrApplLanguageProf(models.Model):
     _name = "custom.language.prof"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_lang_name = fields.Char(string="Language name")
     pds_ability = fields.Selection(ABILITY_AREA, string="Ability area")
     pds_lang_percen = fields.Selection(LANGUAGE_LEVEL, string="Level", default='1')
@@ -224,6 +228,7 @@ class HrApplWorkExperience(models.Model):
     _name = "custom.work.experience"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_workex_company_name = fields.Char(string="Company name", help='Company name')
     pds_workex_lob = fields.Char(string="Line of bussiness", help="Line of bussiness")
     pds_workex_last_pos = fields.Char(string="Last Position", help="Last Position")
@@ -237,6 +242,7 @@ class HrApplExpectedSalary(models.Model):
     _name = "custom.expected.salary"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_expected_salary = fields.Char(string="Expected Salary", help="Expected Salary", default="0")
     pds_expected_benefit = fields.Char(string="Expected Benefit", help="Expected Benefit",
                                        default="Your expected benefit")

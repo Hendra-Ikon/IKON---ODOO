@@ -14,7 +14,7 @@
                         <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
 
 
-                            <field name="employee_resume" widget="custom_one2many_resume">
+                            <field name="employee_resumes" widget="custom_one2many_resume">
                                 <tree>
                                     <field name="rsm_com_name"/>
                                     <field name="rsm_com_job_title"/>

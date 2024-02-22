@@ -120,8 +120,8 @@
                             <div name="education_type"
                                  style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
 
-                                <t t-if="docs.pds_education != False">
-                                    <ul t-foreach="data['pds_education']" t-as="education"
+                                <t t-if="docs.empl_pds_education != False">
+                                    <ul t-foreach="data['empl_pds_education']" t-as="education"
                                         t-key="education">
                                         <li>
                                             <span t-field="education.pds_edu_level"/>
@@ -150,8 +150,8 @@
                             <div name="education_type"
                                  style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
 
-                                <t t-if="docs.pds_education != False">
-                                    <ul t-foreach="data['pds_education']" t-as="education"
+                                <t t-if="docs.empl_pds_education != False">
+                                    <ul t-foreach="data['empl_pds_education']" t-as="education"
                                         t-key="education">
                                         <li>
                                             <span t-field="education.pds_edu_level"/>
