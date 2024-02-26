@@ -181,39 +181,32 @@
                                     <field name="rsm_com_projectDes"/>
                                     <field name="resume_dateStart"/>
                                     <field name="resume_dateEnd"/>
-                                    <field name="resume_tech_used_frontend"/>
-                                    <field name="resume_tech_used_backend"/>
-                                    <field name="resume_tech_used_database"/>
-                                    <field name="resume_sys_int_appl"/>
-                                    <field name="resume_sys_int_middleware"/>
-                                    <field name="resume_sys_int_email_notif"/>
-<!--                                    <field name="fr_test"/>-->
+                                    <field name="resume_tech_used"/>
+                                    <field name="resume_sys_used"/>
+
+                                    <!--                                    <field name="fr_test"/>-->
                                     <field name="company_image"/>
 
                                 </tree>
                                 <form>
                                     <group>
-                                    <group>
-                                        <field name="resume_dateStart"/>-->
-                                        <field name="resume_dateEnd"/>
-                                        <field name="company_image"/>
-                                    </group>
-                                    <group>
-                                        <field name="rsm_com_name"/>
-                                        <field name="rsm_com_job_title"/>
-                                        <field name="rsm_com_projectDes"/>
-                                    </group>
-                                    <group>
-                                        <field name="resume_tech_used_backend" />
-                                        <field name="resume_tech_used_frontend"/>
-                                        <field name="resume_tech_used_database" />
-                                        <field name="resume_tech_used_certificate" />
-                                    </group>
-                                    <group>
-                                        <field name="resume_sys_int_appl" />
-                                        <field name="resume_sys_int_middleware" />
-                                        <field name="resume_sys_int_email_notif" />
-                                    </group>
+                                        <group>
+                                            <field name="resume_dateStart"/>-->
+                                            <field name="resume_dateEnd"/>
+                                            <field name="company_image"/>
+                                        </group>
+                                        <group>
+                                            <field name="rsm_com_name"/>
+                                            <field name="rsm_com_job_title"/>
+                                            <field name="rsm_com_projectDes"/>
+                                        </group>
+                                        <group>
+                                            <field name="resume_tech_used"/>
+
+                                        </group>
+                                        <group>
+                                            <field name="resume_sys_used"/>
+                                        </group>
                                     </group>
                                 </form>
                             </field>
