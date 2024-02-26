@@ -787,7 +787,7 @@
                         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                             View
                           </button> -->
-                          <t>
+                          <t t-if="pds_family['pds_family_type'] == 'Family'">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#familyModal">
                                 View
                               </button>
@@ -872,7 +872,7 @@
     <template id="pds_dependenciesInfo_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; ">
-            <form id="custom_family_form" action="/create_family_info" method="post"
+            <form id="custom_depedencies_form" action="/create_dependencies_info" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
                   data-mark="*" data-model_name="custom.family.information"
                   data-success-mode="redirect" data-success-page="/jobs"
@@ -946,10 +946,7 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
-                          <t>
+                          <t t-if="pds_family['pds_family_type'] == 'Dependencies'">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#dependenciesInfoModal">
                                 View
                               </button>
@@ -1006,7 +1003,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-sm btn-danger"
-                                                           t-att-href="'/delete_familyInfo/' + str(family['id'])">Delete
+                                                           t-att-href="'/delete_depenInfo/' + str(family['id'])">Delete
                                                         </a>
                                                     </td>
                                                 </t>
@@ -1074,9 +1071,7 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
+
                           <t t-if="pds_data['pds_certifications'] ">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#certificationsModal">
                                 View
@@ -1923,10 +1918,7 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
-                          <t>
+                          <t t-if="pds_emc">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#emcContactModal">
                                 View
                               </button>
@@ -2060,7 +2052,7 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                          <t>
+                          <t t-if="pds_oa">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#oaModal">
                                 View
                               </button>
@@ -2319,9 +2311,9 @@
                 <div class="clearfix">
                     <button type="submit"
                             class="btn btn-primary float-end mb32 ">
-                        Add
+                        Submit
                     </button>
-                      <t>
+                      <t t-if="pds_data['pds_work_exp']">
                         <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#workModal">
                             View
                           </button>

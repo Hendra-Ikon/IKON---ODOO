@@ -61,7 +61,10 @@ class PDSController(http.Controller):
                     
                 })
 
+        if kwargs.get("pds_fi_bank"):
+            return request.redirect('/pds/data#financial')
 
+        
         data = {}
         if pds_data:
             data = {
@@ -222,7 +225,7 @@ class PDSController(http.Controller):
             'pds_cert_provider': kwargs.get('pds_cert_provider'),
             'pds_cert_issued_year': kwargs.get('pds_cert_issued_year'),
         })
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#language')
     
     # delete route
 
@@ -231,7 +234,7 @@ class PDSController(http.Controller):
     def remove_cert(self, cert_id):
         cert_record = request.env['custom.certif'].browse(cert_id)
         cert_record.unlink()
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#language')
 
     @http.route("/delete_edu/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
                 csrf=False)
@@ -245,7 +248,7 @@ class PDSController(http.Controller):
     def delete_nonfromedu(self, edu_id):
         nonedu_record = request.env['custom.nonformaledu'].browse(edu_id)
         nonedu_record.unlink()
-        return request.redirect('/pds/data#education')
+        return request.redirect('/pds/data#language')
 
     @http.route("/delete_language/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
                 csrf=False)
@@ -259,7 +262,7 @@ class PDSController(http.Controller):
     def delete_work(self, edu_id):
         work_record = request.env['custom.work.experience'].browse(edu_id)
         work_record.unlink()
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#work')
 
     @http.route("/delete_exp/<int:edu_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
                 csrf=False)
@@ -287,7 +290,14 @@ class PDSController(http.Controller):
     def delete_family(self, health_id):
         family_record = request.env['custom.family.information'].browse(health_id)
         family_record.unlink()
-        return request.redirect('/pds/data#medical')
+        return request.redirect('/pds/data')
+    
+    @http.route("/delete_depenInfo/<int:health_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
+                csrf=False)
+    def delete_depend(self, health_id):
+        family_record = request.env['custom.family.information'].browse(health_id)
+        family_record.unlink()
+        return request.redirect('/pds/data#education')
     
     @http.route("/delete_emcContact/<int:emc_id>", methods=['POST', 'GET'], type='http', auth='user', website=True,
                 csrf=False)
@@ -338,7 +348,7 @@ class PDSController(http.Controller):
             
                     
 
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#language')
 
     @http.route("/create_edu", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_edu(self, **kwargs):
@@ -395,7 +405,7 @@ class PDSController(http.Controller):
                     
             except Exception as e:
                 print(f'Error Non Formal Education {e}')
-        return request.redirect('/pds/data#education')
+        return request.redirect('/pds/data#language')
 
     @http.route("/create_langprof", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_langprof(self, **kwargs):
@@ -447,7 +457,7 @@ class PDSController(http.Controller):
 
             except Exception as e:
                 print(f'Error Working Exp {e}')
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#work')
 
     @http.route("/create_expected_salary", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_expected_salary(self, **kwargs):
@@ -566,8 +576,37 @@ class PDSController(http.Controller):
                 print(f'Error Working Exp {e}')
         return request.redirect('/pds/data')
 
+    @http.route("/create_dependencies_info", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_depen(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+        Data = request.env['custom.family.information'].search([])
+        if request.httprequest.method == 'POST':
+            try:
+                for applicant in applicant_to_update:
+                    pds_check = request.env['custom.family.information'].search([('applicant_id','=',applicant.id)], limit=1)
+                    if pds_check:
+                        pass
+                    else:
+                        applicant_to_update.write({
+                            'pds_fill': applicant.pds_fill + 1
+                        })
+                    Data.create({
+                        'applicant_id': applicant.id,
+                        'pds_family_desc': kwargs.get("pds_family_desc"),
+                        'pds_family_name': kwargs.get("pds_family_name"),
+                        'pds_family_sex': kwargs.get("pds_family_sex"),
+                        'pds_family_age': kwargs.get("pds_family_age"),
+                        'pds_family_education': kwargs.get("pds_family_education"),
+                        'pds_family_company_position': kwargs.get("pds_family_company_position"),
+                        'pds_family_type': kwargs.get("pds_family_type"),
+                    })
+            except Exception as e:
+                print(f'Error Working Exp {e}')
+        return request.redirect('/pds/data#education')
+
     @http.route("/create_emc_contact", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
-    def create_fam(self, **kwargs):
+    def create_emc(self, **kwargs):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         data = request.env['custom.emergency.contact'].search([])
@@ -590,10 +629,10 @@ class PDSController(http.Controller):
                     })
             except Exception as e:
                 print(f'Error Working Exp {e}')
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#medical')
 
     @http.route("/create_oa", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
-    def create_fam(self, **kwargs):
+    def create_oa(self, **kwargs):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         data = request.env['custom.other.activity'].search([])
@@ -616,7 +655,7 @@ class PDSController(http.Controller):
                     })
             except Exception as e:
                 print(f'Error Working Exp {e}')
-        return request.redirect('/pds/data')
+        return request.redirect('/pds/data#medical')
 
    
 
