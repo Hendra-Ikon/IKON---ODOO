@@ -2,6 +2,8 @@ from datetime import datetime
 
 from odoo import fields, models, api
 from odoo.http import request
+YEARS = datetime.now().year
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 20)]
 
 RELIGION = [
     ('select', 'CLICK TO SELECT'),
@@ -31,7 +33,7 @@ ABILITY_AREA = [
 SEX = [
     ('select', 'CLICK TO SELECT'),
     ('male', 'MALE'),
-    ('female', 'Married'),
+    ('female', 'FAMALE'),
 ]
 
 LEVELDEGREE = [
@@ -72,6 +74,14 @@ class PDSData(models.Model):
     pds_sex = fields.Selection(SEX, string="Sex", )
     height_value = fields.Integer(string="Height Value")
 
+    pds_fi_bank = fields.Char(string="Bank Name")
+    pds_fi_bank_no = fields.Char(string="Bank Account")
+    pds_fi_holder_name =  fields.Char(string="Account Holder Name" )
+    pds_fi_npwp_number = fields.Char(string="Tax No (NPWP)")
+    pds_fi_npwp_name = fields.Char(string="NPWP Name")
+    pds_fi_npwp_address = fields.Char(string="NPWP Address")
+    pds_fi_ptkp = fields.Char(string="PTKP")
+
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
@@ -81,6 +91,10 @@ class PDSData(models.Model):
     pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
     pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
     pds_resume = fields.One2many('custom.resume.experience', 'applicant_id', string='Resume')
+    pds_family = fields.One2many('custom.family.information', 'applicant_id', string='Family Information')
+    pds_emCont = fields.One2many('custom.emergency.contact', 'applicant_id', string='Emergency Contact')
+    pds_oac = fields.One2many('custom.other.activity', 'applicant_id', string='Other Activity')
+
     summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
@@ -203,3 +217,47 @@ class HrApplHealth(models.Model):
     pds_health_type = fields.Char(string="Type")
     pds_health_hospital = fields.Char(string="Hospital name")
     pds_health_year = fields.Date(string="Year")
+
+
+class HrApplFamily(models.Model):
+    _name = "custom.family.information"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_family_desc = fields.Char(string="Family Description")
+    pds_family_name = fields.Char(string="Name")
+    pds_family_sex =  fields.Selection(SEX, string="Sex" )
+    pds_family_age = fields.Char(string="Age")
+    pds_family_education = fields.Char(string="Education")
+    pds_family_company_position= fields.Char(string="Occupation (Company & Position)")
+    pds_family_type= fields.Char(string="type")
+
+class HrApplEmerContact(models.Model):
+    _name = "custom.emergency.contact"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_emercon_name = fields.Char(string="Name")
+    pds_emercon_address = fields.Char(string="Address")
+    pds_emercon_phone =  fields.Char(string="Phone" )
+    pds_emercon_relationship = fields.Char(string="Relationship")
+
+class HrApplOtherAct(models.Model):
+    _name = "custom.other.activity"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_oc_name = fields.Char(string="Organization Name")
+    pds_oc_type = fields.Char(string="Activity Type")
+    pds_oc_year = fields.Char(string="Year")
+    pds_oc_position = fields.Char(string="Position")
+ 
+# class HrApplFinanCialInfo(models.Model):
+#     _name = "custom.financial.information"
+
+#     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+#     pds_fi_bank = fields.Char(string="Bank Name")
+#     pds_fi_bank_no = fields.Char(string="Bank Account")
+#     pds_fi_holder_name =  fields.Char(string="Account Holder Name" )
+#     pds_fi_npwp_number = fields.Char(string="Tax No (NPWP)")
+#     pds_fi_npwp_name = fields.Char(string="NPWP Name")
+#     pds_fi_npwp_address = fields.Char(string="NPWP Address")
+#     pds_fi_ptkp = fields.Char(string="PTKP")
+
