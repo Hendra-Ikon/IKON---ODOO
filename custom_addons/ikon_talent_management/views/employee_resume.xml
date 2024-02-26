@@ -8,6 +8,9 @@
             <xpath expr="//notebook//page[@name='public']" position="replace">
 <!--                <attribute name="invisible">1</attribute>-->
             </xpath>
+            <xpath expr="//form/sheet/group//group[2]" position="inside">
+                <field name="summary_experience"/>
+            </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Resumes">
                     <div class="row">

@@ -5,8 +5,6 @@ from odoo.http import request
 from odoo.exceptions import AccessError, UserError
 from odoo.tools.translate import _
 
-
-
 RELIGION = [
     ('select', 'CLICK TO SELECT'),
     ("islam", "ISLAM"),
@@ -58,6 +56,8 @@ class PDSData(models.Model):
     _inherit = "hr.applicant"
 
     _description = "Personal Data Sheet"
+
+    partner_id = fields.Many2one('res.partner', "Contact", copy=False)
 
     # Personal Records
     pds_fullname = fields.Char(string="Nama")
@@ -142,41 +142,74 @@ class PDSData(models.Model):
         self._check_interviewer_access()
 
         contact_name = False
+        # contact_id = self.env["res_partner"].
         if self.partner_id:
-            self.partner_id.unlink()
             address_id = self.partner_id.address_get(['contact'])['contact']
             contact_name = self.partner_id.display_name
-        else:
-            if not self.partner_name:
-                raise UserError(_('You must define a Contact Name for this applicant.'))
-            new_partner_id = self.env['res.partner'].create({
-                'is_company': False,
-                'type': 'private',
-                'name': self.partner_name,
-                'email': self.email_from,
-                'phone': self.partner_phone,
-                'mobile': self.partner_mobile
-            })
-            self.partner_id = new_partner_id
-            address_id = new_partner_id.address_get(['contact'])['contact']
+
+
+        # employee_data = {
+        #     'default_name': self.partner_name or contact_name,
+        #     'default_job_id': self.job_id.id,
+        #     'default_job_title': self.job_id.name,
+        #     # 'default_address_home_id': address_id,
+        #     'default_department_id': self.department_id.id,
+        #     'default_address_id': self.company_id.partner_id.id,
+        #     # 'default_work_email': self.department_id.company_id.email or self.email_from,
+        #     'default_work_email': self.email_from,
+        #     # To have a valid email address by default
+        #     'default_work_phone': self.partner_phone or self.partner_mobile,
+        #     'form_view_initial_mode': 'edit',
+        #     'default_applicant_id': self.ids,
+        #     'default_summary_experience': self.summary_experience,
+        #     "employee_resumes": {
+        #         'employee_id': self.emp_id,
+        #         'resume_dateStart': self.pds_resume['resume_dateStart'],
+        #         'resume_dateEnd': self.pds_resume['resume_dateEnd'],
+        #         'rsm_com_name': self.pds_resume['rsm_com_name'],
+        #         'rsm_com_job_title': self.pds_resume['rsm_com_job_title'],
+        #         'rsm_com_projectDes': self.pds_resume['rsm_com_projectDes'],
+        #         'resume_tech_used': self.pds_resume['resume_tech_used'],
+        #         'resume_sys_used': self.pds_resume['resume_sys_used'],
+        #         'resume_tech_used_certificate': self.pds_resume['resume_tech_used_certificate'],
+        #         'company_image': self.pds_resume['company_image'],
+        #     }
+        #
+        # }
+
         employee_data = {
             'default_name': self.partner_name or contact_name,
             'default_job_id': self.job_id.id,
             'default_job_title': self.job_id.name,
-            'default_address_home_id': address_id,
             'default_department_id': self.department_id.id,
             'default_address_id': self.company_id.partner_id.id,
-            # 'default_work_email': self.department_id.company_id.email or self.email_from,
             'default_work_email': self.email_from,
-            # To have a valid email address by default
             'default_work_phone': self.partner_phone or self.partner_mobile,
             'form_view_initial_mode': 'edit',
             'default_applicant_id': self.ids,
-            'summary_experience': self.summary_experience,
-
+            'default_summary_experience': self.summary_experience,
+            'default_employee_resumes': [(0, 0, {
+                'employee_id': self.emp_id.id,
+                'resume_dateStart': experience.resume_dateStart,
+                'resume_dateEnd': experience.resume_dateEnd,
+                'rsm_com_name': experience.rsm_com_name,
+                'rsm_com_job_title': experience.rsm_com_job_title,
+                'rsm_com_projectDes': experience.rsm_com_projectDes,
+                'resume_tech_used': experience.resume_tech_used,
+                'resume_sys_used': experience.resume_sys_used,
+                'resume_tech_used_certificate': [(6, 0, experience.resume_tech_used_certificate.ids)],
+                'company_image': experience.company_image,
+            }) for experience in self.pds_resume],
         }
+
+        print(f" BEFORE / Employee ID: ", self.emp_id.id)
+
         dict_act_window = self.env['ir.actions.act_window']._for_xml_id('hr.open_view_employee_list')
+        print(f" MIDDLE / Employee ID: ", self.emp_id.id)
         dict_act_window['context'] = employee_data
+        print(f" LAST / Employee ID: ", self.emp_id.id)
+
+
         return dict_act_window
 
 
