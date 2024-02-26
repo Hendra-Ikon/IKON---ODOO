@@ -363,7 +363,7 @@ class PDSController(http.Controller):
         return request.render("ikon_talent_management.custom_pds_view", data)
 
     @http.route("/my/account", type='http', auth='user', website=True)
-    def my_profile(self):
+    def my_account(self):
         user = request.env.user
         user_avatar = user.image_1920
         applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
@@ -389,6 +389,53 @@ class PDSController(http.Controller):
                 'skill': applicant.custom_skill,
                 'fullname': applicant.pds_fullname,
                 
+            })
+            if user_stage is 0 and applicant.toggle_pds is not 0:
+                user_stage = applicant.toggle_pds
+
+        # Other profile data retrieval
+        uid = request.session.uid
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+        # Pass the data to the template
+        data = {
+            "user_data": user,
+            "user_avatar": user_avatar,
+            'employee_department': employment_status.department_id.name,
+            'employment_status': employment_status,
+            'applied_jobs': applied_jobs,
+            "user_stage": user_stage,
+        }
+        logger.info("data", data)
+
+        return request.render("ikon_recruitment.custom_profile_view", data)
+
+    @http.route("/my/profile", type='http', auth='user', website=True)
+    def my_profile(self):
+        user = request.env.user
+        user_avatar = user.image_1920
+        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+
+        for stage_check in stage_checks:
+            if stage_check.stage_id.name == "PDS Submission":
+                stage_check.write({'toggle_pds': 1})
+
+        user_stage = 0
+        applied_jobs = []
+        for applicant in applicants:
+            applied_jobs.append({
+                'job': applicant.job_id,
+                'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
+                "created": applicant.create_date,
+                'from_talent_universitas': applicant.from_talent_universitas,
+                'partner_phone': applicant.partner_phone,
+                'email_from': applicant.email_from,
+                'pds_currentAddress': applicant.pds_currentAddress,
+                'degree': applicant.type_id.name,
+                'summary_experience': applicant.summary_experience,
+                'skill': applicant.custom_skill,
+                'fullname': applicant.pds_fullname,
+
             })
             if user_stage is 0 and applicant.toggle_pds is not 0:
                 user_stage = applicant.toggle_pds
