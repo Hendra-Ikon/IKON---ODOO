@@ -133,30 +133,30 @@
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active"  id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
+                  <button class="nav-link active" style="display:none;"  id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link"  id="pills-family-tab" data-bs-toggle="pill" data-bs-target="#pills-family" type="button" role="tab" aria-controls="pills-family" aria-selected="true">Family Information</button>
+                    <button class="nav-link"  style="display:none;" id="pills-family-tab" data-bs-toggle="pill" data-bs-target="#pills-family" type="button" role="tab" aria-controls="pills-family" aria-selected="true">Family Information</button>
                   </li>
                   <!-- <li class="nav-item" role="presentation">
                     <button class="nav-link"  id="pills-dependenciesInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-dependenciesInfo" type="button" role="tab" aria-controls="pills-dependenciesInfo" aria-selected="true">Dependencies Information</button>
                   </li> -->
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link"  id="pills-work-tab" data-bs-toggle="pill" data-bs-target="#pills-work" type="button" role="tab" aria-controls="pills-work" aria-selected="false">Work Experience</button>
+                    <button class="nav-link" style="display:none;" id="pills-work-tab" data-bs-toggle="pill" data-bs-target="#pills-work" type="button" role="tab" aria-controls="pills-work" aria-selected="false">Work Experience</button>
                   </li>
                  
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link"  id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab" aria-controls="pills-education" aria-selected="false">Education</button>
+                  <button class="nav-link" style="display:none;" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab" aria-controls="pills-education" aria-selected="false">Education</button>
                 </li>
                 
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link"  id="pills-language-tab" data-bs-toggle="pill" data-bs-target="#pills-language" type="button" role="tab" aria-controls="pills-language" aria-selected="false">Language</button>
+                  <button class="nav-link" style="display:none;" id="pills-language-tab" data-bs-toggle="pill" data-bs-target="#pills-language" type="button" role="tab" aria-controls="pills-language" aria-selected="false">Language</button>
                 </li>
                 <!-- <li class="nav-item" role="presentation">
                     <button class="nav-link"  id="pills-medical_records-tab" data-bs-toggle="pill" data-bs-target="#pills-medical_records" type="button" role="tab" aria-controls="pills-medical_records" aria-selected="false">Medical Records</button>
                   </li> -->
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link"  id="pills-financial-tab" data-bs-toggle="pill" data-bs-target="#pills-financial" type="button" role="tab" aria-controls="pills-financial" aria-selected="false">Financial Information</button>
+                    <button class="nav-link" style="display:none;" id="pills-financial-tab" data-bs-toggle="pill" data-bs-target="#pills-financial" type="button" role="tab" aria-controls="pills-financial" aria-selected="false">Financial Information</button>
                   </li>
               </ul>
               <div class="tab-content" id="pills-tabContent">
