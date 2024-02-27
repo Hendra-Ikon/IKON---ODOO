@@ -191,7 +191,7 @@
                             <p id="myParagraph" style="color: black; font-weight: bold;"></p>
 
                             <div class="content-data">
-                                <t t-foreach="data['employee_resume']" t-as="resume">
+                                <t t-foreach="data['employee_resumes']" t-as="resume">
                                     <t t-if="resume['resume_tech_used'] or resume['resume_sys_used']">
 
 
@@ -306,17 +306,25 @@
                         var heightB = document.querySelector('.b');
                         var getheightB = heightB.offsetHeight;
                         var show = document.getElementById('myParagraph');
+                        var baseHeight = 1173;
 
-                        if(getheightB &lt; 1147 ) {
-                        heightA.style.height = '1147px';
-                        } else if (getheightB > 1147 &amp;&amp; getheightB &lt; 2294) {
-                        heightA.style.height = '2294px';
-                        } else if (getheightB > 2294 &amp;&amp; getheightB &lt; 3441) {
-                        heightA.style.height = '3441px';
-                        } else if (getheightB > 3441 &amp;&amp; getheightB &lt; 4588) {
-                        heightA.style.height = '4588px';
-                        } else if (getheightB > 4588 &amp;&amp; getheightB &lt; 5735) {
-                        heightA.style.height = '5735px';
+                        <!--                        if(getheightB &lt; baseHeight ) {-->
+                        <!--                        heightA.style.height = baseHeight + 'px';-->
+                        <!--                        } else if (getheightB > baseHeight &amp;&amp; getheightB &lt; (baseHeight * 2)) {-->
+                        <!--                        heightA.style.height = (baseHeight * 2) + 'px';-->
+                        <!--                        } else if (getheightB > (baseHeight * 2) &amp;&amp; getheightB &lt; (baseHeight * 3)) {-->
+                        <!--                        heightA.style.height = (baseHeight * 3) + 'px';-->
+                        <!--                        } else if (getheightB > (baseHeight * 3) &amp;&amp; getheightB &lt; (baseHeight * 4)) {-->
+                        <!--                        heightA.style.height = (baseHeight * 4) + 'px';-->
+                        <!--                        } else if (getheightB > (baseHeight * 4) &amp;&amp; getheightB &lt; (baseHeight * 5)) {-->
+                        <!--                        heightA.style.height = (baseHeight * 5) + 'px';-->
+                        <!--                        }-->
+                        for (var i = 1; i &lt;= 5; i++) {
+                        if ((getheightA &amp;&amp; getheightB) > (baseHeight * (i - 1)) &amp;&amp; (getheightA &amp;&amp;
+                        getheightB) &lt; (baseHeight * i)) {
+                        heightA.style.height = (baseHeight * i) + 'px';
+                        break; // Exit the loop once the condition is met
+                        }
                         }
 
 
@@ -476,8 +484,6 @@
         </html>
 
     </template>
-
-
 
 
 </odoo>

@@ -146,58 +146,23 @@ class PDSData(models.Model):
     #         values['updated_at'] = datetime.now()
     #     return super(YourModel, self).write(values)
 
-    @api.depends('partner_id')
-    def _compute_partner_phone_email(self):
-        for applicant in self:
-            if applicant.partner_id:
-                applicant.partner_phone = applicant.partner_id.phone
-                applicant.partner_mobile = applicant.partner_id.mobile
-                applicant.email_from = applicant.partner_id.email
-                # applicant.email_from = "inihanyatest@mail.com"
 
     def create_employee_from_applicant(self):
         """ Create an employee from applicant """
         self.ensure_one()
         self._check_interviewer_access()
 
-        contact_name = False
-        # contact_id = self.env["res_partner"].
-        if self.partner_id:
-            address_id = self.partner_id.address_get(['contact'])['contact']
-            contact_name = self.partner_id.display_name
+        contact = request.env["res.partner"].search([("email", "=", self.email_from)])
+        user = request.env["res.users"].search([("login", "=", self.email_from)])
+
+        user.active = False
+        contact.active = False
 
 
-        # employee_data = {
-        #     'default_name': self.partner_name or contact_name,
-        #     'default_job_id': self.job_id.id,
-        #     'default_job_title': self.job_id.name,
-        #     # 'default_address_home_id': address_id,
-        #     'default_department_id': self.department_id.id,
-        #     'default_address_id': self.company_id.partner_id.id,
-        #     # 'default_work_email': self.department_id.company_id.email or self.email_from,
-        #     'default_work_email': self.email_from,
-        #     # To have a valid email address by default
-        #     'default_work_phone': self.partner_phone or self.partner_mobile,
-        #     'form_view_initial_mode': 'edit',
-        #     'default_applicant_id': self.ids,
-        #     'default_summary_experience': self.summary_experience,
-        #     "employee_resumes": {
-        #         'employee_id': self.emp_id,
-        #         'resume_dateStart': self.pds_resume['resume_dateStart'],
-        #         'resume_dateEnd': self.pds_resume['resume_dateEnd'],
-        #         'rsm_com_name': self.pds_resume['rsm_com_name'],
-        #         'rsm_com_job_title': self.pds_resume['rsm_com_job_title'],
-        #         'rsm_com_projectDes': self.pds_resume['rsm_com_projectDes'],
-        #         'resume_tech_used': self.pds_resume['resume_tech_used'],
-        #         'resume_sys_used': self.pds_resume['resume_sys_used'],
-        #         'resume_tech_used_certificate': self.pds_resume['resume_tech_used_certificate'],
-        #         'company_image': self.pds_resume['company_image'],
-        #     }
-        #
-        # }
 
+            # Prepare employee data
         employee_data = {
-            'default_name': self.partner_name or contact_name,
+            'default_name': self.partner_name or False,
             'default_job_id': self.job_id.id,
             'default_job_title': self.job_id.name,
             'default_department_id': self.department_id.id,
@@ -221,15 +186,18 @@ class PDSData(models.Model):
             }) for experience in self.pds_resume],
         }
 
-        print(f" BEFORE / Employee ID: ", self.emp_id.id)
 
+
+        # Create window action
         dict_act_window = self.env['ir.actions.act_window']._for_xml_id('hr.open_view_employee_list')
-        print(f" MIDDLE / Employee ID: ", self.emp_id.id)
         dict_act_window['context'] = employee_data
-        print(f" LAST / Employee ID: ", self.emp_id.id)
-
 
         return dict_act_window
+
+
+
+
+
 
 
 class HrApplEdu(models.Model):

@@ -10,6 +10,7 @@
             </xpath>
             <xpath expr="//field[@name='type_id']" position="after">
                 <field name="from_talent_universitas"/>
+                <field name="from_talent_notes"/>
             </xpath>
             <xpath expr="//button[@name='action_makeMeeting']" position="before">
                 <button name="pds_fills" class="oe_stat_button" icon="fa-file-text-o" type="object" attrs="{'invisible': [('id', '=', False)]}">
