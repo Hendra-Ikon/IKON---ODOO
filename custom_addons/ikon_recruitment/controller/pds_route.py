@@ -27,54 +27,6 @@ class PDSController(http.Controller):
         pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=', applicant_to_update.id)])
       
         
-        if not applicant_to_update.pds_fullname and kwargs.get("pds_fullname") == None:
-            applicant_to_update.write({'pds_fullname':applicant_to_update.partner_name})
-
-        if not applicant_to_update.pds_email and kwargs.get("pds_email") == None:
-            applicant_to_update.write({'pds_email':applicant_to_update.email_from})
-            
-        if not applicant_to_update.pds_placeOfBirth and kwargs.get("pds_placeOfBirth") == None:
-            applicant_to_update.write({'pds_placeOfBirth':applicant_to_update.dob})
-
-        if request.httprequest.method == 'POST':
-            for applicant in applicant_to_update:
-                if applicant_to_update:
-                        pass
-                else:
-                        applicant_to_update.write({
-                            'pds_fill': applicant.pds_fill + 1
-                        })
-                applicant.update({
-                    "pds_fullname": kwargs.get("pds_fullname"),
-                    "pds_nik": kwargs.get("pds_nik"),
-                    "pds_addressNIK": kwargs.get("pds_addressNIK"),
-                    "pds_zipcode_addressNIK": kwargs.get("pds_zipcode_addressNIK"),
-                    "pds_currentAddress": kwargs.get("pds_currentAddress"),
-                    "pds_zipcode_currentAddress": kwargs.get("pds_zipcode_currentAddress"),
-                    "pds_phoneNumber": kwargs.get("pds_phoneNumber"),
-                    "pds_email": kwargs.get("pds_email"),
-                    "pds_placeOfBirth": kwargs.get("pds_placeOfBirth"),
-                    "pds_nationality": kwargs.get("pds_nationality"),
-                    "pds_religion": kwargs.get("pds_religion"),
-                    "pds_dob": kwargs.get("pds_dob"),
-                    "pds_marital_status": kwargs.get("pds_marital_status"),
-                    "pds_sex": kwargs.get("pds_sex"),
-
-                    "pds_fi_bank": kwargs.get("pds_fi_bank"),
-                    "pds_fi_bank_no": kwargs.get("pds_fi_bank_no"),
-                    "pds_fi_holder_name": kwargs.get("pds_fi_holder_name"),
-                    "pds_fi_npwp_number": kwargs.get("pds_fi_npwp_number"),
-                    "pds_fi_npwp_name": kwargs.get("pds_fi_npwp_name"),
-                    "pds_fi_npwp_address": kwargs.get("pds_fi_npwp_address"),
-                    "pds_fi_ptkp": kwargs.get("pds_fi_ptkp"),
-                    
-                    
-                })
-
-        if kwargs.get("pds_fi_bank"):
-            return request.redirect('/pds/data#financial')
-
-        
         data = {}
         if pds_data:
             data = {
@@ -420,6 +372,51 @@ class PDSController(http.Controller):
 
     
     # create route
+    @http.route("/create_personal", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+    def create_personal(self, **kwargs):
+        user = request.env.user
+        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+      
+        if request.httprequest.method == 'POST':
+            for applicant in applicant_to_update:
+                if applicant_to_update:
+                        pass
+                else:
+                        applicant_to_update.write({
+                            'pds_fill': applicant.pds_fill + 1
+                        })
+                if kwargs.get("pds_fi_bank"):
+                    applicant.update({
+                    "pds_fi_bank": kwargs.get("pds_fi_bank"),
+                    "pds_fi_bank_no": kwargs.get("pds_fi_bank_no"),
+                    "pds_fi_holder_name": kwargs.get("pds_fi_holder_name"),
+                    "pds_fi_npwp_number": kwargs.get("pds_fi_npwp_number"),
+                    "pds_fi_npwp_name": kwargs.get("pds_fi_npwp_name"),
+                    "pds_fi_npwp_address": kwargs.get("pds_fi_npwp_address"),
+                    "pds_fi_ptkp": kwargs.get("pds_fi_ptkp"),
+                    
+                    
+                    })
+                    return request.redirect('/pds/data#financial')
+
+                applicant.update({
+                    "pds_fullname": kwargs.get("pds_fullname"),
+                    "pds_nik": kwargs.get("pds_nik"),
+                    "pds_addressNIK": kwargs.get("pds_addressNIK"),
+                    "pds_zipcode_addressNIK": kwargs.get("pds_zipcode_addressNIK"),
+                    "pds_currentAddress": kwargs.get("pds_currentAddress"),
+                    "pds_zipcode_currentAddress": kwargs.get("pds_zipcode_currentAddress"),
+                    "pds_phoneNumber": kwargs.get("pds_phoneNumber"),
+                    "pds_email": kwargs.get("pds_email"),
+                    "pds_placeOfBirth": kwargs.get("pds_placeOfBirth"),
+                    "pds_nationality": kwargs.get("pds_nationality"),
+                    "pds_religion": kwargs.get("pds_religion"),
+                    "pds_dob": kwargs.get("pds_dob"),
+                    "pds_marital_status": kwargs.get("pds_marital_status"),
+                    "pds_sex": kwargs.get("pds_sex"),
+                })
+        return request.redirect('/pds/data')
+
 
     @http.route("/create_cert", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_cert(self, **kwargs):

@@ -503,7 +503,7 @@
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 55px; padding-top: 50px;">
 
-            <form id="custom_pds_form" action="/pds/data" method="post"
+            <form id="custom_pds_form" action="/create_personal" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
                   data-model_name="hr.applicant"
                   data-success-mode="redirect" data-success-page="/jobs"
@@ -525,25 +525,21 @@
                     <div class="col-sm-8">
                         <input type="text" name="pds_fullname" class="form-control"
                               
-                               t-att-value="pds_data['pds_fullname'] or ''" placeholder="Your fullname"/>
+                               t-att-value="pds_data['pds_fullname']" placeholder="Your fullname"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                    
                     <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
                     <div class="col-sm-4">
-                        <t t-set="sex_mapping"
-                           t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                        <select name="pds_sex"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="sex_mapping.get(pds_data['pds_sex'] or 'Select')"
-                                   t-att-selected="sex_mapping.get(pds_data['pds_sex'] or 'Select')"/>
-                            </option>
-                            <option value="male">MALE</option>
-                            <option value="female">FEMALE</option>
+                        <select name="pds_sex" class="form-select">
+                            <t t-if="not pds_data['pds_sex']">
+                                <option value="select">Select</option>
+                            </t>
+                            <option value="male" t-att-selected="pds_data['pds_sex'] == 'male'">MALE</option>
+                            <option value="female" t-att-selected="pds_data['pds_sex'] == 'female'">FEMALE</option>
                         </select>
+                        
                     </div>
 
                 </div>
@@ -554,7 +550,7 @@
 
                         <input  type="email" name="pds_email" class="form-control "
                               readonly="1"
-                               t-att-value="pds_data['pds_email'] or ''"/>
+                               t-att-value="pds_data['pds_email']"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -563,7 +559,7 @@
 
                         <input type="text" name="pds_nik" class="form-control "
                               
-                               t-att-value="pds_data['pds_nik'] or ''" placeholder="Your NIK Number"/>
+                               t-att-value="pds_data['pds_nik']" placeholder="Your NIK Number"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -574,7 +570,7 @@
 
                         <input type="text" name="pds_addressNIK" class="form-control "
                               
-                               t-att-value="pds_data['pds_addressNIK'] or ''" placeholder="Your NIK Address"/>
+                               t-att-value="pds_data['pds_addressNIK']" placeholder="Your NIK Address"/>
                     </div>
 
                 </div>
@@ -586,7 +582,7 @@
 
                         <input type="text" name="pds_zipcode_addressNIK"
                                t-attf-class="form-control"
-                               t-att-value="pds_data['pds_zipcode_addressNIK'] or ''" placeholder="339863622333"/>
+                               t-att-value="pds_data['pds_zipcode_addressNIK']" placeholder="339863622333"/>
                     </div>
 
                 </div>
@@ -598,7 +594,7 @@
 
                         <input type="text" name="pds_currentAddress"
                                t-attf-class="form-control "
-                               t-att-value="pds_data['pds_currentAddress'] or ''" placeholder="Your current address"/>
+                               t-att-value="pds_data['pds_currentAddress']" placeholder="Your current address"/>
                     </div>
                   
                 </div>
@@ -610,7 +606,7 @@
 
                         <input type="text" name="pds_zipcode_currentAddress"
                                t-attf-class="form-control"
-                               t-att-value="pds_data['pds_zipcode_currentAddress'] or ''" placeholder="67352"/>
+                               t-att-value="pds_data['pds_zipcode_currentAddress']" placeholder="67352"/>
                     </div>
                 </div>
 
@@ -620,7 +616,7 @@
 
                         <input type="text" name="pds_phoneNumber" class="form-control "
                               
-                               t-att-value="pds_data['pds_phoneNumber'] or ''" placeholder="0812345678"/>
+                               t-att-value="pds_data['pds_phoneNumber']" placeholder="0812345678"/>
                     </div>
                 </div>
 
@@ -632,7 +628,7 @@
 
                         <input type="text" name="pds_placeOfBirth" class="form-control "
                               
-                               t-att-value="pds_data['pds_placeOfBirth'] or ''" placeholder="Your Place of birth"/>
+                               t-att-value="pds_data['pds_placeOfBirth']" placeholder="Your Place of birth"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -641,7 +637,7 @@
 
                         <input type="date" name="pds_dob" class="form-control "
                               
-                               t-att-value="pds_data['pds_dob'] or 'Your Date of birth'"/>
+                               t-att-value="pds_data['pds_dob']"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -650,50 +646,37 @@
 
                         <input type="text" name="pds_nationality" class="form-control "
                               
-                               t-att-value="pds_data['pds_nationality'] or ''" placeholder="Your Nationality"/>
+                               t-att-value="pds_data['pds_nationality']" placeholder="Your Nationality"/>
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_religion">Religion</label>
                     <div class="col-sm-8">
-                        <t t-set="religion_mapping"
-                           t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
-                        <select name="pds_religion"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"
-                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
-                            </option>
-                            <option value="islam">ISLAM</option>
-                            <option value="kristen">KRISTEN</option>
-                            <option value="hindu">HINDU</option>
-                            <option value="budha">BUDHA</option>
-                            <option value="konghuchu">KONGHUCHU</option>
+                           <select name="pds_religion" class="form-select">
+                            <option value="select">Select</option>
+                            <option value="islam" t-att-selected="pds_data['pds_religion'] == 'islam'">ISLAM</option>
+                            <option value="kristen" t-att-selected="pds_data['pds_religion'] == 'kristen'">KRISTEN</option>
+                            <option value="hindu" t-att-selected="pds_data['pds_religion'] == 'hindu'">HINDU</option>
+                            <option value="budha" t-att-selected="pds_data['pds_religion'] == 'budha'">BUDHA</option>
+                            <option value="konghuchu" t-att-selected="pds_data['pds_religion'] == 'konghuchu'">KONGHUCHU</option>
                         </select>
+                       
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status</label>
                     <div class="col-sm-8">
-                        <t t-set="marital_mapping" t-value="{
-                                 'select': 'SELECT',
-                                'single': 'SINGLE',
-                                'married': 'MARRIAGE',
-                                'divorced': 'DIVORCE'}"/>
-                        <select name="pds_marital_status"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"
-                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
-                            </option>
-                            <option value="single">SINGLE</option>
-                            <option value="married">MARRIAGE</option>
-                            <option value="divorced">DIVORCE</option>
+                        <select name="pds_marital_status" class="form-select">
+                            <t t-if="not pds_data['pds_marital_status']">
+                                <option value="select">Select</option>
+                            </t>
+                            <option value="single" t-att-selected="pds_data['pds_marital_status'] == 'single'">SINGLE</option>
+                            <option value="married" t-att-selected="pds_data['pds_marital_status'] == 'married'">MARRIAGE</option>
+                            <option value="divorced" t-att-selected="pds_data['pds_marital_status'] == 'divorced'">DIVORCE</option>
                         </select>
+                        
                     </div>
                 </div>
                 <input type="hidden" name="redirect" t-att-value="redirect"/>
@@ -2230,7 +2213,7 @@
     <template id="pds_FinIn_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 621px;">
-             <form id="custom_pds_form" action="/pds/data" method="post"
+             <form id="custom_pds_form" action="/create_personal" method="post"
              enctype="multipart/form-data" class="o_mark_required row"
              data-model_name="hr.applicant"
              data-success-mode="redirect" data-success-page="/jobs"
