@@ -6,7 +6,9 @@ from odoo.exceptions import AccessError, UserError
 from odoo.tools.translate import _
 
 YEARS = datetime.now().year
-YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 20)]
+start_year = 1945
+
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS, start_year - 1, -1)]
 
 
 
@@ -239,8 +241,8 @@ class HrApplEdu(models.Model):
     pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
     pds_edu_major = fields.Char(string="Major")
     pds_edu_location = fields.Char(string="Location")
-    pds_edu_start_year = fields.Date(string="Start year")
-    pds_edu_end_year = fields.Date(string="End year")
+    pds_edu_start_year = fields.Selection(YEAR_SELECTION, string="Start year")
+    pds_edu_end_year = fields.Selection(YEAR_SELECTION,string="End year")
 
 
 class HrApplCertif(models.Model):
@@ -251,7 +253,7 @@ class HrApplCertif(models.Model):
     employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_cert_name = fields.Char(string="Certification name", required=False)
     pds_cert_provider = fields.Char(string="Provider", required=False)
-    pds_cert_issued_year = fields.Date(string='Issued year', required=False)
+    pds_cert_issued_year = fields.Selection(YEAR_SELECTION, string='Issued year', required=False)
 
 
 class HrApplNonFormalEdu(models.Model):
@@ -261,7 +263,7 @@ class HrApplNonFormalEdu(models.Model):
     employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_course_name = fields.Char(string="Course name")
     pds_course_provider = fields.Char(string="Provider")
-    pds_course_issued_year = fields.Date(string='Issued year')
+    pds_course_issued_year = fields.Selection(YEAR_SELECTION, string='Issued year')
 
 
 class HrApplLanguageProf(models.Model):
@@ -305,7 +307,7 @@ class HrApplOrg(models.Model):
     pds_org_name = fields.Char(string="Organization name")
     pds_org_nature = fields.Char(string="Organization Nature Activities")
     pds_org_position = fields.Char(string="Organization Position")
-    pds_org_year = fields.Date(string="Year")
+    pds_org_year = fields.Selection(YEAR_SELECTION, string="Year")
 
 
 class HrApplHealth(models.Model):
@@ -316,7 +318,7 @@ class HrApplHealth(models.Model):
     pds_health_period = fields.Char(string="Period")
     pds_health_type = fields.Char(string="Type")
     pds_health_hospital = fields.Char(string="Hospital name")
-    pds_health_year = fields.Date(string="Year")
+    pds_health_year = fields.Selection(YEAR_SELECTION,string="Year")
 
 
 class HrApplFamily(models.Model):
@@ -344,8 +346,6 @@ class HrApplOtherAct(models.Model):
     _name = "custom.other.activity"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    pds_oc_name = fields.Char(string="Organization Name")
-    pds_oc_type = fields.Char(string="Activity Type")
-    pds_oc_year = fields.Char(string="Year")
-    pds_oc_position = fields.Char(string="Position")
+    pds_oc_name = fields.Char(string="Hobby Name")
+    pds_rate = fields.Char(string="Rate")
  
