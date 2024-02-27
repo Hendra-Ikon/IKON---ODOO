@@ -787,11 +787,12 @@
                         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                             View
                           </button> -->
-                          <t t-if="pds_family['pds_family_type'] == 'Family'">
+
+                            <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#familyModal">
                                 View
-                              </button>
-                          </t>
+                            </button>
+                        </t>
                        
                     </div>
                    
@@ -946,7 +947,8 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                          <t t-if="pds_family['pds_family_type'] == 'Dependencies'">
+
+                                <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#dependenciesInfoModal">
                                 View
                               </button>
@@ -1828,12 +1830,12 @@
                   data-success-mode="redirect" data-success-page="/jobs"
                   hide-change-model="true">
                 <div class="row o_portal_details">
-                    <t t-if="exp_sal">
+                    <!-- <t t-if="exp_sal">
                         <t t-set="sal" t-value="exp_sal[-1]['pds_expected_salary']"/>
                     </t>
                     <t t-if="exp_sal">
                         <t t-set="ben" t-value="exp_sal[-1]['pds_expected_benefit']"/>
-                    </t>
+                    </t> -->
 
                     <div class="form-group row mb-4">
                         <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary</label>
