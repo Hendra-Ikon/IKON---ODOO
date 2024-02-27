@@ -2,13 +2,13 @@ from datetime import datetime
 
 from odoo import fields, models, api
 from odoo.http import request
-<<<<<<< HEAD
-YEARS = datetime.now().year
-YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 20)]
-=======
 from odoo.exceptions import AccessError, UserError
 from odoo.tools.translate import _
->>>>>>> dev
+
+YEARS = datetime.now().year
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 20)]
+
+
 
 RELIGION = [
     ('select', 'CLICK TO SELECT'),
@@ -349,15 +349,3 @@ class HrApplOtherAct(models.Model):
     pds_oc_year = fields.Char(string="Year")
     pds_oc_position = fields.Char(string="Position")
  
-# class HrApplFinanCialInfo(models.Model):
-#     _name = "custom.financial.information"
-
-#     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-#     pds_fi_bank = fields.Char(string="Bank Name")
-#     pds_fi_bank_no = fields.Char(string="Bank Account")
-#     pds_fi_holder_name =  fields.Char(string="Account Holder Name" )
-#     pds_fi_npwp_number = fields.Char(string="Tax No (NPWP)")
-#     pds_fi_npwp_name = fields.Char(string="NPWP Name")
-#     pds_fi_npwp_address = fields.Char(string="NPWP Address")
-#     pds_fi_ptkp = fields.Char(string="PTKP")
-
