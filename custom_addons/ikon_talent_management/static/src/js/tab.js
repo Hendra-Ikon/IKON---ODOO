@@ -31,15 +31,23 @@ $(document).ready(function() {
 
     switch (hash) {
         case "#education":
-            showTab('#pills-education');
+            showTab('#pills-family');
+            resetUrl('/pds/data');
+            break;
+        case "#work":
+            showTab('#pills-work');
             resetUrl('/pds/data');
             break;
         case "#language":
-            showTab('#pills-language');
+            showTab('#pills-education');
             resetUrl('/pds/data');
             break;
         case "#medical":
-            showTab('#pills-medical_records');
+            showTab('#pills-language');
+            resetUrl('/pds/data');
+            break;
+        case "#financial":
+            showTab('#pills-financial');
             resetUrl('/pds/data');
             break;
         case "#confirm":
