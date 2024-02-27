@@ -305,33 +305,26 @@
                         var heightA = document.querySelector('.a');
                         var heightB = document.querySelector('.b');
                         var getheightB = heightB.offsetHeight;
+                        var getheightA = heightA.offsetHeight;
                         var show = document.getElementById('myParagraph');
+                        var baseHeight = 1173;
 
-                        if(getheightB &lt; 1152 ) {
-                        heightA.style.height = '1152px';
-                        } else if (getheightB > 1152 &amp;&amp; getheightB &lt; 2304) {
-                        heightA.style.height = '2304px';
-                        } else if (getheightB > 2304 &amp;&amp; getheightB &lt; 3456) {
-                        heightA.style.height = '3456px';
-                        } else if (getheightB > 3456 &amp;&amp; getheightB &lt; 4608) {
-                        heightA.style.height = '4608px';
-                        } else if (getheightB > 4608 &amp;&amp; getheightB &lt; 5760) {
-                        heightA.style.height = '5760px';
+                        <!--                        Coba-->
+
+                        <!--                        if((getheightA &amp;&amp; getheightB) &lt;= baseHeight ) {-->
+                        <!--                        heightA.style.height = baseHeight + 'px';-->
+                        <!--                        } else if ( (getheightA &amp;&amp; getheightB) >= baseHeight &amp;&amp; (getheightA &amp;&amp; getheightB) &lt;= (baseHeight * 2)) {-->
+                        <!--                        heightA.style.height = ( baseHeight * 2 ) + 'px';-->
+                        <!--                        } else if ( (getheightA &amp;&amp; getheightB) >= ( baseHeight * 2 ) &amp;&amp; (getheightA &amp;&amp; getheightB) &lt;= (baseHeight * 3)) {-->
+                        <!--                        heightA.style.height = ( baseHeight * 3 ) + 'px';-->
+                        <!--                        }-->
+
+                        for (var i = 1; i &lt;= 5; i++) {
+                        if ((getheightA &amp;&amp; getheightB) > (baseHeight * (i - 1)) &amp;&amp; (getheightA &amp;&amp;
+                        getheightB) &lt; (baseHeight * i)) {
+                        heightA.style.height = (baseHeight * i) + 'px';
+                        break; // Exit the loop once the condition is met
                         }
-                        else if (getheightB > 5760 &amp;&amp; getheightB &lt; 6912) {
-                        heightA.style.height = '6912px';
-                        }
-                        else if (getheightB > 6912 &amp;&amp; getheightB &lt; 8064) {
-                        heightA.style.height = '8064px';
-                        }
-                        else if (getheightB > 8064 &amp;&amp; getheightB &lt; 9216) {
-                        heightA.style.height = '9216px';
-                        }
-                        else if (getheightB > 9216 &amp;&amp; getheightB &lt; 10368) {
-                        heightA.style.height = '10368px';
-                        }
-                        else if (getheightB > 10368 &amp;&amp; getheightB &lt; 11520) {
-                        heightA.style.height = '11520px';
                         }
 
 
