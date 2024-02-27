@@ -289,18 +289,15 @@
                             <field name="pds_oac" widget="section_and_note_one2many" mode="tree">
                                 <tree editable="top">
                                     <field name="pds_oc_name"/>
-                                    <field name="pds_oc_type"/>
-                                    <field name="pds_oc_year"/>
-                                    <field name="pds_oc_position"/>
+                                    <field name="pds_rate"/>
+                                  
                                     
                                 
                                 </tree>
                                 <form editable="top">
                                     <group>
                                         <field name="pds_oc_name"/>
-                                    <field name="pds_oc_type"/>
-                                    <field name="pds_oc_year"/>
-                                    <field name="pds_oc_position"/>
+                                        <field name="pds_rate"/>
                                     </group>
                                 </form>
                             </field>

@@ -29,35 +29,50 @@ $(document).ready(function() {
   });
 
 
-    switch (hash) {
-        case "#education":
-            showTab('#pills-family');
-            resetUrl('/pds/data');
-            break;
-        case "#work":
-            showTab('#pills-work');
-            resetUrl('/pds/data');
-            break;
-        case "#language":
-            showTab('#pills-education');
-            resetUrl('/pds/data');
-            break;
-        case "#medical":
-            showTab('#pills-language');
-            resetUrl('/pds/data');
-            break;
-        case "#financial":
-            showTab('#pills-financial');
-            resetUrl('/pds/data');
-            break;
-        case "#confirm":
-            console.log("confirm")
-            button.click()
-            setTimeout(function() {
-                window.location.href = '/my/profile';
-            }, 2000); // 2000 milliseconds = 2 seconds
-            break;
-    }
+  switch (hash) {
+    case "#education":
+        showTab('#pills-family');
+        activateButton('#pills-family-tab');
+        resetUrl('/pds/data');
+        break;
+    case "#work":
+        showTab('#pills-work');
+        activateButton('#pills-work-tab');
+        resetUrl('/pds/data');
+        break;
+    case "#language":
+        showTab('#pills-education');
+        activateButton('#pills-education-tab');
+        resetUrl('/pds/data');
+        break;
+    case "#medical":
+        showTab('#pills-language');
+        activateButton('#pills-language-tab');
+        resetUrl('/pds/data');
+        break;
+    case "#financial":
+        showTab('#pills-financial');
+        activateButton('#pills-financial-tab');
+        resetUrl('/pds/data');
+        break;
+    case "#confirm":
+        console.log("confirm")
+        button.click()
+        setTimeout(function() {
+            window.location.href = '/my/profile';
+        }, 2000); // 2000 milliseconds = 2 seconds
+        break;
+}
+
+function activateButton(buttonId) {
+    // Hapus kelas 'active' dari semua tombol
+    document.querySelectorAll('.nav-link').forEach(function(button) {
+        button.classList.remove('active');
+    });
+    // Tambahkan kelas 'active' ke tombol yang sesuai
+    document.querySelector(buttonId).classList.add('active');
+}
+
 
     function showTab(tabId) {
         $('#pills-tabContent .tab-pane').removeClass('show active');

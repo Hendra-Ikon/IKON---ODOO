@@ -8,8 +8,9 @@ from odoo.exceptions import ValidationError
 
 logger = logging.getLogger(__name__)
 YEARS = datetime.now().year
+start_year = 1945
 
-YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 20, YEARS + 1)]
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS, start_year - 1, -1)]
 
 class PDSController(http.Controller):
 
@@ -25,6 +26,15 @@ class PDSController(http.Controller):
         pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=', applicant_to_update.id)])
         pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=', applicant_to_update.id)])
       
+        
+        if not applicant_to_update.pds_fullname and kwargs.get("pds_fullname") == None:
+            applicant_to_update.write({'pds_fullname':applicant_to_update.partner_name})
+
+        if not applicant_to_update.pds_email and kwargs.get("pds_email") == None:
+            applicant_to_update.write({'pds_email':applicant_to_update.email_from})
+            
+        if not applicant_to_update.pds_placeOfBirth and kwargs.get("pds_placeOfBirth") == None:
+            applicant_to_update.write({'pds_placeOfBirth':applicant_to_update.dob})
 
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
@@ -743,9 +753,7 @@ class PDSController(http.Controller):
                     data.create({
                         'applicant_id': applicant.id,
                         'pds_oc_name': kwargs.get("pds_oc_name"),
-                        'pds_oc_type': kwargs.get("pds_oc_type"),
-                        'pds_oc_year': kwargs.get("pds_oc_year"),
-                        'pds_oc_position': kwargs.get("pds_oc_position"),
+                        'pds_rate': kwargs.get("pds_rate"),
                     })
             except Exception as e:
                 print(f'Error Working Exp {e}')

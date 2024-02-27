@@ -133,14 +133,14 @@
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" style="display:none;" id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
+                  <button class="nav-link active" style="display:none;"  id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" style="display:none;" id="pills-family-tab" data-bs-toggle="pill" data-bs-target="#pills-family" type="button" role="tab" aria-controls="pills-family" aria-selected="true">Family Information</button>
+                    <button class="nav-link"  style="display:none;" id="pills-family-tab" data-bs-toggle="pill" data-bs-target="#pills-family" type="button" role="tab" aria-controls="pills-family" aria-selected="true">Family Information</button>
                   </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" style="display:none;" id="pills-dependenciesInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-dependenciesInfo" type="button" role="tab" aria-controls="pills-dependenciesInfo" aria-selected="true">Dependencies Information</button>
-                  </li>
+                  <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link"  id="pills-dependenciesInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-dependenciesInfo" type="button" role="tab" aria-controls="pills-dependenciesInfo" aria-selected="true">Dependencies Information</button>
+                  </li> -->
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" style="display:none;" id="pills-work-tab" data-bs-toggle="pill" data-bs-target="#pills-work" type="button" role="tab" aria-controls="pills-work" aria-selected="false">Work Experience</button>
                   </li>
@@ -152,9 +152,9 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" style="display:none;" id="pills-language-tab" data-bs-toggle="pill" data-bs-target="#pills-language" type="button" role="tab" aria-controls="pills-language" aria-selected="false">Language</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" style="display:none;" id="pills-medical_records-tab" data-bs-toggle="pill" data-bs-target="#pills-medical_records" type="button" role="tab" aria-controls="pills-medical_records" aria-selected="false">Medical Records</button>
-                  </li>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link"  id="pills-medical_records-tab" data-bs-toggle="pill" data-bs-target="#pills-medical_records" type="button" role="tab" aria-controls="pills-medical_records" aria-selected="false">Medical Records</button>
+                  </li> -->
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" style="display:none;" id="pills-financial-tab" data-bs-toggle="pill" data-bs-target="#pills-financial" type="button" role="tab" aria-controls="pills-financial" aria-selected="false">Financial Information</button>
                   </li>
@@ -409,7 +409,7 @@
                                     font-size: 20px;
                                     font-weight: bold;
         
-                                    text-decoration: underline;">Hobby / Other Activities
+                                    text-decoration: underline;">Hobby
                             </div>
                             <t t-call="ikon_talent_management.pds_oa_section"/>
                         </div>
@@ -552,9 +552,9 @@
                     <label class="col-sm-4 col-form-label" for="pds_email">Email</label>
                     <div class="col-sm-8">
 
-                        <input type="email" name="pds_email" class="form-control "
-                              
-                               t-att-value="pds_data['pds_email'] or ''" placeholder="Your Email"/>
+                        <input  type="email" name="pds_email" class="form-control "
+                              readonly="1"
+                               t-att-value="pds_data['pds_email'] or ''"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
@@ -630,7 +630,7 @@
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_phoneNumber" class="form-control "
+                        <input type="text" name="pds_placeOfBirth" class="form-control "
                               
                                t-att-value="pds_data['pds_placeOfBirth'] or ''" placeholder="Your Place of birth"/>
                     </div>
@@ -648,7 +648,7 @@
                     <label class="col-sm-4 col-form-label" for="pds_nationality">Nationality</label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_dob" class="form-control "
+                        <input type="text" name="pds_nationality" class="form-control "
                               
                                t-att-value="pds_data['pds_nationality'] or ''" placeholder="Your Nationality"/>
                     </div>
@@ -700,7 +700,7 @@
 
                 <div class="clearfix">
                     <button type="submit" class="btn btn-primary float-end mb32 ">
-                        Submit
+                        Save
                     </button>
                 </div>
                 <!--                            </div>-->
@@ -719,13 +719,31 @@
                   hide-change-model="true">
                 <div class="row o_portal_details">
 
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
                         <div class="col-sm-8">
                             <input type="text" name="pds_family_desc" class="form-control "
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                   
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <div class="col-sm-4">
+                            <t t-set="sex_mapping"
+                               t-value="{'select': 'SELECT','father': 'Father', 'mother': 'Mother','brother':'Brother','sister':'Sister','other':'Other'}"/>
+                            <select name="pds_family_desc"
+                                    t-attf-class="form-select ">
+                                <option value="#"></option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Brother">Brother</option>
+                                <option value="Sister">Sister</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+    
                     </div>
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_family_name">Name</label>
@@ -880,7 +898,7 @@
                   hide-change-model="true">
                 <div class="row o_portal_details">
 
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
                         <div class="col-sm-8">
                             <input type="text" name="pds_family_desc" class="form-control "
@@ -890,6 +908,26 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                   
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <div class="col-sm-4">
+                            <t t-set="sex_mapping"
+                               t-value="{'select': 'SELECT','wife': 'Wife', 'husband': 'Husband','childern':'Childern','other':'Other'}"/>
+                            <select name="pds_family_desc"
+                                    t-attf-class="form-select ">
+                                <option value="#"></option>
+                                <option value="Wife">Wife</option>
+                                <option value="Husband">Husband</option>
+                                <option value="Childern">Childern</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="pds_family_type" value="Dependencies" class="form-control "
+                                  
+                            />
+    
                     </div>
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_family_name">Name</label>
@@ -1059,7 +1097,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate year
                         </label>
                         <div class="col-sm-8">
@@ -1067,7 +1105,19 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_cert_issued_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
+                    
                     <div class="clearfix">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
@@ -1200,7 +1250,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start year
                         </label>
                         <div class="col-sm-8">
@@ -1208,8 +1258,30 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_edu_start_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_edu_end_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End year
                         </label>
                         <div class="col-sm-8">
@@ -1217,7 +1289,7 @@
                                   
                             />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="clearfix">
                         
                         <button type="submit"
@@ -1338,13 +1410,24 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on
                         </label>
                         <div class="col-sm-8">
                             <input type="date" name="pds_course_issued_year" class="form-control "
                                   
                             />
+                        </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_course_issued_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1575,7 +1658,7 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_period">Period</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_period">Period of Ilness</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_period" class="form-control "
@@ -1584,7 +1667,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_type">Type</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_type">Type of Ilness</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_type" class="form-control "
@@ -1593,7 +1676,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_hospital">Hospital</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_hospital">Name of Hospital</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_hospital" class="form-control "
@@ -1601,13 +1684,24 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
                         <div class="col-sm-8">
 
                             <input type="date" name="pds_health_year" class="form-control "
                                   
                             />
+                        </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_health_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
                         </div>
                     </div>
 
@@ -1640,9 +1734,9 @@
                         <table class="table table-striped">
                         <thead class="thead-dark">
                             <tr style="background-color: #E17726;">
-                                <th>Period</th>
-                    <th>Type</th>
-                    <th>Hospital</th>
+                                <th>Period of Ilness</th>
+                    <th>Type of Ilness</th>
+                    <th>Name of Hospital</th>
                     <th>Year</th>
                     <th>Actions</th>
                             </tr>
@@ -1724,7 +1818,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
                         <div class="col-sm-8">
 
@@ -1732,7 +1826,19 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_org_year">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
+                    
 
                     <div class="clearfix">
                         <button type="submit"
@@ -1830,12 +1936,12 @@
                   data-success-mode="redirect" data-success-page="/jobs"
                   hide-change-model="true">
                 <div class="row o_portal_details">
-                    <!-- <t t-if="exp_sal">
+                    <t t-if="exp_sal">
                         <t t-set="sal" t-value="exp_sal[-1]['pds_expected_salary']"/>
                     </t>
                     <t t-if="exp_sal">
                         <t t-set="ben" t-value="exp_sal[-1]['pds_expected_benefit']"/>
-                    </t> -->
+                    </t>
 
                     <div class="form-group row mb-4">
                         <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary</label>
@@ -1862,7 +1968,7 @@
                     <div class="clearfix">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
-                            Submit
+                            Save
                         </button>
                     </div>
                 </div>
@@ -2005,25 +2111,25 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_oc_name">Organization Name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_oc_name">Hoby Name</label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_oc_name" class="form-control "
+                            <input type="text" name="pds_oc_name" class="form-control"
                                   
                             />
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_oc_type">Activity Type</label>
+                        <label class="col-sm-4 col-form-label" for="pds_rate">Rate</label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_oc_type" class="form-control "
+                            <input type="number" name="pds_rate" class="form-control" min="1" max="10" placeholder="Rate (1-10)"
                                   
                             />
                         </div>
                     </div>
 
         
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_oc_year">Year</label>
                         <div class="col-sm-8">
                             <select class="form-control" name="pds_oc_year">
@@ -2033,19 +2139,12 @@
                                 </t>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
                     
                     
 
-                    <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_oc_position">Position</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="pds_oc_position" class="form-control "
-                                  
-                            />
-                        </div>
-                    </div>
+                    
                   
 
                  
@@ -2069,7 +2168,7 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Hobby / Other Activity</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Hobby</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"></span>
                                     </button>
@@ -2079,10 +2178,8 @@
                                         <table class="table table-striped">
                                             <thead class="thead-dark">
                                                 <tr style="background-color: #E17726;">
-                                                    <th>Organization Name</th>
-                                                    <th>Activity Type</th>
-                                                    <th>Year</th>
-                                                    <th>Position</th>
+                                                    <th>Hoby Name</th>
+                                                    <th>Rate</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -2093,14 +2190,9 @@
                                                         <span t-esc="oa['pds_oc_name']"/>
                                                     </td>
                                                     <td>
-                                                        <span t-esc="oa['pds_oc_type']"/>
+                                                        <span t-esc="oa['pds_rate']"/>
                                                     </td>
-                                                    <td>
-                                                        <span t-esc="oa['pds_oc_year']"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="oa['pds_oc_position']"/>
-                                                    </td>
+                                                   
                                                     <td>
                                                         <a class="btn btn-sm btn-danger"
                                                            t-att-href="'/delete_oa/' + str(oa['id'])">Delete
@@ -2228,7 +2320,7 @@
            
            <div class="clearfix">
                <button type="submit" class="btn btn-primary float-end mb32 ">
-                   Submit
+                   Save
                </button>
            </div>
            <!--                            </div>-->
@@ -2313,7 +2405,7 @@
                 <div class="clearfix">
                     <button type="submit"
                             class="btn btn-primary float-end mb32 ">
-                        Submit
+                        Save
                     </button>
                       <t t-if="pds_data['pds_work_exp']">
                         <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#workModal">
