@@ -111,10 +111,16 @@ class TalentData(models.Model):
             else:
                 record.cv_ikon_filename = False
 
+    # @api.model
+    # def create(self, values):
+    #     # Extract the file name from the imported file and set it to the "attachment" field
+    #     if 'attachment' in values and 'filename' in values['attachment']:
+    #         values['attachment_filename'] = values['attachment']['filename']
+    #     return super(TalentData, self).create(values)
+
     @api.model
     def create(self, values):
-        # Extract the file name from the imported file and set it to the "attachment" field
-        if 'attachment' in values and 'filename' in values['attachment']:
+        if 'attachment' in values and isinstance(values['attachment'], dict) and 'filename' in values['attachment']:
             values['attachment_filename'] = values['attachment']['filename']
         return super(TalentData, self).create(values)
 
@@ -215,6 +221,16 @@ class HrApplicantInherit(models.Model):
     def move_to_talent_pool(self):
 
         for data in self:
+            attachment_data = False
+            attachment_name = False
+            for attachment in data.attachment_ids:
+                attachment_data = attachment.datas
+                attachment_name = attachment.name
+            attachment_vals = {
+                'name': attachment_name,
+                'datas': attachment_data,
+                'res_model': 'hr.applicant',  # Assuming this is the correct model
+            }
 
             talent_data = self.env["talent.pool.data"].create({
                 "nama": data.partner_name,
@@ -225,7 +241,7 @@ class HrApplicantInherit(models.Model):
                 "major": data.from_talent_major,
                 "universitas": data.from_talent_universitas,
                 "notes": data.from_talent_notes,
-                # "attachment": data.from_talent_attachment
+                "attachment": attachment_data,
 
             })
 
