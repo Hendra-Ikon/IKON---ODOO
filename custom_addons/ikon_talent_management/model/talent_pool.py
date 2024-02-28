@@ -85,7 +85,7 @@ class TalentData(models.Model):
         ('d3', 'D3'),
         ('d4', 'D4'),
         ('undergraduate', 'Undergraduate'),
-    ], required=True)
+    ])
     major = fields.Char(string="Major")
     universitas = fields.Char(string="Universitas")
     notes = fields.Char(string="Additional Notes")
