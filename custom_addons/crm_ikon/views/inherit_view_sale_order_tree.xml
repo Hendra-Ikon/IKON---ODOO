@@ -6,6 +6,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="replace">
                     <field name="name" optional="show" string="Quotation Number" decoration-bf="1"/>
+                    <field name="reference_quot_number" optional="hide" string="Reference Quotation Number"  decoration-bf="1" />
+      
+
                 </xpath>
 
             </field>

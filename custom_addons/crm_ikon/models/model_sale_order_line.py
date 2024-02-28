@@ -25,7 +25,6 @@ class SaleOrderLine(models.Model):
         for vals in vals_list:
             if vals.get('display_type') or self.default_get(['display_type']).get('display_type'):
                 vals['product_uom_qty'] = 0.0
-           
             if vals['name'] == 'Down Payments' and vals['display_type'] == 'line_section' and vals['is_downpayment']:
                 vals['name'] = 'Term Payments'
                 continue 
@@ -152,7 +151,7 @@ class SaleOrderLine(models.Model):
             'price_unit': self.price_unit,
             'tax_ids': [Command.set(self.tax_id.ids)],
             'sale_line_ids': [Command.link(self.id)],
-            'is_downpayment': self.is_downpayment,
+            'is_downpayment': False if self.is_downpayment else self.is_downpayment,
             'item_id': self.item_id,
             'item_description': self.item_description,
             'po_number': self.po_number,
@@ -174,6 +173,8 @@ class SaleOrderLine(models.Model):
         if self.display_type:
             res['account_id'] = False
         return res
+    
+    
 
 
     

@@ -19,14 +19,16 @@
         'views/menu_talent.xml',
         'views/views.xml',
         'views/pds_talent.xml',
+        'views/employee_resume.xml',
         'views/pds_view.xml',
-        'views/resume_view.xml',
-        'views/custom_resume_view.xml',
+        # 'views/resume_view.xml',
         'report/cv_report.xml',
-        'report/cv_template.xml',
+        'report/cv_template_pds.xml',
+        'report/cv_template_employee.xml',
         'report/pds_report.xml',
         'report/pds_report_template.xml',
-        'views/CV_view.xml',
+        'report/pageformat_cv.xml',
+        # 'views/CV_view.xml',
         # 'views/custom_resume_template.xml',
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
@@ -35,6 +37,10 @@
     "assets": {
         "web.assets_frontend": [
             "ikon_talent_management/static/src/js/pds.js",
+             "ikon_talent_management/static/src/js/tab.js",
+        ],
+         "web.assets_frontend_min": [
+            "ikon_talent_management/static/src/css/popup.scss",
         ],
         "web.assets_backend": [
             # "ikon_talent_management/static/src/js/pds.js",
@@ -55,6 +61,7 @@
         # ],
         'ikon_talent_management.report_assets_common': [
             "ikon_talent_management/static/src/css/cv_pdf.css",
+  
         ]
     },
     # 'js': [

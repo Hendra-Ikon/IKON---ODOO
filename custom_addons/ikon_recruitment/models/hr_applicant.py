@@ -1,5 +1,7 @@
 from odoo import api, models, fields, exceptions
+import logging
 
+logger = logging.getLogger(__name__)
 
 class HrApplicant(models.Model):
     _inherit = "hr.applicant"
@@ -33,7 +35,34 @@ class HrApplicant(models.Model):
     result = fields.Char('Result')
     custom_skill = fields.Text(string="Custom skill")
     skill_ids = fields.Many2many('hr.skill', compute='_compute_skill_ids', store=True, string="SkillID")
+    pds_fill = fields.Integer(string="PDS Fill")
+    pds_percentage = fields.Integer(string="PDS Fill", compute='_compute_pds_percentage', store=False)
 
+    @api.depends('pds_fill')
+    def _compute_pds_percentage(self):
+        for record in self:
+            total_value = 13
+            if total_value != 0:
+                percentage = (record.pds_fill / total_value) * 100
+                record.pds_percentage = int(percentage)
+            else:
+                record.pds_percentage = 0
+
+    def pds_fills(self):
+        return {
+        'warning': {'title': "PDS", 'message': "PDS FILL", 'type': 'notification'},
+    }
+
+
+
+
+    # def _compute_pds_percentage(self):
+    #     for record in self:
+    #         total_value = 8  # Angka yang Anda maksud
+    #         if total_value != 0:
+    #             record.pds_percentage = (record.pds_fill / total_value) * 100
+    #         else:
+    #             record.pds_percentage = 0.0
 
     # @api.constrains('email_from')
     # def _check_duplicate_email(self):

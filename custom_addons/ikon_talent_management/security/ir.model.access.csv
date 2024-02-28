@@ -56,3 +56,15 @@ access_internal_user_custom_resume_sysint_middleware,custom_resume_sysint_middle
 access_portal_user_custom_resume_sysint_email_notif,custom_resume_sysint_email_notif,model_custom_resume_sysint_email_notif,base.group_portal,1,1,1,1
 access_internal_user_custom_resume_sysint_email_notif,custom_resume_sysint_email_notif,model_custom_resume_sysint_email_notif,base.group_user,1,1,1,1
 
+
+access_portal_user_custom_family_information,Access Portal User Family Information,model_custom_family_information,base.group_portal,1,1,1,1
+access_internal_user_custom_family_information,Access Internal User Family Information,model_custom_family_information,base.group_user,1,1,1,1
+
+access_portal_user_custom_emergency_contact,Access Portal User Emergency Contact,model_custom_emergency_contact,base.group_portal,1,1,1,1
+access_internal_user_custom_emergency_contact,Access Internal User Emergency Contact,model_custom_emergency_contact,base.group_user,1,1,1,1
+
+access_portal_user_custom_other_activity,Access Portal User Other Activity,model_custom_other_activity,base.group_portal,1,1,1,1
+access_internal_user_custom_other_activity,Access Internal User Other Activity,model_custom_other_activity,base.group_user,1,1,1,1
+
+
+

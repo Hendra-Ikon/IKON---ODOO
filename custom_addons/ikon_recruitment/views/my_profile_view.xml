@@ -32,6 +32,22 @@
                     integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
                     crossorigin="anonymous"
             />
+            <link rel="stylesheet" type="text/css"
+        href="/ikon_recruitment/static/src/css/popup.css"/>
+
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+        crossorigin="anonymous"
+/>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xwIzINPMyM9W3Pds1LAdpYkZU8SB2z8kHiMPsZaNTvBYHvZQyyjQfnm+YEMj2Jf5eydPbLCsfATJRrBd/1n9+gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      
             <!--            <section style="background-color: #eee;">-->
             <div class="container py-5">
                 <div class="row">
@@ -51,131 +67,188 @@
                         </nav>
                     </div>
                 </div>
+                
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-body card-left-top text-center">
-<!--                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"-->
-<!--                                     alt="avatar"-->
-<!--                                     class="rounded-circle img-fluid" style="width: 150px;"/>-->
-                                <img t-if="user_avatar" t-att-src="'data:image/png;base64,'+user_avatar.decode('utf-8')" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/>
-                                <h5 class="my-3">
-                                    <t t-esc="user_data.name"/>
-                                </h5>
+                        <div class="card mb-4" style="box-shadow: 4px 4px 5px lightblue; border-radius: 1rem;">
+                            <div class="row">
+                            <div class="card-body ">
+                                <div class="text-center">
+                                    <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                    alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/> -->
+                                  <!-- <img t-if="user_avatar" t-att-src="'data:image/png;base64,'+user_avatar.decode('utf-8')" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/> -->
 
-                                <t t-if="employment_status">
-                                    <p class="text-muted mb-1">
-                                        <t t-esc="employee_department"/>
-                                    </p>
+                                  <img t-if="user_avatar" t-att-src="'data:image/png;base64,'+user_avatar.decode('utf-8')" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/>
+                                    <img t-if="not user_avatar" src="https://i.pinimg.com/originals/26/9b/8d/269b8d83f5a24b3525f638c2d783c9b2.jpg" alt="default-avatar" class="rounded-circle img-fluid" style="width: 150px;"/>
+                                  <h5 class="my-3">
+                                      <t t-esc="user_data.name"/>
+                                      <t t-if="employment_status">
+                                        <p class="text-muted mb-1">
+                                            <t t-esc="employee_department"/>
+                                        </p>
+                                    </t>
+                                    <t t-else="">
+                                        <p class="text-muted mb-1">No Employment Status</p>
+                                    </t>
+                                  </h5>
 
-                                </t>
-                                <t t-else="">
-                                    <p class="text-muted mb-1">No Employment Status</p>
-                                </t>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="text-center mb-0" style="margin:5px;" t-if="applied_jobs[0]['summary_experience']">
+                                            <t t-esc="applied_jobs[0]['summary_experience']"/>
+                                        </p>
+                                        <p class="text-center mb-0" style="margin:5px;" t-else="">
+                                            <!-- String kosong jika summary_experience tidak ada datanya -->
+                                        </p>
+                                    </div>
+                                    
+                                </div>
 
                             </div>
                         </div>
-                        <div class="card mb-4 mb-lg-0">
-                            <div class="card-body p-0 row">
-                                <div t-if="user_stage > 0"
-                                     class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
-                                    <button type="button"
-                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
-                                            onclick="window.location.href='/pds/data'">
-                                        PDS Data
-                                    </button>
+                            <div class="row">
+                            <div class="card-body text-left">
+                                <div class="row">
+                                    <div class="col-12" style="
+                                    margin-left: 20px;
+                                ">
+                                    <h5 class="card-title" style="border-bottom: 1px dashed #000; display: inline-block;">Skills</h5>
+                                    </div>
                                 </div>
-                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
-                                    <button type="button"
-                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
-                                            onclick="window.location.href='/my/account'">
-                                        Edit My data
-                                    </button>
+
+                                <div class="col">
+                                    <t t-if="applied_jobs[0]['skill']">
+                                        <t t-foreach="applied_jobs[0]['skill'].split(',')" t-as="skill">
+                                            <span class="badge badge-pill badge-info" style="margin:2px; width:45;" t-esc="skill.strip()"/>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <!-- String kosong jika skill tidak ada -->
+                                    </t>
                                 </div>
-                                <div class="list-group-item d-flex justify-content-between align-items-center p-1 col-md-4">
-                                    <button type="button"
-                                            class="btn btn-primary d-flex btn-block btn-sm text-truncate justify-content-center align-items-center"
-                                            onclick="window.location.href='/my/security'">
-                                        Edit Password
-                                    </button>
-                                </div>
-                                <!--                                <t t-esc="user_stage"/>-->
+                                
+                                
+                                
                             </div>
                         </div>
+                            </div>
+                           
+                        </div>
+                       
 
 
                     </div>
                     <div class="col-lg-8">
-                        <div class="card mb-4">
+                        <div class="card mb-4" style="box-shadow: 4px 4px 5px lightblue; border-radius: 1rem;">
                             <div class="card-profile card-body">
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                   
+                                        <div class="col-12">
+                                            <h5 class="card-title" style="border-bottom: 1px dashed #000; display: inline-block;">My Information</h5>
+                                    
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
                                         <p class="mb-0">Full Name</p>
-                                    </div>
-                                    <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-                                            <t t-esc="user_data.name"/>
+                                           <b> <t t-esc="applied_jobs[0]['fullname']"/></b>
                                         </p>
                                     </div>
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Email</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">
-                                            <t t-esc="user_data.email"/>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <p class="mb-0">Phone</p>
-                                    </div>
-                                    <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-                                            <t t-esc="user_data.partner_id.phone"/>
+                                        <b>  <t t-esc="applied_jobs[0]['partner_phone']"/></b>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="mb-0">Degree</p>
+                                        <p class="text-muted mb-0">
+                                        <b>   <t t-esc="applied_jobs[0]['degree']"/></b>
                                         </p>
                                     </div>
                                 </div>
-                                <hr/>
+                                <br />
                                 <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Address</p>
-                                    </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-4">
+                                        <p class="mb-0">Email</p>
                                         <p class="text-muted mb-0">
-                                            <t t-esc="user_data.partner_id.contact_address"/>
+                                        <b> <t t-esc="applied_jobs[0]['email_from']"/></b>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="mb-0">Address</p>
+                                        <p class="text-muted mb-0">
+                                        <b> <t t-esc="applied_jobs[0]['pds_currentAddress']"/></b>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="mb-0">University</p>
+                                        <p class="text-muted mb-0">
+                                        <b>  <t t-esc="applied_jobs[0]['from_talent_universitas']"/></b>
                                         </p>
                                     </div>
                                 </div>
+                                <br />
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-md-3 mb-2">
+                                                    <button type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
+                                                        Export to PDF
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <button t-if="user_stage > 0" type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/pds/data'">
+                                                        Edit PDS Data
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <button type="button" class="btn btn-rounded btn-md btn-block" style="background: #E17726; color:white;" onclick="window.location.href='/my/security'">
+                                                        Edit Password
+                                                    </button>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
                             </div>
                         </div>
 
                         <div t-attf-class="mb-3 col-xl-12">
-                            <div class="col-md-10">
-                                <table class="table table-condensed">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="card-title" style="border-bottom: 1px dashed #000; display: inline-block;">Apply History</h5>
+                                </div>
+                                   
+                              
+                            
+                        </div>
+                            <div class="col-md-12">
+                                <table class="table table-condensed" style="border-top:none;">
                                     <thead>
                                         <tr>
-                                            <th>Applied on</th>
-                                            <th>Applied role</th>
-                                            <th>Stages</th>
+                                            <th class="text-center">Applied on</th>
+                                            <th class="text-center">Applied role</th>
+                                            <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr t-foreach="applied_jobs" t-as="job">
-                                            <td>
+                                            <td class="text-center text-muted">
 
-                                                <span t-esc="job['created']"/>
+                                                <span t-esc="job['created'].strftime('%Y-%m-%d %I:%M %p')"/>
                                             </td>
-                                            <td>
+                                            <td class="text-center text-muted">
 
                                                 <span t-esc="job['job'].name"/>
                                             </td>
-                                            <td>
+                                            <td class="text-center text-muted">
 
                                                 <span t-esc="job['stage']"/>
                                             </td>

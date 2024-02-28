@@ -7,165 +7,304 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="PDS Data">
-                    <group>
-                        <group string="Personal Records">
-                            <label for="pds_fullname"/>
-                            <div class="o_row">
-                                <field name="pds_fullname"/>
-                                <label for="pds_sex"/>
-                                <field name="pds_sex"/>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Personal Records">
+                                    <label for="pds_fullname"/>
+                                    <div class="o_row">
+                                        <field name="pds_fullname"/>
+                                        <label for="pds_sex"/>
+                                        <field name="pds_sex"/>
+                                    </div>
+                                    <label for="pds_nik"/>
+                                    <div>
+                                        <field name="pds_nik"/>
+                                    </div>
+                                    <label for="pds_addressNIK"/>
+                                    <div class="o_row">
+                                        <field name="pds_addressNIK" placeholder="NIK Address"/>
+                                        <label for="pds_zipcode_addressNIK"/>
+                                        <field name="pds_zipcode_addressNIK"
+                                        />
+                                    </div>
+                                    <label for="pds_currentAddress"/>
+                                    <div class="o_row">
+                                        <field name="pds_currentAddress" placeholder="Current Address"/>
+                                        <label for="pds_zipcode_currentAddress"/>
+                                        <field name="pds_zipcode_currentAddress"/>
+                                    </div>
+                                    <field name="pds_phoneNumber"/>
+                                    <field name="pds_email"/>
+                                    <label for="pds_placeOfBirth"/>
+                                    <div class="o_row">
+                                        <field name="pds_placeOfBirth"/>
+                                        <label for="pds_dob"/>
+                                        <field name="pds_dob"/>
+                                    </div>
+                                    <field name="pds_nationality"/>
+                                    <field name="pds_religion"/>
+                                    <field name="pds_marital_status"/>
+                                </group>
                             </div>
-                            <label for="pds_nik"/>
-                            <div>
-                                <field name="pds_nik"/>
-                            </div>
-                            <label for="pds_addressNIK"/>
-                            <div class="o_row">
-                                <field name="pds_addressNIK" placeholder="NIK Address"/>
-                                <label for="pds_zipcode_addressNIK"/>
-                                <field name="pds_zipcode_addressNIK"
-                                />
-                            </div>
-                            <label for="pds_currentAddress"/>
-                            <div class="o_row">
-                                <field name="pds_currentAddress" placeholder="Current Address"/>
-                                <label for="pds_zipcode_currentAddress"/>
-                                <field name="pds_zipcode_currentAddress"/>
-                            </div>
-                            <field name="pds_phoneNumber"/>
-                            <field name="pds_email"/>
-                            <label for="pds_placeOfBirth"/>
-                            <div class="o_row">
-                                <field name="pds_placeOfBirth"/>
-                                <label for="pds_dob"/>
-                                <field name="pds_dob"/>
-                            </div>
-                            <field name="pds_nationality"/>
-                            <field name="pds_religion"/>
-                            <field name="pds_marital_status"/>
-                        </group>
-                        <group string="Education &amp; Skills">
-                            <field name="pds_education" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_edu_inst_name"/>
-                                    <field name="pds_edu_level"/>
-                                    <field name="pds_edu_major"/>
-                                    <field name="pds_edu_location"/>
-                                    <field name="pds_edu_start_year"/>
-                                    <field name="pds_edu_end_year"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_edu_inst_name"/>
-                                        <field name="pds_edu_level"/>
-                                        <field name="pds_edu_major"/>
-                                        <field name="pds_edu_location"/>
-                                        <field name="pds_edu_start_year"/>
-                                        <field name="pds_edu_end_year"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Certifications">
-                            <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_cert_name"/>
-                                    <field name="pds_cert_provider"/>
-                                    <field name="pds_cert_issued_year"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_cert_name"/>
-                                        <field name="pds_cert_provider"/>
-                                        <field name="pds_cert_issued_year"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Non formal Education">
-                            <field name="pds_course" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_course_name"/>
-                                    <field name="pds_course_provider"/>
-                                    <field name="pds_course_issued_year"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_course_name"/>
-                                        <field name="pds_course_provider"/>
-                                        <field name="pds_course_issued_year"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Language Proficiency">
-                            <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_lang_name"/>
-                                    <field name="pds_ability"/>
-                                    <field name="pds_lang_percen"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_lang_name"/>
-                                        <field name="pds_ability"/>
-                                        <field name="pds_lang_percen"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Organization">
-                            <field name="pds_org" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_org_name"/>
-                                    <field name="pds_org_nature"/>
-                                    <field name="pds_org_position"/>
-                                    <field name="pds_org_year"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_org_name"/>
-                                        <field name="pds_org_nature"/>
-                                        <field name="pds_org_position"/>
-                                        <field name="pds_org_year"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Health history">
-                            <field name="pds_health" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_health_period"/>
-                                    <field name="pds_health_type"/>
-                                    <field name="pds_health_hospital"/>
-                                    <field name="pds_health_year"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_health_period"/>
-                                        <field name="pds_health_type"/>
-                                        <field name="pds_health_hospital"/>
-                                        <field name="pds_health_year"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
-                        <group string="Expected Salary">
-                            <field name="pds_exp_sal" widget="section_and_note_one2many" mode="tree">
-                                <tree editable="top">
-                                    <field name="pds_expected_salary"/>
-                                    <field name="pds_expected_benefit"/>
-                                </tree>
-                                <form editable="top">
-                                    <group>
-                                        <field name="pds_expected_salary"/>
-                                        <field name="pds_expected_benefit"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </group>
+                        </div>
 
-                    </group>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Financial Information">
+                                    <label for="pds_fi_bank"/>
+                                    <div class="o_row">
+                                        <field name="pds_fi_bank"/>
+                                        <label for="pds_fi_bank_no"/>
+                                        <field name="pds_fi_bank_no"/>
+                                    </div>
+                                    <label for="pds_fi_npwp_number"/>
+                                    <div class="o_row">
+                                        <field name="pds_fi_npwp_number"/>
+                                        <label for="pds_fi_npwp_name"/>
+                                        <field name="pds_fi_npwp_name"/>
+                                    </div>
+                                    <label for="pds_fi_npwp_address"/>
+                                    <div class="o_row">
+                                        <field name="pds_fi_npwp_address"/>
+                                        <label for="pds_fi_ptkp"/>
+                                        <field name="pds_fi_ptkp"/>
+                                    </div>
+                                </group>
+                            </div>
+                        </div>
+                       
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Education &amp; Skills">
+                                    <field name="pds_education" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_edu_inst_name"/>
+                                            <field name="pds_edu_level"/>
+                                            <field name="pds_edu_major"/>
+                                            <field name="pds_edu_location"/>
+                                            <field name="pds_edu_start_year"/>
+                                            <field name="pds_edu_end_year"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_edu_inst_name"/>
+                                                <field name="pds_edu_level"/>
+                                                <field name="pds_edu_major"/>
+                                                <field name="pds_edu_location"/>
+                                                <field name="pds_edu_start_year"/>
+                                                <field name="pds_edu_end_year"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Certifications">
+                                    <field name="pds_certifications" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_cert_name"/>
+                                            <field name="pds_cert_provider"/>
+                                            <field name="pds_cert_issued_year"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_cert_name"/>
+                                                <field name="pds_cert_provider"/>
+                                                <field name="pds_cert_issued_year"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Non formal Education">
+                                    <field name="pds_course" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_course_name"/>
+                                            <field name="pds_course_provider"/>
+                                            <field name="pds_course_issued_year"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_course_name"/>
+                                                <field name="pds_course_provider"/>
+                                                <field name="pds_course_issued_year"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Language Proficiency">
+                                    <field name="pds_lang_prof" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_lang_name"/>
+                                            <field name="pds_ability"/>
+                                            <field name="pds_lang_percen"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_lang_name"/>
+                                                <field name="pds_ability"/>
+                                                <field name="pds_lang_percen"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Organization">
+                                    <field name="pds_org" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_org_name"/>
+                                            <field name="pds_org_nature"/>
+                                            <field name="pds_org_position"/>
+                                            <field name="pds_org_year"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_org_name"/>
+                                                <field name="pds_org_nature"/>
+                                                <field name="pds_org_position"/>
+                                                <field name="pds_org_year"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Health history">
+                                    <field name="pds_health" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_health_period"/>
+                                            <field name="pds_health_type"/>
+                                            <field name="pds_health_hospital"/>
+                                            <field name="pds_health_year"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_health_period"/>
+                                                <field name="pds_health_type"/>
+                                                <field name="pds_health_hospital"/>
+                                                <field name="pds_health_year"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Expected Salary">
+                                    <field name="pds_exp_sal" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_expected_salary"/>
+                                            <field name="pds_expected_benefit"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_expected_salary"/>
+                                                <field name="pds_expected_benefit"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+        
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">     
+                        <group string="Family Information">
+                            <field name="pds_family" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_family_desc"/>
+                                    <field name="pds_family_name"/>
+                                    <field name="pds_family_sex"/>
+                                    <field name="pds_family_age"/>
+                                    <field name="pds_family_education"/>
+                                    <field name="pds_family_company_position"/>
+                                 
+                                
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_family_desc"/>
+                                    <field name="pds_family_name"/>
+                                    <field name="pds_family_sex"/>
+                                    <field name="pds_family_age"/>
+                                    <field name="pds_family_education"/>
+                                    <field name="pds_family_company_position"/>
+                                 
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+        
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">     
+                        <group string="Emergency Contact">
+                            <field name="pds_emCont" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_emercon_name"/>
+                                    <field name="pds_emercon_address"/>
+                                    <field name="pds_emercon_phone"/>
+                                    <field name="pds_emercon_relationship"/>
+                                    
+                                
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_emercon_name"/>
+                                        <field name="pds_emercon_address"/>
+                                        <field name="pds_emercon_phone"/>
+                                        <field name="pds_emercon_relationship"/>
+                                        
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+        
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">     
+                        <group string="Other Activity">
+                            <field name="pds_oac" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="top">
+                                    <field name="pds_oc_name"/>
+                                    <field name="pds_rate"/>
+                                  
+                                    
+                                
+                                </tree>
+                                <form editable="top">
+                                    <group>
+                                        <field name="pds_oc_name"/>
+                                        <field name="pds_rate"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+        
+                        </div>
+                        </div>
                 </page>
             </xpath>
             <xpath expr="//notebook" position="inside">
@@ -181,39 +320,32 @@
                                     <field name="rsm_com_projectDes"/>
                                     <field name="resume_dateStart"/>
                                     <field name="resume_dateEnd"/>
-                                    <field name="resume_tech_used_frontend"/>
-                                    <field name="resume_tech_used_backend"/>
-                                    <field name="resume_tech_used_database"/>
-                                    <field name="resume_sys_int_appl"/>
-                                    <field name="resume_sys_int_middleware"/>
-                                    <field name="resume_sys_int_email_notif"/>
-<!--                                    <field name="fr_test"/>-->
+                                    <field name="resume_tech_used"/>
+                                    <field name="resume_sys_used"/>
+
+                                    <!--                                    <field name="fr_test"/>-->
                                     <field name="company_image"/>
 
                                 </tree>
                                 <form>
                                     <group>
-                                    <group>
-                                        <field name="resume_dateStart"/>-->
-                                        <field name="resume_dateEnd"/>
-                                        <field name="company_image"/>
-                                    </group>
-                                    <group>
-                                        <field name="rsm_com_name"/>
-                                        <field name="rsm_com_job_title"/>
-                                        <field name="rsm_com_projectDes"/>
-                                    </group>
-                                    <group>
-                                        <field name="resume_tech_used_backend" />
-                                        <field name="resume_tech_used_frontend"/>
-                                        <field name="resume_tech_used_database" />
-                                        <field name="resume_tech_used_certificate" />
-                                    </group>
-                                    <group>
-                                        <field name="resume_sys_int_appl" />
-                                        <field name="resume_sys_int_middleware" />
-                                        <field name="resume_sys_int_email_notif" />
-                                    </group>
+                                        <group>
+                                            <field name="resume_dateStart"/>-->
+                                            <field name="resume_dateEnd"/>
+                                            <field name="company_image"/>
+                                        </group>
+                                        <group>
+                                            <field name="rsm_com_name"/>
+                                            <field name="rsm_com_job_title"/>
+                                            <field name="rsm_com_projectDes"/>
+                                        </group>
+                                        <group>
+                                            <field name="resume_tech_used"/>
+
+                                        </group>
+                                        <group>
+                                            <field name="resume_sys_used"/>
+                                        </group>
                                     </group>
                                 </form>
                             </field>

@@ -11,6 +11,7 @@
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
+        'data/hide_website_menu.xml',
         'security/ir.model.access.csv',
         'views/inherit/jobs_portal.xml',
         'views/inherit/footer_login.xml',
@@ -33,6 +34,7 @@
         'web.assets_frontend': [
             '/ikon_recruitment/static/src/scss/my_profile.css',
             '/ikon_recruitment/static/src/js/notification_message.js',
+            '/ikon_recruitment/static/src/css/popup.css',
         ],
 
     },
