@@ -521,18 +521,18 @@
                 <!--        Personal Record-->
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname</label>
+                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_fullname" class="form-control"
+                        <input type="text" name="pds_fullname" class="form-control" required="True"
                               
                                t-att-value="pds_data['pds_fullname']" placeholder="Your fullname"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                    
-                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
-                        <select name="pds_sex" class="form-select">
+                        <select name="pds_sex" class="form-select" required="True">
                             <t t-if="not pds_data['pds_sex']">
                                 <option value="select">Select</option>
                             </t>
@@ -554,21 +554,21 @@
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_nik" class="form-control "
+                        <input type="text" name="pds_nik" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_nik']" placeholder="Your NIK Number"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_addressNIK">
-                       NIK address
+                       NIK address <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_addressNIK" class="form-control "
+                        <input type="text" name="pds_addressNIK" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_addressNIK']" placeholder="Your NIK Address"/>
                     </div>
@@ -611,10 +611,10 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_phoneNumber" class="form-control "
+                        <input type="text" name="pds_phoneNumber" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_phoneNumber']" placeholder="0812345678"/>
                     </div>
@@ -622,20 +622,20 @@
 
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_placeOfBirth">Place of
-                        birth
+                        birth <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_placeOfBirth" class="form-control "
+                        <input type="text" name="pds_placeOfBirth" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_placeOfBirth']" placeholder="Your Place of birth"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth</label>
+                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="date" name="pds_dob" class="form-control "
+                        <input type="date" name="pds_dob" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_dob']"/>
                     </div>
@@ -712,11 +712,12 @@
                     </div> -->
                     <div class="form-group row mb-4">
                    
-                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-4">
                             <t t-set="sex_mapping"
                                t-value="{'select': 'SELECT','father': 'Father', 'mother': 'Mother','brother':'Brother','sister':'Sister','other':'Other'}"/>
-                            <select name="pds_family_desc"
+                            <select name="pds_family_desc" required="True"
                                     t-attf-class="form-select ">
                                 <option value="#"></option>
                                 <option value="Father">Father</option>
@@ -729,20 +730,21 @@
     
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_name" class="form-control "
+                            <input type="text" name="pds_family_name" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                         <div class="form-group row mb-4">
                    
-                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                             <div class="col-sm-4">
                                 <t t-set="sex_mapping"
                                    t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                                <select name="pds_family_sex"
+                                <select name="pds_family_sex" required="True"
                                         t-attf-class="form-select ">
                                     <option value="#"></option>
                                     <option value="male">MALE</option>
@@ -753,27 +755,27 @@
                         </div>
                    
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_age" class="form-control "
+                            <input type="text" name="pds_family_age" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_education" class="form-control "
+                            <input type="text" name="pds_family_education" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position)</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position) <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_company_position" class="form-control "
+                            <input type="text" name="pds_family_company_position" class="form-control " required="True"
                                   
                             />
                             <input type="hidden" name="pds_family_type" value="Family" class="form-control " />
@@ -785,15 +787,13 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
-
-                            <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
+                    
+                          <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#familyModal">
                                 View
-                            </button>
-                        </t>
+                              </button>
+                          </t>
+                        
                        
                     </div>
                    
@@ -969,7 +969,7 @@
                             Add
                         </button>
 
-                                <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
+                                <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#dependenciesInfoModal">
                                 View
                               </button>
@@ -1190,20 +1190,22 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
 
-                            <input type="text" name="pds_edu_inst_name" class="form-control "
+                            <input type="text" name="pds_edu_inst_name" class="form-control" required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
                             <t t-set="level_mapping"
                                t-value="{'select': 'SELECT','high_school': 'High School', 'bachelor': 'Bachelor', 'master': 'Master', 'doctor': 'Doctor'}"/>
-                            <select name="pds_edu_level"
+                            <select name="pds_edu_level" required="True"
                                     t-attf-class="form-select ">
                                 <option value="select">
                                     Click to Select
@@ -1216,19 +1218,20 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major
+                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major <span style="color: red;">*</span>
+
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_major" class="form-control "
+                            <input type="text" name="pds_edu_major" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location
+                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location <span style="color: red;">*</span>
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_location" class="form-control "
+                            <input type="text" name="pds_edu_location" class="form-control " required="True"
                                   
                             />
                         </div>
@@ -1243,9 +1246,9 @@
                         </div>
                     </div> -->
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_edu_start_year">
+                            <select class="form-control" name="pds_edu_start_year" required="True">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1254,7 +1257,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
                             <select class="form-control" name="pds_edu_end_year">
                                 <option value="">Select Year</option>
@@ -1927,25 +1930,24 @@
                     </t>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary</label>
+                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary <span style="color: red;">*</span>
+                        </label>
                         <div class="input-group col-sm-5" t-attf-style="width: 250px;">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp :
                                 </div>
                             </div>
 
-                            <input type="text" name="pds_expected_salary" class="form-control"
+                            <input type="text" name="pds_expected_salary" class="form-control" required="True"
                                    t-att-value="sal"/>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
                         <label class="col-sm-5 col-form-label" for="pds_expected_benefit">Expected benefit
+                            <span style="color: red;">*</span>
                         </label>
                         <div class="col-sm-6">
-
-                            <input type="text" name="pds_expected_benefit" class="form-control "
-                                   t-att-value="ben"/>
-
+                            <textarea name="pds_expected_benefit" required="True" class="form-control" rows="3" t-att-value="ben"></textarea>
                         </div>
                     </div>
                     <div class="clearfix">
@@ -1971,33 +1973,37 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_name">Name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_name">Name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_name" class="form-control "
+                            <input type="text" name="pds_emercon_name" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_address">Address</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_address">Address <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_address" class="form-control "
+                            <input type="text" name="pds_emercon_address" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_phone">Phone</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_phone">Phone <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_phone" class="form-control "
+                            <input type="text" name="pds_emercon_phone" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_relationship">Relationship</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_relationship">Relationship <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_relationship" class="form-control "
+                            <input type="text" name="pds_emercon_relationship" class="form-control " required="True"
                                   
                             />
                         </div>
@@ -2229,28 +2235,28 @@
            </div>
 
            <div class="form-group row mb-4">
-               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Bank Name</label>
+               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Bank Name <span style="color: red;">*</span></label>
                <div class="col-sm-8">
-                   <input type="text" name="pds_fi_bank" class="form-control"
+                   <input type="text" name="pds_fi_bank" class="form-control" required="True"
                          
                           t-att-value="pds_data['pds_fi_bank'] or ''"/>
                </div>
            </div>
            
            <div class="form-group row mb-4">
-            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Bank Account</label>
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Bank Account <span style="color: red;">*</span></label>
             <div class="col-sm-8">
-                <input type="text" name="pds_fi_bank_no" class="form-control"
+                <input type="text" name="pds_fi_bank_no" class="form-control" required="True"
                       
                        t-att-value="pds_data['pds_fi_bank_no'] or ''"/>
             </div>
         </div>
 
            <div class="form-group row mb-4">
-               <label class="col-sm-4 col-form-label" for="pds_fi_holder_name">Account Holder Name</label>
+               <label class="col-sm-4 col-form-label" for="pds_fi_holder_name">Account Holder Name <span style="color: red;">*</span></label>
                <div class="col-sm-8">
 
-                   <input type="text" name="pds_fi_holder_name" class="form-control "
+                   <input type="text" name="pds_fi_holder_name" class="form-control " required="True"
                          
                           t-att-value="pds_data['pds_fi_holder_name'] or ''" />
                </div>
@@ -2381,7 +2387,11 @@
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary</label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_last_salary"  class="form-control " value="Rp:"/>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rp :
+                            </div>
+                        </div>
+                        <input type="text" name="pds_workex_last_salary"  class="form-control "/>
                     </div>
                 </div>     
 
