@@ -30,15 +30,15 @@ class PDSController(http.Controller):
         pds_family = request.env['custom.family.information'].search([("applicant_id", '=',applicant_id)])
         pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=',applicant_id)])
         pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=',applicant_id)])
-        
-        if not applicant_to_update.pds_fullname and kwargs.get("pds_fullname") == None:
-            applicant_to_update.write({'pds_fullname':applicant_to_update.partner_name})
+        pds_check = request.env['hr.applicant'].browse(applicant_id)
+        if not pds_check.pds_fullname and kwargs.get("pds_fullname") == None:
+            pds_check.write({'pds_fullname':pds_check.partner_name})
 
-        if not applicant_to_update.pds_email and kwargs.get("pds_email") == None:
-            applicant_to_update.write({'pds_email':applicant_to_update.email_from})
+        if not pds_check.pds_email and kwargs.get("pds_email") == None:
+            pds_check.write({'pds_email':pds_check.email_from})
             
-        if not applicant_to_update.pds_placeOfBirth and kwargs.get("pds_placeOfBirth") == None:
-            applicant_to_update.write({'pds_placeOfBirth':applicant_to_update.dob})
+        if not pds_check.pds_placeOfBirth and kwargs.get("pds_placeOfBirth") == None:
+            pds_check.write({'pds_placeOfBirth':pds_check.dob})
         
         
         data = {}
@@ -250,29 +250,33 @@ class PDSController(http.Controller):
         user = request.env.user
         applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
         job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
-        recruiter = request.env['res.users'].sudo().browse(job.user_id.id)
+        recruiter = request.env['res.users'].sudo().browse(applicants.user_id.id)
         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        logger.info("recruiter.login",recruiter.login)
+    
         try:
             link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
+            pds_percentage = applicants.pds_percentage or 0
+
             mail_template.send_mail(
                 recruiter.id,
-                email_values = {
-                'email_to': recruiter.login,
-                'subject' : f"{applicants.partner_name} - {job.name} Has Filled Out the PDS Form.",
-                'body_html': '''
-        <p>Hello %s,</p>
-        <p>Candidate with:</p>
-        <ul>
-            <li>Name : %s</li>
-            <li>Position : %s</li>
-        </ul>
-        <p>Has Filled Out The PDS Form. You can check their PDS by looking at the pipeline or click link below:</p>
-        <p><a href="%s" target="_blank">View Candidate PDS Data</a></p>
-    ''' % (recruiter.name, applicants.partner_name, job.name, link_to_pds_data),
-            },
-            force_send=True)
+                email_values={
+                    'email_to': recruiter.login,
+                    'subject': f"{applicants.partner_name} - {job.name} Has Filled Out the PDS Form.",
+                    'body_html': '''
+                        <p>Hello %s,</p>
+                        <p>Candidate with:</p>
+                        <ul>
+                            <li>Name : %s</li>
+                            <li>Position : %s</li>
+                            <li>PDS Filled: %s%%</li>
+                        </ul>
+                        <p>Has Filled Out The PDS Form. You can check their PDS by looking at the pipeline or click link below:</p>
+                        <p><a href="%s" target="_blank">View Candidate PDS Data</a></p>
+                    ''' % (recruiter.name, applicants.partner_name, job.name, pds_percentage, link_to_pds_data),
+                },
+                force_send=True
+            )
 
         except ValidationError as e:
             return f"Error: {e}"
@@ -389,8 +393,14 @@ class PDSController(http.Controller):
     @http.route("/create_personal", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_personal(self, **kwargs):
         user = request.env.user
-        applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-      
+        applicant_to_updates = request.env['hr.applicant'].search([("email_from", '=', user.email)])
+
+        if len(applicant_to_updates) == 1:
+            applicant_id = applicant_to_updates.id
+        else:
+           applicant_id = applicant_to_updates[1].id
+
+        applicant_to_update = request.env['hr.applicant'].browse(applicant_id)
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
                 if kwargs.get("pds_fi_bank"):
