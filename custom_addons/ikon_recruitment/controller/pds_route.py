@@ -21,11 +21,25 @@ class PDSController(http.Controller):
         user = request.env.user
         pds_data = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
-        exp_sal = request.env['custom.expected.salary'].search([("applicant_id", "=", applicant_to_update.id)])
-        pds_family = request.env['custom.family.information'].search([("applicant_id", '=', applicant_to_update.id)])
-        pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=', applicant_to_update.id)])
-        pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=', applicant_to_update.id)])
-      
+        if len(applicant_to_update) == 1:
+            applicant_id = applicant_to_update.id
+        else:
+           applicant_id = applicant_to_update[1].id
+
+        exp_sal = request.env['custom.expected.salary'].search([("applicant_id", "=",applicant_id)])
+        pds_family = request.env['custom.family.information'].search([("applicant_id", '=',applicant_id)])
+        pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=',applicant_id)])
+        pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=',applicant_id)])
+        
+        if not applicant_to_update.pds_fullname and kwargs.get("pds_fullname") == None:
+            applicant_to_update.write({'pds_fullname':applicant_to_update.partner_name})
+
+        if not applicant_to_update.pds_email and kwargs.get("pds_email") == None:
+            applicant_to_update.write({'pds_email':applicant_to_update.email_from})
+            
+        if not applicant_to_update.pds_placeOfBirth and kwargs.get("pds_placeOfBirth") == None:
+            applicant_to_update.write({'pds_placeOfBirth':applicant_to_update.dob})
+        
         
         data = {}
         if pds_data:
@@ -75,7 +89,7 @@ class PDSController(http.Controller):
 
         # Other profile data retrieval
         uid = request.session.uid
-        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)])
         # Pass the data to the template
         data = {
             "user_data": user,
@@ -122,7 +136,7 @@ class PDSController(http.Controller):
 
         # Other profile data retrieval
         uid = request.session.uid
-        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)])
         # Pass the data to the template
         data = {
             "user_data": user,
@@ -169,7 +183,7 @@ class PDSController(http.Controller):
 
         # Other profile data retrieval
         uid = request.session.uid
-        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)])
 
         # Pass the data to the template
         data = {
@@ -216,7 +230,7 @@ class PDSController(http.Controller):
 
         # Other profile data retrieval
         uid = request.session.uid
-        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)], limit=1)
+        employment_status = request.env['hr.employee'].search([('user_id', '=', uid)])
 
         # Pass the data to the template
         data = {
@@ -238,7 +252,7 @@ class PDSController(http.Controller):
         job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
         recruiter = request.env['res.users'].sudo().browse(job.user_id.id)
         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
-
+        logger.info("recruiter.login",recruiter.login)
         try:
             link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
@@ -379,13 +393,12 @@ class PDSController(http.Controller):
       
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
-                if applicant_to_update:
-                        pass
-                else:
-                        applicant_to_update.write({
+                if kwargs.get("pds_fi_bank"):
+                    if not applicant.pds_fi_bank and not applicant.pds_fi_bank_no and not applicant.pds_fi_holder_name:
+                        applicant.write({
                             'pds_fill': applicant.pds_fill + 1
                         })
-                if kwargs.get("pds_fi_bank"):
+                    
                     applicant.update({
                     "pds_fi_bank": kwargs.get("pds_fi_bank"),
                     "pds_fi_bank_no": kwargs.get("pds_fi_bank_no"),
@@ -398,6 +411,11 @@ class PDSController(http.Controller):
                     
                     })
                     return request.redirect('/pds/data#financial')
+                
+                if not applicant.pds_nik and not applicant.pds_addressNIK and not applicant.pds_sex:
+                        applicant.write({
+                            'pds_fill': applicant.pds_fill + 1
+                        })
 
                 applicant.update({
                     "pds_fullname": kwargs.get("pds_fullname"),
@@ -415,6 +433,8 @@ class PDSController(http.Controller):
                     "pds_marital_status": kwargs.get("pds_marital_status"),
                     "pds_sex": kwargs.get("pds_sex"),
                 })
+                
+
         return request.redirect('/pds/data')
 
 
@@ -426,7 +446,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.certif'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.certif'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -459,7 +479,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.edu'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.edu'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -489,7 +509,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.nonformaledu'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.nonformaledu'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -516,7 +536,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.language.prof'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.language.prof'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -544,6 +564,13 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
+                    pds_check = request.env['custom.work.experience'].search([('applicant_id','=',applicant.id)])
+                    if pds_check:
+                        pass
+                    else:
+                        applicant_to_update.write({
+                            'pds_fill': applicant.pds_fill + 1
+                        })
                     work_exp.create({
                         'applicant_id': applicant.id,
                         'pds_workex_company_name': kwargs.get("pds_workex_company_name"),
@@ -571,7 +598,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.expected.salary'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.expected.salary'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -598,7 +625,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.org'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.org'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -628,7 +655,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.health'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.health'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -656,7 +683,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.family.information'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.family.information'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -685,7 +712,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.family.information'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.family.information'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -714,7 +741,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.emergency.contact'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.emergency.contact'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:
@@ -740,7 +767,7 @@ class PDSController(http.Controller):
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
-                    pds_check = request.env['custom.other.activity'].search([('applicant_id','=',applicant.id)], limit=1)
+                    pds_check = request.env['custom.other.activity'].search([('applicant_id','=',applicant.id)])
                     if pds_check:
                         pass
                     else:

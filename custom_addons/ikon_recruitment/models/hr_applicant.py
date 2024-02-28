@@ -41,7 +41,7 @@ class HrApplicant(models.Model):
     @api.depends('pds_fill')
     def _compute_pds_percentage(self):
         for record in self:
-            total_value = 13
+            total_value = 14
             if total_value != 0:
                 percentage = (record.pds_fill / total_value) * 100
                 record.pds_percentage = int(percentage)
