@@ -31,6 +31,7 @@ class PDSController(http.Controller):
         pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=',applicant_id)])
         pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=',applicant_id)])
         pds_check = request.env['hr.applicant'].browse(applicant_id)
+        pds_percentage = pds_check.pds_percentage or 0
         if not pds_check.pds_fullname and kwargs.get("pds_fullname") == None:
             pds_check.write({'pds_fullname':pds_check.partner_name})
 
@@ -52,6 +53,7 @@ class PDSController(http.Controller):
                 "pds_emc": pds_emc,
                 "pds_oa": pds_oa,
                 'YEAR_SELECTION': YEAR_SELECTION,
+                'pds_percentage': pds_percentage,
             }
 
         return request.render("ikon_talent_management.custom_pds_view", data)
@@ -248,7 +250,13 @@ class PDSController(http.Controller):
     @http.route('/confirm', type='http', auth='user', website=True)
     def send_mail_route(self):
         user = request.env.user
-        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
+        applicant = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
+        if len(applicant) == 1:
+            applicant_id = applicant.id
+        else:
+           applicant_id = applicant[0].id
+        logger.info("test", applicant_id)
+        applicants = applicant.sudo().browse(applicant_id)
         job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
         recruiter = request.env['res.users'].sudo().browse(applicants.user_id.id)
         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
@@ -257,6 +265,9 @@ class PDSController(http.Controller):
             link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
             pds_percentage = applicants.pds_percentage or 0
+            if pds_percentage > 80:
+                applicants.write({'pds_send': True})
+
 
             mail_template.send_mail(
                 recruiter.id,
@@ -403,6 +414,7 @@ class PDSController(http.Controller):
         applicant_to_update = request.env['hr.applicant'].browse(applicant_id)
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
+                
                 if kwargs.get("pds_fi_bank"):
                     if not applicant.pds_fi_bank and not applicant.pds_fi_bank_no and not applicant.pds_fi_holder_name:
                         applicant.write({
