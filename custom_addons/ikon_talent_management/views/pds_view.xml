@@ -30,40 +30,7 @@
             <strong>Success!</strong>
             Data has been updated succesfully.
         </div>
-        <!-- <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button> -->
-
-        <!-- Modal -->
-        <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
-
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <a class="close" href="#" data-dismiss="modal"></a>
-      <div class="page-body">
-    <div class="head">  
-      <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
-      <h4>Lorem ipsum dolor sit amet</h4>
-    </div>
-
-  <div style="text-align:center;">
-        <div class="checkmark-circle">
-    <div class="background">
-
-    </div>
-    <div class="checkmark draw">
-        
-    </div>
-    </div>
-</div>
-
-  </div>
-</div>
-    </div>
-
-  </div>
+  
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
@@ -79,35 +46,72 @@
         </script>
     </template>
     <template id="success_modal">
-  
-        <button id="buttonclick" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
-
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <a class="close" href="#" data-dismiss="modal"></a>
-        <div class="page-body">
-      <div class="head">  
-        <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
-      </div>
-  
-    <h1 style="text-align:center;"><div class="checkmark-circle">
-    <div class="background"></div>
-    <div class="checkmark draw"></div>
-  </div></h1>
-  
+        <button id="buttonclickconfirm" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic" />
+        <!-- Modal success-->
+        <div id="success_tic" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <a class="close" href="#" data-dismiss="modal"></a>
+            <div class="page-body">
+        <div class="head">  
+            <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
+        </div>
+    
+        <h1 style="text-align:center;"><div class="checkmark-circle">
+        <div class="background"></div>
+        <div class="checkmark draw"></div>
+    </div></h1>
+    
+        </div>
     </div>
-  </div>
-      </div>
-  
-    </div>
-  
-        <!-- Modal -->
-      
-
+        </div>
+    
+        </div>
+    </template>
+    <template id="cancel_modal">
+       
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+              <strong class="mr-auto">PDS Not Completed</strong>
+              <small class="text-muted">Pds Filled</small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="toast-body">
+                Sorry, the PDS form is incomplete. Please fill it again.
+            </div>
+          </div>
+         
+        
+        <button id="buttonclickcancel" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cancel_tic" />  
+        <!-- Modal cancel -->
+        <div id="cancel_tic" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                <a class="close" href="#" data-dismiss="modal"></a>
+                <div class="page-body">
+            <div class="head">  
+                <h3 style="margin-top:5px;">Cancel</h3>
+            </div>
+        
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+              </svg>
+            </div>
+        </div>
+            </div>
+        
+            </div>
     </template>
 
 
@@ -115,7 +119,7 @@
        
         <link rel="stylesheet" type="text/css"
         href="/ikon_recruitment/static/src/css/popup.css"/>
-        
+     
         <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -130,6 +134,9 @@
         <div class="container" t-attf-style="margin-top: 10px;">
             <!-- <t t-call="ikon_talent_management.success_notif"/> -->
             <t t-call="ikon_talent_management.success_modal"/>
+            <t t-call="ikon_talent_management.cancel_modal"/>
+
+            
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -466,11 +473,12 @@
       
                             <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
              
-                            <a type="button" t-attf-href="/confirm" class="btn btn-success" >
+                            <a type="button" t-attf-href="/confirm" class="btn btn-success" t-att-disabled="{'disabled': pds_percentage &lt; 50}" >
                                 <i class="fa fa-check-circle-o" aria-hidden="true">
 
                                 </i> Confirm
                             </a>
+                            <input type="hidden" id="pds_percentage" t-att-value="pds_percentage" name="pds_percentage" class="form-control " />
                         </div>
                         <div class="col-sm" >
                             <div t-attf-style="position: relative;
@@ -2342,54 +2350,54 @@
              <div class="row o_portal_details">
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_company_name">Company Name</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_company_name">Company Name <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_company_name" class="form-control "
+                        <input type="text" name="pds_workex_company_name" class="form-control" required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>   
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_lob">Lines of Businness</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_lob">Lines of Businness <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_lob" class="form-control "
+                        <input type="text" name="pds_workex_lob" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>    
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_period_from">Start From</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_from">Start From <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="date" name="pds_workex_period_from" class="form-control "
+                        <input type="date" name="pds_workex_period_from" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_period_to">Start Date</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_to">Start Date <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="date" name="pds_workex_period_to" class="form-control "
+                        <input type="date" name="pds_workex_period_to" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_last_pos">Last Position</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_last_pos">Last Position <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_last_pos" class="form-control "
+                        <input type="text" name="pds_workex_last_pos" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Reason For Leaving</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Reason For Leaving <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <textarea name="pds_workex_reason_leave" class="form-control"></textarea>
+                        <textarea name="pds_workex_reason_leave" class="form-control" required="True" title="'Your experience' if not experience else '-'"></textarea>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary <span style="color: red;">*</span></label>
 
                     <div class="input-group col-sm-8">
                         <div class="input-group-prepend">
@@ -2397,15 +2405,9 @@
                             </div>
                         </div>
 
-                        <input type="text" name="pds_workex_last_salary" class="form-control" />
+                        <input type="text" name="pds_workex_last_salary" required="True" class="form-control" title="'Your experience' if not experience else '-'" />
                     </div>
-                    <!-- <div class="col-sm-8">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">Rp
-                            </div>
-                        </div>
-                        <input type="text" name="pds_workex_last_salary"  class="form-control "/>
-                    </div> -->
+                   
                     
                 </div>     
 

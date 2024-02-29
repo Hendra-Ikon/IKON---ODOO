@@ -37,7 +37,7 @@ class HrApplicant(models.Model):
     skill_ids = fields.Many2many('hr.skill', compute='_compute_skill_ids', store=True, string="SkillID")
     pds_fill = fields.Integer(string="PDS Fill")
     pds_percentage = fields.Integer(string="PDS Fill", compute='_compute_pds_percentage', store=False)
-
+    pds_send = fields.Boolean(string="Pds Send")
     @api.depends('pds_fill')
     def _compute_pds_percentage(self):
         for record in self:
