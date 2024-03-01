@@ -71,23 +71,48 @@
         </div>
     </template>
     <template id="cancel_modal">
+        
        
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <!-- <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
             <div class="toast-header">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                  </svg>
-              <strong class="mr-auto">PDS Not Completed</strong>
-              <small class="text-muted">Pds Filled</small>
-              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true"></span>
-              </button>
+                </svg>
+                <strong class="mr-auto">Confirmation Error</strong>
+                <small class="text-muted">Pds Filled</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="toast-body">
-                Sorry, the PDS form is incomplete. Please fill it again.
+                Please Filled all mandatory fields
+            </div>
+        </div> -->
+        
+        <div class="modal fade" id="cancel_tic" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Confirmation Error</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                      <p>Please Filled all mandatory fields</p>
+                </div>
+              
+              </div>
             </div>
           </div>
+
+      
+        
          
         
         <button id="buttonclickcancel" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cancel_tic" />  
@@ -540,9 +565,9 @@
                    
                     <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
-                        <select name="pds_sex" class="form-select" required="True">
+                        <select name="pds_sex" class="form-select" required="required">
                             <t t-if="not pds_data['pds_sex']">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                             </t>
                             <option value="male" t-att-selected="pds_data['pds_sex'] == 'male'">MALE</option>
                             <option value="female" t-att-selected="pds_data['pds_sex'] == 'female'">FEMALE</option>
@@ -659,10 +684,12 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion</label>
+                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                           <select name="pds_religion" class="form-select">
-                            <option value="select">Select</option>
+                           <select name="pds_religion" class="form-select" required="required">
+                            <t t-if="not pds_data['pds_religion']">
+                                <option value="">Select</option>
+                            </t>
                             <option value="islam" t-att-selected="pds_data['pds_religion'] == 'islam'">ISLAM</option>
                             <option value="kristen" t-att-selected="pds_data['pds_religion'] == 'kristen'">KRISTEN</option>
                             <option value="hindu" t-att-selected="pds_data['pds_religion'] == 'hindu'">HINDU</option>
@@ -674,11 +701,11 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status</label>
+                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <select name="pds_marital_status" class="form-select">
+                        <select name="pds_marital_status" class="form-select" required="required">
                             <t t-if="not pds_data['pds_marital_status']">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                             </t>
                             <option value="single" t-att-selected="pds_data['pds_marital_status'] == 'single'">SINGLE</option>
                             <option value="married" t-att-selected="pds_data['pds_marital_status'] == 'married'">MARRIAGE</option>
@@ -723,17 +750,17 @@
                         <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description <span style="color: red;">*</span>
                         </label>
                         <div class="col-sm-4">
-                            <t t-set="sex_mapping"
-                               t-value="{'select': 'SELECT','father': 'Father', 'mother': 'Mother','brother':'Brother','sister':'Sister','other':'Other'}"/>
-                            <select name="pds_family_desc" required="True"
+
+                            <select name="pds_family_desc" required="required"
                                     t-attf-class="form-select ">
-                                <option value="#"></option>
+                                <option value="">Select</option>
                                 <option value="Father">Father</option>
                                 <option value="Mother">Mother</option>
                                 <option value="Brother">Brother</option>
                                 <option value="Sister">Sister</option>
                                 <option value="Other">Other</option>
                             </select>
+                            
                         </div>
     
                     </div>
@@ -750,11 +777,9 @@
                    
                             <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                             <div class="col-sm-4">
-                                <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                                <select name="pds_family_sex" required="True"
+                                <select name="pds_family_sex" required="required"
                                         t-attf-class="form-select ">
-                                    <option value="#"></option>
+                                    <option value="">Select</option>
                                     <option value="male">MALE</option>
                                     <option value="female">FEMALE</option>
                                 </select>
@@ -904,11 +929,10 @@
                    
                         <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
                         <div class="col-sm-4">
-                            <t t-set="sex_mapping"
-                               t-value="{'select': 'SELECT','wife': 'Wife', 'husband': 'Husband','childern':'Childern','other':'Other'}"/>
+
                             <select name="pds_family_desc"
-                                    t-attf-class="form-select ">
-                                <option value="#"></option>
+                                    t-attf-class="form-select" required="required">
+                                <option value="">Select</option>
                                 <option value="Wife">Wife</option>
                                 <option value="Husband">Husband</option>
                                 <option value="Childern">Childern</option>
@@ -932,11 +956,9 @@
                    
                             <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
                             <div class="col-sm-4">
-                                <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
                                 <select name="pds_family_sex"
-                                        t-attf-class="form-select ">
-                                    <option value="#"></option>
+                                        t-attf-class="form-select" required="required">
+                                    <option value="">Select</option>
                                     <option value="male">MALE</option>
                                     <option value="female">FEMALE</option>
                                 </select>
@@ -1100,7 +1122,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_cert_issued_year">
+                            <select class="form-control" name="pds_cert_issued_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1213,10 +1235,10 @@
                         <div class="col-sm-8">
                             <t t-set="level_mapping"
                                t-value="{'select': 'SELECT','high_school': 'High School', 'bachelor': 'Bachelor', 'master': 'Master', 'doctor': 'Doctor'}"/>
-                            <select name="pds_edu_level" required="True"
+                            <select name="pds_edu_level" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">
-                                    Click to Select
+                                <option value="">
+                                    Select
                                 </option>
                                 <option value="high_school">High School</option>
                                 <option value="bachelor">Bachelor</option>
@@ -1267,7 +1289,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_edu_end_year">
+                            <select class="form-control" name="pds_edu_end_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1416,7 +1438,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_course_issued_year">
+                            <select class="form-control" name="pds_course_issued_year" required="required" >
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1522,15 +1544,15 @@
                         <label class="col-sm-4 col-form-label" for="pds_ability">Ability Area</label>
                         <div class="col-sm-8">
                             <t t-set="area_mapping"
-                               t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
-                            <select name="pds_ability"
-                                    t-attf-class="form-select ">
-                                <option value="select">Select</option>
-                                <option value="listening">Listening</option>
-                                <option value="speaking">Speaking</option>
-                                <option value="writing">Writing</option>
-                                <option value="reading">Reading</option>
-                            </select>
+                            t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
+                         <select name="pds_ability" required="required"
+                                 t-attf-class="form-select ">
+                             <option value="">Select</option>
+                             <option value="listening">Listening</option>
+                             <option value="speaking">Speaking</option>
+                             <option value="writing">Writing</option>
+                             <option value="reading">Reading</option>
+                         </select>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
@@ -1538,9 +1560,9 @@
                         <div class="col-sm-8">
                             <t t-set="percen_mapping"
                                t-value="{'poor': 'POOR', 'fair': 'FAIR', 'fluent': 'FLUENT'}"/>
-                            <select name="pds_lang_percen"
+                            <select name="pds_lang_percen" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                                 <option value="poor">POOR</option>
                                 <option value="fair">FAIR</option>
                                 <option value="fluent">FLUENT</option>
@@ -1690,7 +1712,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_health_year">
+                            <select class="form-control" name="pds_health_year" required="required" >
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1824,7 +1846,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_org_year">
+                            <select class="form-control" name="pds_org_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1957,7 +1979,7 @@
 
                         <div class="col-sm-7">
 
-                            <input type="text" name="pds_expected_benefit" class="form-control "
+                            <input type="text" name="pds_expected_benefit" class="form-control " required="True"
                                    t-att-value="ben"/>
 
                         </div>
@@ -2128,26 +2150,6 @@
                             />
                         </div>
                     </div>
-
-        
-                    <!-- <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_oc_year">Year</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" name="pds_oc_year">
-                                <option value="">Select Year</option>
-                                <t t-foreach="YEAR_SELECTION" t-as="year">
-                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
-                                </t>
-                            </select>
-                        </div>
-                    </div> -->
-
-                    
-                    
-
-                    
-                  
-
                  
                     <div class="clearfix">
                         <button type="submit"

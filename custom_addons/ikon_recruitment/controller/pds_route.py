@@ -255,7 +255,7 @@ class PDSController(http.Controller):
             applicant_id = applicant.id
         else:
            applicant_id = applicant[0].id
-        logger.info("test", applicant_id)
+        
         applicants = applicant.sudo().browse(applicant_id)
         job = request.env['hr.job'].sudo().browse(applicants.job_id.id)
         recruiter = request.env['res.users'].sudo().browse(applicants.user_id.id)
