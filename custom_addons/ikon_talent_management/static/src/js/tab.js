@@ -6,7 +6,7 @@ $(document).ready(function() {
   var cancel =  document.getElementById('buttonclickcancel')
   var pdsElement = document.getElementById('pds_percentage');
   var pdsValue = pdsElement ? pdsElement.value : 0;
-
+  var toastElement = document.getElementById('myToast');
   // Next Button
   $('.nextBtn').on('click', function() {
       const activeTab = tabs.find('.nav-link.active');
@@ -61,10 +61,11 @@ $(document).ready(function() {
             pdsValue = 0;
         }
         if (pdsValue < 50) {
+            cancel.click()
             setTimeout(function() {
-                window.location.href = '/pds/data';
-            }, 2000); // 2000 milliseconds = 2 seconds
-            $('.toast').toast('show');
+                window.location.href = '/pds/data';             
+            }, 5000); // 2000 milliseconds = 2 seconds
+            
             break; 
 
         }
