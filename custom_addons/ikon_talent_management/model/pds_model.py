@@ -254,8 +254,8 @@ class HrApplWorkExperience(models.Model):
     pds_workex_last_pos = fields.Char(string="Last Position", help="Last Position")
     pds_workex_reason_leave = fields.Char(string="Reason for leaving", help="Reason for leaving")
     pds_workex_last_salary = fields.Char(string="Last salary", help="Last salary")
-    pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
-    pds_workex_period_to = fields.Date(string="to", help="Working period to")
+    pds_workex_period_from = fields.Date(string="Working period From", help='Working period from')
+    pds_workex_period_to = fields.Date(string="Working period To", help="Working period to")
 
 
 class HrApplExpectedSalary(models.Model):

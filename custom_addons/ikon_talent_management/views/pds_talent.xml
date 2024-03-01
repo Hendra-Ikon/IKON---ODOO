@@ -100,6 +100,35 @@
                                 </group>
                         </div>
                         </div>
+
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
+                                <group string="Work Experience">
+                                    <field name="pds_work_exp" widget="section_and_note_one2many" mode="tree">
+                                        <tree editable="top">
+                                            <field name="pds_workex_company_name"/>
+                                            <field name="pds_workex_lob"/>
+                                            <field name="pds_workex_last_pos"/>
+                                            <field name="pds_workex_reason_leave"/>
+                                            <field name="pds_workex_last_salary"/>
+                                            <field name="pds_workex_period_from"/>
+                                            <field name="pds_workex_period_to"/>
+                                        </tree>
+                                        <form editable="top">
+                                            <group>
+                                                <field name="pds_workex_company_name"/>
+                                                <field name="pds_workex_lob"/>
+                                                <field name="pds_workex_last_pos"/>
+                                                <field name="pds_workex_reason_leave"/>
+                                                <field name="pds_workex_last_salary"/>
+                                                <field name="pds_workex_period_from"/>
+                                                <field name="pds_workex_period_to"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                        </div>
+                        </div>
                         <div class="row">
                             <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-12 d-flex flex-column">
                                 <group string="Certifications">

@@ -2,11 +2,13 @@ $(document).ready(function() {
   const tabs = $('#pills-tab');
   const tabContent = $('#pills-tabContent');
   var hash = window.location.hash;
-  var button =  document.getElementById('buttonclick')
-
+  var confirm =  document.getElementById('buttonclickconfirm')
+  var cancel =  document.getElementById('buttonclickcancel')
+  var pdsElement = document.getElementById('pds_percentage');
+  var pdsValue = pdsElement ? pdsElement.value : 0;
+  var toastElement = document.getElementById('myToast');
   // Next Button
   $('.nextBtn').on('click', function() {
-      console.log("next1")
       const activeTab = tabs.find('.nav-link.active');
       const nextTab = activeTab.parent().next().find('.nav-link');
 
@@ -18,7 +20,6 @@ $(document).ready(function() {
 
   // Back Button
   $('.backBtn').on('click', function() {
-      console.log("back")
       const activeTab = tabs.find('.nav-link.active');
       const prevTab = activeTab.parent().prev().find('.nav-link');
 
@@ -56,8 +57,20 @@ $(document).ready(function() {
         resetUrl('/pds/data');
         break;
     case "#confirm":
-        console.log("confirm")
-        button.click()
+        if (!pdsValue) {
+            pdsValue = 0;
+        }
+        if (pdsValue < 50) {
+            cancel.click()
+            setTimeout(function() {
+                window.location.href = '/pds/data';             
+            }, 5000); // 2000 milliseconds = 2 seconds
+            
+            break; 
+
+        }
+
+        confirm.click()
         setTimeout(function() {
             window.location.href = '/my/profile';
         }, 2000); // 2000 milliseconds = 2 seconds

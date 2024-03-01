@@ -21,7 +21,7 @@
                         <field name="source_id"/> -->
                         <field name="pds_percentage" invisible="1"/>
                             <span  attrs="{'invisible': [('stage_name', '!=', 'PDS Submission')]}" class="oe_stat_text">
-                                <span attrs="{'invisible': [('pds_percentage', '&lt;', 70)]}">
+                                <span attrs="{'invisible': [('pds_percentage', '&lt;', 50)]}">
                                     PDS Filled
                                 </span>
                                 

@@ -30,40 +30,7 @@
             <strong>Success!</strong>
             Data has been updated succesfully.
         </div>
-        <!-- <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button> -->
-
-        <!-- Modal -->
-        <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
-
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <a class="close" href="#" data-dismiss="modal"></a>
-      <div class="page-body">
-    <div class="head">  
-      <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
-      <h4>Lorem ipsum dolor sit amet</h4>
-    </div>
-
-  <div style="text-align:center;">
-        <div class="checkmark-circle">
-    <div class="background">
-
-    </div>
-    <div class="checkmark draw">
-        
-    </div>
-    </div>
-</div>
-
-  </div>
-</div>
-    </div>
-
-  </div>
+  
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
@@ -79,35 +46,97 @@
         </script>
     </template>
     <template id="success_modal">
-  
-        <button id="buttonclick" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
+        <button id="buttonclickconfirm" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic" />
+        <!-- Modal success-->
+        <div id="success_tic" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <a class="close" href="#" data-dismiss="modal"></a>
+            <div class="page-body">
+        <div class="head">  
+            <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
+        </div>
+    
+        <h1 style="text-align:center;"><div class="checkmark-circle">
+        <div class="background"></div>
+        <div class="checkmark draw"></div>
+    </div></h1>
+    
+        </div>
+    </div>
+        </div>
+    
+        </div>
+    </template>
+    <template id="cancel_modal">
+        
+       
+        <!-- <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+            <div class="toast-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg>
+                <strong class="mr-auto">Confirmation Error</strong>
+                <small class="text-muted">Pds Filled</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Please Filled all mandatory fields
+            </div>
+        </div> -->
+        
+        <div class="modal fade" id="cancel_tic" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-center" id="exampleModalLongTitle">Confirmation Error</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                      <p><b>Please Filled all mandatory fields</b></p>
+                </div>
+              
+              </div>
+            </div>
+          </div>
 
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <a class="close" href="#" data-dismiss="modal"></a>
-        <div class="page-body">
-      <div class="head">  
-        <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
-      </div>
-  
-    <h1 style="text-align:center;"><div class="checkmark-circle">
-    <div class="background"></div>
-    <div class="checkmark draw"></div>
-  </div></h1>
-  
-    </div>
-  </div>
-      </div>
-  
-    </div>
-  
-        <!-- Modal -->
       
-
+        
+         
+        
+        <button id="buttonclickcancel" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cancel_tic" />  
+        <!-- Modal cancel -->
+        <div id="cancel_tic" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                <a class="close" href="#" data-dismiss="modal"></a>
+                <div class="page-body">
+            <div class="head">  
+                <h3 style="margin-top:5px;">Cancel</h3>
+            </div>
+        
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+              </svg>
+            </div>
+        </div>
+            </div>
+        
+            </div>
     </template>
 
 
@@ -115,7 +144,7 @@
        
         <link rel="stylesheet" type="text/css"
         href="/ikon_recruitment/static/src/css/popup.css"/>
-        
+     
         <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -130,6 +159,9 @@
         <div class="container" t-attf-style="margin-top: 10px;">
             <!-- <t t-call="ikon_talent_management.success_notif"/> -->
             <t t-call="ikon_talent_management.success_modal"/>
+            <t t-call="ikon_talent_management.cancel_modal"/>
+
+            
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -466,11 +498,12 @@
       
                             <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
              
-                            <a type="button" t-attf-href="/confirm" class="btn btn-success" >
+                            <a type="button" t-attf-href="/confirm" class="btn btn-success" t-att-disabled="{'disabled': pds_percentage &lt; 50}" >
                                 <i class="fa fa-check-circle-o" aria-hidden="true">
 
                                 </i> Confirm
                             </a>
+                            <input type="hidden" id="pds_percentage" t-att-value="pds_percentage" name="pds_percentage" class="form-control " />
                         </div>
                         <div class="col-sm" >
                             <div t-attf-style="position: relative;
@@ -521,20 +554,20 @@
                 <!--        Personal Record-->
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname</label>
+                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_fullname" class="form-control"
+                        <input type="text" name="pds_fullname" class="form-control" required="True"
                               
                                t-att-value="pds_data['pds_fullname']" placeholder="Your fullname"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                    
-                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
-                        <select name="pds_sex" class="form-select">
+                        <select name="pds_sex" class="form-select" required="required">
                             <t t-if="not pds_data['pds_sex']">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                             </t>
                             <option value="male" t-att-selected="pds_data['pds_sex'] == 'male'">MALE</option>
                             <option value="female" t-att-selected="pds_data['pds_sex'] == 'female'">FEMALE</option>
@@ -554,21 +587,21 @@
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_nik" class="form-control "
+                        <input type="text" name="pds_nik" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_nik']" placeholder="Your NIK Number"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_addressNIK">
-                       NIK address
+                       NIK address <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_addressNIK" class="form-control "
+                        <input type="text" name="pds_addressNIK" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_addressNIK']" placeholder="Your NIK Address"/>
                     </div>
@@ -611,10 +644,10 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_phoneNumber" class="form-control "
+                        <input type="text" name="pds_phoneNumber" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_phoneNumber']" placeholder="0812345678"/>
                     </div>
@@ -622,20 +655,20 @@
 
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_placeOfBirth">Place of
-                        birth
+                        birth <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_placeOfBirth" class="form-control "
+                        <input type="text" name="pds_placeOfBirth" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_placeOfBirth']" placeholder="Your Place of birth"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth</label>
+                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="date" name="pds_dob" class="form-control "
+                        <input type="date" name="pds_dob" class="form-control " required="True"
                               
                                t-att-value="pds_data['pds_dob']"/>
                     </div>
@@ -651,10 +684,12 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion</label>
+                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                           <select name="pds_religion" class="form-select">
-                            <option value="select">Select</option>
+                           <select name="pds_religion" class="form-select" required="required">
+                            <t t-if="not pds_data['pds_religion']">
+                                <option value="">Select</option>
+                            </t>
                             <option value="islam" t-att-selected="pds_data['pds_religion'] == 'islam'">ISLAM</option>
                             <option value="kristen" t-att-selected="pds_data['pds_religion'] == 'kristen'">KRISTEN</option>
                             <option value="hindu" t-att-selected="pds_data['pds_religion'] == 'hindu'">HINDU</option>
@@ -666,11 +701,11 @@
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status</label>
+                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <select name="pds_marital_status" class="form-select">
+                        <select name="pds_marital_status" class="form-select" required="required">
                             <t t-if="not pds_data['pds_marital_status']">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                             </t>
                             <option value="single" t-att-selected="pds_data['pds_marital_status'] == 'single'">SINGLE</option>
                             <option value="married" t-att-selected="pds_data['pds_marital_status'] == 'married'">MARRIAGE</option>
@@ -712,39 +747,39 @@
                     </div> -->
                     <div class="form-group row mb-4">
                    
-                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-4">
-                            <t t-set="sex_mapping"
-                               t-value="{'select': 'SELECT','father': 'Father', 'mother': 'Mother','brother':'Brother','sister':'Sister','other':'Other'}"/>
-                            <select name="pds_family_desc"
+
+                            <select name="pds_family_desc" required="required"
                                     t-attf-class="form-select ">
-                                <option value="#"></option>
+                                <option value="">Select</option>
                                 <option value="Father">Father</option>
                                 <option value="Mother">Mother</option>
                                 <option value="Brother">Brother</option>
                                 <option value="Sister">Sister</option>
                                 <option value="Other">Other</option>
                             </select>
+                            
                         </div>
     
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_name" class="form-control "
+                            <input type="text" name="pds_family_name" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                         <div class="form-group row mb-4">
                    
-                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                             <div class="col-sm-4">
-                                <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                                <select name="pds_family_sex"
+                                <select name="pds_family_sex" required="required"
                                         t-attf-class="form-select ">
-                                    <option value="#"></option>
+                                    <option value="">Select</option>
                                     <option value="male">MALE</option>
                                     <option value="female">FEMALE</option>
                                 </select>
@@ -753,27 +788,27 @@
                         </div>
                    
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_age" class="form-control "
+                            <input type="text" name="pds_family_age" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_education" class="form-control "
+                            <input type="text" name="pds_family_education" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position)</label>
+                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position) <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_family_company_position" class="form-control "
+                            <input type="text" name="pds_family_company_position" class="form-control " required="True"
                                   
                             />
                             <input type="hidden" name="pds_family_type" value="Family" class="form-control " />
@@ -785,15 +820,13 @@
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
-
-                            <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
+                    
+                          <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#familyModal">
                                 View
-                            </button>
-                        </t>
+                              </button>
+                          </t>
+                        
                        
                     </div>
                    
@@ -896,11 +929,10 @@
                    
                         <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
                         <div class="col-sm-4">
-                            <t t-set="sex_mapping"
-                               t-value="{'select': 'SELECT','wife': 'Wife', 'husband': 'Husband','childern':'Childern','other':'Other'}"/>
+
                             <select name="pds_family_desc"
-                                    t-attf-class="form-select ">
-                                <option value="#"></option>
+                                    t-attf-class="form-select" required="required">
+                                <option value="">Select</option>
                                 <option value="Wife">Wife</option>
                                 <option value="Husband">Husband</option>
                                 <option value="Childern">Childern</option>
@@ -924,11 +956,9 @@
                    
                             <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
                             <div class="col-sm-4">
-                                <t t-set="sex_mapping"
-                                   t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
                                 <select name="pds_family_sex"
-                                        t-attf-class="form-select ">
-                                    <option value="#"></option>
+                                        t-attf-class="form-select" required="required">
+                                    <option value="">Select</option>
                                     <option value="male">MALE</option>
                                     <option value="female">FEMALE</option>
                                 </select>
@@ -969,7 +999,7 @@
                             Add
                         </button>
 
-                                <t t-if="len(pds_family) > 1 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
+                                <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#dependenciesInfoModal">
                                 View
                               </button>
@@ -1092,7 +1122,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_cert_issued_year">
+                            <select class="form-control" name="pds_cert_issued_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1190,23 +1220,25 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
 
-                            <input type="text" name="pds_edu_inst_name" class="form-control "
+                            <input type="text" name="pds_edu_inst_name" class="form-control" required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
                             <t t-set="level_mapping"
                                t-value="{'select': 'SELECT','high_school': 'High School', 'bachelor': 'Bachelor', 'master': 'Master', 'doctor': 'Doctor'}"/>
-                            <select name="pds_edu_level"
+                            <select name="pds_edu_level" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">
-                                    Click to Select
+                                <option value="">
+                                    Select
                                 </option>
                                 <option value="high_school">High School</option>
                                 <option value="bachelor">Bachelor</option>
@@ -1216,19 +1248,20 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major
+                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major <span style="color: red;">*</span>
+
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_major" class="form-control "
+                            <input type="text" name="pds_edu_major" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location
+                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location <span style="color: red;">*</span>
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_location" class="form-control "
+                            <input type="text" name="pds_edu_location" class="form-control " required="True"
                                   
                             />
                         </div>
@@ -1243,9 +1276,9 @@
                         </div>
                     </div> -->
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_edu_start_year">
+                            <select class="form-control" name="pds_edu_start_year" required="True">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1254,9 +1287,9 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year <span style="color: red;">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_edu_end_year">
+                            <select class="form-control" name="pds_edu_end_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1405,7 +1438,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_course_issued_year">
+                            <select class="form-control" name="pds_course_issued_year" required="required" >
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1511,15 +1544,15 @@
                         <label class="col-sm-4 col-form-label" for="pds_ability">Ability Area</label>
                         <div class="col-sm-8">
                             <t t-set="area_mapping"
-                               t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
-                            <select name="pds_ability"
-                                    t-attf-class="form-select ">
-                                <option value="select">Select</option>
-                                <option value="listening">Listening</option>
-                                <option value="speaking">Speaking</option>
-                                <option value="writing">Writing</option>
-                                <option value="reading">Reading</option>
-                            </select>
+                            t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
+                         <select name="pds_ability" required="required"
+                                 t-attf-class="form-select ">
+                             <option value="">Select</option>
+                             <option value="listening">Listening</option>
+                             <option value="speaking">Speaking</option>
+                             <option value="writing">Writing</option>
+                             <option value="reading">Reading</option>
+                         </select>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
@@ -1527,9 +1560,9 @@
                         <div class="col-sm-8">
                             <t t-set="percen_mapping"
                                t-value="{'poor': 'POOR', 'fair': 'FAIR', 'fluent': 'FLUENT'}"/>
-                            <select name="pds_lang_percen"
+                            <select name="pds_lang_percen" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                                 <option value="poor">POOR</option>
                                 <option value="fair">FAIR</option>
                                 <option value="fluent">FLUENT</option>
@@ -1679,7 +1712,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_health_year">
+                            <select class="form-control" name="pds_health_year" required="required" >
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1813,7 +1846,7 @@
                     <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="pds_org_year">
+                            <select class="form-control" name="pds_org_year" required="required">
                                 <option value="">Select Year</option>
                                 <t t-foreach="YEAR_SELECTION" t-as="year">
                                     <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
@@ -1927,23 +1960,26 @@
                     </t>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary</label>
-                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary <span style="color: red;">*</span>
+                        </label>
+                        <div class="input-group col-sm-7" t-attf-style="width: 250px;">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">Rp :
+                                <div class="input-group-text">Rp.
                                 </div>
                             </div>
 
-                            <input type="text" name="pds_expected_salary" class="form-control"
+                            <input type="text" name="pds_expected_salary" class="form-control" required="True"
                                    t-att-value="sal"/>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
                         <label class="col-sm-5 col-form-label" for="pds_expected_benefit">Expected benefit
+                            <span style="color: red;">*</span>
                         </label>
-                        <div class="col-sm-6">
 
-                            <input type="text" name="pds_expected_benefit" class="form-control "
+                        <div class="col-sm-7">
+
+                            <input type="text" name="pds_expected_benefit" class="form-control " required="True"
                                    t-att-value="ben"/>
 
                         </div>
@@ -1971,33 +2007,37 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_name">Name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_name">Name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_name" class="form-control "
+                            <input type="text" name="pds_emercon_name" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_address">Address</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_address">Address <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_address" class="form-control "
+                            <input type="text" name="pds_emercon_address" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_phone">Phone</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_phone">Phone <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_phone" class="form-control "
+                            <input type="text" name="pds_emercon_phone" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_emercon_relationship">Relationship</label>
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_relationship">Relationship <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_emercon_relationship" class="form-control "
+                            <input type="text" name="pds_emercon_relationship" class="form-control " required="True"
                                   
                             />
                         </div>
@@ -2110,26 +2150,6 @@
                             />
                         </div>
                     </div>
-
-        
-                    <!-- <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_oc_year">Year</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" name="pds_oc_year">
-                                <option value="">Select Year</option>
-                                <t t-foreach="YEAR_SELECTION" t-as="year">
-                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
-                                </t>
-                            </select>
-                        </div>
-                    </div> -->
-
-                    
-                    
-
-                    
-                  
-
                  
                     <div class="clearfix">
                         <button type="submit"
@@ -2229,28 +2249,28 @@
            </div>
 
            <div class="form-group row mb-4">
-               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Bank Name</label>
+               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Bank Name <span style="color: red;">*</span></label>
                <div class="col-sm-8">
-                   <input type="text" name="pds_fi_bank" class="form-control"
+                   <input type="text" name="pds_fi_bank" class="form-control" required="True"
                          
                           t-att-value="pds_data['pds_fi_bank'] or ''"/>
                </div>
            </div>
            
            <div class="form-group row mb-4">
-            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Bank Account</label>
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Bank Account <span style="color: red;">*</span></label>
             <div class="col-sm-8">
-                <input type="text" name="pds_fi_bank_no" class="form-control"
+                <input type="text" name="pds_fi_bank_no" class="form-control" required="True"
                       
                        t-att-value="pds_data['pds_fi_bank_no'] or ''"/>
             </div>
         </div>
 
            <div class="form-group row mb-4">
-               <label class="col-sm-4 col-form-label" for="pds_fi_holder_name">Account Holder Name</label>
+               <label class="col-sm-4 col-form-label" for="pds_fi_holder_name">Account Holder Name <span style="color: red;">*</span></label>
                <div class="col-sm-8">
 
-                   <input type="text" name="pds_fi_holder_name" class="form-control "
+                   <input type="text" name="pds_fi_holder_name" class="form-control " required="True"
                          
                           t-att-value="pds_data['pds_fi_holder_name'] or ''" />
                </div>
@@ -2332,57 +2352,65 @@
              <div class="row o_portal_details">
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_company_name">Company Name</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_company_name">Company Name <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_company_name" class="form-control "
+                        <input type="text" name="pds_workex_company_name" class="form-control" required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>   
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_lob">Lines of Businness</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_lob">Lines of Businness <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_lob" class="form-control "
+                        <input type="text" name="pds_workex_lob" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>    
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_period_from">Start From</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_from">Start From <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="date" name="pds_workex_period_from" class="form-control "
+                        <input type="date" name="pds_workex_period_from" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_period_to">Start Date</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_to">Start Date <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="date" name="pds_workex_period_to" class="form-control "
+                        <input type="date" name="pds_workex_period_to" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_last_pos">Last Position</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_last_pos">Last Position <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_workex_last_pos" class="form-control "
+                        <input type="text" name="pds_workex_last_pos" class="form-control " required="True" title="'Your experience' if not experience else '-'"
                               
                         />
                     </div>
                 </div>  
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Reason For Leaving</label>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Reason For Leaving <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <textarea name="pds_workex_reason_leave" class="form-control"></textarea>
+                        <textarea name="pds_workex_reason_leave" class="form-control" required="True" title="'Your experience' if not experience else '-'"></textarea>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary</label>
-                    <div class="col-sm-8">
-                        <input type="text" name="pds_workex_last_salary"  class="form-control " value="Rp:"/>
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary <span style="color: red;">*</span></label>
+
+                    <div class="input-group col-sm-8">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rp.
+                            </div>
+                        </div>
+
+                        <input type="text" name="pds_workex_last_salary" required="True" class="form-control" title="'Your experience' if not experience else '-'" />
                     </div>
+                   
+                    
                 </div>     
 
                 <div class="clearfix">
