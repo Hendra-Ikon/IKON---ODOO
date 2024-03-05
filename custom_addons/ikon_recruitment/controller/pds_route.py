@@ -5,6 +5,8 @@ from odoo.http import request
 import json
 import logging
 from odoo.exceptions import ValidationError
+import base64
+from odoo import http, SUPERUSER_ID, _, _lt
 
 logger = logging.getLogger(__name__)
 YEARS = datetime.now().year
@@ -402,6 +404,7 @@ class PDSController(http.Controller):
     
     # create route
     @http.route("/create_personal", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
+
     def create_personal(self, **kwargs):
         user = request.env.user
         applicant_to_updates = request.env['hr.applicant'].search([("email_from", '=', user.email)])
@@ -432,7 +435,24 @@ class PDSController(http.Controller):
                     
                     
                     })
+                    
                     return request.redirect('/pds/data#financial')
+                
+                files = []
+                if kwargs.get("pds_file_ijazah"):
+                    files.append({"filename": "ijazah.pdf", "field_name": "ijazah", "content": kwargs.get("pds_file_ijazah")})
+                if kwargs.get("pds_file_transcript_nilai"):
+                    files.append({"filename": "transcript_nilai.pdf", "field_name": "transcript_nilai", "content": kwargs.get("pds_file_transcript_nilai")})
+
+                if files:
+                    files.extend([
+                        {"filename": "bpjs.pdf", "field_name": "bpjs", "content": kwargs.get("pds_file_bpjs")},
+                        {"filename": "npwp.pdf", "field_name": "npwp", "content": kwargs.get("pds_file_npwp")},
+                        {"filename": "sertification.pdf", "field_name": "sertification", "content": kwargs.get("pds_file_sertification")}
+                    ])
+
+                    PDSController.insert_attachment(self, applicant, applicant_id, files)
+                    return request.redirect('/pds/data#file')
                 
                 if not applicant.pds_nik and not applicant.pds_addressNIK and not applicant.pds_sex:
                         applicant.write({
@@ -458,7 +478,55 @@ class PDSController(http.Controller):
                 
 
         return request.redirect('/pds/data')
+    
 
+    import base64
+
+    def insert_attachment(self, model, id_record, files):
+        orphan_attachment_ids = []
+        model_name = model._name  # Get model name
+        record = model.env[model_name].browse(id_record)
+        authorized_fields = model.with_user(SUPERUSER_ID)._get_form_writable_fields()
+        
+        for file_data in files:
+            field_name = file_data["field_name"]
+            content = file_data["content"]
+            if content:  # Check if content exists
+                filename = f"{record.pds_fullname}_{field_name}.{content.filename.split('.')[-1]}"
+                custom_field = field_name not in authorized_fields
+                attachment_value = {
+                    'name': filename,
+                    'datas': base64.b64encode(content.read()),  # Read file content and convert to base64
+                    'res_model': model_name,
+                    'res_id': record.id,
+                }
+                attachment_id = request.env['ir.attachment'].sudo().create(attachment_value)
+                
+                if attachment_id and not custom_field:
+                    record_sudo = record.sudo()
+                    value = [(4, attachment_id.id)]
+                    if record_sudo._fields[field_name].type == 'many2one':
+                        value = attachment_id.id
+                    record_sudo[field_name] = value
+                else:
+                    orphan_attachment_ids.append(attachment_id.id)
+        
+        if model_name != 'mail.mail':
+            if orphan_attachment_ids:
+                values = {
+                    'body': _('<p>Attached files : </p>'),
+                    'model': model_name,
+                    'message_type': 'comment',
+                    'res_id': id_record,
+                    'attachment_ids': [(6, 0, orphan_attachment_ids)],
+                    'subtype_id': request.env['ir.model.data']._xmlid_to_res_id('mail.mt_comment'),
+                }
+                request.env['mail.message'].with_user(SUPERUSER_ID).create(values)
+        else:
+            for attachment_id_id in orphan_attachment_ids:
+                record.attachment_ids = [(4, attachment_id_id)]
+
+        return orphan_attachment_ids
 
     @http.route("/create_cert", methods=['POST', 'GET'], type='http', auth='user', website=True, csrf=False)
     def create_cert(self, **kwargs):
@@ -498,6 +566,7 @@ class PDSController(http.Controller):
         user = request.env.user
         applicant_to_update = request.env['hr.applicant'].search([("email_from", '=', user.email)])
         education = request.env['custom.edu'].search([])
+        logger.info("id",user.id)
         if request.httprequest.method == 'POST':
             try:
                 for applicant in applicant_to_update:
@@ -511,6 +580,7 @@ class PDSController(http.Controller):
 
                     education.create({
                         'applicant_id': applicant.id,
+                        'user_id': user.id,
                         'pds_edu_inst_name': kwargs.get("pds_edu_inst_name"),
                         'pds_edu_level': kwargs.get("pds_edu_level"),
                         'pds_edu_major': kwargs.get("pds_edu_major"),

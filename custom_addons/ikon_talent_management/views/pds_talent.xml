@@ -335,6 +335,7 @@
                         </div>
                         </div>
                 </page>
+
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Resume">
