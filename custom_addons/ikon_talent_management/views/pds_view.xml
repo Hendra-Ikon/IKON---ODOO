@@ -30,40 +30,7 @@
             <strong>Success!</strong>
             Data has been updated succesfully.
         </div>
-        <!-- <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button> -->
-
-        <!-- Modal -->
-        <button id="buttonclick" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
-
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <a class="close" href="#" data-dismiss="modal"></a>
-      <div class="page-body">
-    <div class="head">  
-      <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
-      <h4>Lorem ipsum dolor sit amet</h4>
-    </div>
-
-  <div style="text-align:center;">
-        <div class="checkmark-circle">
-    <div class="background">
-
-    </div>
-    <div class="checkmark draw">
-        
-    </div>
-    </div>
-</div>
-
-  </div>
-</div>
-    </div>
-
-  </div>
+  
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
@@ -79,35 +46,97 @@
         </script>
     </template>
     <template id="success_modal">
-  
-        <button id="buttonclick" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic">Open Modal</button>
+        <button id="buttonclickconfirm" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#success_tic" />
+        <!-- Modal success-->
+        <div id="success_tic" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <a class="close" href="#" data-dismiss="modal"></a>
+            <div class="page-body">
+        <div class="head">  
+            <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
+        </div>
+    
+        <h1 style="text-align:center;"><div class="checkmark-circle">
+        <div class="background"></div>
+        <div class="checkmark draw"></div>
+    </div></h1>
+    
+        </div>
+    </div>
+        </div>
+    
+        </div>
+    </template>
+    <template id="cancel_modal">
+        
+       
+        <!-- <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+            <div class="toast-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg>
+                <strong class="mr-auto">Confirmation Error</strong>
+                <small class="text-muted">Pds Filled</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Please Filled all mandatory fields
+            </div>
+        </div> -->
+        
+        <div class="modal fade" id="cancel_tic" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-center" id="exampleModalLongTitle">Confirmation Error</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                      <p><b>Please Filled all mandatory fields</b></p>
+                </div>
+              
+              </div>
+            </div>
+          </div>
 
-<!-- Modal -->
-<div id="success_tic" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <a class="close" href="#" data-dismiss="modal"></a>
-        <div class="page-body">
-      <div class="head">  
-        <h3 style="margin-top:5px;">PDS Saved Successfully</h3>
-      </div>
-  
-    <h1 style="text-align:center;"><div class="checkmark-circle">
-    <div class="background"></div>
-    <div class="checkmark draw"></div>
-  </div></h1>
-  
-    </div>
-  </div>
-      </div>
-  
-    </div>
-  
-        <!-- Modal -->
       
-
+        
+         
+        
+        <button id="buttonclickcancel" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#cancel_tic" />  
+        <!-- Modal cancel -->
+        <div id="cancel_tic" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                <a class="close" href="#" data-dismiss="modal"></a>
+                <div class="page-body">
+            <div class="head">  
+                <h3 style="margin-top:5px;">Cancel</h3>
+            </div>
+        
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+              </svg>
+            </div>
+        </div>
+            </div>
+        
+            </div>
     </template>
 
 
@@ -115,38 +144,55 @@
        
         <link rel="stylesheet" type="text/css"
         href="/ikon_recruitment/static/src/css/popup.css"/>
-        
+     
         <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-        crossorigin="anonymous"
-/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xwIzINPMyM9W3Pds1LAdpYkZU8SB2z8kHiMPsZaNTvBYHvZQyyjQfnm+YEMj2Jf5eydPbLCsfATJRrBd/1n9+gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"/>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xwIzINPMyM9W3Pds1LAdpYkZU8SB2z8kHiMPsZaNTvBYHvZQyyjQfnm+YEMj2Jf5eydPbLCsfATJRrBd/1n9+gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <div class="container" t-attf-style="margin-top: 10px;">
             <!-- <t t-call="ikon_talent_management.success_notif"/> -->
             <t t-call="ikon_talent_management.success_modal"/>
+            <t t-call="ikon_talent_management.cancel_modal"/>
+
+            
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" style="display:none;" id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
+                  <button class="nav-link active" style="display:none;"  id="pills-personal_records-tab" data-bs-toggle="pill" data-bs-target="#pills-personal_records" type="button" role="tab" aria-controls="pills-personal_records" aria-selected="true">Personal Records</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link"  style="display:none;" id="pills-family-tab" data-bs-toggle="pill" data-bs-target="#pills-family" type="button" role="tab" aria-controls="pills-family" aria-selected="true">Family Information</button>
+                  </li>
+                  <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link"  id="pills-dependenciesInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-dependenciesInfo" type="button" role="tab" aria-controls="pills-dependenciesInfo" aria-selected="true">Dependencies Information</button>
+                  </li> -->
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" style="display:none;" id="pills-work-tab" data-bs-toggle="pill" data-bs-target="#pills-work" type="button" role="tab" aria-controls="pills-work" aria-selected="false">Work Experience</button>
+                  </li>
+                 
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" style="display:none;" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab" aria-controls="pills-education" aria-selected="false">Education</button>
                 </li>
+                
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" style="display:none;" id="pills-language-tab" data-bs-toggle="pill" data-bs-target="#pills-language" type="button" role="tab" aria-controls="pills-language" aria-selected="false">Language</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" style="display:none;" id="pills-medical_records-tab" data-bs-toggle="pill" data-bs-target="#pills-medical_records" type="button" role="tab" aria-controls="pills-medical_records" aria-selected="false">Medical Records</button>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link"  id="pills-medical_records-tab" data-bs-toggle="pill" data-bs-target="#pills-medical_records" type="button" role="tab" aria-controls="pills-medical_records" aria-selected="false">Medical Records</button>
+                  </li> -->
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" style="display:none;" id="pills-financial-tab" data-bs-toggle="pill" data-bs-target="#pills-financial" type="button" role="tab" aria-controls="pills-financial" aria-selected="false">Financial Information</button>
                   </li>
               </ul>
               <div class="tab-content" id="pills-tabContent">
+
                 <div class="tab-pane fade show active" id="pills-personal_records" role="tabpanel" aria-labelledby="pills-personal_records-tab">          
                     <div class="row">
                         <div class="text-right">
@@ -171,49 +217,117 @@
                             </div>
                             <t t-call="ikon_talent_management.pds_personal_record"/>
                         </div>
+
                         <div class="col-sm">
                             <div t-attf-style="position: relative;
                                     left: 50px;
                                     top: 10px;
                                     background-color: white;
-                                    width: 155px;
+                                    width: 222px;
                                     padding-left: 20px;
                                     height: 30px;
                                     padding-top: 10px;
                                     font-size: 20px;
                                     font-weight: bold;
         
-                                    text-decoration: underline;">Certification
+                                    text-decoration: underline;">Family Information
                             </div>
-                            <t t-call="ikon_talent_management.pds_certificate_section"/>
+                            <t t-call="ikon_talent_management.pds_family_section"/>
                         </div>
+                        <!-- family -->
                     </div>
                 </div>
-              
-                    <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
-                        <div class="row">
-                            <div class="text-right">
-                                <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
-                                <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
-                                
+
+                <div class="tab-pane fade" id="pills-family" role="tabpanel" aria-labelledby="pills-family-tab">
+                    <div class="row">
+                        <div class="text-right">
+                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+                            <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
+                            
+                        </div>
+               
+                        <div class="col-sm" >
+                            <div t-attf-style="position: relative;
+                                    left: 50px;
+                                    top: 10px;
+                                    background-color: white;
+                                    width: 288px;
+                                    padding-left: 20px;
+                                    height: 30px;
+                                    padding-top: 10px;
+                                    font-size: 20px;
+                                    font-weight: bold;
+        
+                                    text-decoration: underline;">Dependencies Information
                             </div>
-                            <div class="col-sm" t-attf-style="margin-top: 25px;">
+                            <t t-call="ikon_talent_management.pds_dependenciesInfo_section"/>
+                        </div>
+
+                        <div class="col-sm" >
+                            <div t-attf-style="position: relative;
+                                    left: 50px;
+                                    top: 10px;
+                                    background-color: white;
+                                    width: 138px;
+                                    padding-left: 20px;
+                                    height: 30px;
+                                    padding-top: 10px;
+                                    font-size: 20px;
+                                    font-weight: bold;
+        
+                                    text-decoration: underline;">Education
+                            </div>
+                            <t t-call="ikon_talent_management.pds_education_section"/>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="pills-work" role="tabpanel" aria-labelledby="pills-work-tab">
+                    <div class="row">
+                        <div class="text-right">
+                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+                            <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
+                            
+                        </div>
+                        <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm" >
                                 <div t-attf-style="position: relative;
                                         left: 50px;
                                         top: 10px;
                                         background-color: white;
-                                        width: 138px;
+                                        width: 200px;
                                         padding-left: 20px;
                                         height: 30px;
                                         padding-top: 10px;
                                         font-size: 20px;
                                         font-weight: bold;
             
-                                        text-decoration: underline;">Education
+                                        text-decoration: underline;">Work Experience
                                 </div>
-                                <t t-call="ikon_talent_management.pds_education_section"/>
+                                <t t-call="ikon_talent_management.pds_work_section"/>
                             </div>
-                            <div class="col-sm" t-attf-style="margin-top: 25px;">
+                       
+                    </div>
+                    </div>
+                  
+                </div>
+
+            </div>
+              
+                <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+                        <div class="row">
+                            <div class="text-right">
+                                <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+                                <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
+                                
+                            </div>
+                            <div class="col-12">
+                            <div class="row">
+                            <div class="col-sm-6">
                                 <div t-attf-style="position: relative;
                                         left: 50px;
                                         top: 10px;
@@ -229,19 +343,27 @@
                                 </div>
                                 <t t-call="ikon_talent_management.pds_nonformal_education_section"/>
                             </div>
-                        </div>
-    
-                    </div>
+                            <div class="col-sm-6">
+                                <div t-attf-style="position: relative;
+                                        left: 50px;
+                                        top: 10px;
+                                        background-color: white;
+                                        width: 155px;
+                                        padding-left: 20px;
+                                        height: 30px;
+                                        padding-top: 10px;
+                                        font-size: 20px;
+                                        font-weight: bold;
             
-                <div class="tab-pane fade" id="pills-language" role="tabpanel" aria-labelledby="pills-language-tab">
-                    <div class="row">
-                        <div class="text-right">
-                         
-                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
-                            <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
+                                        text-decoration: underline;">Certification
+                                </div>
+                                <t t-call="ikon_talent_management.pds_certificate_section"/>
+                            </div>
                         </div>
-                     
-                        <div class="col-sm" t-attf-style="margin-top: 25px;">
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                            <div class="col-sm-6">
                             <div t-attf-style="position: relative;
                                     left: 50px;
                                     top: 10px;
@@ -257,7 +379,7 @@
                             </div>
                             <t t-call="ikon_talent_management.pds_language_section"/>
                         </div>
-                        <div class="col-sm" t-attf-style="margin-top: 25px;">
+                        <div class="col-sm-6">
                             <div t-attf-style="position: relative;
                                     left: 50px;
                                     top: 10px;
@@ -273,30 +395,62 @@
                             </div>
                             <t t-call="ikon_talent_management.pds_org_section"/>
                         </div>
+                        </div>
+                        </div>
                     </div>
-
+    
                 </div>
-                <div class="tab-pane fade" id="pills-medical_records" role="tabpanel" aria-labelledby="pills-medical_records-tab">
+                
+            
+                <div class="tab-pane fade" id="pills-language" role="tabpanel" aria-labelledby="pills-language-tab">
                     <div class="row">
                         <div class="text-right">
-      
-                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
-             
-                            <a type="button" t-attf-href="/confirm" class="btn btn-success" >
-                                <i class="fa fa-check-circle-o" aria-hidden="true">
-
-                                </i> Confirm
-                            </a>
-                       
-
-                            
-            
-
-
-                          
                          
+                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+                            <button class="btn btn-light nextBtn"><i class="fa fa-arrow-circle-right"></i> Next</button>
                         </div>
-                        <div class="col-sm" t-attf-style="margin-top: 25px;">
+                       
+                        <div class="col-12">
+                            <div class="row">
+                     
+                        <div class="col-sm-6">
+                            <div t-attf-style="position: relative;
+                                    left: 50px;
+                                    top: 10px;
+                                    background-color: white;
+                                    width: 224px;
+                                    padding-left: 20px;
+                                    height: 30px;
+                                    padding-top: 10px;
+                                    font-size: 20px;
+                                    font-weight: bold;
+        
+                                    text-decoration: underline;">Emergency Contact
+                            </div>
+                            <t t-call="ikon_talent_management.pds_emcContact_section"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <div t-attf-style="position: relative;
+                                    left: 50px;
+                                    top: 10px;
+                                    background-color: white;
+                                    width: 260px;
+                                    padding-left: 20px;
+                                    height: 30px;
+                                    padding-top: 10px;
+                                    font-size: 20px;
+                                    font-weight: bold;
+        
+                                    text-decoration: underline;">Hobby
+                            </div>
+                            <t t-call="ikon_talent_management.pds_oa_section"/>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+
+                        <div class="col-sm" >
                             <div t-attf-style="position: relative;
                                     left: 50px;
                                     top: 10px;
@@ -312,7 +466,7 @@
                             </div>
                             <t t-call="ikon_talent_management.pds_health_section"/>
                         </div>
-                        <div class="col-sm" t-attf-style="margin-top: 25px;">
+                        <div class="col-sm">
                             <div t-attf-style="position: relative;
                                     left: 50px;
                                     top: 10px;
@@ -328,9 +482,49 @@
                             </div>
                             <t t-call="ikon_talent_management.pds_expected_salary"/>
                         </div>
+                        </div>
+                    </div>
+
+                      
                     </div>
 
                 </div>
+
+                <div class="tab-pane fade" id="pills-financial" role="tabpanel" aria-labelledby="pills-financial-tab">
+                    <div class="row">
+                   
+                       
+                        <div class="text-right">
+      
+                            <button class="btn btn-light backBtn"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+             
+                            <a type="button" t-attf-href="/confirm" class="btn btn-success" t-att-disabled="{'disabled': pds_percentage &lt; 50}" >
+                                <i class="fa fa-check-circle-o" aria-hidden="true">
+
+                                </i> Confirm
+                            </a>
+                            <input type="hidden" id="pds_percentage" t-att-value="pds_percentage" name="pds_percentage" class="form-control " />
+                        </div>
+                        <div class="col-sm" >
+                            <div t-attf-style="position: relative;
+                                    left: 50px;
+                                    top: 10px;
+                                    background-color: white;
+                                    width: 236px;
+                                    padding-left: 20px;
+                                    height: 30px;
+                                    padding-top: 10px;
+                                    font-size: 20px;
+                                    font-weight: bold;
+        
+                                    text-decoration: underline;">Financial Information
+                            </div>
+                            <t t-call="ikon_talent_management.pds_FinIn_section"/>
+                        </div>
+                    </div>
+
+                </div>
+
               </div>
 
         </div>
@@ -342,7 +536,7 @@
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 55px; padding-top: 50px;">
 
-            <form id="custom_pds_form" action="/pds/data" method="post"
+            <form id="custom_pds_form" action="/create_personal" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
                   data-model_name="hr.applicant"
                   data-success-mode="redirect" data-success-page="/jobs"
@@ -360,29 +554,25 @@
                 <!--        Personal Record-->
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname</label>
+                    <label class="col-sm-4 col-form-label" for="pds_fullname">Fullname <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="pds_fullname" class="form-control"
+                        <input type="text" name="pds_fullname" class="form-control" required="True"
                               
-                               t-att-value="pds_data['pds_fullname'] or ''" placeholder="Your fullname"/>
+                               t-att-value="pds_data['pds_fullname']" placeholder="Your fullname"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                    
-                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                    <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
                     <div class="col-sm-4">
-                        <t t-set="sex_mapping"
-                           t-value="{'select': 'SELECT','male': 'MALE', 'female': 'FEMALE'}"/>
-                        <select name="pds_sex"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="sex_mapping.get(pds_data['pds_sex'] or 'Select')"
-                                   t-att-selected="sex_mapping.get(pds_data['pds_sex'] or 'Select')"/>
-                            </option>
-                            <option value="male">MALE</option>
-                            <option value="female">FEMALE</option>
+                        <select name="pds_sex" class="form-select" required="required">
+                            <t t-if="not pds_data['pds_sex']">
+                                <option value="">Select</option>
+                            </t>
+                            <option value="male" t-att-selected="pds_data['pds_sex'] == 'male'">MALE</option>
+                            <option value="female" t-att-selected="pds_data['pds_sex'] == 'female'">FEMALE</option>
                         </select>
+                        
                     </div>
 
                 </div>
@@ -391,29 +581,29 @@
                     <label class="col-sm-4 col-form-label" for="pds_email">Email</label>
                     <div class="col-sm-8">
 
-                        <input type="email" name="pds_email" class="form-control "
-                              
-                               t-att-value="pds_data['pds_email'] or ''" placeholder="Your Email"/>
+                        <input  type="email" name="pds_email" class="form-control "
+                              readonly="1"
+                               t-att-value="pds_data['pds_email']"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">NIK <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_nik" class="form-control "
+                        <input type="text" name="pds_nik" class="form-control " required="True"
                               
-                               t-att-value="pds_data['pds_nik'] or ''" placeholder="Your NIK Number"/>
+                               t-att-value="pds_data['pds_nik']" placeholder="Your NIK Number"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_addressNIK">
-                       NIK address
+                       NIK address <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_addressNIK" class="form-control "
+                        <input type="text" name="pds_addressNIK" class="form-control " required="True"
                               
-                               t-att-value="pds_data['pds_addressNIK'] or ''" placeholder="Your NIK Address"/>
+                               t-att-value="pds_data['pds_addressNIK']" placeholder="Your NIK Address"/>
                     </div>
 
                 </div>
@@ -425,7 +615,7 @@
 
                         <input type="text" name="pds_zipcode_addressNIK"
                                t-attf-class="form-control"
-                               t-att-value="pds_data['pds_zipcode_addressNIK'] or ''" placeholder="339863622333"/>
+                               t-att-value="pds_data['pds_zipcode_addressNIK']" placeholder="339863622333"/>
                     </div>
 
                 </div>
@@ -437,7 +627,7 @@
 
                         <input type="text" name="pds_currentAddress"
                                t-attf-class="form-control "
-                               t-att-value="pds_data['pds_currentAddress'] or ''" placeholder="Your current address"/>
+                               t-att-value="pds_data['pds_currentAddress']" placeholder="Your current address"/>
                     </div>
                   
                 </div>
@@ -449,97 +639,86 @@
 
                         <input type="text" name="pds_zipcode_currentAddress"
                                t-attf-class="form-control"
-                               t-att-value="pds_data['pds_zipcode_currentAddress'] or ''" placeholder="67352"/>
+                               t-att-value="pds_data['pds_zipcode_currentAddress']" placeholder="67352"/>
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone</label>
+                    <label class="col-sm-4 col-form-label" for="pds_nik">Phone <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_phoneNumber" class="form-control "
+                        <input type="text" name="pds_phoneNumber" class="form-control " required="True"
                               
-                               t-att-value="pds_data['pds_phoneNumber'] or ''" placeholder="0812345678"/>
+                               t-att-value="pds_data['pds_phoneNumber']" placeholder="0812345678"/>
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_placeOfBirth">Place of
-                        birth
+                        birth <span style="color: red;">*</span>
                     </label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_phoneNumber" class="form-control "
+                        <input type="text" name="pds_placeOfBirth" class="form-control " required="True"
                               
-                               t-att-value="pds_data['pds_placeOfBirth'] or ''" placeholder="Your Place of birth"/>
+                               t-att-value="pds_data['pds_placeOfBirth']" placeholder="Your Place of birth"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth</label>
+                    <label class="col-sm-4 col-form-label" for="pds_dob">Date of birth <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
 
-                        <input type="date" name="pds_dob" class="form-control "
+                        <input type="date" name="pds_dob" class="form-control " required="True"
                               
-                               t-att-value="pds_data['pds_dob'] or 'Your Date of birth'"/>
+                               t-att-value="pds_data['pds_dob']"/>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label class="col-sm-4 col-form-label" for="pds_nationality">Nationality</label>
                     <div class="col-sm-8">
 
-                        <input type="text" name="pds_dob" class="form-control "
+                        <input type="text" name="pds_nationality" class="form-control "
                               
-                               t-att-value="pds_data['pds_nationality'] or ''" placeholder="Your Nationality"/>
+                               t-att-value="pds_data['pds_nationality']" placeholder="Your Nationality"/>
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion</label>
+                    <label class="col-sm-4 col-form-label" for="pds_religion">Religion  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <t t-set="religion_mapping"
-                           t-value="{'select': 'SELECT', 'islam': 'ISLAM', 'kristen': 'KRISTEN', 'hindu': 'HINDU', 'budha': 'BUDHA', 'konghuchu': 'KONGHUCHU'}"/>
-                        <select name="pds_religion"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="religion_mapping.get(pds_data['pds_religion'] or 'Select')"
-                                   t-att-selected="religion_mapping.get(pds_data['pds_religion'] or 'Select')"/>
-                            </option>
-                            <option value="islam">ISLAM</option>
-                            <option value="kristen">KRISTEN</option>
-                            <option value="hindu">HINDU</option>
-                            <option value="budha">BUDHA</option>
-                            <option value="konghuchu">KONGHUCHU</option>
+                           <select name="pds_religion" class="form-select" required="required">
+                            <t t-if="not pds_data['pds_religion']">
+                                <option value="">Select</option>
+                            </t>
+                            <option value="islam" t-att-selected="pds_data['pds_religion'] == 'islam'">ISLAM</option>
+                            <option value="kristen" t-att-selected="pds_data['pds_religion'] == 'kristen'">KRISTEN</option>
+                            <option value="hindu" t-att-selected="pds_data['pds_religion'] == 'hindu'">HINDU</option>
+                            <option value="budha" t-att-selected="pds_data['pds_religion'] == 'budha'">BUDHA</option>
+                            <option value="konghuchu" t-att-selected="pds_data['pds_religion'] == 'konghuchu'">KONGHUCHU</option>
                         </select>
+                       
                     </div>
                 </div>
 
                 <div class="form-group row mb-4">
-                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status</label>
+                    <label class="col-sm-4 col-form-label" for="pds_marital_status">Marital status  <span style="color: red;">*</span></label>
                     <div class="col-sm-8">
-                        <t t-set="marital_mapping" t-value="{
-                                 'select': 'SELECT',
-                                'single': 'SINGLE',
-                                'married': 'MARRIAGE',
-                                'divorced': 'DIVORCE'}"/>
-                        <select name="pds_marital_status"
-                                t-attf-class="form-select ">
-                            <option value="select">
-
-                                <t t-esc="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"
-                                   t-att-selected="marital_mapping.get(pds_data['pds_marital_status'] or 'Select')"/>
-                            </option>
-                            <option value="single">SINGLE</option>
-                            <option value="married">MARRIAGE</option>
-                            <option value="divorced">DIVORCE</option>
+                        <select name="pds_marital_status" class="form-select" required="required">
+                            <t t-if="not pds_data['pds_marital_status']">
+                                <option value="">Select</option>
+                            </t>
+                            <option value="single" t-att-selected="pds_data['pds_marital_status'] == 'single'">SINGLE</option>
+                            <option value="married" t-att-selected="pds_data['pds_marital_status'] == 'married'">MARRIAGE</option>
+                            <option value="divorced" t-att-selected="pds_data['pds_marital_status'] == 'divorced'">DIVORCE</option>
                         </select>
+                        
                     </div>
                 </div>
                 <input type="hidden" name="redirect" t-att-value="redirect"/>
 
                 <div class="clearfix">
                     <button type="submit" class="btn btn-primary float-end mb32 ">
-                        Update
+                        Save
                     </button>
                 </div>
                 <!--                            </div>-->
@@ -548,9 +727,364 @@
 
     </template>
 
+    <template id="pds_family_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px;">
+            <form id="custom_family_form" action="/create_family_info" method="post"
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="custom.family.information"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
+                <div class="row o_portal_details">
+
+                    <!-- <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_desc" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                   
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-4">
+
+                            <select name="pds_family_desc" required="required"
+                                    t-attf-class="form-select ">
+                                <option value="">Select</option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Brother">Brother</option>
+                                <option value="Sister">Sister</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            
+                        </div>
+    
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_name" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+                        <div class="form-group row mb-4">
+                   
+                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex <span style="color: red;">*</span></label>
+                            <div class="col-sm-4">
+                                <select name="pds_family_sex" required="required"
+                                        t-attf-class="form-select ">
+                                    <option value="">Select</option>
+                                    <option value="male">MALE</option>
+                                    <option value="female">FEMALE</option>
+                                </select>
+                            </div>
+        
+                        </div>
+                   
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age <span style="color: red;">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_age" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education <span style="color: red;">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_education" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position) <span style="color: red;">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_company_position" class="form-control " required="True"
+                                  
+                            />
+                            <input type="hidden" name="pds_family_type" value="Family" class="form-control " />
+                        </div>
+                    </div>
+                 
+                    <div class="clearfix">
+                        <button type="submit"
+                                class="btn btn-primary float-end mb32 ">
+                            Add
+                        </button>
+                    
+                          <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Family')">
+                            <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#familyModal">
+                                View
+                              </button>
+                          </t>
+                        
+                       
+                    </div>
+                   
+                    
+                      
+                     <!-- Modal -->
+                     <div class="modal fade" id="familyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Family Information</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead class="thead-dark">
+                                                <tr style="background-color: #E17726;">
+                                                    <th>Family Description</th>
+                                                    <th>Name</th>
+                                                    <th>SEX</th>
+                                                    <th>Age</th>
+                                                    <th>Education</th>
+                                                    <th>Occupation (Company &amp; Position)</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="pds_family" t-as="family">
+                                                    <t t-if="family['pds_family_type'] == 'Family'">
+                                                    <td>
+                                                        <span t-esc="family['pds_family_desc']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_sex']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_age']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_education']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_company_position']"/>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-danger"
+                                                           t-att-href="'/delete_familyInfo/' + str(family['id'])">Delete
+                                                        </a>
+                                                    </td>
+                                                </t>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </form>
+           
+
+        </div>
+
+    </template>
+
+    <template id="pds_dependenciesInfo_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; ">
+            <form id="custom_depedencies_form" action="/create_dependencies_info" method="post"
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="custom.family.information"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
+                <div class="row o_portal_details">
+
+                    <!-- <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_desc" class="form-control "
+                                  
+                            />
+                            <input type="hidden" name="pds_family_type" value="Dependencies" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                   
+                        <label class="col-sm-4 col-form-label" for="pds_family_desc">Family Description</label>
+                        <div class="col-sm-4">
+
+                            <select name="pds_family_desc"
+                                    t-attf-class="form-select" required="required">
+                                <option value="">Select</option>
+                                <option value="Wife">Wife</option>
+                                <option value="Husband">Husband</option>
+                                <option value="Childern">Childern</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="pds_family_type" value="Dependencies" class="form-control "
+                                  
+                            />
+    
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_name">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_name" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div>
+                        <div class="form-group row mb-4">
+                   
+                            <label class="col-sm-4 col-form-label" for="pds_sex">Sex</label>
+                            <div class="col-sm-4">
+                                <select name="pds_family_sex"
+                                        t-attf-class="form-select" required="required">
+                                    <option value="">Select</option>
+                                    <option value="male">MALE</option>
+                                    <option value="female">FEMALE</option>
+                                </select>
+                            </div>
+        
+                        </div>
+                   
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_age">Age</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_age" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_education">Education</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_education" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_family_company_position">Occupation (Company &amp; Position)</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_family_company_position" class="form-control "
+                                  
+                            />
+                        </div>
+                    </div>
+                 
+                    <div class="clearfix">
+                        <button type="submit"
+                                class="btn btn-primary float-end mb32 ">
+                            Add
+                        </button>
+
+                                <t t-if="len(pds_family) > 0 and pds_family.filtered(lambda r: r['pds_family_type'] == 'Dependencies')">
+                            <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#dependenciesInfoModal">
+                                View
+                              </button>
+                          </t>
+                       
+                    </div>
+                   
+                    
+                      
+                     <!-- Modal -->
+                     <div class="modal fade" id="dependenciesInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Dependencies Information</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead class="thead-dark">
+                                                <tr style="background-color: #E17726;">
+                                                    <th>Family Description</th>
+                                                    <th>Name</th>
+                                                    <th>SEX</th>
+                                                    <th>Age</th>
+                                                    <th>Education</th>
+                                                    <th>Occupation (Company &amp; Position)</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="pds_family" t-as="family">
+                                                <t t-if="family['pds_family_type'] == 'Dependencies'">
+                                                    <td>
+                                                        <span t-esc="family['pds_family_desc']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_sex']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_age']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_education']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="family['pds_family_company_position']"/>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-danger"
+                                                           t-att-href="'/delete_depenInfo/' + str(family['id'])">Delete
+                                                        </a>
+                                                    </td>
+                                                </t>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </form>
+           
+
+        </div>
+
+    </template>
+
     <template id="pds_certificate_section">
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
             <form id="custom_cert_form" action="/create_cert" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
                   data-mark="*" data-model_name="custom.certif"
@@ -576,7 +1110,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate year
                         </label>
                         <div class="col-sm-8">
@@ -584,15 +1118,25 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_cert_issued_year">Certificate Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_cert_issued_year" required="required">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
+                    
                     <div class="clearfix">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
                             Add
                         </button>
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                            View
-                          </button> -->
+
                           <t t-if="pds_data['pds_certifications'] ">
                             <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#certificationsModal">
                                 View
@@ -666,7 +1210,7 @@
     <template id="pds_education_section">
         <selection id="education">
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; ">
 
             <form id="custom_cert_form" action="/create_edu" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -676,23 +1220,25 @@
                 <div class="row o_portal_details">
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_inst_name">Institution name <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
 
-                            <input type="text" name="pds_edu_inst_name" class="form-control "
+                            <input type="text" name="pds_edu_inst_name" class="form-control" required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level</label>
+                        <label class="col-sm-4 col-form-label" for="pds_edu_level">Level <span style="color: red;">*</span>
+                        </label>
                         <div class="col-sm-8">
                             <t t-set="level_mapping"
                                t-value="{'select': 'SELECT','high_school': 'High School', 'bachelor': 'Bachelor', 'master': 'Master', 'doctor': 'Doctor'}"/>
-                            <select name="pds_edu_level"
+                            <select name="pds_edu_level" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">
-                                    Click to Select
+                                <option value="">
+                                    Select
                                 </option>
                                 <option value="high_school">High School</option>
                                 <option value="bachelor">Bachelor</option>
@@ -702,24 +1248,25 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major
+                        <label class="col-sm-4 col-form-label" for="pds_edu_major">Major <span style="color: red;">*</span>
+
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_major" class="form-control "
+                            <input type="text" name="pds_edu_major" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location
+                        <label class="col-sm-4 col-form-label" for="pds_edu_location">Location <span style="color: red;">*</span>
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="pds_edu_location" class="form-control "
+                            <input type="text" name="pds_edu_location" class="form-control " required="True"
                                   
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start year
                         </label>
                         <div class="col-sm-8">
@@ -727,8 +1274,30 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_edu_start_year">Start Year <span style="color: red;">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_edu_start_year" required="True">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End Year <span style="color: red;">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_edu_end_year" required="required">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_edu_end_year">End year
                         </label>
                         <div class="col-sm-8">
@@ -736,7 +1305,7 @@
                                   
                             />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="clearfix">
                         
                         <button type="submit"
@@ -759,7 +1328,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Certifications</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Education</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -767,7 +1336,7 @@
                     <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr t-attf-style="font-size: 10px; background-color: #E17726;">
                                     <th>Institution Name</th>
                                     <th>Level</th>
@@ -831,7 +1400,7 @@
     <template id="pds_nonformal_education_section">
 
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
             <form id="custom_nonformedu_form" action="/create_nonformedu" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
                   data-mark="*" data-model_name="custom.nonformaledu"
@@ -857,7 +1426,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on
                         </label>
                         <div class="col-sm-8">
@@ -865,8 +1434,19 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_course_issued_year">Issued on</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_course_issued_year" required="required" >
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
-                    <div class="clearfix">
+                    <div class="form-group">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
                             Add
@@ -888,7 +1468,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Certifications</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nonformal Education</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -942,7 +1522,7 @@
 
     <template id="pds_language_section">
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
 
             <form id="custom_lang_form" action="/create_langprof" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -964,15 +1544,15 @@
                         <label class="col-sm-4 col-form-label" for="pds_ability">Ability Area</label>
                         <div class="col-sm-8">
                             <t t-set="area_mapping"
-                               t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
-                            <select name="pds_ability"
-                                    t-attf-class="form-select ">
-                                <option value="select">Select</option>
-                                <option value="listening">Listening</option>
-                                <option value="speaking">Speaking</option>
-                                <option value="writing">Writing</option>
-                                <option value="reading">Reading</option>
-                            </select>
+                            t-value="{'select': 'Click to Select', 'reading': 'READING', 'writing': 'WRITING', 'speaking': 'SPEAKING', 'listening': 'LISTENING'}"/>
+                         <select name="pds_ability" required="required"
+                                 t-attf-class="form-select ">
+                             <option value="">Select</option>
+                             <option value="listening">Listening</option>
+                             <option value="speaking">Speaking</option>
+                             <option value="writing">Writing</option>
+                             <option value="reading">Reading</option>
+                         </select>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
@@ -980,9 +1560,9 @@
                         <div class="col-sm-8">
                             <t t-set="percen_mapping"
                                t-value="{'poor': 'POOR', 'fair': 'FAIR', 'fluent': 'FLUENT'}"/>
-                            <select name="pds_lang_percen"
+                            <select name="pds_lang_percen" required="required"
                                     t-attf-class="form-select ">
-                                <option value="select">Select</option>
+                                <option value="">Select</option>
                                 <option value="poor">POOR</option>
                                 <option value="fair">FAIR</option>
                                 <option value="fluent">FLUENT</option>
@@ -1008,7 +1588,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Certifications</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Language</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -1060,7 +1640,7 @@
     <template id="pds_health_section">
 
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
 
             <form id="custom_org_form" action="/create_heealth_act" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -1094,7 +1674,7 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_period">Period</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_period">Period of Ilness</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_period" class="form-control "
@@ -1103,7 +1683,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_type">Type</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_type">Type of Ilness</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_type" class="form-control "
@@ -1112,7 +1692,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label" for="pds_health_hospital">Hospital</label>
+                        <label class="col-sm-4 col-form-label" for="pds_health_hospital">Name of Hospital</label>
                         <div class="col-sm-8">
 
                             <input type="text" name="pds_health_hospital" class="form-control "
@@ -1120,7 +1700,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
                         <div class="col-sm-8">
 
@@ -1128,9 +1708,20 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_health_year">Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_health_year" required="required" >
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="clearfix">
+                    <div class="form-group">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
                             Add
@@ -1149,7 +1740,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Certifications</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Medical Records</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -1159,9 +1750,9 @@
                         <table class="table table-striped">
                         <thead class="thead-dark">
                             <tr style="background-color: #E17726;">
-                                <th>Period</th>
-                    <th>Type</th>
-                    <th>Hospital</th>
+                                <th>Period of Ilness</th>
+                    <th>Type of Ilness</th>
+                    <th>Name of Hospital</th>
                     <th>Year</th>
                     <th>Actions</th>
                             </tr>
@@ -1207,7 +1798,7 @@
     <template id="pds_org_section">
 
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
 
             <form id="custom_org_form" action="/create_org" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -1243,7 +1834,7 @@
                             />
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
                         <div class="col-sm-8">
 
@@ -1251,7 +1842,19 @@
                                   
                             />
                         </div>
+                    </div> -->
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_org_year">Year</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="pds_org_year" required="required">
+                                <option value="">Select Year</option>
+                                <t t-foreach="YEAR_SELECTION" t-as="year">
+                                    <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
                     </div>
+                    
 
                     <div class="clearfix">
                         <button type="submit"
@@ -1272,7 +1875,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Certifications</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Organization</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -1327,12 +1930,21 @@
 
         </div>
 
+        <style>
+            @media only screen and (max-width: 767px) {
+                /* Gaya untuk layar mobile */
+                .container-fluid {
+                    height: auto !important; /* Set tinggi menjadi otomatis */
+                }
+            }
+        </style>
+
     </template>
 
     <template id="pds_expected_salary">
 
         <div class="container-fluid"
-             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 864px; overflow: scroll;">
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px; ">
 
             <form id="custom_exp_salary" action="/create_expected_salary" method="post"
                   enctype="multipart/form-data" class="o_mark_required row"
@@ -1348,23 +1960,26 @@
                     </t>
 
                     <div class="form-group row mb-4">
-                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary</label>
-                        <div class="input-group col-sm-5" t-attf-style="width: 250px;">
+                        <label class="col-sm-5 col-form-label" for="pds_expected_salary">Expected salary <span style="color: red;">*</span>
+                        </label>
+                        <div class="input-group col-sm-7" t-attf-style="width: 250px;">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">Rp :
+                                <div class="input-group-text">Rp.
                                 </div>
                             </div>
 
-                            <input type="text" name="pds_expected_salary" class="form-control"
+                            <input type="text" name="pds_expected_salary" class="form-control" required="True"
                                    t-att-value="sal"/>
                         </div>
                     </div>
                     <div class="form-group row mb-4">
                         <label class="col-sm-5 col-form-label" for="pds_expected_benefit">Expected benefit
+                            <span style="color: red;">*</span>
                         </label>
-                        <div class="col-sm-6">
 
-                            <input type="text" name="pds_expected_benefit" class="form-control "
+                        <div class="col-sm-7">
+
+                            <input type="text" name="pds_expected_benefit" class="form-control " required="True"
                                    t-att-value="ben"/>
 
                         </div>
@@ -1372,7 +1987,7 @@
                     <div class="clearfix">
                         <button type="submit"
                                 class="btn btn-primary float-end mb32 ">
-                            Update
+                            Save
                         </button>
                     </div>
                 </div>
@@ -1381,137 +1996,501 @@
 
     </template>
 
-    <template id="pds_work_section">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="nameHeader">
-                <button class="accordion-button" t-attf-style="background-color: white; margin-top: 10px;" type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#workSection" aria-expanded="true" aria-controls="nameCollapse">
-                    Working Experience Section
-                </button>
-            </h2>
-            <div id="workSection" class="accordion-collapse collapse show" aria-labelledby="nameHeader"
-                 data-bs-parent="#pdsAccordion">
-                <div class="accordion-body">
-                    <form id="custom_nonformedu_form" action="/create_workexp" method="post"
-                          enctype="multipart/form-data" class="o_mark_required row"
-                          data-mark="*" data-model_name="custom.work.experience"
-                          data-success-mode="redirect" data-success-page="/jobs"
-                          hide-change-model="true">
-                        <div class="row o_portal_details">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div t-attf-class="mb-3 col-xl-12">
-                                        <div class="col-md-10">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr t-attf-style="background-color: #E17726;">
-                                                        <th>Company name</th>
-                                                        <th>Line of bussiness</th>
-                                                        <th>Start From</th>
-                                                        <th>End</th>
-                                                        <th>Last Position</th>
-                                                        <th>Reason for leaving</th>
-                                                        <th>Last salary</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr t-foreach="pds_data['pds_work_exp']" t-as="work">
-                                                        <td>
+    <template id="pds_emcContact_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px;">
+            <form id="custom_emcContact_form" action="/create_emc_contact" method="post"
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="custom.emergency.contact"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
+                <div class="row o_portal_details">
 
-                                                            <span t-esc="work['pds_workex_company_name']"/>
-                                                        </td>
-                                                        <td>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_name">Name <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_emercon_name" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_address">Address <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_emercon_address" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_phone">Phone <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_emercon_phone" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_emercon_relationship">Relationship <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_emercon_relationship" class="form-control " required="True"
+                                  
+                            />
+                        </div>
+                    </div>
 
-                                                            <span t-esc="work['pds_workex_lob']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="work['pds_workex_period_from']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="work['pds_workex_period_to']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="work['pds_workex_last_pos']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="work['pds_workex_reason_leave']"/>
-                                                        </td>
-                                                        <td>
-
-                                                            <span t-esc="work['pds_workex_last_salary']"/>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-sm btn-danger"
-                                                               t-att-href="'/delete_work/' + str(work['id'])">Delete
-                                                            </a>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="pds_workex_company_name"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-
-                                                        <td>
-                                                            <input type="text" name="pds_workex_lob"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="date" name="pds_workex_period_from"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="date" name="pds_workex_period_to"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_workex_last_pos"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_workex_reason_leave"
-                                                                   t-attf-style="height: 50px;"/>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="pds_workex_last_salary"
-                                                                   t-attf-style="height: 50px;" value="  Rp:  "/>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary float-end mb32 ">
-                                                                Add
-                                                            </button>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                 
+                    <div class="clearfix">
+                        <button type="submit"
+                                class="btn btn-primary float-end mb32 ">
+                            Add
+                        </button>
+                          <t t-if="pds_emc">
+                            <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#emcContactModal">
+                                View
+                              </button>
+                          </t>
+                       
+                    </div>
+                   
+                    
+                      
+                     <!-- Modal -->
+                     <div class="modal fade" id="emcContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Emergency Contact</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead class="thead-dark">
+                                                <tr style="background-color: #E17726;">
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>Phone</th>
+                                                    <th>Relationship</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="pds_emc" t-as="emc">
+                                           
+                                                    <td>
+                                                        <span t-esc="emc['pds_emercon_name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="emc['pds_emercon_address']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="emc['pds_emercon_phone']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="emc['pds_emercon_relationship']"/>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-danger"
+                                                           t-att-href="'/delete_emcContact/' + str(emc['id'])">Delete
+                                                        </a>
+                                                    </td>
+                                              
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    
+
                 </div>
-            </div>
+            </form>
+           
+
         </div>
+
     </template>
 
+    <template id="pds_oa_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 450px;">
+            <form id="custom_oc_form" action="/create_oa" method="post"
+                  enctype="multipart/form-data" class="o_mark_required row"
+                  data-mark="*" data-model_name="custom.other.activity"
+                  data-success-mode="redirect" data-success-page="/jobs"
+                  hide-change-model="true">
+                <div class="row o_portal_details">
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_oc_name">Hoby Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pds_oc_name" class="form-control"
+                                  
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-sm-4 col-form-label" for="pds_rate">Rate</label>
+                        <div class="col-sm-8">
+                            <input type="number" name="pds_rate" class="form-control" min="1" max="10" placeholder="Rate (1-10)"
+                                  
+                            />
+                        </div>
+                    </div>
+                 
+                    <div class="clearfix">
+                        <button type="submit"
+                                class="btn btn-primary float-end mb32 ">
+                            Add
+                        </button>
+                          <t t-if="pds_oa">
+                            <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#oaModal">
+                                View
+                              </button>
+                          </t>
+                       
+                    </div>
+                   
+                    
+                      
+                     <!-- Modal -->
+                     <div class="modal fade" id="oaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Hobby</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead class="thead-dark">
+                                                <tr style="background-color: #E17726;">
+                                                    <th>Hoby Name</th>
+                                                    <th>Rate</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="pds_oa" t-as="oa">
+                                           
+                                                    <td>
+                                                        <span t-esc="oa['pds_oc_name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="oa['pds_rate']"/>
+                                                    </td>
+                                                   
+                                                    <td>
+                                                        <a class="btn btn-sm btn-danger"
+                                                           t-att-href="'/delete_oa/' + str(oa['id'])">Delete
+                                                        </a>
+                                                    </td>
+                                              
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </form>
+           
+
+        </div>
+
+        <style>
+            .ui-datepicker-calendar {
+                display: none;
+                }
+        </style>
+       
+
+    </template>
+
+    <template id="pds_FinIn_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 621px;">
+             <form id="custom_pds_form" action="/create_personal" method="post"
+             enctype="multipart/form-data" class="o_mark_required row"
+             data-model_name="hr.applicant"
+             data-success-mode="redirect" data-success-page="/jobs"
+             hide-change-model="true" t-attf-style="margin-right: 0px; margin-top: 10px;">
+           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+           <div t-if="error_message" class="alert alert-danger" role="alert">
+               <div class="col-lg-12">
+                   <t t-foreach="error_message" t-as="err">
+                       <t t-esc="err"/>
+                       <br/>
+                   </t>
+               </div>
+           </div>
+
+           <div class="form-group row mb-4">
+               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Bank Name <span style="color: red;">*</span></label>
+               <div class="col-sm-8">
+                   <input type="text" name="pds_fi_bank" class="form-control" required="True"
+                         
+                          t-att-value="pds_data['pds_fi_bank'] or ''"/>
+               </div>
+           </div>
+           
+           <div class="form-group row mb-4">
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Bank Account <span style="color: red;">*</span></label>
+            <div class="col-sm-8">
+                <input type="text" name="pds_fi_bank_no" class="form-control" required="True"
+                      
+                       t-att-value="pds_data['pds_fi_bank_no'] or ''"/>
+            </div>
+        </div>
+
+           <div class="form-group row mb-4">
+               <label class="col-sm-4 col-form-label" for="pds_fi_holder_name">Account Holder Name <span style="color: red;">*</span></label>
+               <div class="col-sm-8">
+
+                   <input type="text" name="pds_fi_holder_name" class="form-control " required="True"
+                         
+                          t-att-value="pds_data['pds_fi_holder_name'] or ''" />
+               </div>
+           </div>
+           <div class="form-group row mb-4">
+               <label class="col-sm-4 col-form-label" for="pds_fi_npwp_number">Tax No (NPWP)</label>
+               <div class="col-sm-8">
+
+                   <input type="text" name="pds_fi_npwp_number" class="form-control "
+                         
+                          t-att-value="pds_data['pds_fi_npwp_number'] or ''" />
+               </div>
+           </div>
+           <div class="form-group row mb-4">
+               <label class="col-sm-4 col-form-label" for="pds_fi_npwp_name">
+                  NPWP Name
+               </label>
+               <div class="col-sm-8">
+
+                   <input type="text" name="pds_fi_npwp_name" class="form-control "
+                         
+                          t-att-value="pds_data['pds_fi_npwp_name'] or ''" />
+               </div>
+
+           </div>
+           <div class="form-group row mb-4">
+              
+               <label class="col-sm-4 col-form-label" for="pds_zipcode_addressNIK">NPWP Address
+               </label>
+               <div class="col-sm-8">
+
+                   <input type="text" name="pds_fi_npwp_address"
+                          t-attf-class="form-control"
+                          t-att-value="pds_data['pds_fi_npwp_address'] or ''" />
+               </div>
+
+           </div>
+
+           <div class="form-group row mb-4">
+               <label class="col-sm-4 col-form-label" for="pds_fi_ptkp">PTKP
+               </label>
+               <div class="col-sm-8">
+
+                   <input type="text" name="pds_fi_ptkp"
+                          t-attf-class="form-control "
+                          t-att-value="pds_data['pds_fi_ptkp'] or ''"/>
+               </div>
+             
+           </div>
+           
+           <div class="clearfix">
+               <button type="submit" class="btn btn-primary float-end mb32 ">
+                   Save
+               </button>
+           </div>
+           <!--                            </div>-->
+       </form>
+           
+
+        </div>
+
+        <style>
+            .ui-datepicker-calendar {
+                display: none;
+                }
+        </style>
+       
+
+    </template>
+
+    <template id="pds_work_section">
+        <div class="container-fluid"
+             t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 621px;">
+             <form id="custom_nonformedu_form" action="/create_workexp" method="post"
+             enctype="multipart/form-data" class="o_mark_required row"
+             data-mark="*" data-model_name="custom.work.experience"
+             data-success-mode="redirect" data-success-page="/jobs"
+             hide-change-model="true">
+             <div class="row o_portal_details">
+
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_company_name">Company Name <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" name="pds_workex_company_name" class="form-control" required="True" title="'Your experience' if not experience else '-'"
+                              
+                        />
+                    </div>
+                </div>   
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_lob">Lines of Businness <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" name="pds_workex_lob" class="form-control " required="True" title="'Your experience' if not experience else '-'"
+                              
+                        />
+                    </div>
+                </div>    
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_from">Start From <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="date" name="pds_workex_period_from" class="form-control " required="True" title="'Your experience' if not experience else '-'"
+                              
+                        />
+                    </div>
+                </div>  
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_period_to">Start Date <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="date" name="pds_workex_period_to" class="form-control " required="True" title="'Your experience' if not experience else '-'"
+                              
+                        />
+                    </div>
+                </div>  
+
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_last_pos">Last Position <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" name="pds_workex_last_pos" class="form-control " required="True" title="'Your experience' if not experience else '-'"
+                              
+                        />
+                    </div>
+                </div>  
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Reason For Leaving <span style="color: red;">*</span></label>
+                    <div class="col-sm-8">
+                        <textarea name="pds_workex_reason_leave" class="form-control" required="True" title="'Your experience' if not experience else '-'"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label" for="pds_workex_reason_leave">Last Salary <span style="color: red;">*</span></label>
+
+                    <div class="input-group col-sm-8">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rp.
+                            </div>
+                        </div>
+
+                        <input type="text" name="pds_workex_last_salary" required="True" class="form-control" title="'Your experience' if not experience else '-'" />
+                    </div>
+                   
+                    
+                </div>     
+
+                <div class="clearfix">
+                    <button type="submit"
+                            class="btn btn-primary float-end mb32 ">
+                        Save
+                    </button>
+                      <t t-if="pds_data['pds_work_exp']">
+                        <button type="button" class="btn btn-light float-end mb32t" style="margin-right:5px;" data-toggle="modal" data-target="#workModal">
+                            View
+                          </button>
+                      </t>
+                   
+                </div>
+
+            </div>
+            
+            </form>
+
+              <!-- Modal -->
+              <div class="modal fade" id="workModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Work Experience</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #E17726;">
+                                            <th>Company name</th>
+                                            <th>Line of business</th>
+                                            <th>Start From</th>
+                                            <th>End</th>
+                                            <th>Last Position</th>
+                                            <th>Reason for leaving</th>
+                                            <th>Last salary</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="pds_data['pds_work_exp']" t-as="work">
+                                            <td><span t-esc="work['pds_workex_company_name']"/></td>
+                                            <td><span t-esc="work['pds_workex_lob']"/></td>
+                                            <td><span t-esc="work['pds_workex_period_from']"/></td>
+                                            <td><span t-esc="work['pds_workex_period_to']"/></td>
+                                            <td><span t-esc="work['pds_workex_last_pos']"/></td>
+                                            <td><span t-esc="work['pds_workex_reason_leave']"/></td>
+                                            <td><span t-esc="work['pds_workex_last_salary']"/></td>
+                                            <td>
+                                                <a class="btn btn-sm btn-danger"
+                                                   t-att-href="'/delete_work/' + str(work['id'])">Delete</a>
+                                            </td>
+                                        </tr>
+                                     
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+           
+
+           
+
+        </div>
+       
+
+    </template>
+    
 
 </odoo>
-        <!--        Master Accordion-->
-        <!--<div class="accordion" id="pdsAccordion">-->
-        <!--<div class="accordion-item">-->
-        <!--    <h2 class="accordion-header" id="nameHeader">-->
-        <!--        <button class="accordion-button" type="button" data-bs-toggle="collapse"-->
-        <!--                data-bs-target="#nameCollapse" aria-expanded="true" aria-controls="nameCollapse">-->
-        <!--            Name-->
-        <!--        </button>-->
-        <!--    </h2>-->
+  

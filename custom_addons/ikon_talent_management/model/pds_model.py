@@ -5,6 +5,13 @@ from odoo.http import request
 from odoo.exceptions import AccessError, UserError
 from odoo.tools.translate import _
 
+YEARS = datetime.now().year
+start_year = 1945
+
+YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS, start_year - 1, -1)]
+
+
+
 RELIGION = [
     ('select', 'CLICK TO SELECT'),
     ("islam", "ISLAM"),
@@ -33,7 +40,7 @@ ABILITY_AREA = [
 SEX = [
     ('select', 'CLICK TO SELECT'),
     ('male', 'MALE'),
-    ('female', 'Married'),
+    ('female', 'FAMALE'),
 ]
 
 LEVELDEGREE = [
@@ -76,6 +83,14 @@ class PDSData(models.Model):
     pds_sex = fields.Selection(SEX, string="Sex", )
     height_value = fields.Integer(string="Height Value")
 
+    pds_fi_bank = fields.Char(string="Bank Name")
+    pds_fi_bank_no = fields.Char(string="Bank Account")
+    pds_fi_holder_name =  fields.Char(string="Account Holder Name" )
+    pds_fi_npwp_number = fields.Char(string="Tax No (NPWP)")
+    pds_fi_npwp_name = fields.Char(string="NPWP Name")
+    pds_fi_npwp_address = fields.Char(string="NPWP Address")
+    pds_fi_ptkp = fields.Char(string="PTKP")
+
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
@@ -85,6 +100,10 @@ class PDSData(models.Model):
     pds_org = fields.One2many('custom.org', 'applicant_id', string='Organization Activities')
     pds_health = fields.One2many('custom.health', 'applicant_id', string='Health activities')
     pds_resume = fields.One2many('custom.resume.experience', 'applicant_id', string='Resume')
+    pds_family = fields.One2many('custom.family.information', 'applicant_id', string='Family Information')
+    pds_emCont = fields.One2many('custom.emergency.contact', 'applicant_id', string='Emergency Contact')
+    pds_oac = fields.One2many('custom.other.activity', 'applicant_id', string='Other Activity')
+
     summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
@@ -190,8 +209,8 @@ class HrApplEdu(models.Model):
     pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
     pds_edu_major = fields.Char(string="Major")
     pds_edu_location = fields.Char(string="Location")
-    pds_edu_start_year = fields.Date(string="Start year")
-    pds_edu_end_year = fields.Date(string="End year")
+    pds_edu_start_year = fields.Selection(YEAR_SELECTION, string="Start year")
+    pds_edu_end_year = fields.Selection(YEAR_SELECTION,string="End year")
 
 
 class HrApplCertif(models.Model):
@@ -202,7 +221,7 @@ class HrApplCertif(models.Model):
     employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_cert_name = fields.Char(string="Certification name", required=False)
     pds_cert_provider = fields.Char(string="Provider", required=False)
-    pds_cert_issued_year = fields.Date(string='Issued year', required=False)
+    pds_cert_issued_year = fields.Selection(YEAR_SELECTION, string='Issued year', required=False)
 
 
 class HrApplNonFormalEdu(models.Model):
@@ -212,7 +231,7 @@ class HrApplNonFormalEdu(models.Model):
     employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_course_name = fields.Char(string="Course name")
     pds_course_provider = fields.Char(string="Provider")
-    pds_course_issued_year = fields.Date(string='Issued year')
+    pds_course_issued_year = fields.Selection(YEAR_SELECTION, string='Issued year')
 
 
 class HrApplLanguageProf(models.Model):
@@ -235,8 +254,8 @@ class HrApplWorkExperience(models.Model):
     pds_workex_last_pos = fields.Char(string="Last Position", help="Last Position")
     pds_workex_reason_leave = fields.Char(string="Reason for leaving", help="Reason for leaving")
     pds_workex_last_salary = fields.Char(string="Last salary", help="Last salary")
-    pds_workex_period_from = fields.Date(string="Working period", help='Working period from')
-    pds_workex_period_to = fields.Date(string="to", help="Working period to")
+    pds_workex_period_from = fields.Date(string="Working period From", help='Working period from')
+    pds_workex_period_to = fields.Date(string="Working period To", help="Working period to")
 
 
 class HrApplExpectedSalary(models.Model):
@@ -256,7 +275,7 @@ class HrApplOrg(models.Model):
     pds_org_name = fields.Char(string="Organization name")
     pds_org_nature = fields.Char(string="Organization Nature Activities")
     pds_org_position = fields.Char(string="Organization Position")
-    pds_org_year = fields.Date(string="Year")
+    pds_org_year = fields.Selection(YEAR_SELECTION, string="Year")
 
 
 class HrApplHealth(models.Model):
@@ -267,4 +286,34 @@ class HrApplHealth(models.Model):
     pds_health_period = fields.Char(string="Period")
     pds_health_type = fields.Char(string="Type")
     pds_health_hospital = fields.Char(string="Hospital name")
-    pds_health_year = fields.Date(string="Year")
+    pds_health_year = fields.Selection(YEAR_SELECTION,string="Year")
+
+
+class HrApplFamily(models.Model):
+    _name = "custom.family.information"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_family_desc = fields.Char(string="Family Description")
+    pds_family_name = fields.Char(string="Name")
+    pds_family_sex =  fields.Selection(SEX, string="Sex" )
+    pds_family_age = fields.Char(string="Age")
+    pds_family_education = fields.Char(string="Education")
+    pds_family_company_position= fields.Char(string="Occupation (Company & Position)")
+    pds_family_type= fields.Char(string="type")
+
+class HrApplEmerContact(models.Model):
+    _name = "custom.emergency.contact"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_emercon_name = fields.Char(string="Name")
+    pds_emercon_address = fields.Char(string="Address")
+    pds_emercon_phone =  fields.Char(string="Phone" )
+    pds_emercon_relationship = fields.Char(string="Relationship")
+
+class HrApplOtherAct(models.Model):
+    _name = "custom.other.activity"
+
+    applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    pds_oc_name = fields.Char(string="Hobby Name")
+    pds_rate = fields.Char(string="Rate")
+ 
