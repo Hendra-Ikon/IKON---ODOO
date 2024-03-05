@@ -186,6 +186,7 @@
 
                                     <!--                                    <field name="fr_test"/>-->
                                     <field name="company_image"/>
+                                    <field name="resume_key_responsible"/>
 
                                 </tree>
                                 <form>
@@ -207,6 +208,9 @@
                                         <group>
                                             <field name="resume_sys_used"/>
                                         </group>
+                                        <group>
+                                            <field name="resume_key_responsible"/>
+                                        </group>
                                     </group>
                                 </form>
                             </field>
@@ -219,26 +223,5 @@
             </xpath>
         </field>
     </record>
-    <!--    <template id="assets_backend" name="custom_one2many_list" inherit_id="web.assets_backend">-->
-    <!--        <xpath expr="." position="inside">-->
-    <!--            <script type="text/javascript"-->
-    <!--                    src="custom_addons/ikon_talent_management/static/src/js/custom_one2many_list.js"></script>-->
-    <!--        </xpath>-->
-    <!--    </template>-->
 
 </odoo>
-
-        <!--                                <tree editable="top">-->
-        <!--                                    <field name="resume_dateStart"/>-->
-        <!--                                    <field name="resume_dateEnd"/>-->
-        <!--                                    <field name="rsm_com_name"/>-->
-        <!--                                    <field name="rsm_com_job_title"/>-->
-        <!--                                    <field name="rsm_com_projectDes"/>-->
-        <!--                                    <field name="resume_tech_used_backend" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_tech_used_frontend" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_tech_used_database" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_tech_used_certificate" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_sys_int_appl" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_sys_int_middleware" widget="many2many_tags"/>-->
-        <!--                                    <field name="resume_sys_int_email_notif" widget="many2many_tags"/>-->
-        <!--                                </tree>-->

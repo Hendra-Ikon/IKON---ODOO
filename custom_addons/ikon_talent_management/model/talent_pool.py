@@ -157,7 +157,6 @@ class TalentData(models.Model):
                     # Add other fields as needed
                 })
 
-            # print(f"********* DEGREE *********: {appl.degree}")
 
             hr_applicant = self.env['hr.applicant'].create({
                 'name': applicant_name,
@@ -199,7 +198,7 @@ class HrApplicantInherit(models.Model):
 
     _inherit = "hr.applicant"
 
-    from_talent_posisi = fields.Char(string="Posisi")
+    from_talent_posisi = fields.Char(string="Posisi", store=True)
     from_talent_sumber = fields.Char(string="Sumber")
     from_talent_degree = fields.Selection([
         ('sma', 'SMA'),
