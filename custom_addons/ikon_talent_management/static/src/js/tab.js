@@ -51,6 +51,11 @@ $(document).ready(function() {
         activateButton('#pills-language-tab');
         resetUrl('/pds/data');
         break;
+    case "#file":
+        showTab('#pills-file');
+        activateButton('#pills-file-tab');
+        resetUrl('/pds/data');
+        break;
     case "#financial":
         showTab('#pills-financial');
         activateButton('#pills-financial-tab');

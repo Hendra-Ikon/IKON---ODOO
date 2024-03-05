@@ -1,5 +1,6 @@
 from odoo import api, models, fields, exceptions
 import logging
+from odoo import http, SUPERUSER_ID, _, _lt
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +54,51 @@ class HrApplicant(models.Model):
         'warning': {'title': "PDS", 'message': "PDS FILL", 'type': 'notification'},
     }
 
+    def _get_form_writable_fields(self):
+        """
+        Restriction of "authorized fields" (fields which can be used in the
+        form builders) to fields which have actually been opted into form
+        builders and are writable. By default no field is writable by the
+        form builder.
+        """
+        included = {
+            field.name
+            for field in self.env['ir.model.fields'].sudo().search([
+                ('model_id', '=', self.id),
+                ('website_form_blacklisted', '=', False)
+            ])
+        }
+        model = 'hr.applicant'
+        return {
+            k: v for k, v in self.get_authorized_fields(model).items()
+            if k in included
+        }
+    @api.model
+    def get_authorized_fields(self, model_name):
+        """ Return the fields of the given model name as a mapping like method `fields_get`. """
+        model = self.env[model_name]
+        fields_get = model.fields_get()
+
+        for key, val in model._inherits.items():
+            fields_get.pop(val, None)
+
+        # Unrequire fields with default values
+        default_values = model.with_user(SUPERUSER_ID).default_get(list(fields_get))
+        for field in [f for f in fields_get if f in default_values]:
+            fields_get[field]['required'] = False
+
+        # Remove readonly and magic fields
+        # Remove string domains which are supposed to be evaluated
+        # (e.g. "[('product_id', '=', product_id)]")
+        MAGIC_FIELDS = models.MAGIC_COLUMNS + [model.CONCURRENCY_CHECK_FIELD]
+        for field in list(fields_get):
+            if 'domain' in fields_get[field] and isinstance(fields_get[field]['domain'], str):
+                del fields_get[field]['domain']
+            if fields_get[field].get('readonly') or field in MAGIC_FIELDS or \
+                    fields_get[field]['type'] in ['many2one_reference', 'properties']:
+                del fields_get[field]
+
+        return fields_get
 
 
 
