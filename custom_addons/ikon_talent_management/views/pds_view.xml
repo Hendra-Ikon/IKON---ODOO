@@ -2507,7 +2507,7 @@
     <template id="pds_file_section">
         <div class="container-fluid"
              t-attf-style="background-color: white; padding-left: 28px; padding-top: 50px; height: 621px;">
-             <form id="custom_pds_form" action="/create_personal" method="post" 
+             <form id="custom_pds_form" action="/create_file_pds" method="post" 
              enctype="multipart/form-data" class="o_mark_required row"
              data-mark="*"
              data-model_name="hr.applicant"
@@ -2515,57 +2515,138 @@
              hide-change-model="true" t-attf-style="margin-right: 0px; margin-top: 10px;">
 
            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-           <!-- <div t-if="error_message" class="alert alert-danger" role="alert">
-               <div class="col-lg-12">
-                   <t t-foreach="error_message" t-as="err">
-                       <t t-esc="err"/>
-                       <br/>
-                   </t>
-               </div>
-           </div> -->
            
            <div class="form-group row mb-4">
                <label class="col-sm-4 col-form-label" for="pds_fi_bank">Ijazah <span style="color: red;">*</span></label>
                <div class="col-sm-8">
-                   <input type="file" name="pds_file_ijazah" class="form-control" required="True"
-                   accept="application/pdf"
-                         />
+                         <t t-if="pds_data['pds_ijazah_name']">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span class="uploaded-file" t-esc="pds_data['pds_ijazah_name']"    />
+                                </div>
+                                <div class="col-md-8 col-sm-4">
+                                <input id="upload_file" type="file" onchange="validatePDF(this)" name="pds_file_ijazah" class="form-control" accept="application/pdf"/>
+                                </div>
+                               
+                                
+                            </div>
+                           
+                        </t>
+                        <t t-else="">
+                            <input type="file" name="pds_file_ijazah" onchange="validatePDF(this)" class="form-control" required="True"
+                            accept="application/pdf"
+                            
+ 
+                     />
+                        </t>
                </div>
            </div>
            
            <div class="form-group row mb-4">
             <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Transcript Nilai <span style="color: red;">*</span></label>
             <div class="col-sm-8">
-                <input type="file" name="pds_file_transcript_nilai" class="form-control" required="True"
-                accept="application/pdf"
-                       />
+                <t t-if="pds_data['pds_transcript_nilai_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_transcript_nilai_name']"    />
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_transcript_nilai" onchange="validatePDF(this)" class="form-control" 
+                            accept="application/pdf"
+                                   />
+                        </div>
+                       
+                        
+                    </div>
+                   
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_transcript_nilai" onchange="validatePDF(this)" class="form-control" required="True"
+                    accept="application/pdf"
+                           />
+                </t>
+                
             </div>
         </div>
 
         <div class="form-group row mb-4">
             <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">BPJS</label>
             <div class="col-sm-8">
-                <input type="file" name="pds_file_bpjs" class="form-control" 
+                <t t-if="pds_data['pds_bpjs_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_bpjs_name']"    />
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_bpjs" onchange="validatePDF(this)" class="form-control" 
                 accept="application/pdf"
                        />
+                        </div>
+                       
+                        
+                    </div>
+                   
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_bpjs" onchange="validatePDF(this)" class="form-control"
+                    accept="application/pdf"
+                           />
+                </t>
+               
             </div>
         </div>
 
         <div class="form-group row mb-4">
             <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">NPWP</label>
             <div class="col-sm-8">
-                <input type="file" name="pds_file_npwp" class="form-control" 
+                <t t-if="pds_data['pds_npwp_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_npwp_name']"    />
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_npwp" onchange="validatePDF(this)" class="form-control" 
                 accept="application/pdf"
                        />
+                        </div>
+                       
+                        
+                    </div>
+                   
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_npwp" onchange="validatePDF(this)" class="form-control" 
+                accept="application/pdf"
+                       />
+                </t>
+                
             </div>
         </div>
 
         <div class="form-group row mb-4">
             <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Sertification</label>
             <div class="col-sm-8">
-                <input type="file" name="pds_file_sertification" class="form-control" 
-                accept="application/pdf"
-                       />
+                <t t-if="pds_data['pds_sertification_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_sertification_name']"    />
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_sertification" onchange="validatePDF(this)" class="form-control" 
+                            accept="application/pdf"
+                                   />
+                        </div>
+                       
+                        
+                    </div>
+                   
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_sertification" onchange="validatePDF(this)" class="form-control"
+                    accept="application/pdf"
+                           />
+                </t>
+               
             </div>
         </div>
 

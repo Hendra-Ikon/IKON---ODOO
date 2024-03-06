@@ -91,6 +91,12 @@ class PDSData(models.Model):
     pds_fi_npwp_address = fields.Char(string="NPWP Address")
     pds_fi_ptkp = fields.Char(string="PTKP")
 
+    pds_ijazah_name = fields.Char(string="Ijazah")
+    pds_transcript_nilai_name = fields.Char(string="Transcript Nilai")
+    pds_bpjs_name = fields.Char(string="BPJS")
+    pds_npwp_name = fields.Char(string="NPWP")
+    pds_sertification_name = fields.Char(string="Sertification")
+
     # pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education', domain="[('user_id', '=', user_id)]")
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
