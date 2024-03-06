@@ -91,6 +91,13 @@ class PDSData(models.Model):
     pds_fi_npwp_address = fields.Char(string="NPWP Address")
     pds_fi_ptkp = fields.Char(string="PTKP")
 
+    pds_ijazah_name = fields.Char(string="Ijazah")
+    pds_transcript_nilai_name = fields.Char(string="Transcript Nilai")
+    pds_bpjs_name = fields.Char(string="BPJS")
+    pds_npwp_name = fields.Char(string="NPWP")
+    pds_sertification_name = fields.Char(string="Sertification")
+
+    # pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education', domain="[('user_id', '=', user_id)]")
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
     pds_certifications = fields.One2many('custom.certif', 'applicant_id', string='Certifications')
     pds_course = fields.One2many('custom.nonformaledu', 'applicant_id', string='Non Formal Edu')
@@ -104,6 +111,7 @@ class PDSData(models.Model):
     pds_emCont = fields.One2many('custom.emergency.contact', 'applicant_id', string='Emergency Contact')
     pds_oac = fields.One2many('custom.other.activity', 'applicant_id', string='Other Activity')
 
+   
     summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
     open_modal = fields.Boolean(string="Modal Popup", default=True)
@@ -204,6 +212,7 @@ class HrApplEdu(models.Model):
     _name = 'custom.edu'
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
+    user_id = fields.Integer( string='User')
     employee_id = fields.Many2one('hr.employee', string='Applicant')
     pds_edu_inst_name = fields.Char(string="Institution name")
     pds_edu_level = fields.Selection(LEVELDEGREE, string="Level", default='select')
@@ -316,4 +325,6 @@ class HrApplOtherAct(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     pds_oc_name = fields.Char(string="Hobby Name")
     pds_rate = fields.Char(string="Rate")
+
+
  

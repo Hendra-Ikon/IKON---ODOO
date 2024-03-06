@@ -51,6 +51,11 @@ $(document).ready(function() {
         activateButton('#pills-language-tab');
         resetUrl('/pds/data');
         break;
+    case "#file":
+        showTab('#pills-file');
+        activateButton('#pills-file-tab');
+        resetUrl('/pds/data');
+        break;
     case "#financial":
         showTab('#pills-financial');
         activateButton('#pills-financial-tab');
@@ -102,7 +107,21 @@ function activateButton(buttonId) {
     function resetUrl(url) {
         history.replaceState(null, null, url);
     }
+
 });
+
+function validatePDF(fileInput) {
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.pdf)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+        alert('Please upload a file with PDF format only.');
+        fileInput.value = '';
+        return false;
+    } 
+    else {
+        return true;
+    }
+}
 
 
 
