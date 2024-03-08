@@ -16,7 +16,7 @@ export class CustomTimesheetComp extends Component {
             task_id: 7,
             date: "2024-03-06",
             unit_amount: 0,
-            name: "INI TEST",
+            name: "INI TEST BAGAS",
 
         })
 
@@ -71,15 +71,15 @@ export class CustomTimesheetComp extends Component {
 
         console.log("Halooooooooooooo", form)
         // this.state.workHours = form.workHours
-        // const new_data = {
-        //     project_id: form.project_id,
-        //     task_id: form.task_id,
-        //     date: form.date,
-        //     unit_amount: form.unit_amount,
-        //     name: form.name,
-        // }
+        const new_data = {
+            project_id: form.project_id,
+            task_id: form.task_id,
+            date: form.date,
+            unit_amount: form.unit_amount,
+            name: form.name,
+        }
         //
-        // await this.orm.create(this.model, [new_data])
+        await this.orm.create(this.model, [new_data])
 
         // await this.timesheet_service.sendData(new_data).then(response => {
         //     console.log("Response from server:", response);

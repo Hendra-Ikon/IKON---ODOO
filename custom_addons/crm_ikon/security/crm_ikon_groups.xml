@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="module_category_crm_ikon" model="ir.module.category">
-        <field name="name">Crm Ikon</field>
+        <field name="name">rm Ikon</field>
         <field name="description">CRM IKON Module</field>
         <field name="sequence">100</field>
     </record>
