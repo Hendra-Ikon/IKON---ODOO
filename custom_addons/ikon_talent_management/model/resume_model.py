@@ -1,3 +1,5 @@
+import base64
+
 from odoo import fields, models, api
 from odoo.http import request
 
@@ -9,13 +11,15 @@ class ResumeModel(models.Model):
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
     resume_dateStart = fields.Date(string="Resume Start")
     resume_dateEnd = fields.Date(string="Resume End")
-    rsm_com_name = fields.Char(string="Company Name",)
+    rsm_com_name = fields.Char(string="Project Title",)
     rsm_com_job_title = fields.Char(string="Job Title in Company")
     rsm_com_projectDes = fields.Char(string="Project Description")
-    resume_tech_used = fields.Text(string="Frontend Technology Used")
-    resume_sys_used = fields.Text(string="System Technology Used")
+    resume_tech_used = fields.Html(string="Frontend Technology Used")
+    resume_sys_used = fields.Html(string="System Technology Used")
     resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
+    resume_key_responsible = fields.Html(string="Key responsibility")
     company_image = fields.Image(string="Company Image")
+
 
 
     # resume_tech_used_frontend = fields.Many2many('custom.frontend.tag', "resume_frontend_tag_rel", string='Frontend Technology Used')
@@ -33,6 +37,10 @@ class ResumeModel(models.Model):
         for resume in self:
             tech_used_frontend_names = [tag.name for tag in resume.resume_tech_used]
             resume.fr_test = ', '.join(tech_used_frontend_names)
+
+
+    def compute_default_image_binary(self):
+        return self.def_image_bin_ikon
 
 
 class ResumeSysIntEmailNotif(models.Model):

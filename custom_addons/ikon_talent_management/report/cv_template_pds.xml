@@ -181,7 +181,7 @@
                             <div t-attf-class="brown_line"/>
                             <td t-attf-class="summary_content">
                                 <small>
-                                    <t t-esc="docs.summary_experience"/>
+                                    <t t-esc="docs.summary_experience" style="text-align: justify;  text-justify: inter-word;"/>
                                 </small>
                             </td>
                             <div t-attf-class="key_relevance">
@@ -443,6 +443,11 @@
                         color: white;
                         letter-spacing: 2px;
                         font-size: 20px;
+
+                        }
+
+                        .spasi_kecil {
+                        width: 5px;
 
                         }
 

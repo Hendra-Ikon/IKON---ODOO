@@ -1,0 +1,304 @@
+<odoo>
+    <template id="custom_cv_hitam_cand">
+
+        <t t-call="web.html_container">
+            <div class="header">
+                <t t-call="ikon_talent_management.cv_header"/>
+
+            </div>
+            <div t-attf-class="page">
+
+                <t t-call="ikon_talent_management.cv_heading_text"/>
+                <t t-call="ikon_talent_management.cv_summary"/>
+                <t t-call="ikon_talent_management.cv_personal_section"/>
+                <t t-call="ikon_talent_management.cv_experience"/>
+                <t t-call="ikon_talent_management.cv_academic"/>
+                <t t-call="ikon_talent_management.cv_skills"/>
+                <t t-call="ikon_talent_management.cv_training"/>
+
+            </div>
+            <div class="footer" style="margin-top: 20px;">
+                <t t-call="ikon_talent_management.cv_footer"/>
+
+            </div>
+        </t>
+    </template>
+    <template id="cv_header">
+        <t t-value="docs" t-set="data"/>
+
+        <div class="right-header">
+            <img class="img-logo"
+                 src="ikon_talent_management/static/src/img/logo-ikon.png"
+                 style="width: 80px; height: 100px;"/>
+        </div>
+        <style>
+            .right-header {
+            float: right;
+            display: inline-block;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            height: 98.267716535px;
+            width: 450px;
+            }
+
+            <!--            .left-header {-->
+            <!--            display: inline-block;-->
+            <!--            background-color: darkorange;-->
+            <!--            margin: 0;-->
+            <!--            padding: 0;-->
+            <!--            height: 98.267716535px;-->
+            <!--            width: 250px;-->
+            <!--            }-->
+
+
+            .img-logo {
+            float: right;
+            <!--            margin-right: 25px;-->
+            margin-top: 25px;
+            }
+
+
+            @media print {
+            .header {
+            margin: 0 !important;
+            padding: 0 !important;
+            }
+            }
+
+
+        </style>
+    </template>
+
+    <template id="cv_heading_text">
+        <t t-value="docs" t-set="data"/>
+        <div style="padding: 10px; font-weight: bold !important;">
+            <div style="padding-left: 250px;">CURRICULUM VITAE</div>
+        </div>
+    </template>
+
+    <template id="cv_summary">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            SUMMARY OF EXPERIENCE
+        </div>
+        <div t-esc="data.summary_experience"
+             t-attf-style="padding-left: 15px; background-color: white; text-align: justify;  text-justify: inter-word; padding-top: 10px; padding-bottom: 10px;">
+
+        </div>
+    </template>
+
+    <template id="cv_personal_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            PERSONAL INFORMATION
+        </div>
+        <div
+                t-attf-style="padding-left: 15px; background-color: white; padding-top: 10px; padding-bottom: 10px;">
+
+            <table class="table">
+                <tbody>
+
+                    <tr style="padding-top: 5px; padding-bottom: 5px;">
+                        <td style="width: 150px !important;">
+
+                            <span>Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fullname"/>
+                        </td>
+
+                    </tr>
+                    <tr style="padding-top: 5px; padding-bottom: 5px;">
+                        <td style="width: 150px !important;">
+
+                            <span>Gender</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_sex"/>
+                        </td>
+
+                    </tr>
+                    <tr style="padding-top: 5px; padding-bottom: 5px;">
+                        <td>
+
+                            <span>Nationality</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_nationality"/>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="cv_experience">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            KEY RELEVANCE EXPERIENCE
+        </div>
+        <div
+                t-attf-style="padding-left: 15px; background-color: white; padding-top: 10px; padding-bottom: 10px;">
+
+            <t t-foreach="data['pds_resume']" t-as="resume">
+                <t t-if="resume['resume_tech_used'] or resume['resume_sys_used']">
+
+
+                    <div t-attf-class="o_data_row" data-id="datapoint_4">
+
+                        <div t-attf-class="o_data_cell pt-0">
+                            <div t-attf-class="o_resume_line">
+
+                                <h4 t-attf-class="o_resume_line_title mt-2">
+                                    <t t-esc="resume['rsm_com_name']"
+                                       style="font-weight: bold;"/> (
+                                    <t t-esc="resume['resume_dateStart']"/>
+                                    <t t-esc="resume['resume_dateEnd']"/> )
+                                </h4>
+                                <p t-attf-class="o_resume_line_desc">As:
+                                    <t t-esc="resume['rsm_com_job_title']"/>
+                                </p>
+                                <p t-attf-class="o_resume_line_desc">Project description:
+                                    <small>
+                                        <t t-esc="resume['rsm_com_projectDes']"
+                                           t-attf-class="project_desc"/>
+                                    </small>
+                                </p>
+                                <br/>
+                                <t t-if="resume['resume_tech_used']">
+                                    <p t-attf-class="o_resume_line_desc halo">Technology used:
+                                    </p>
+                                    <t t-raw="resume['resume_tech_used']" t-attf-style="margin-left: 20px;"/>
+                                </t>
+                                <t t-else="">
+                                    <br/>
+                                </t>
+                                <t t-if="resume['resume_sys_used']">
+                                    <p t-attf-class="o_resume_line_desc">System Integration:
+                                    </p>
+                                    <t t-raw="resume['resume_sys_used']" t-attf-style="margin-left: 20px;"/>
+                                </t>
+                                <t t-else="">
+                                    <br/>
+                                </t>
+                                <t t-if="resume['resume_key_responsible']">
+                                    <p t-attf-class="o_resume_line_desc">Key responsibilities are:
+                                    </p>
+                                    <t t-raw="resume['resume_key_responsible']" t-attf-style="margin-left: 20px;"/>
+                                </t>
+                                <t t-else="">
+                                    <br/>
+                                </t>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </div>
+    </template>
+
+    <template id="cv_academic">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            ACADEMIC HISTORY
+        </div>
+        <div name="education_type"
+        >
+
+            <t t-if="data['pds_education'] != False">
+                <ul t-foreach="data['pds_education']" t-as="education"
+                    t-key="education">
+                    <li>
+                        <span t-field="education.pds_edu_level"/>
+                        <span>
+
+                            in
+                            <t t-esc="education['pds_edu_major']"/>
+                            at
+                            <t t-esc="education['pds_edu_inst_name']"/>
+                            <t t-esc="education['pds_edu_location']"/>
+                        </span>
+                    </li>
+                </ul>
+            </t>
+        </div>
+    </template>
+
+    <template id="cv_skills">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            SKIllS
+        </div>
+        <div name="skill_type"
+        >
+
+            <t t-if="data.custom_skill != False">
+                <ul t-foreach="data.custom_skill.split(',') or []" t-as="skill"
+                    t-key="skill">
+                    <li>
+                        <t t-esc="skill"/>
+                    </li>
+                </ul>
+            </t>
+        </div>
+    </template>
+
+    <template id="cv_training">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            TRAINING AND COURSES
+        </div>
+        <div name="education_type"
+        >
+
+            <t t-if="data['pds_education'] != False">
+                <ul t-foreach="data['pds_course']" t-as="course"
+                    t-key="course">
+                    <li>
+                        <span t-field="course.pds_course_name"/>
+                    </li>
+                </ul>
+            </t>
+        </div>
+    </template>
+
+    <template id="cv_footer">
+        <t t-value="docs" t-set="data"/>
+
+            <div class="left-footer">
+                <p style="margin-top: 2px; margin-bottom: 2px; color: darkorange; font-size: 7px;">PT Ikonsultan Inovatama</p>
+                <p style="margin-top: 2px; margin-bottom: 2px; color: brown; font-size: 7px;">Gedung Plaza Oleos, 5th Floor Unit B-C</p>
+                <p style="margin-top: 2px; margin-bottom: 2px; color: brown; font-size: 7px;">Jl. TB Simatupang No 53A</p>
+                <p style="margin-top: 2px; margin-bottom: 2px; color: brown; font-size: 7px;">Jakarta 12520</p>
+            </div>
+            <div class="right-footer">
+                <span style="margin-top: 2px; margin-bottom: 2px; color: darkorange; font-size: 7px;">t.</span><p style="margin-top: 2px; margin-bottom: 2px; color: brown; font-size: 7px;">+62 21 2985 7330</p>
+                <p style="margin-top: 2px; margin-bottom: 2px; color: brown; font-size: 7px;">www.ikonsultan.com</p>
+            </div>
+        <style>
+
+            .right-footer {
+            display: inline-block;
+            width: 150px;
+            padding-top: 20px;
+            }
+
+            .left-footer {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 0;
+            width: 150px;
+            padding-top: 20px;
+            }
+        </style>
+    </template>
+
+
+</odoo>

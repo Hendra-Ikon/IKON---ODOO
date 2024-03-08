@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="action_ikon_timesheet" model="ir.actions.client">
+            <field name="name">Timesheet</field>
+            <field name="tag">ikon_recruitment.Timesheet</field>
+<!--            <field name="model">project.project</field>-->
+        </record>
+
+        <menuitem name="Timesheet" id="menu_ikon_timesheet" parent="hr_recruitment.menu_hr_recruitment_root"
+                  sequence="90"
+                  groups="hr_recruitment.group_hr_recruitment_user"
+                  action="action_ikon_timesheet"/>
+    </data>
+</odoo>

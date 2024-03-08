@@ -6,13 +6,16 @@
         <field name="model">hr.applicant</field>
         <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="CV Config">
-                    <group>
-                        <field name="height_value"/>
-                    </group>
-                </page>
-            </xpath>
+            <xpath expr="//page[@string='Skills']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+<!--            <xpath expr="//notebook" position="inside">-->
+<!--                <page string="CV Config">-->
+<!--                    <group>-->
+<!--                        <field name="height_value"/>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </xpath>-->
         </field>
     </record>
 </odoo>

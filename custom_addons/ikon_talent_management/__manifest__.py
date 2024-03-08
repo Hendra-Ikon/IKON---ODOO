@@ -24,6 +24,7 @@
         # 'views/resume_view.xml',
         'report/cv_report.xml',
         'report/cv_template_pds.xml',
+        'report/cv_hitam_cand.xml',
         'report/cv_template_employee.xml',
         'report/pds_report.xml',
         'report/pds_report_template.xml',
