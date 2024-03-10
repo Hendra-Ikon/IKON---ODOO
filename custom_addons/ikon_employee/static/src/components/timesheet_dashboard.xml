@@ -13,54 +13,28 @@
                                     </th>
                                     <th style="width:24%" id="projectName">Project Name</th>
                                     <th style="width:18%" id="activityName">Activity Name</th>
-                                    <th class="center" style="width:8%">
-                                        Mon
-                                        4
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Tue
-                                        5
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Wed
-                                        6
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Thu
-                                        7
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Fri
-                                        8
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Sat
-                                        9
-                                    </th>
-                                    <th class="center" style="width:8%">
-                                        Sun
-                                        10
-                                    </th>
+                                    <t t-foreach="timesheet_data.date" t-as="day" t-key="day.id">
+                                        <th class="center" style="width:8%">
+                                            <t t-esc="formatDate(day.date)"/>
+                                        </th>
+                                    </t>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--                            <input type="hidden" name="_csrf_token" value="0ab2dcf0cf6ab1526f224e6dd89e3545"-->
-                                <!--                                   id="csrf_token"/>-->
                                 <tr class="odd">
-<!--                                    <t t-set="data" t-value="this"/>-->
                                     <td id="">
                                         <input class="toDelete" type="checkbox" name="initialRows[0][toDelete]"
                                                id="initialRows_0_toDelete"/>
                                     </td>
                                     <td>
-<!--                                        <t t-esc="timesheet_data[0].name"/>-->
                                         <select class="projectActivity" style="width:225px"
                                                 name="projectName"
                                                 id="projectName">
                                             <option value="-1">-- Select --</option>
                                             <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
-                                                <option t-att-value="project.project_id">
-                                                    <t t-esc="project.project_id"/>
+                                                <option t-att-value="project.project_id[0]">
+                                                    <t t-esc="project.project_id[1]"/>
                                                 </option>
                                             </t>
                                         </select>
@@ -72,7 +46,7 @@
                                                 id="initialRows_0_projectActivityName">
                                             <option value="-1">-- Select --</option>
                                             <t t-foreach="timesheet_data.activity" t-as="project" t-key="project.id">
-                                                <option t-att-value="project.name">
+                                                <option t-att-value="project.id">
                                                     <t t-esc="project.name"/>
                                                 </option>
                                             </t>
@@ -80,70 +54,21 @@
                                         <input type="hidden" name="initialRows[0][projectActivityId]"
                                                id="initialRows_0_projectActivityId"/>
                                     </td>
-                                    <td class="comments">
+                                    <t t-foreach="hours" t-as="hour" t-key="hour.id">
+                                        <td class="comments">
                                         <input align="center" class="timeBox" type="text" name="initialRows[0][0]"
-                                               id="initialRows_0_0" t-model="state.unit_amount" value=""/>
+                                               id="initialRows_0_0" t-model="hour.unit_amount" value=""/>
                                         <img id="commentBtn_0_0" class="commentIcon"
                                              src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId0]" t-model="state.task_id" t-att-value="'3'" value="1"
-                                               id="initialRows_0_TimesheetItemId0"/>
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId0]" t-model="state.project_id" t-attf-value="'5'" value="1"
-                                               id="initialRows_0_TimesheetItemId0"/>
+                                        <input type="hidden" name="taskId" t-model="state.task_id" t-att-value="'1'"
+                                               value="'1'"
+                                               id="taskId"/>
+                                        <input type="hidden" name="projectId" t-model="state.project_id"
+                                               t-attf-value="dataProjectId" value="dataProjectId"
+                                               id="projectId"/>
                                     </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][1]"
-                                               value=""
-                                               id="initialRows_0_1"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_1_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId1]"
-                                               id="initialRows_0_TimesheetItemId1"/>
-                                    </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][2]"
-                                               value=""
-                                               id="initialRows_0_2"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_2_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId2]"
-                                               id="initialRows_0_TimesheetItemId2"/>
-                                    </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][3]"
-                                               value=""
-                                               id="initialRows_0_3"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_3_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId3]"
-                                               id="initialRows_0_TimesheetItemId3"/>
-                                    </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][4]"
-                                               value=""
-                                               id="initialRows_0_4"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_4_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId4]"
-                                               id="initialRows_0_TimesheetItemId4"/>
-                                    </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][5]"
-                                               value=""
-                                               id="initialRows_0_5"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_5_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId5]"
-                                               id="initialRows_0_TimesheetItemId5"/>
-                                    </td>
-                                    <td class="comments">
-                                        <input align="center" class="timeBox" type="text" name="initialRows[0][6]"
-                                               value=""
-                                               id="initialRows_0_6"/><!--                                <span class="" data-toggle="modal" href="#commentDialog">-->
-                                        <img id="commentBtn_6_0" class="commentIcon"
-                                             src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/><!--                                </span>-->
-                                        <input type="hidden" name="initialRows[0][TimesheetItemId6]"
-                                               id="initialRows_0_TimesheetItemId6"/>
-                                    </td>
+                                    </t>
+
                                 </tr>
 
                                 <tr id="extraRows" style="display: none;"></tr>
@@ -158,7 +83,8 @@
                             Deleted project activities are not editable
                         </p>
                         <p class="button-list">
-                            <input type="submit" class="submit" value="Save" name="btnSave" id="submitSave" t-on-click="() => send(state)"/>
+                            <input type="submit" class="submit" value="Save" name="btnSave" id="submitSave"
+                                   t-on-click="() => send(state, hours)"/>
                             <!--                        <input type="button" class="add" id="btnAddRow" value="Add Row" name="btnAddRow"/>-->
                             <!--                        <input type="button" class="delete" id="submitRemoveRows" value="Remove Rows"-->
                             <!--                               name="btnRemoveRows"/>-->

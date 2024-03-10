@@ -12,51 +12,41 @@ export class CustomTimesheetComp extends Component {
     setup() {
         console.log("Sukses custom timesheet")
         this.state = useState({
-            project_id: 3,
-            task_id: 7,
-            date: "2024-03-06",
-            unit_amount: 0,
-            name: "INI TEST BAGAS",
+            project_id: 0, task_id: 0, date: "2024-03-06", unit_amount: 0, name: "INI TEST BAGAS",
 
         })
 
 
         useSubEnv({
             config: {
-                ...getDefaultConfig(),
-                ...this.env.config,
+                ...getDefaultConfig(), ...this.env.config,
             }
         })
 
         this.timesheet_service = useService("TimesheetService")
         // console.log(this.timesheet_service.timesheet_data)
         this.timesheet_data = this.timesheet_service.timesheet_data
+        this.hours = this.timesheet_service.timesheet_data.hours
+        console.log(this.hours[0].unit_amount)
 
 
         onMounted(() => {
             let selectedProject = document.getElementsByName('projectName')[0]
+            let selectedTask = document.getElementsByName('activityProject')[0]
 
-            selectedProject.addEventListener("change", selectProject);
-
-
-            // console.log(selectedProject)
-
-            function selectProject() {
+            selectedProject.addEventListener("change", () => {
                 let val = selectedProject.options[selectedProject.selectedIndex].value;
-                // console.log(value);
-                // self.activityName = value
-            }
+                this.state.project_id = parseInt(val)
+            });
 
-            selectProject();
-
-
-        })
-
-        // Forms
+            selectedTask.addEventListener("change", () => {
+                let val = selectedTask.options[selectedTask.selectedIndex].value;
+                this.state.task_id = parseInt(val)
+            });
+        });
 
 
-
-        console.log("STATE LAMA", this.state)
+        console.log("STATES", this.state)
 
         this.orm = useService("orm")
         this.model = "account.analytic.line"
@@ -65,29 +55,32 @@ export class CustomTimesheetComp extends Component {
     }
 
 
-    send = async (form) =>  {
+    send = async (form, hours) => {
 
-        this.state.unit_amount = form.unit_amount
 
-        console.log("Halooooooooooooo", form)
-        // this.state.workHours = form.workHours
-        const new_data = {
-            project_id: form.project_id,
-            task_id: form.task_id,
-            date: form.date,
-            unit_amount: form.unit_amount,
-            name: form.name,
+        event.preventDefault();
+
+        // Collect all form data from each row
+        const allFormData = [];
+        for (let hour of hours) {
+            const formData = {...this.state};
+            formData.unit_amount = parseInt(hour.unit_amount);
+            allFormData.push(formData);
         }
-        //
-        await this.orm.create(this.model, [new_data])
 
-        // await this.timesheet_service.sendData(new_data).then(response => {
-        //     console.log("Response from server:", response);
-        //
-        // }).catch(error => {
-        //     console.error("Error:", error);
-        // });
 
+        for (let formData of allFormData) {
+            await this.orm.create(this.model, [formData]);
+        }
+        // await this.orm.create(this.model, new_data)
+        console.log("All form data:", allFormData);
+
+
+    }
+
+    formatDate(dateString) {
+        const date = moment(dateString).format("ddd D");
+        return date;
     }
 
 
