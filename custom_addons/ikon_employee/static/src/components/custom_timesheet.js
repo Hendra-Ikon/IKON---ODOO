@@ -12,7 +12,7 @@ export class CustomTimesheetComp extends Component {
     setup() {
         console.log("Sukses custom timesheet")
         this.state = useState({
-            project_id: 0, task_id: 0, date: "2024-03-06", unit_amount: 0, name: "INI TEST BAGAS",
+            id: 0, project_id: 0, task_id: 0, date: "2024-03-06", unit_amount: 0, name: "INI TEST BAGAS",
 
         })
 
@@ -24,10 +24,8 @@ export class CustomTimesheetComp extends Component {
         })
 
         this.timesheet_service = useService("TimesheetService")
-        // console.log(this.timesheet_service.timesheet_data)
         this.timesheet_data = this.timesheet_service.timesheet_data
         this.hours = this.timesheet_service.timesheet_data.hours
-        console.log(this.hours[0].unit_amount)
 
 
         onMounted(() => {
@@ -46,8 +44,6 @@ export class CustomTimesheetComp extends Component {
         });
 
 
-        console.log("STATES", this.state)
-
         this.orm = useService("orm")
         this.model = "account.analytic.line"
 
@@ -60,22 +56,31 @@ export class CustomTimesheetComp extends Component {
 
         event.preventDefault();
 
+
         // Collect all form data from each row
         const allFormData = [];
+
         for (let hour of hours) {
             const formData = {...this.state};
             formData.unit_amount = parseInt(hour.unit_amount);
+            formData.id = parseInt(hour.id);
+            formData.date = hour.date;
             allFormData.push(formData);
+            ids.push(parseInt(hour.id));
         }
-
-
         for (let formData of allFormData) {
-            await this.orm.create(this.model, [formData]);
+
+            await this.orm.write(this.model, [formData.id], formData);
         }
-        // await this.orm.create(this.model, new_data)
-        console.log("All form data:", allFormData);
+        // console.log("ID :", [allFormData[0].id], "FormData : ", allFormData[0])
+        // await this.orm.write(this.model, [allFormData[0].id], allFormData[0]);
 
 
+    }
+
+    saveDescription = async (hours) => {
+        event.preventDefault();
+        console.log("Edited Description : ", hours);
     }
 
     formatDate(dateString) {
@@ -83,6 +88,14 @@ export class CustomTimesheetComp extends Component {
         return date;
     }
 
+
+}
+
+export class CustomNoteTimesheet extends Component {
+
+    setup() {
+
+    }
 
 }
 

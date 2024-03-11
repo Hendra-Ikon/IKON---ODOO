@@ -17,12 +17,14 @@ class CustomTimeSheetRoute(http.Controller):
         project = request.env['project.task'].search_read([('user_ids', '=', user.id)], ['project_id'])
         activity = request.env['project.task'].search_read([('user_ids', '=', user.id)], ['name'])
         dates = request.env['account.analytic.line'].search_read([('user_id', '=', user.id)], ['date'], limit=7)
-        hours = request.env['account.analytic.line'].search_read([('user_id', '=', user.id)], ['unit_amount'], limit=7)
+        hours = request.env['account.analytic.line'].search_read([('user_id', '=', user.id)], ['unit_amount', 'name', 'id', 'date'], limit=7)
+        task_description = request.env['account.analytic.line'].search_read([('user_id', '=', user.id)], ['name'], limit=7)
         return {
             "project": project,
             "activity": activity,
             "date": dates,
-            "hours": hours
+            "hours": hours,
+            "taskDescription": task_description
         }
 
     # @http.route("/ikon_employee/timesheet_data", type="json", auth="user")
