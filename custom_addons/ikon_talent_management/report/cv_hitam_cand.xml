@@ -234,7 +234,7 @@
     <template id="cv_skills">
         <t t-value="docs" t-set="data"/>
         <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
-            SKIllS
+            SKILLS
         </div>
         <div name="skill_type"
         >

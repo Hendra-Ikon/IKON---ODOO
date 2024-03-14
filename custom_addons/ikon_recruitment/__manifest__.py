@@ -40,8 +40,8 @@
             '/ikon_recruitment/static/src/css/popup.css',
         ],
         "web.assets_backend": [
-            # "ikon_recruitment/static/src/components/custom_timesheet.js",
-            # "ikon_recruitment/static/src/services/timesheet_service.js",
+        #     # "ikon_recruitment/static/src/components/custom_timesheet.js",
+        #     # "ikon_recruitment/static/src/services/timesheet_service.js",
             "ikon_recruitment/static/src/components/**/*.xml",
             "ikon_recruitment/static/src/components/**/*.scss",
         ],
