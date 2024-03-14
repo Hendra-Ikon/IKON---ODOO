@@ -17,13 +17,20 @@
 
       .comments {
 
-        //display: flex;
+        .comment_wrapper {
 
-        .timeBox {
-          width: 40px;
-          padding: 0;
-          margin-right: 5px;
+          display: flex;
+
+          .timeBox {
+            width: 40px;
+            padding: 0;
+            margin-right: 5px;
+          }
+
+
         }
+
+
       }
 
 

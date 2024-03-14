@@ -9,7 +9,6 @@ export const TimesheetService = {
     async start(env, { rpc }){
         // let timesheet_data = reactive({})
         let timesheet_data = await rpc("/ikon_employee/timesheet_data/")
-        console.log(timesheet_data)
         return {
             timesheet_data,
 

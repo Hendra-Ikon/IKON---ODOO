@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="ikon_employee.Timesheet" owl="1">
+
         <Layout display="display">
             <div class="wrapper">
                 <form class="timesheetForm" id="timesheetForm">
@@ -13,11 +14,21 @@
                                     </th>
                                     <th style="width:24%" id="projectName">Project Name</th>
                                     <th style="width:18%" id="activityName">Activity Name</th>
-                                    <t t-foreach="timesheet_data.date" t-as="day" t-key="day.id">
-                                        <th class="center" style="width:8%">
-                                            <t t-esc="formatDate(day.date)"/>
-                                        </th>
+                                    <t t-if="timesheet_data.date">
+
+                                        <t t-foreach="timesheet_data.date" t-as="day" t-key="day.id">
+                                            <th class="center" style="width:8%">
+                                                <t t-esc="formatDate(day.date)"/>
+                                            </th>
+                                        </t>
                                     </t>
+
+                                    <t t-if="!timesheet_data.date">
+                                        <th class="center" style="width:8%">
+                                                <p>HALOO</p>
+                                            </th>
+                                    </t>
+
 
                                 </tr>
                             </thead>
@@ -30,8 +41,8 @@
                                     <td>
                                         <select class="projectActivity" style="width:225px"
                                                 name="projectName"
-                                                id="projectName">
-                                            <option value="-1">-- Select --</option>
+                                                id="projectName" required="">
+                                            <option value="">-- Select --</option>
                                             <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
                                                 <option t-att-value="project.project_id[0]">
                                                     <t t-esc="project.project_id[1]"/>
@@ -45,9 +56,9 @@
                                                 name="activityProject"
                                                 id="initialRows_0_projectActivityName">
                                             <option value="-1">-- Select --</option>
-                                            <t t-foreach="timesheet_data.activity" t-as="project" t-key="project.id">
-                                                <option t-att-value="project.id">
-                                                    <t t-esc="project.name"/>
+                                            <t t-foreach="timesheet_data.activity" t-as="activity" t-key="activity.id">
+                                                <option t-att-value="activity.id">
+                                                    <t t-esc="activity.name"/>
                                                 </option>
                                             </t>
                                         </select>
@@ -57,7 +68,8 @@
 
                                     <t t-foreach="hours" t-as="hour" t-key="hour.id">
                                         <td class="comments">
-                                            <input align="center" class="timeBox" type="text" name="initialRows[0][0]"
+                                            <div class="comment_wrapper">
+                                                <input align="center" class="timeBox" type="text" name="initialRows[0][0]"
                                                    id="initialRows_0_0" t-model="hour.unit_amount" value=""/>
                                             <img class="commentIcon" data-bs-toggle="modal"
                                                  t-att-data-bs-target="'#exampleModal' + hour.id"
@@ -86,11 +98,12 @@
                                                         <div class="modal-body">
                                                             <div class="mb-3 row">
                                                                 <label for="name" class="col-sm-2 col-form-label">Task
-                                                                    Name
+                                                                    Description
                                                                 </label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="name"
-                                                                           t-model="hour.name" value=""/>
+                                                                    <input type="text" class="form-control"
+                                                                           t-att-id="'description' + hour.id"
+                                                                           t-model="hour.name" value="{{ hour.name }}"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -99,29 +112,16 @@
                                                                     data-bs-dismiss="modal">Close
                                                             </button>
                                                             <button type="button" class="btn btn-primary"
-                                                                    t-on-click="() => saveDescription(hours)">Save changes
+                                                                    t-on-click="() => saveDescription(hour)">Save
+                                                                changes
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            </div>
                                         </td>
                                     </t>
-
-                                    <!--                                    <t t-foreach="hours" t-as="hour" t-key="hour.id">-->
-                                    <!--                                        <td class="comments">-->
-                                    <!--                                            <input align="center" class="timeBox" type="text" name="initialRows[0][0]"-->
-                                    <!--                                                   id="initialRows_0_0" t-model="hour.unit_amount" value=""/>-->
-                                    <!--                                            <img id="description" class="commentIcon" data-bs-toggle="modal" data-bs-target="#exampleModal"-->
-                                    <!--                                                 src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/>-->
-                                    <!--                                            <input type="hidden" name="taskId" t-model="state.task_id" t-att-value="'1'"-->
-                                    <!--                                                   value="'1'"-->
-                                    <!--                                                   id="taskId"/>-->
-                                    <!--                                            <input type="hidden" name="projectId" t-model="state.project_id"-->
-                                    <!--                                                   t-attf-value="dataProjectId" value="dataProjectId"-->
-                                    <!--                                                   id="projectId"/>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </t>-->
 
                                 </tr>
 
@@ -129,38 +129,7 @@
 
                             </tbody>
                         </table>
-                    </div> <!-- tableWrapper -->
-
-                    <!-- Modal Popup-->
-
-                    <!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"-->
-                    <!--                         aria-hidden="true">-->
-                    <!--                        <div class="modal-dialog">-->
-                    <!--                            <div class="modal-content">-->
-                    <!--                                <div class="modal-header">-->
-                    <!--                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Task</h1>-->
-                    <!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal"-->
-                    <!--                                            aria-label="Close"></button>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-body">-->
-                    <!--                                    <div class="mb-3 row">-->
-                    <!--                                        <label for="name" class="col-sm-2 col-form-label">Task Name</label>-->
-                    <!--                                        <div class="col-sm-10">-->
-                    <!--                                            <input type="text" class="form-control" id="name" t-model="timesheet_data.taskDescription" value=""/>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-
-
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-footer">-->
-                    <!--                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close-->
-                    <!--                                    </button>-->
-                    <!--                                    <button type="button" class="btn btn-primary" t-on-click="save">Save changes-->
-                    <!--                                    </button>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    </div>
 
                     <div class="bottom">
                         <p class="required">
@@ -184,4 +153,5 @@
             </div>
         </Layout>
     </t>
+
 </templates>
