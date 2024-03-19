@@ -4,6 +4,35 @@
 
         <Layout display="display">
             <div class="wrapper">
+                <div class="top">
+                    <t t-if="toggleData.weekLeft">
+                        <h3 class="heading-title">
+                            Timesheet for Week
+                        </h3>
+
+                        <h3 class="choosenDates" name="startDates" id="startDates">
+                            <t t-esc="timesheet_date_header"/>
+
+                        </h3>
+                    </t>
+                    <t t-else="">
+
+                        <h3 class="heading-title">
+                            Timesheet for Week
+                        </h3>
+
+                        <select class="startDates" name="startDates" id="startDates">
+                            <t t-foreach="weekData" t-as="date" t-key="date_index">
+                                <option t-att-value="date.range" style="overflow:hidden;">
+                                    <t t-esc="date.range"/>
+                                </option>
+                            </t>
+
+                        </select>
+                    </t>
+
+
+                </div>
                 <form class="timesheetForm" id="timesheetForm">
                     <div class="tableWrapper" style="overflow:auto">
                         <table style="width:100%" class="table">
@@ -14,120 +43,142 @@
                                     </th>
                                     <th style="width:24%" id="projectName">Project Name</th>
                                     <th style="width:18%" id="activityName">Activity Name</th>
-                                    <t t-if="timesheet_data.date">
+                                    <t t-if="usedData">
 
-                                        <t t-foreach="timesheet_data.date" t-as="day" t-key="day.id">
+                                        <t t-foreach="usedData" t-as="day" t-key="day.id">
                                             <th class="center" style="width:8%">
-                                                <t t-esc="formatDate(day.date)"/>
+                                                <t t-esc="formatDateheader(day.date)"/>
                                             </th>
                                         </t>
                                     </t>
 
-                                    <t t-if="!timesheet_data.date">
-                                        <th class="center" style="width:8%">
-                                                <p>HALOO</p>
-                                            </th>
-                                    </t>
+                                    <!--                                    <t t-if="!timesheet_data.date">-->
+                                    <!--                                        <th class="center" style="width:8%">-->
+                                    <!--                                            <p>HALOO</p>-->
+                                    <!--                                        </th>-->
+                                    <!--                                    </t>-->
 
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="odd">
-                                    <td id="">
-                                        <input class="toDelete" type="checkbox" name="initialRows[0][toDelete]"
-                                               id="initialRows_0_toDelete"/>
-                                    </td>
-                                    <td>
-                                        <select class="projectActivity" style="width:225px"
-                                                name="projectName"
-                                                id="projectName" required="">
-                                            <option value="">-- Select --</option>
-                                            <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
-                                                <option t-att-value="project.project_id[0]">
-                                                    <t t-esc="project.project_id[1]"/>
-                                                </option>
-                                            </t>
-                                        </select>
-                                    </td>
+                            <t t-if="toggleData.weekLeft">
+                                <tbody>
+                                    <tr class="odd">
+                                        <td id="">
+                                            <input class="toDelete" type="checkbox" name="initialRows[0][toDelete]"
+                                                   id="initialRows_0_toDelete"/>
+                                        </td>
+                                        <td>
+                                            <select class="projectActivity" style="width:225px"
+                                                    name="projectName"
+                                                    id="projectName" required="">
+                                                <option value="">-- Select --</option>
+                                                <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
+                                                    <option t-att-value="project.project_id[0]">
+                                                        <t t-esc="project.project_id[1]"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </td>
 
-                                    <td>
-                                        <select class="projectActivity" style="width:225px"
-                                                name="activityProject"
-                                                id="initialRows_0_projectActivityName">
-                                            <option value="-1">-- Select --</option>
-                                            <t t-foreach="timesheet_data.activity" t-as="activity" t-key="activity.id">
-                                                <option t-att-value="activity.id">
-                                                    <t t-esc="activity.name"/>
-                                                </option>
-                                            </t>
-                                        </select>
-                                        <input type="hidden" name="initialRows[0][projectActivityId]"
-                                               id="initialRows_0_projectActivityId"/>
-                                    </td>
+                                        <td>
+                                            <select class="projectActivity" style="width:225px"
+                                                    name="activityProject"
+                                                    id="initialRows_0_projectActivityName">
+                                                <option value="-1">-- Select --</option>
+                                                <t t-foreach="timesheet_data.activity" t-as="activity"
+                                                   t-key="activity.id">
+                                                    <option t-att-value="activity.id">
+                                                        <t t-esc="activity.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <input type="hidden" name="initialRows[0][projectActivityId]"
+                                                   id="initialRows_0_projectActivityId"/>
+                                        </td>
 
-                                    <t t-foreach="hours" t-as="hour" t-key="hour.id">
-                                        <td class="comments">
-                                            <div class="comment_wrapper">
-                                                <input align="center" class="timeBox" type="text" name="initialRows[0][0]"
-                                                   id="initialRows_0_0" t-model="hour.unit_amount" value=""/>
-                                            <img class="commentIcon" data-bs-toggle="modal"
-                                                 t-att-data-bs-target="'#exampleModal' + hour.id"
-                                                 src="http://app.ikonsultan.com/ikonhrm/symfony/web/webres_5cc83b08d42f86.60948938/themes/default/images/comment.png"/>
-                                            <input type="hidden" name="taskId" t-model="state.task_id" t-att-value="'1'"
-                                                   value="'1'" id="taskId"/>
-                                            <input type="hidden" name="projectId" t-model="state.project_id"
-                                                   t-attf-value="dataProjectId" value="dataProjectId" id="projectId"/>
-                                            <input type="hidden" name="dataId" t-model="hour.id"
-                                                   t-attf-value="hour.id" value="hour.id" id="projectId"/>
-                                            <input type="hidden" name="dateId" t-model="hour.date"
-                                                   t-attf-value="hour.date" value="hour.date" id="projectId"/>
+                                        <t t-foreach="usedData" t-as="hour" t-key="hour.id">
+                                            <td class="comments">
+                                                <div class="comment_wrapper">
+                                                    <input align="center" class="timeBox" type="text"
+                                                           name="initialRows[0][0]"
+                                                           id="initialRows_0_0" t-model="hour.unit_amount" value=""/>
+                                                    <img class="commentIcon" data-bs-toggle="modal"
+                                                         t-att-data-bs-target="'#exampleModal' + hour.id"
+                                                         src="/ikon_recruitment/static/src/img/comment.png"/>
+                                                    <input type="hidden" name="taskId" t-model="state.task_id"
+                                                           t-att-value="'1'"
+                                                           value="'1'" id="taskId"/>
+                                                    <input type="hidden" name="projectId" t-model="state.project_id"
+                                                           t-attf-value="dataProjectId" value="dataProjectId"
+                                                           id="projectId"/>
+                                                    <input type="hidden" name="dataId" t-model="hour.id"
+                                                           t-attf-value="hour.id" value="hour.id" id="projectId"/>
+                                                    <input type="hidden" name="dateId" t-model="hour.date"
+                                                           t-attf-value="hour.date" value="hour.date" id="projectId"/>
 
-                                            <!-- Modal Popup for each hour -->
-                                            <div class="modal fade" t-att-id="'exampleModal' + hour.id" tabindex="-1"
-                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add New
-                                                                Task
-                                                            </h1>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mb-3 row">
-                                                                <label for="name" class="col-sm-2 col-form-label">Task
-                                                                    Description
-                                                                </label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                           t-att-id="'description' + hour.id"
-                                                                           t-model="hour.name" value="{{ hour.name }}"/>
+                                                    <!-- Modal Popup for each hour -->
+                                                    <div class="modal fade" t-att-id="'exampleModal' + hour.id"
+                                                         tabindex="-1"
+                                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                        Add
+                                                                        New
+                                                                        Task
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3 row">
+                                                                        <label for="name"
+                                                                               class="col-sm-2 col-form-label">
+                                                                            Task
+                                                                            Description
+                                                                        </label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                   t-att-id="'description' + hour.id"
+                                                                                   t-model="hour.name"
+                                                                                   value="{{ hour.name }}"/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary"
+                                                                            t-on-click="() => saveDescription(hour)">
+                                                                        Save
+                                                                        changes
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary"
-                                                                    t-on-click="() => saveDescription(hour)">Save
-                                                                changes
-                                                            </button>
-                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            </div>
-                                        </td>
-                                    </t>
+                                            </td>
+                                        </t>
 
-                                </tr>
+                                    </tr>
+                                </tbody>
+                            </t>
+                            <t t-else="">
+                                <div class="no-record">
+                                    No Records to display
+                                </div>
 
-                                <tr id="extraRows" style="display: none;"></tr>
+                            </t>
 
-                            </tbody>
+
+                            <tr id="extraRows" style="display: none;"></tr>
+
+
                         </table>
                     </div>
 
@@ -137,15 +188,21 @@
                             Deleted project activities are not editable
                         </p>
                         <p class="button-list">
-                            <input type="submit" class="submit" value="Save" name="btnSave" id="submitSave"
-                                   t-on-click="() => send(state, hours)"/>
-                            <!--                        <input type="button" class="add" id="btnAddRow" value="Add Row" name="btnAddRow"/>-->
+
                             <!--                        <input type="button" class="delete" id="submitRemoveRows" value="Remove Rows"-->
                             <!--                               name="btnRemoveRows"/>-->
-                            <input class="reset" id="btnReset" value="Reset" type="button"
-                                   onclick="document.location.href='/ikonhrm/symfony/web/index.php/time/editTimesheet/timesheetId/23014/employeeId/279/actionName/viewMyTimesheet';"/>
-                            <input class="cancel" id="btnBack" value="Cancel" type="button"
-                                   onclick="document.location.href='/ikonhrm/symfony/web/index.php/time/viewMyTimesheet/timesheetStartDate/2024-03-04/employeeId/279';"/>
+                            <t t-if="toggleData.weekLeft">
+                                <input type="submit" class="submit" value="Save" name="btnSave" id="submitSave"
+                                       t-on-click="() => send(state, usedData)"/>
+                                <input class="reset" id="btnReset" value="Reset" type="button"
+                                       onclick="document.location.href='/ikonhrm/symfony/web/index.php/time/editTimesheet/timesheetId/23014/employeeId/279/actionName/viewMyTimesheet';"/>
+                                <input class="cancel" id="btnBack" value="Cancel" type="button"
+                                       t-on-click="() => cancel()"/>
+                            </t>
+                            <t t-else="">
+                                <input type="button" class="edit" id="btnAddRow" value="Edit" name="btnEdit"
+                                       t-on-click="() => edit()"/>
+                            </t>
                         </p>
 
                     </div>
