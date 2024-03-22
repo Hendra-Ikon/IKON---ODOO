@@ -69,16 +69,20 @@
                                                    id="initialRows_0_toDelete"/>
                                         </td>
                                         <td>
-                                            <select class="projectActivity" style="width:225px"
-                                                    name="projectName"
-                                                    id="projectName" required="">
-                                                <option value="">-- Select --</option>
-                                                <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
-                                                    <option t-att-value="project.project_id[0]">
-                                                        <t t-esc="project.project_id[1]"/>
-                                                    </option>
-                                                </t>
-                                            </select>
+                                            <div class="projectInputWrapper">
+                                                <input type="text" class="projectSearch" style="width:225px"
+                                                       placeholder="Search for a project..." id="projectSearch"
+                                                       name="projectSearch"/>
+
+                                                <ul class="list-group" style="width:225px">
+                                                    <t t-foreach="timesheet_data.project" t-as="project"
+                                                       t-key="project.id">
+                                                        <li class="list-group-item" t-att-value="project.project_id[0]">
+                                                            <t t-esc="project.project_id[1]"/>
+                                                        </li>
+                                                    </t>
+                                                </ul>
+                                            </div>
                                         </td>
 
                                         <td>

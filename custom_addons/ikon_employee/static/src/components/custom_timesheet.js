@@ -7,7 +7,7 @@ import {useService} from "@web/core/utils/hooks";
 
 var Dialog = require('web.Dialog');
 
-const {Component, useSubEnv, useState, onMounted, reactive} = owl
+const {Component, useSubEnv, useState, onMounted, reactive, onPatched} = owl
 
 export class CustomTimesheetComp extends Component {
     setup() {
@@ -23,6 +23,8 @@ export class CustomTimesheetComp extends Component {
             }
         })
 
+        this.orm = useService("orm")
+        this.model = "account.analytic.line"
         this.notification = useService("notification")
         this.timesheet_service = useService("TimesheetService")
         this.timesheet_data = this.timesheet_service.timesheet_data
@@ -87,10 +89,10 @@ export class CustomTimesheetComp extends Component {
 
         this.timesheet_date_header = weekData[this.selected_date_index.dateIndex].range
 
-        console.log(this.timesheet_date_header)
-
 
         onMounted(() => {
+
+
             let selectedProject = document.getElementsByName('projectName')[0]
             let selectedTask = document.getElementsByName('activityProject')[0]
             let startDate = document.getElementsByName('startDates')[0]
@@ -104,7 +106,6 @@ export class CustomTimesheetComp extends Component {
             }
 
             if (selectedTask) {
-
                 selectedTask.addEventListener("change", () => {
                     let val = selectedTask.options[selectedTask.selectedIndex].value;
                     this.state.task_id = parseInt(val)
@@ -147,11 +148,42 @@ export class CustomTimesheetComp extends Component {
             // }
         });
 
+        onPatched(() => {
+            if (this.toggleData.weekLeft === true) {
+                let projectSearchInput = document.getElementById('projectSearch')
+                const projectSelect = document.getElementById('projectName');
+                const projectOptions = projectSelect.querySelectorAll('option');
 
-        this.orm = useService("orm")
-        this.model = "account.analytic.line"
 
-        console.log(this.formatDateForForm("Tue Mar 26 2024"))
+                if (projectSearchInput) {
+                    projectSearchInput.addEventListener("input", filterList
+                    );
+
+                    function filterList() {
+                        const searchInput = document.querySelector(".projectSearch")
+                        const filter = searchInput.value.toLowerCase()
+                        const items = document.querySelectorAll(".list-group-item")
+
+
+                        items.forEach(async (item) => {
+                            let text = item.textContent
+                            // if (!filter) {
+                            //     item.style.visibility = "hidden"
+                            //     console.log("Search cleared")
+                            // }
+                            if (filter && text.toLowerCase().includes(filter.toLowerCase())) {
+                                // item.classList.add("show"); // Add class to show the element
+                                // item.classList.remove("hide");
+                                item.style.display = "block"
+                            } else {
+                                item.style.display = "none"
+                            }
+                        })
+                    }
+                }
+            }
+        })
+
 
     }
 

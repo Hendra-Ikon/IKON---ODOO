@@ -35,6 +35,27 @@
     tbody {
 
 
+      .projectInputWrapper {
+
+        width: 100px;
+
+        .projectSearch{
+          padding: 7px;
+          border: 0.5px solid #c8c4c4;
+        }
+
+        .list-group-item {
+          display: none;
+          //visibility: hidden;
+          //visibility: ;
+        }
+      }
+
+      .projectActivity {
+        padding: 7px;
+        border: 0.5px solid #c8c4c4;
+      }
+
 
       .comments {
 
@@ -67,8 +88,8 @@
     }
 
     .no-record {
-        width: 200px;
-      }
+      width: 200px;
+    }
 
 
   }
