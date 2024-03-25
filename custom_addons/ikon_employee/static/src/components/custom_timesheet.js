@@ -36,9 +36,9 @@ export class CustomTimesheetComp extends Component {
             weekLeft: false
         })
         this.selected_project = 0
-        this.select_activity = useState({
-            id: 0, name: "", project_id: []
-        })
+        this.select_activity = useState([]
+            // id: 0, name: "test", project_id: []
+        )
 
 
         // Parse dates and sort the array
@@ -93,7 +93,23 @@ export class CustomTimesheetComp extends Component {
 
         this.timesheet_date_header = weekData[this.selected_date_index.dateIndex].range
 
-        console.log(this.timesheet_data.project)
+        // console.log(this.timesheet_data.project)
+        // setInterval(() => {
+        //         console.log("TEST SELECTED PROJECT", this.selected_project)
+        //     }, 2000)
+        //
+
+        // setInterval(() => {
+        //         console.log("TEST SELECTED ACTIVITY", this.select_activity)
+        //     }, 2000)
+
+        // console.log(this.timesheet_data.activity)
+
+        // for (let act of this.timesheet_data.activity) {
+        //     if(act.project_id[0] === this.selected_project) {
+        //         console.log(this.selected_project)
+        //     }
+        // }
 
 
         onMounted(() => {
@@ -114,6 +130,7 @@ export class CustomTimesheetComp extends Component {
             if (selectedTask) {
                 selectedTask.addEventListener("change", () => {
                     let val = selectedTask.options[selectedTask.selectedIndex].value;
+                    console.log("FROM TASK" ,val)
                     this.state.task_id = parseInt(val)
                 });
             }
@@ -131,6 +148,7 @@ export class CustomTimesheetComp extends Component {
                 });
 
             }
+
 
 
             // this.timesheet_data.activity.filter(select => {
@@ -155,6 +173,7 @@ export class CustomTimesheetComp extends Component {
         });
 
         onPatched(() => {
+            // let act_data = this.select_activity
             if (this.toggleData.weekLeft === true) {
                 let projectSearchInput = document.getElementById('projectSearch')
                 const projectSelect = document.getElementById('projectName');
@@ -192,17 +211,24 @@ export class CustomTimesheetComp extends Component {
                 projectList.addEventListener("click", (event) => {
                     if (event.target && event.target.classList.contains("list-group-item")) {
                         const projectId = event.target.getAttribute("value");
-                        this.selected_project = projectId
 
+                        this.selected_project = projectId
+                        console.log("Project ID : ", this.selected_project);
                         for (let data of this.timesheet_data.activity) {
                             if (data.project_id[0] === parseInt(projectId)) {
-                                // console.log("INI DATA : ", data);
+                                // Object.assign(this.select_activity ,data)
                                 this.select_activity = reactive(data)
+                                // this.select_activity = reactive(data)
+                                // console.log("INI DATA : ", data);
+                                // console.log("Project ID : ", this.selected_project);
+                                // testOutput()
+                                // console.log("DATA of Select Activity : ", this.select_activity.name);
                                 // break; // Stop the loop once a match is found
                             }
+                            this.select_activity = data
                         }
 
-                        console.log("SELECT ACT", this.select_activity)
+                        // console.log("SELECT ACT", this.select_activity.name)
 
                         // const matchingProject = this.timesheet_data.project.filter(data => data.project_id[0] === projectId);
                         // if (matchingProject.length > 0) {
@@ -210,11 +236,29 @@ export class CustomTimesheetComp extends Component {
                         // }
                     }
                 });
+
+
+
+                // console.log("ACT DATA : ", act_data);
+
+
+                const addSelectDataValue = (data) => {
+                    this.select_activity = data
+                }
+
+                const testOutput = () => {
+                    console.log("TEST SELECTED ACTIVITY", this.select_activity)
+                }
             }
+
+            // console.log("DATA of Select Activity : ", this.select_activity);
+
         })
 
 
     }
+
+
 
 
     send = async (form, hours) => {

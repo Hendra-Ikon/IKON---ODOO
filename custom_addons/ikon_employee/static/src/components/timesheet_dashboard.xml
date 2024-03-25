@@ -31,7 +31,6 @@
                         </select>
                     </t>
 
-
                 </div>
                 <form class="timesheetForm" id="timesheetForm">
                     <div class="tableWrapper" style="overflow:auto">
@@ -91,9 +90,9 @@
                                                     id="initialRows_0_projectActivityName">
                                                 <option value="-1">-- Select --</option>
                                                 <t t-foreach="select_activity" t-as="activity"
-                                                   t-key="activity">
+                                                   t-key="activity_index">
                                                     <option t-att-value="activity.id">
-                                                        <t t-esc="activity"/>
+                                                        <t t-esc="activity.name"/>
                                                     </option>
                                                 </t>
                                             </select>
@@ -178,7 +177,6 @@
                                 </div>
 
                             </t>
-
 
                             <tr id="extraRows" style="display: none;"></tr>
 
