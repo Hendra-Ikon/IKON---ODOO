@@ -38,8 +38,10 @@
             <t t-set="data" t-value="record.data"/>
             <td class="o_resume_timeline_cell position-relative pe-lg-2">
                 <div class="position-relative">
-                    <!--                    <img t-if="data.company_image" t-att-src="'/web/image/' + data.company_image" alt="Company Image"/>-->
                     <img t-if="data.company_image" t-attf-src="data:image/png;base64,{{data.company_image}}"
+                         alt="Company Image"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50% padding: 10px;"/>
+                    <img t-else="" t-attf-src="ikon_talent_management/static/src/img/logo-ikon.png"
                          alt="Company Image"
                          style="width: 50px; height: 50px; object-fit: cover; border-radius: 50% padding: 10px;"/>
                 </div>
@@ -61,47 +63,59 @@
                     <t t-if="data.resume_tech_used != false">
                         <p>Technology used:
                         </p>
-                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;" t-raw="data.resume_tech_used"/>
+                        </ul>
+                        <br/>
+                        <!--                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
 
-                            <ul t-foreach="data.resume_tech_used.split(',') or []" t-as="tech" t-key="tech">
-                                <li>
-                                    <t t-esc="tech"/>
-                                </li>
-                            </ul>
-                        </p>
+                        <!--                            <ul t-foreach="data.resume_tech_used.split(',') or []" t-as="tech" t-key="tech">-->
+                        <!--                                <li>-->
+                        <!--                                    <t t-esc="tech"/>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </p>-->
                     </t>
                     <t t-else="">
                         <br/>
                     </t>
-                    <!--                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
-                    <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
-                    <!--                        Backend application:-->
-                    <!--                        <span t-esc="data.resume_tech_used_backend"/>-->
-                    <!--                    </p>-->
-                    <!--                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
-                    <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
-                    <!--                        Database:-->
-                    <!--                        <span t-esc="data.resume_tech_used_database"/>-->
-                    <!--                    </p>-->
                     <br/>
 
                     <t t-if="data.resume_sys_used != false">
                         <p>System integration:
                         </p>
-                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">
-                            <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
-                            <!--                        Frontend application:-->
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;" t-raw="data.resume_sys_used"/>
+                        </ul>
+                        <br/>
+                        <!--                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
 
-                            <ul t-foreach="data.resume_sys_used.split(',') or []" t-as="sys" t-key="sys">
-                                <li>
-                                    <t t-esc="sys"/>
-                                </li>
-                            </ul>
-                        </p>
+                        <!--                            <ul t-foreach="data.resume_sys_used.split(',') or []" t-as="sys" t-key="sys">-->
+                        <!--                                <li>-->
+                        <!--                                    <t t-esc="sys"/>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </p>-->
                     </t>
                     <t t-else="">
                         <br/>
                     </t>
+
+                    <t t-if="data.resume_key_responsible != false">
+                        <p>Key responsibilities are:
+                        </p>
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;"
+                                t-raw="data.resume_key_responsible"/>
+                        </ul>
+                        <br/>
+
+                    </t>
+                    <t t-else="">
+                        <br/>
+                    </t>
+
+
                     <!--                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
                     <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
                     <!--                        Backend application:-->

@@ -117,30 +117,10 @@ class PDSData(models.Model):
     open_modal = fields.Boolean(string="Modal Popup", default=True)
 
     pds_created_at = fields.Datetime(string='Created At', readonly=True)
-    # pds_updated_at = fields.Datetime(string='Updated At', readonly=True)
-
-    # Resume
-    #     resume_dateStart = fields.Date(string="Resume Start")
-    #     resume_dateEnd = fields.Date(string="Resume End")
-    #     rsm_com_name = fields.Char(string="Company Name")
     rsm_com_job_title = fields.Char(related="pds_resume.rsm_com_job_title", string="Job Title in Company")
 
-    #     rsm_com_projectDes = fields.Char(string="Project Description")
-    #     resume_tech_used_backend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-    #                                                 string='Backend Technology Used')
-    #     resume_tech_used_frontend = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-    #                                                  string='Frontend Technology Used')
-    #     resume_tech_used_database = fields.Many2many('custom.technology.tag', "resume_techs_tag_rel",
-    #                                                  string='Database Technology Used')
-    #
-    #
-    # class TechnologyTag(models.Model):
-    #     _name = 'custom.technology.tag'
-    #     _description = 'Technology Tags'
-    #
-    #     name = fields.Char(string='Tag Name', )
+    group_ids = fields.Many2one('res.groups', string='Group')
 
-    # resume_company_id = fields.One2many("custom.resume.experience.company", "resume_experience_id", string="Company ID")
 
     @api.model
     def create_pds(self, values):

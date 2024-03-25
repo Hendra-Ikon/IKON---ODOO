@@ -13,6 +13,7 @@
     'license': 'AGPL-3',
     'data': [
         'security/ir.model.access.csv',
+        'security/security_group.xml',
         'views/talent_pool_import_data_views.xml',
         'views/talent_tree_view.xml',
         'views/talent_kanban_views.xml',
@@ -24,6 +25,7 @@
         # 'views/resume_view.xml',
         'report/cv_report.xml',
         'report/cv_template_pds.xml',
+        'report/cv_hitam_cand.xml',
         'report/cv_template_employee.xml',
         'report/pds_report.xml',
         'report/pds_report_template.xml',
