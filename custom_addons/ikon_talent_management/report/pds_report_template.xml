@@ -8,6 +8,7 @@
                     <t t-call="ikon_talent_management.personal_section"/>
                     <t t-call="ikon_talent_management.financial_section"/>
                     <t t-call="ikon_talent_management.education_section"/>
+                    <t t-call="ikon_talent_management.work_section"/>
                     <t t-call="ikon_talent_management.certification_section"/>
                     <t t-call="ikon_talent_management.language_section"/>
                     <t t-call="ikon_talent_management.health_section"/>
@@ -321,6 +322,82 @@
                             <td>
 
                                 <span t-esc="education.pds_edu_end_year"/>
+                            </td>
+
+                        </tr>
+                    </t>
+
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="work_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Work Experiences
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Company Name
+                        </th>
+                        <th>
+                            Line of bussiness
+                        </th>
+                        <th>
+                            Last Position
+                        </th>
+                        <th>
+                            Reason for leaving
+                        </th>
+                        <th>
+                            Last Salary
+                        </th>
+                        <th>
+                            From
+                        </th>
+                        <th>
+                            To
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_work_exp" t-as="work">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="work.pds_workex_company_name"/>
+                            </td>
+                            <td>
+
+                                <span t-field="work.pds_workex_lob"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="work.pds_workex_last_pos"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="work.pds_workex_reason_leave"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="work.pds_workex_last_salary"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="work.pds_workex_period_from"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="work.pds_workex_period_to"/>
                             </td>
 
                         </tr>
