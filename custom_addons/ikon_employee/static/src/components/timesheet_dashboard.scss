@@ -1,5 +1,24 @@
 .wrapper {
 
+  .top {
+    display: flex;
+    margin-bottom: 20px;
+
+    .heading-title {
+      margin-right: 10px;
+
+      .choosenDates {
+        width: 300px;
+      }
+    }
+
+    .startDates {
+      width: 200px;
+      height: 50px;
+      overflow: hidden;
+    }
+  }
+
   padding: 10px;
   margin: 20px;
 
@@ -15,11 +34,57 @@
 
     tbody {
 
+
+      .projectInputWrapper {
+
+        width: 100px;
+
+        .projectSearch{
+          padding: 7px;
+          border: 0.5px solid #c8c4c4;
+        }
+
+        .list-group {
+
+          #test {
+            visibility: hidden;
+            //display: none;
+            color: transparent;
+          }
+
+
+          .list-group-item {
+          display: none;
+          //visibility: hidden;
+          //visibility: ;
+        }
+
+        .list-group-item:hover {
+          background-color: #f68e0e;
+        }
+        }
+      }
+
+      .projectActivity {
+        padding: 7px;
+        border: 0.5px solid #c8c4c4;
+      }
+
+
       .comments {
 
         .comment_wrapper {
 
           display: flex;
+
+          .commentIcon {
+            width: 12%;
+            height: 12%;
+          }
+
+          .modal {
+            cursor: pointer;
+          }
 
           .timeBox {
             width: 40px;
@@ -36,6 +101,10 @@
 
     }
 
+    .no-record {
+      width: 200px;
+    }
+
 
   }
 
@@ -49,6 +118,14 @@
       float: right;
 
       .submit {
+        background-color: #33ac3f;
+        color: white;
+        padding: 8px 20px;
+        margin: 5px;
+        border-radius: 10px;
+      }
+
+      .edit {
         background-color: #33ac3f;
         color: white;
         padding: 8px 20px;

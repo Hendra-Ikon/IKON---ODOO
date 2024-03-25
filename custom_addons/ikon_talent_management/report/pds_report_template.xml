@@ -4,11 +4,9 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div t-attf-class="page">
-                    <!--                    <div class="oe_structure"/>-->
-
-
                     <t t-call="ikon_talent_management.created"/>
                     <t t-call="ikon_talent_management.personal_section"/>
+                    <t t-call="ikon_talent_management.financial_section"/>
                     <t t-call="ikon_talent_management.education_section"/>
                     <t t-call="ikon_talent_management.certification_section"/>
                     <t t-call="ikon_talent_management.language_section"/>
@@ -16,6 +14,9 @@
                     <t t-call="ikon_talent_management.non_formal_education_section"/>
                     <t t-call="ikon_talent_management.organization_section"/>
                     <t t-call="ikon_talent_management.salary_section"/>
+                    <t t-call="ikon_talent_management.family_information_section"/>
+                    <t t-call="ikon_talent_management.emergency_contact_section"/>
+                    <t t-call="ikon_talent_management.other_activity_section"/>
 
                 </div>
             </t>
@@ -35,7 +36,7 @@
     <template id="personal_section">
         <t t-value="docs" t-set="data"/>
         <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
-            Data Pribadi
+            Personal Records
         </div>
         <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
 
@@ -163,6 +164,99 @@
                         </td>
 
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="financial_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Financial Information
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <tbody>
+
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Bank Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_bank"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Bank Account</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_bank_no"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Account Holder Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_holder_name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Tax No (NPWP)</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_npwp_number"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>NPWP Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_npwp_name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>NPWP Address</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_npwp_address"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>PTKP</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.pds_fi_ptkp"/>
+                        </td>
+
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -523,6 +617,178 @@
                             <td>
 
                                 <span t-esc="salary.pds_expected_benefit"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="family_information_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Family Information
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Family Description
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Sex
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
+                            Education
+                        </th>
+                        <th>
+                            Occupation (Company &amp; Position)
+                        </th>
+                        <th>
+                            Type
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_family" t-as="family">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="family.pds_family_desc"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_sex"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_age"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_education"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_company_position"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="family.pds_family_type"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="emergency_contact_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Emergency Contact
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Relationship
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_emCont" t-as="emContact">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="emContact.pds_emercon_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="emContact.pds_emercon_address"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="emContact.pds_emercon_phone"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="emContact.pds_emercon_relationship"/>
+                            </td>
+                        </tr>
+
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="other_activity_section">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="background-color: black !important; color: white !important; font-weight: bold !important; text-align: center; line-height: 50px;">
+            Other Activity
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Hobby Name
+                        </th>
+                        <th>
+                            Rate
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="data.pds_oac" t-as="oac">
+
+
+                        <tr>
+                            <td>
+
+                                <span t-esc="oac.pds_oc_name"/>
+                            </td>
+                            <td>
+
+                                <span t-esc="oac.pds_rate"/>
                             </td>
                         </tr>
 
