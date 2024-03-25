@@ -35,6 +35,10 @@ export class CustomTimesheetComp extends Component {
         this.toggleData = useState({
             weekLeft: false
         })
+        this.selected_project = 0
+        this.select_activity = useState({
+            id: 0, name: "", project_id: []
+        })
 
 
         // Parse dates and sort the array
@@ -88,6 +92,8 @@ export class CustomTimesheetComp extends Component {
         this.usedData = reactive(weekData[this.selected_date_index.dateIndex].data)
 
         this.timesheet_date_header = weekData[this.selected_date_index.dateIndex].range
+
+        console.log(this.timesheet_data.project)
 
 
         onMounted(() => {
@@ -152,6 +158,7 @@ export class CustomTimesheetComp extends Component {
             if (this.toggleData.weekLeft === true) {
                 let projectSearchInput = document.getElementById('projectSearch')
                 const projectSelect = document.getElementById('projectName');
+                const projectList = document.querySelector('.list-group');
                 const projectOptions = projectSelect.querySelectorAll('option');
 
 
@@ -181,6 +188,28 @@ export class CustomTimesheetComp extends Component {
                         })
                     }
                 }
+
+                projectList.addEventListener("click", (event) => {
+                    if (event.target && event.target.classList.contains("list-group-item")) {
+                        const projectId = event.target.getAttribute("value");
+                        this.selected_project = projectId
+
+                        for (let data of this.timesheet_data.activity) {
+                            if (data.project_id[0] === parseInt(projectId)) {
+                                // console.log("INI DATA : ", data);
+                                this.select_activity = reactive(data)
+                                // break; // Stop the loop once a match is found
+                            }
+                        }
+
+                        console.log("SELECT ACT", this.select_activity)
+
+                        // const matchingProject = this.timesheet_data.project.filter(data => data.project_id[0] === projectId);
+                        // if (matchingProject.length > 0) {
+                        //     console.log(matchingProject[0].project_id[0]);
+                        // }
+                    }
+                });
             }
         })
 

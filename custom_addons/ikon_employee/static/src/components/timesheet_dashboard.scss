@@ -44,10 +44,24 @@
           border: 0.5px solid #c8c4c4;
         }
 
-        .list-group-item {
+        .list-group {
+
+          #test {
+            visibility: hidden;
+            //display: none;
+            color: transparent;
+          }
+
+
+          .list-group-item {
           display: none;
           //visibility: hidden;
           //visibility: ;
+        }
+
+        .list-group-item:hover {
+          background-color: #f68e0e;
+        }
         }
       }
 

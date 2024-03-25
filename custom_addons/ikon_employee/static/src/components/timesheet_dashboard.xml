@@ -77,8 +77,8 @@
                                                 <ul class="list-group" style="width:225px">
                                                     <t t-foreach="timesheet_data.project" t-as="project"
                                                        t-key="project.id">
-                                                        <li class="list-group-item" t-att-value="project.project_id[0]">
-                                                            <t t-esc="project.project_id[1]"/>
+                                                        <li class="list-group-item" t-att-value="project.id">
+                                                                <t t-esc="project.name"/>
                                                         </li>
                                                     </t>
                                                 </ul>
@@ -90,10 +90,10 @@
                                                     name="activityProject"
                                                     id="initialRows_0_projectActivityName">
                                                 <option value="-1">-- Select --</option>
-                                                <t t-foreach="timesheet_data.activity" t-as="activity"
-                                                   t-key="activity.id">
+                                                <t t-foreach="select_activity" t-as="activity"
+                                                   t-key="activity">
                                                     <option t-att-value="activity.id">
-                                                        <t t-esc="activity.name"/>
+                                                        <t t-esc="activity"/>
                                                     </option>
                                                 </t>
                                             </select>
@@ -121,7 +121,7 @@
                                                     <input type="hidden" name="dateId" t-model="hour.date"
                                                            t-attf-value="hour.date" value="hour.date" id="projectId"/>
 
-                                                    <!-- Modal Popup for each hour -->
+                                                    <!-- Modal Popup for each task -->
                                                     <div class="modal fade" t-att-id="'exampleModal' + hour.id"
                                                          tabindex="-1"
                                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
