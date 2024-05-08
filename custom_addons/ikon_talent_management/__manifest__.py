@@ -13,6 +13,7 @@
     'license': 'AGPL-3',
     'data': [
         'security/ir.model.access.csv',
+        'security/security_group.xml',
         'views/talent_pool_import_data_views.xml',
         'views/talent_tree_view.xml',
         'views/talent_kanban_views.xml',
