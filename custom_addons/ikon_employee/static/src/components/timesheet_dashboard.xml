@@ -29,6 +29,8 @@
                             </t>
 
                         </select>
+                        
+                        
                     </t>
 
                 </div>
@@ -69,15 +71,12 @@
                                         </td>
                                         <td>
                                             <div class="projectInputWrapper">
-                                                <input type="text" class="projectSearch" style="width:225px"
-                                                       placeholder="Search for a project..." id="projectSearch"
-                                                       name="projectSearch"/>
-
+                                                <input type="text" class="projectSearch" style="width:225px" placeholder="Search for a project..." id="projectSearch" name="projectSearch"/>
+                                            
                                                 <ul class="list-group" style="width:225px">
-                                                    <t t-foreach="timesheet_data.project" t-as="project"
-                                                       t-key="project.id">
+                                                    <t t-foreach="timesheet_data.project" t-as="project" t-key="project.id">
                                                         <li class="list-group-item" t-att-value="project.id">
-                                                                <t t-esc="project.name"/>
+                                                            <t t-esc="project.name"/>
                                                         </li>
                                                     </t>
                                                 </ul>
@@ -85,19 +84,15 @@
                                         </td>
 
                                         <td>
-                                            <select class="projectActivity" style="width:225px"
-                                                    name="activityProject"
-                                                    id="initialRows_0_projectActivityName">
+                                            <select class="projectActivity" style="width:225px" name="activityProject" id="initialRows_0_projectActivityName">
                                                 <option value="-1">-- Select --</option>
-                                                <t t-foreach="select_activity" t-as="activity"
-                                                   t-key="activity_index">
+                                                <t t-foreach="select_activity" t-as="activity" t-key="activity_index">
                                                     <option t-att-value="activity.id">
                                                         <t t-esc="activity.name"/>
                                                     </option>
                                                 </t>
                                             </select>
-                                            <input type="hidden" name="initialRows[0][projectActivityId]"
-                                                   id="initialRows_0_projectActivityId"/>
+                                            <input type="hidden" name="initialRows[0][projectActivityId]" id="initialRows_0_projectActivityId"/>
                                         </td>
 
                                         <t t-foreach="usedData" t-as="hour" t-key="hour.id">
@@ -146,8 +141,8 @@
                                                                         <div class="col-sm-10">
                                                                             <input type="text" class="form-control"
                                                                                    t-att-id="'description' + hour.id"
-                                                                                   t-model="hour.name"
-                                                                                   value="{{ hour.name }}"/>
+                
+                                                                                   value=""/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -200,6 +195,12 @@
                                        onclick="document.location.href='/ikonhrm/symfony/web/index.php/time/editTimesheet/timesheetId/23014/employeeId/279/actionName/viewMyTimesheet';"/>
                                 <input class="cancel" id="btnBack" value="Cancel" type="button"
                                        t-on-click="() => cancel()"/>
+                                       
+                                 <input class="add-row" id="btnAddRow" value="Add Row" type="button" t-on-click="() => addRow()"/>
+                            </t>
+                            <t t-if="toggleData.weekLeft">
+                                <!-- Tombol "Add Row" -->
+                                
                             </t>
                             <t t-else="">
                                 <input type="button" class="edit" id="btnAddRow" value="Edit" name="btnEdit"

@@ -25,6 +25,14 @@ class YourModel(models.Model):
         dates_within_one_week = self.get_dates_within_one_week()
         for date in dates_within_one_week:
             print(date)
+
+class Timesheet(models.Model):
+    _name = 'my_timesheet.timesheet'
+    _description = 'Timesheet'
+
+    name = fields.Char(string='Description', required=True)
+    date = fields.Date(string='Date', required=True)
+    hours = fields.Float(string='Hours', required=True)
 #
 # your_model_instance = YourModel()
 #
