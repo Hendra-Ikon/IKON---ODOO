@@ -13,6 +13,7 @@
     'data': [
         # Timesheet
         'views/timesheet/timesheet.xml',
+        'views/timesheet/custom_direct_login.xml',
     ],
     'assets': {
         'web.assets_frontend': [
