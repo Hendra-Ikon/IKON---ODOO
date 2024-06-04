@@ -231,18 +231,18 @@
             <br />
             <br />
              <div>
-                <p t-if="not is_html_empty(doc.note)">
-                    <strong>Terms and Conditions:</strong>
-                    <p t-field="doc.note" name="order_note"/>
-                </p>
+               
 
-                <!-- <div>
-                    <p t-field="doc.note" name="order_note"/>
+                <div>
+                    <p t-if="not is_html_empty(doc.note)">
+                        <strong>Terms and Conditions:</strong>
+                        <p t-field="doc.note" name="order_note"/>
+                    </p>
                     <p t-if="not is_html_empty(doc.payment_term_id.note)">
                         <span t-field="doc.payment_term_id.note"/>
                     </p>
                   
-                </div> -->
+                </div>
                
                 
                 <!-- <p t-if="not is_html_empty(doc.payment_term_id.note)">
