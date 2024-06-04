@@ -64,7 +64,7 @@
                             </thead>
                             <t t-if="toggleData.weekLeft">
                                 <tbody>
-                                   <td></td>
+                                   
                                 </tbody>
                             </t>
                             <t t-else="">
