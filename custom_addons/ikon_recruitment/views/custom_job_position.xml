@@ -14,7 +14,7 @@
                             <field name="source_id"/>
                         </p>
                         <p t-else=""></p>
-                      
+                        <field name="result"/>
                      
                         <field name="stage_name" invisible="1"/>
                         <!-- <field name="result"/>
