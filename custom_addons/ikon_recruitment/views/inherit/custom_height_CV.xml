@@ -24,10 +24,10 @@
         <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='job_id']" position="after">
-                <field string="Custom Skill" name="custom_skill" filter_domain="[('custom_skill', 'ilike', self)]"/>
+                <field string="Skill Matching" name="custom_skill" filter_domain="[('custom_skill', 'ilike', self)]"/>
             </xpath>
             <filter name="refuse_reason_id" position="before">
-                <filter string="Custom Skill" name="custom_skill" context="{'group_by': 'custom_skill'}"/>
+                <filter string="Grup By Skill" name="custom_skill" context="{'group_by': 'custom_skill'}"/>
             </filter>
            
          

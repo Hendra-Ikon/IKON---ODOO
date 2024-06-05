@@ -34,7 +34,7 @@ class HrApplicant(models.Model):
     fresh_grad = fields.Boolean(string="Fresh Graduate")
     experience_ids = fields.One2many('hr.experience', 'applicant_id', string="Experience")
     result = fields.Char('Result')
-    custom_skill = fields.Text(string="Custom skill")
+    custom_skill = fields.Text(string="Matched Skill")
     skill_ids = fields.Many2many('hr.skill', compute='_compute_skill_ids', store=True, string="SkillID")
     pds_fill = fields.Integer(string="PDS Fill")
     pds_percentage = fields.Integer(string="PDS Fill", compute='_compute_pds_percentage', store=False)
