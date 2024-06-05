@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <record id="custom_view_height_cv" model="ir.ui.view">
+    <!-- <record id="custom_view_height_cv" model="ir.ui.view">
         <field name="name">custom.hr.applicant.height</field>
         <field name="model">hr.applicant</field>
         <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@string='Skills']" position="attributes">
                     <attribute name="invisible">1</attribute>
-                </xpath>
+                </xpath> -->
 <!--            <xpath expr="//notebook" position="inside">-->
 <!--                <page string="CV Config">-->
 <!--                    <group>-->
@@ -16,6 +16,21 @@
 <!--                    </group>-->
 <!--                </page>-->
 <!--            </xpath>-->
+        <!-- </field>
+    </record> -->
+    <record id="hr_applicant_view_search_bis_custom" model="ir.ui.view">
+        <field name="name">hr.applicant.view.search.inherit.skills.bi_customs</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field string="Custom Skill" name="custom_skill" filter_domain="[('custom_skill', 'ilike', self)]"/>
+            </xpath>
+            <filter name="refuse_reason_id" position="before">
+                <filter string="Custom Skill" name="custom_skill" context="{'group_by': 'custom_skill'}"/>
+            </filter>
+           
+         
         </field>
-    </record>
+      </record>
 </odoo>
