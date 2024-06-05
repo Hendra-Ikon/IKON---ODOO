@@ -65,6 +65,7 @@ class HrJob(models.Model):
                             skill_found = True
                             matching_skills.append(1)  # Skill found, assign a score of 1
                             matching_skill_names.append(skill)
+
                         else:
                             matching_skills.append(0)  # Skill not found, assign a score of 0
 
@@ -77,6 +78,12 @@ class HrJob(models.Model):
                 existing_result = applicant.result  # Get the existing result from the hr.applicant
 
                 # Check if the result exists and update it, otherwise create it
+
+                if matching_skill_names:
+                    listToStr = ', '.join(map(str, matching_skill_names))
+                    applicant_records.write({
+                            'custom_skill': listToStr
+                        })
                 if existing_result:
                     applicant.write({
                         'result': result
