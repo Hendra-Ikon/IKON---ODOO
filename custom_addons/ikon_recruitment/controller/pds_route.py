@@ -271,11 +271,12 @@ class PDSController(http.Controller):
             link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
             pds_percentage = applicants.pds_percentage or 0
-            if pds_percentage > 80:
+            if pds_percentage > 50:
                 applicants.write({'pds_send': True})
 
-
-            mail_template.send_mail(
+            if applicant.pds_send is False:
+                logger.info("test",applicant.pds_send)
+                mail_template.send_mail(
                 recruiter.id,
                 email_values={
                     'email_to': recruiter.login,
@@ -293,8 +294,7 @@ class PDSController(http.Controller):
                     ''' % (recruiter.name, applicants.partner_name, job.name, pds_percentage, link_to_pds_data),
                 },
                 force_send=True
-            )
-
+            ) 
         except ValidationError as e:
             return f"Error: {e}"
         
@@ -572,6 +572,7 @@ class PDSController(http.Controller):
            applicant_id = applicant_to_updates[1].id
 
         applicant_to_update = request.env['hr.applicant'].browse(applicant_id)
+        applicant_to_update.sudo().write({'pds_send_mail': True})
         if request.httprequest.method == 'POST':
             for applicant in applicant_to_update:
                 
@@ -593,7 +594,6 @@ class PDSController(http.Controller):
 
         return request.redirect('/pds/data#file')
     
-
     def insert_attachment(self, model, id_record, files):
         orphan_attachment_ids = []
         model_name = model._name  # Get model name

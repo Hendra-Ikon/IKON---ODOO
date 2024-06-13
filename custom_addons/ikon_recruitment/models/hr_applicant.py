@@ -39,6 +39,7 @@ class HrApplicant(models.Model):
     pds_fill = fields.Integer(string="PDS Fill")
     pds_percentage = fields.Integer(string="PDS Fill", compute='_compute_pds_percentage', store=False)
     pds_send = fields.Boolean(string="Pds Send")
+    pds_send_mail = fields.Boolean(string="Pds Send")
     @api.depends('pds_fill')
     def _compute_pds_percentage(self):
         for record in self:
