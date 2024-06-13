@@ -271,11 +271,8 @@ class PDSController(http.Controller):
             link_to_pds_data = f'{base_url}/mail/view?model=hr.applicant&res_id={applicants.id}'
             mail_template = request.env.ref('ikon_recruitment.set_pds_email_send').sudo() # Ganti dengan nama template email yang sesuai      
             pds_percentage = applicants.pds_percentage or 0
-            if pds_percentage > 50:
-                applicants.write({'pds_send': True})
-
+            
             if applicant.pds_send is False:
-                logger.info("test",applicant.pds_send)
                 mail_template.send_mail(
                 recruiter.id,
                 email_values={
@@ -295,6 +292,9 @@ class PDSController(http.Controller):
                 },
                 force_send=True
             ) 
+            if pds_percentage >= 50:
+                applicants.write({'pds_send': True})
+
         except ValidationError as e:
             return f"Error: {e}"
         
