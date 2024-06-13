@@ -67,14 +67,13 @@ $(document).ready(function() {
         }
         if (pdsValue < 50) {
             cancel.click()
+            
             setTimeout(function() {
                 window.location.href = '/pds/data';             
             }, 5000); // 2000 milliseconds = 2 seconds
             
             break; 
-
         }
-
         confirm.click()
         setTimeout(function() {
             window.location.href = '/my/profile';
