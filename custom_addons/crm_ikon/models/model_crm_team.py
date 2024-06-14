@@ -10,16 +10,16 @@ class CrmTeam(models.Model):
     opportunities_total = fields.Char(string="Opportunities Ammount", compute="_compute_opportunity_total", store=True)
     quotations_total = fields.Char(string="Quotations Ammount", compute="_compute_quotations_total", store=True)
     
-    @api.model
-    def _uninstall_hook_team(self):
-        team1 = self.env.ref("sales_team.team_sales_department")
-        team2 = self.env.ref("sales_team.crm_team_1")
+    # @api.model
+    # def _uninstall_hook_team(self):
+    #     team1 = self.env.ref("sales_team.team_sales_department")
+    #     team2 = self.env.ref("sales_team.crm_team_1")
         
-        if team1:
-            team1.name = 'Sales'
+    #     if team1:
+    #         team1.name = 'Sales'
             
-        if team2:
-            team2.name = 'Pre-Sales'
+    #     if team2:
+    #         team2.name = 'Pre-Sales'
             
     def _compute_opportunity_total(self):
         opportunity_data = self.env['crm.lead']._read_group([
