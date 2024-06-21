@@ -280,7 +280,7 @@
         <field name="model">calendar.event</field>
         <field name="priority" eval="2"/>
         <field name="arch" type="xml">
-            <calendar js_class="attendee_calendar" string="Meetings" date_start="start" date_stop="stop" date_delay="duration" all_day="allday"
+            <calendar string="Meetings" date_start="start" date_stop="stop" date_delay="duration" all_day="allday"
                 event_open_popup="true"
                 event_limit="5"
                 color="partner_ids">
@@ -341,7 +341,7 @@
 
     <record id="action_calendar_event" model="ir.actions.act_window">
         <field name="name">Meetings</field>
-        <field name="res_model">calendar.event</field>
+        <field name="res_model">ç.event</field>
         <field name="view_mode">calendar,tree,form</field>
         <field name="view_id" ref="view_calendar_event_calendar"/>
         <field name="search_view_id" ref="view_calendar_event_search"/>

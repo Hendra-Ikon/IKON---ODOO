@@ -1,0 +1,43 @@
+<odoo>
+	<data noupdate="1">
+		<record id="timesheet_validation_email_template" model="mail.template">
+			<field name="name">Timesheet Validation</field>
+			<field name="model_id" ref="model_account_analytic_line"/>
+			<field name="subject">Timesheet Validation: {{ object.employee_id.name }}</field>
+			<field name="partner_to">{{ object.id }}</field>
+			<field name="email_to">{{ object.employee_id.work_email }}</field>
+			<field name="body_html" type="html">
+				<div>
+					<p>
+						Hi
+						<t t-out="object.employee_id.name"/>
+					</p>
+					<p>
+						Your
+						<t t-out="object.name"/>
+						<t t-if="object.status == 'reject'"> 
+							is rejected by 
+							<t t-out="object.rejected_id.name"/>
+							because 
+							<t t-out="object.rejected_reason"/>.
+						</t>
+						<t t-else="object.status == 'approve'"> 
+							is approved by
+							<t t-out="object.approved_id.name"/>
+		   			    </t>
+						</p>
+					<p>
+						Thanks and Regards
+						<br/>
+						<t t-if="object.status == 'reject'"> 
+							<t t-out="object.rejected_id.name"/>
+						</t>
+						<t t-else="object.status == 'approve'"> 
+							<t t-out="object.approved_id.name"/>
+		   			    </t>
+					</p>
+				</div>
+			</field>
+		</record>
+	</data>
+</odoo>

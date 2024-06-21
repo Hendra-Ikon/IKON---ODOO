@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<data noupdate="1">
+		<record id="timesheet_category_id" model="ir.module.category">
+			<field name="name">Timesheet</field>
+		</record>
+
+		<record id="timesheet_group" model="res.groups">
+			<field name="name">Timesheet Approval/Rejection Group</field>
+			<field name="category_id" ref="ak_timesheet_approval.timesheet_category_id"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+		</record>
+	</data>
+</odoo>
