@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
-
+import logging
+logger = logging.getLogger(__name__)
 class TimesheetValidation(models.Model):
 	_inherit = 'account.analytic.line'
 
@@ -13,7 +14,7 @@ class TimesheetValidation(models.Model):
 
 	employee_id = fields.Many2one('hr.employee', string="Employee", required=True)
 	approved_id = fields.Many2one('res.users', string='Approved By')
-	rejected_id = fields.Many2one('res.users', string='Rejected By')
+	rejected_id = fields.Many2one('res.users', string='Rejected By',default=fields.Date.today)
 	approved_date = fields.Datetime('Approved Date')
 	rejected_date = fields.Datetime('Rejected Date')
 	rejected_reason = fields.Char('Rejected Reason')
@@ -22,12 +23,18 @@ class TimesheetValidation(models.Model):
 	def create(self, vals):
 		vals['state'] = 'submitted'
 		return super(TimesheetValidation, self).create(vals)
+	def Action_Approve(self):
+		self.write({'state': 'approved', 'status': 'approve', 'approved_date': fields.Date.today()})
+
+	def Action_Reject(self):
+		self.write({'state': 'rejected', 'status': 'reject'})
+
 
 		
 class TimeSheetValidationWizard(models.TransientModel):
 	_name = 'timesheet.validation.wizard'
 
-	reason = fields.Char('Rejected Reason')
+	reason = fields.Text('Rejected Reason')
 	approved_id = fields.Many2one('res.users', string='Approved By')
 	rejected_id = fields.Many2one('res.users', string='Rejected By')
 	approved_date = fields.Datetime('Approved Date')

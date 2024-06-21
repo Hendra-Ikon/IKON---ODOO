@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<record model="ir.actions.act_window" id="open_timesheet_wizard">
-		<field name="name">Approve Or Reject TimeSheet</field>
+		<field name="name">Rejected Reason</field>
 		<field name="res_model">timesheet.validation.wizard</field>
 		<field name="view_mode">form</field>
 		<field name="target">new</field>
@@ -22,9 +22,9 @@
             	<widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'done')]}"/>
             	<widget name="web_ribbon" title="Rejected" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
 			</xpath>
-			<xpath expr="//form/sheet/group/group[1]/field[@name='company_id']" position="after">
+			<!-- <xpath expr="//form/sheet/group/group[1]/field[@name='company_id']" position="after">
 				<field name="employee_id"/>
-			</xpath>
+			</xpath> -->
 		</field>
 	</record>
 
@@ -36,14 +36,37 @@
 				<field name="date"/>
 				<field name="employee_id"/>
 				<field name="project_id"/>
+				<field name="task_id"/>
 				<field name="name"/>
-				<field name="status"/>
-				<field name="state" invisible="1"/>
+				<field name="status"
+				widget="badge"
+				decoration-warning="status in ('reject', 'Reject')"
+                decoration-success="status in ('approve', 'Approved')"
+				/>
+				<field name="state" invisible="1" 
+				/>
 				<field name="rejected_reason"/>
 				<field name="approved_id"/>
+				<field name="approved_date"/>
 				<field name="rejected_id"/>
-				<button string="Approve or Rejected" name="%(ak_timesheet_approval.open_timesheet_wizard)d" type="action" class="btn btn-primary" attrs="{'invisible': [('state', 'not in', 'submitted')]}" context="{'active_id': active_id}"/>
+				<field name="rejected_date"/>
 				<field name="unit_amount"/>
+
+				<!-- <button string="Approve or Rejected" name="%(ak_timesheet_approval.open_timesheet_wizard)d" type="action" class="btn btn-primary" attrs="{'invisible': [('state', 'not in', 'submitted')]}"  context="{'active_id': active_id}"/> -->
+				<button string="Approve" name="Action_Approve" type="object" 
+				icon="fa-thumbs-up"
+				states="confirm"
+				attrs="{'invisible': [('state', 'not in', 'submitted')]}"  
+				context="{'active_id': active_id}"
+				/>
+				
+				<button string="Rejected" name="%(ak_timesheet_approval.open_timesheet_wizard)d" type="action"
+				icon="fa-times"
+				states="confirm"
+				attrs="{'invisible': [('state', 'not in', 'submitted')]}"  
+				context="{'active_id': active_id}"
+				/>
+			
 			</tree>
 		</field>
 	</record>
@@ -54,19 +77,13 @@
 		<field name="arch" type="xml">
 			<form>
 				<sheet>
-					<field name="status"/>
-					<group>
-						<field name="approved_id" attrs="{'invisible': [('status', '=', 'reject')]}"/> 
-						<field name="approved_date" attrs="{'invisible': [('status', '=', 'reject')]}"/> 
-						<field name="rejected_id" attrs="{'invisible': [('status', '=', 'approve')]}"/>
-						<field name="reason" attrs="{'invisible': [('status', '=', 'approve')]}"/>
-						<field name="rejected_date" attrs="{'invisible': [('status', '=', 'approve')]}"/>
-					</group>
+					
+					
+					<field name="reason"/>
+					
 				</sheet>
 				<footer>
-					<button name="approve" string="Approve" class="btn btn-primary" type="object" attrs="{'invisible': [('status', '=', 'reject')]}"/> 
-					<button name="reject" string="Reject" class="btn btn-primary" type="object" attrs="{'invisible': [('status', '=', 'approve')]}"/>
-					<button special="cancel" string="Cancel" class="btn btn-primary" type="object"/>
+					<button name="reject" string="Reject" class="btn btn-primary" type="object"/>					
 				</footer>
 			</form>
 		</field>
@@ -79,5 +96,5 @@
         <field name="context">{'tree_view_ref':'ak_timesheet_approval.approve_timesheet_tree'}</field>
 	</record>
  
-	<menuitem name="To Approve Timesheets" parent="hr_timesheet.timesheet_menu_root" action="approve_timesheet" id="approve_timesheets_menu" groups="ak_timesheet_approval.timesheet_group"/>
+	<menuitem name="Approval" parent="hr_timesheet.timesheet_menu_root" action="approve_timesheet" id="approve_timesheets_menu" groups="ak_timesheet_approval.timesheet_group"/>
 </odoo>
