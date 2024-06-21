@@ -17,3 +17,10 @@ class InheritAccountAnalyticLine(models.Model):
         'Description',
         required=True,
     )
+
+    amount = fields.Monetary(
+        'Hours',
+        required=True,
+        default=0.0,
+    )
+
