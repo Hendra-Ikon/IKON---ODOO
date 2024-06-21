@@ -15,7 +15,7 @@
     'data': [
         'views/hr_timesheet_calendar_view.xml',
         'views/hr_timesheet_report_calender_view.xml',
-        'views/inherit_timesheet.xml',
+        # 'views/inherit_timesheet.xml',
     ],
     'installable': True,
     'auto_install': False,
