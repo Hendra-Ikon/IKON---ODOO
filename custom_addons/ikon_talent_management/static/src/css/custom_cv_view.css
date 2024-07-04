@@ -1,0 +1,92 @@
+
+body {
+    background-color: #969696 !important;
+
+}
+
+/*.wrap-outer {*/
+/*    width: 1000px !important;*/
+/*}*/
+.left-col {
+    background-color: darkorange;
+    height: 100vh;
+    width: 400px !important;
+}
+
+.right-col {
+    background-color: white;
+    height: 100vh;
+    width: 600px !important;
+    overflow: auto;
+}
+
+.company_logo {
+    margin-left: 500px;
+    margin-top: 20px;
+}
+
+.skill_header{
+    margin-top: 260px;
+    margin-left: 70px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 20px;
+}
+
+.white_line{
+    height: 10px;
+    width: 335px;
+    margin-top: 20px;
+    margin-left: 70px;
+    background-color: white;
+}
+
+.summary_exp{
+    margin-top: 70px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.summary_content{
+    margin-right: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Fantasy", fantasy;
+}
+
+.key_relevance{
+    margin-top: 40px;
+    margin-bottom: 70px;
+    font-weight: bold;
+}
+
+.img-logo {
+    width: 50px;
+    height: 70px;
+}
+
+.right-container-wrapper {
+    margin-left: 80px;
+    margin-top: 50px;
+}
+
+.applicant_name {
+    margin-top: 10px;
+    color: saddlebrown;
+    font-family: "Fantasy", fantasy;
+    font-weight: bolder;
+}
+
+.content-li{
+    display: flex;
+    flex-direction: row;
+}
+
+.content-li-data-name{
+    width: 160px;
+}
+
+.content-li-data-data{
+    width: 280px;
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_job_detail_form" model="ir.ui.view">
+        <field name="name">custom.job.detail.form</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Job Detail">
+                        <group>
+                            <field name="lead_data"/>
+                            <field name="min_req"/>
+                            <field name="nice_to_have"/>
+                            <field name="req_skill"/>
+                        </group>
+                        <!--                        <group>-->
+                        <!--                            <field name="lead_data"/>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="min_req" >-->
+
+                        <!--                            </field>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="nice_to_have" >-->
+
+                        <!--                            </field>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="req_skill" >-->
+
+                        <!--                            </field>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="whats_great" widget="one2many_list">-->
+                        <!--                                <form>-->
+                        <!--                                    <field name="name"/>-->
+                        <!--                                </form>-->
+                        <!--                            </field>-->
+                        <!--                        </group>-->
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!--    What's great Action and Create New Form-->
+
+    <!--    <record id="action_view_hr_job_minimum_req_form" model="ir.actions.act_window">-->
+    <!--        <field name="name">Input Req Skill</field>-->
+    <!--        <field name="res_model">custom.great</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="view_id" ref="custom_job_detail_form"/>-->
+    <!--    </record>-->
+    <!--    <record id="view_form_hr_job_minimum_req" model="ir.ui.view">-->
+    <!--        <field name="name">hr.job.whats.great.form</field>-->
+    <!--        <field name="model">custom.great</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Whats Great Form">-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <field name="name"/>-->
+    <!--                        <field name="job_id" invisible="1" options="{'no_create': True, 'no_open': True}"/>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--&lt;!&ndash;    Minimum Req Action and Create New Form&ndash;&gt;-->
+
+    <!--    <record id="action_view_hr_job_minimum_req_form" model="ir.actions.act_window">-->
+    <!--        <field name="name">Minimum Requirement</field>-->
+    <!--        <field name="res_model">custom.minreq</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="view_id" ref="custom_job_detail_form"/>-->
+    <!--    </record>-->
+    <!--    <record id="view_form_hr_job_minimum_req" model="ir.ui.view">-->
+    <!--        <field name="name">hr.job.min.req.form</field>-->
+    <!--        <field name="model">custom.minreq</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Minimum Requirement Form">-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <field name="name"/>-->
+    <!--                        <field name="job_id" invisible="1" options="{'no_create': True, 'no_open': True}"/>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--    &lt;!&ndash;    Required Skill Action and Create New Form&ndash;&gt;-->
+
+    <!--    <record id="action_view_hr_job_req_skill_form" model="ir.actions.act_window">-->
+    <!--        <field name="name">Input Req Skill</field>-->
+    <!--        <field name="res_model">custom.reqskill</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="view_id" ref="custom_job_detail_form"/>-->
+    <!--    </record>-->
+    <!--    <record id="view_form_hr_job_req_skill" model="ir.ui.view">-->
+    <!--        <field name="name">hr.job.req.skill.form</field>-->
+    <!--        <field name="model">custom.reqskill</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Required Skill Form">-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <field name="name"/>-->
+    <!--                        <field name="job_id" invisible="1" options="{'no_create': True, 'no_open': True}"/>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--    &lt;!&ndash;    Must Have Action and Create New Form&ndash;&gt;-->
+
+    <!--    <record id="action_view_hr_job_nice_to_have_form" model="ir.actions.act_window">-->
+    <!--        <field name="name">Input Nice to Have</field>-->
+    <!--        <field name="res_model">custom.nice_to_have</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="view_id" ref="custom_job_detail_form"/>-->
+    <!--    </record>-->
+    <!--    <record id="view_form_hr_job_nice_to_have" model="ir.ui.view">-->
+    <!--        <field name="name">hr.job.must.have.form</field>-->
+    <!--        <field name="model">custom.nice_to_have</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Nice to Have Form">-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <field name="name"/>-->
+    <!--                        <field name="job_id" invisible="1" options="{'no_create': True, 'no_open': True}"/>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</odoo>

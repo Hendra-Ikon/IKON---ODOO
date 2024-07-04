@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_crm_ikon" model="ir.ui.view">
+        <field name="name">crm.ikon.view.tree.inherit.sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id' and @optional='hide']"
+                position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_template_id']" position="replace">  
+                <field name="invoice_count" invisible="1" />
+                <field name="product_template_id"
+                    string="Service"
+                    attrs="{
+                                            'readonly': ['|', ('product_updatable', '=', False), ('invoice_count', '>', 0)],
+                                            'required': [('display_type', '=', False)],
+                                        }"
+                    context="{
+                                            'partner_id': parent.partner_id,
+                                            'quantity': product_uom_qty,
+                                            'pricelist': parent.pricelist_id,
+                                            'uom':product_uom,
+                                            'company_id': parent.company_id,
+                                            'default_list_price': price_unit,
+                                            'default_description_sale': name
+                                        }"
+                    options="{
+                                            'no_open': True,
+                                        }"
+                    domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                    widget="sol_product_many2one"
+                    optional="show"
+                    />
+                    <field name="item_id" optional="hide"/>
+                    <field name="item_description" optional="hide"/>
+        
+                   
+                    <field name="po_number" optional="hide" />
+                    <field name="period_start" widget="date"  optional="hide" />
+                    <field name="period_end" widget="date" optional="hide"/>
+             
+            </xpath>
+            <xpath expr="//field[@name='product_template_id']"
+            position="before">
+            <field name="line" optional="hide" />
+        </xpath>
+    
+            <xpath expr="//field[@name='product_uom_qty' and @decoration-info]"
+                position="attributes">
+               
+<!--                <attribute name="invisible">1</attribute>-->
+            </xpath>
+            <xpath expr="//field[@name='customer_lead' and @optional='hide']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_unit' and @attrs]" position="replace">
+                <field
+                    name="price_unit"
+                    string="Price"
+                    attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('invoice_count', '>', 0)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='qty_delivered' and @optional='show']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_id' and @optional='show']" position="replace">
+                <field name="tax_id" widget="many2many_tags" options="{'no_create': True}"
+                    domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
+                    context="{'active_test': True}"
+                    attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('invoice_count', '>', 0)]}" optional="show" />
+            </xpath>
+            <xpath expr="//create[@name='add_product_control']" position="replace">
+                <create name="add_product_control" string="Add a service" />
+            </xpath>
+            <xpath expr="//button[@id='create_invoice' and @type='action']" position="after">
+                <button id="create_invoice_quotation" name="%(crm_ikon.crm_payment_plan)d"
+                    string="Payment Plan"
+                    type="action" class="btn-primary" data-hotkey="q"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']" position="replace">
+                <div class="oe_title">
+                    
+                        <label for="name" />
+                        <h1>
+                            <field name="name" string="Ref."  />
+                        </h1>
+                     
+                        <label for="reference_quot_number" />
+
+                        <field name="reference_quot_number" placeholder="For Reference Quotation Number" />
+      
+
+               
+                    
+                    <label for="project_name" />
+                    <h1>
+                        <field name="project_name" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="attention" />
+            </xpath>
+            <xpath expr="//field[@name='attention']" position="after">
+                <field name="po_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="po_date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="payment_for" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="payment_for_service" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="name" placeholder="e.g. Conference for Architects"/>
+                    <label for="period_start" string="Period Start" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                    <div class="o_row" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}">
+                        <field name="period_start" widget="daterange" options="{'related_end_date': 'period_end'}"/>
+                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                        <field name="period_end" widget="daterange" options="{'related_start_date': 'period_start'}"/>
+                    </div>
+
+                    
+                
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="agreement_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                <field name="spk_no" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}" />
+                
+                <label for="month" string="Month" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"/>
+                    <div class="o_row" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}">
+                     <div class="o_input">  
+                         <field name="month"  widget="selection"  attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
+                        /></div>
+                        <span>Year</span>
+                        <div class="o_input">  
+                        <field name="year" widget="selection"  attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'sent'])]}"
+                    />
+                        </div>
+                    </div>
+
+            
+                <field name="spv" />
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="sale_order_form_quote_inherit_crm_ikon" model="ir.ui.view">
+        <field name="name">sale.order.form.quote.inherit.crm.ikon</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    
+
+</odoo>

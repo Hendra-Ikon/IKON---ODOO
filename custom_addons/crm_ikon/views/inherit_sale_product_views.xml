@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="sale.sale_order_menu"
+        name="Orders"
+        parent="sale.sale_menu_root"
+        sequence="10">
+
+        <menuitem id="sale.menu_sale_quotations"
+            action="sale.action_quotations_with_onboarding"
+            groups="sales_team.group_sale_salesman"
+            sequence="10" />
+
+        <menuitem id="sale.menu_sale_order"
+            name="Orders"
+            action="sale.action_orders"
+            groups="sales_team.group_sale_salesman"
+            sequence="20" />
+
+<!--        <menuitem id="sale.report_sales_team"-->
+<!--            name="Sales Teams"-->
+<!--            action="sales_team.crm_team_action_sales"-->
+<!--            groups="crm_ikon.crm_ikon_group_no_user"-->
+<!--            sequence="30" />-->
+
+        <menuitem id="sale.res_partner_menu"
+            action="account.res_partner_action_customer"
+            groups="sales_team.group_sale_salesman"
+            sequence="40" />
+
+    </menuitem>
+
+    <menuitem id="sale.menu_sale_invoicing"
+        name="To Invoice"
+        groups="sales_team.group_sale_salesman"
+        parent="sale.sale_menu_root"
+        sequence="20">
+
+        <menuitem id="sale.menu_sale_order_invoice"
+            action="sale.action_orders_to_invoice"
+            sequence="10" />
+
+<!--        <menuitem id="sale.menu_sale_order_upselling"-->
+<!--            action="sale.action_orders_upselling"-->
+<!--            groups="crm_ikon.crm_ikon_group_no_user"-->
+<!--            sequence="20" />-->
+
+    </menuitem>
+
+    <menuitem id="sale.product_menu_catalog"
+        name="Service"
+        groups="sales_team.group_sale_salesman"
+        parent="sale.sale_menu_root"
+        sequence="30">
+
+        <menuitem id="sale.menu_product_template_action"
+            action="sale.product_template_action"
+            name="Service"
+            sequence="10" />
+<!--        <menuitem id="sale.menu_products"-->
+<!--            action="product.product_normal_action_sell"-->
+<!--            groups="crm_ikon.crm_ikon_group_no_user"-->
+<!--            sequence="20" />-->
+<!--        <menuitem id="sale.menu_product_pricelist_main"-->
+<!--            name="Pricelists"-->
+<!--            action="product.product_pricelist_action2"-->
+<!--            groups="crm_ikon.crm_ikon_group_no_user"-->
+<!--            sequence="30" />-->
+        <menuitem id="term_payment_service"
+            action="term_payment_action"
+            name="Term Payment"
+            sequence="40" />
+
+    </menuitem>
+
+    <record id="sale.product_template_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+    </record>
+
+</odoo>

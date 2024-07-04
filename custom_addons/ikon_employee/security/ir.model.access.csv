@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_portal_user_custom_nice_to_have,custom_nice_to_have,model_custom_nice_to_have,base.group_portal,1,1,1,1
+access_internal_user_custom_nice_to_have,custom_nice_to_have,model_custom_nice_to_have,base.group_user,1,1,1,1
+
+access_portal_user_custom_reqskill,custom_reqskill,model_custom_reqskill,base.group_portal,1,1,1,1
+access_internal_user_custom_reqskill,custom_reqskill,model_custom_reqskill,base.group_user,1,1,1,1
+
+access_portal_user_custom_minreq,custom_minreq,model_custom_minreq,base.group_portal,1,1,1,1
+access_internal_user_custom_minreq,custom_minreq,model_custom_minreq,base.group_user,1,1,1,1
+
+access_portal_user_custom_great,custom_great,model_custom_great,base.group_portal,1,1,1,1
+access_internal_user_custom_great,custom_great,model_custom_great,base.group_user,1,1,1,1
+

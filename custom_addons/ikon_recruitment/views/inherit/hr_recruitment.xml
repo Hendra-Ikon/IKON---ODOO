@@ -1,0 +1,26 @@
+<odoo>
+    <record id="custom_hr_applicant_view_form" model="ir.ui.view">
+        <field name="name">custom.hr.applicant.view.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_ids']" position="after">
+                <field name="custom_skill"/>
+                <field name="summary_experience"/>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="from_talent_universitas"/>
+                <field name="from_talent_notes"/>
+            </xpath>
+            <xpath expr="//button[@name='action_makeMeeting']" position="before">
+                <button name="pds_fills" class="oe_stat_button" icon="fa-file-text-o" type="object" attrs="{'invisible': [('id', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text"><field name="pds_percentage"/>% PDS Filled</span>
+                    </div>
+                </button>
+               
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

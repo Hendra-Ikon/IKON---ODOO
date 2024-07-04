@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="action_report_applicant_resume_template" model="ir.actions.report">
+       <field name="name">IKON CV - Cand</field>
+       <field name="model">hr.applicant</field>
+       <field name="report_type">qweb-pdf</field>
+       <field name="report_name">ikon_talent_management.applicant_cv_template</field>
+       <field name="report_file">ikon_talent_management.applicant_cv_template</field>
+       <field name="print_report_name">'CV Ikon - %s' % (object.name)</field>
+       <field name="binding_model_id" ref="model_hr_applicant"/>
+       <field name="binding_type">report</field>
+   </record>
+
+    <record id="action_report_applicant_resume_hitam_template" model="ir.actions.report">
+       <field name="name">IKON CV Hitam - Cand</field>
+       <field name="model">hr.applicant</field>
+       <field name="report_type">qweb-pdf</field>
+       <field name="report_name">ikon_talent_management.custom_cv_hitam_cand</field>
+       <field name="report_file">ikon_talent_management.custom_cv_hitam_cand</field>
+       <field name="print_report_name">'CV Ikon Hitam - %s' % (object.name)</field>
+       <field name="binding_model_id" ref="model_hr_applicant"/>
+       <field name="binding_type">report</field>
+   </record>
+
+    <record id="action_report_employee_resume_template" model="ir.actions.report">
+       <field name="name">IKON CV - Empl</field>
+       <field name="model">hr.employee</field>
+       <field name="report_type">qweb-pdf</field>
+       <field name="report_name">ikon_talent_management.employee_cv_template</field>
+       <field name="report_file">ikon_talent_management.employee_cv_template</field>
+       <field name="print_report_name">'CV Ikon - %s' % (object.name)</field>
+       <field name="binding_model_id" ref="model_hr_employee"/>
+       <field name="binding_type">report</field>
+   </record>
+</odoo>

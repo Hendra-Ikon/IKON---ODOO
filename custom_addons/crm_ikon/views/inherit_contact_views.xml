@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_ikon_inherit_contact" model="ir.ui.view">
+            <field name="name">crm.ikon.inherit.contact</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//div[@class='oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban']"
+                    position="attributes">
+                    <attribute name="class">oe_kanban_global_click o_kanban_record_has_image_fill
+                        o_res_partner_kanban kanban-contact</attribute>
+                </xpath>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="js_class">crm_ikon_button_kanban</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+    <data>
+        <record id="crm_ikon_inherit_contact_list" model="ir.ui.view">
+            <field name="name">crm.ikon.inherit.contact.list</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="js_class">crm_ikon_button_list</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

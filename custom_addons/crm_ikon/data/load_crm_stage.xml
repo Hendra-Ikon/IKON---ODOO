@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record model="crm.stage" id="crm.stage_lead2">
+            <field name="name">Analyze</field>
+        </record>
+        <record model="crm.stage" id="crm.stage_lead3">
+            <field name="name">Product Presentation</field>
+            <field name="team_id" ref="sales_team.team_sales_department" />
+        </record>
+        <record model="crm.stage" id="stage_lead5">
+            <field name="name">Proposal Submission</field>
+            <field name="sequence">4</field>
+        </record>
+        <record model="crm.stage" id="stage_lead6">
+            <field name="name">Technical Clarification</field>
+            <field name="sequence">5</field>
+            <field name="team_id" ref="sales_team.team_sales_department" />
+        </record>
+        <record model="crm.stage" id="stage_lead7">
+            <field name="name">Negotiation</field>
+            <field name="sequence">6</field>
+        </record>
+        <record model="crm.stage" id="crm.stage_lead4">
+            <field name="name">Deal</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,152 @@
+<odoo>
+
+    <template id="custom_job_detail" inherit_id="website_hr_recruitment.detail">
+        <xpath expr="//div[@class='js_hr_recruitment']" position="replace">
+            <section class="bg-200">
+                <div class="container">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb ps-0">
+                            <li class="breadcrumb-item">
+                                <a href="/jobs" class="text-secondary fw-bold">Jobs</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <span t-field="job.name"/>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
+            <!-- Job name -->
+            <section class="pb32">
+                <div class="container">
+                    <div class="mt32">
+                        <div class="float-end">
+                            <a role="button" t-attf-href="/jobs/apply/#{job.id}"
+                               class="btn btn-primary btn-lg float-end">Apply Now!
+                            </a>
+                        </div>
+                        <h1 t-field="job.name"/>
+                        <h5 class="fw-light" t-field="job.address_id" t-options='{
+                            "widget": "contact",
+                            "fields": ["city"],
+                            "no_tag_br": True
+                        }'/>
+                    </div>
+                </div>
+            </section>
+
+            <!--            begin here-->
+            <section class="pt32">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 pb32">
+                            <p class="lead">
+                                <span t-field="job.lead_data"/>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section class="s_comparisons pt24 pb24 bg-200" data-snippet="s_comparisons">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
+                            <div class="card text-bg-primary">
+                                <h4 class="card-header">Minimum Requirement</h4>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.min_req" placeholder="Paste Minimum required skill here ... " />
+<!--                                    <li t-foreach="job.min_req" t-as="min_req_item" t-key="min_req_item.id"-->
+<!--                                        class="list-group-item">-->
+<!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
+                            <div class="card text-bg-primary">
+                                <h4 class="card-header">Required Skills</h4>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.req_skill" placeholder="Paste required skill here ... " />
+<!--                                    <li t-foreach="job.req_skill" t-as="req_skill_item" t-key="req_skill_item.id"-->
+<!--                                        class="list-group-item">-->
+<!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16" data-name="Box">
+                            <div class="card text-bg-primary">
+                                <h4 class="card-header">Nice to Have</h4>
+                                <ul class="list-group list-group-flush" style="background-color: white; color: black; padding: 10px;">
+                                            <p class="list-group-item" t-field="job.nice_to_have" placeholder="Paste Nice to have items here ... " />
+<!--                                    <li t-foreach="job.nice_to_have" t-as="nice_to_have" t-key="nice_to_have.id"-->
+<!--                                        class="list-group-item">-->
+<!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- What's great -->
+<!--            <section class="pt40">-->
+<!--                <div class="container">-->
+<!--                    <h2>What's great in the job?</h2>-->
+<!--                    <br/>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-lg-8 pb40">-->
+<!--                            <ul class="lead">-->
+<!--                                <li t-foreach="job.whats_great" t-as="whats_greatitem" t-key="whats_greatitem.id"-->
+<!--                                >-->
+<!--                                    <t t-esc="whats_greatitem.name"/>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+            <!-- What we offer -->
+<!--            <section class="s_features pt40 pb40 bg-200" data-name="Features" data-snippet="s_features">-->
+<!--                <div class="container">-->
+<!--                    <h2>What We Offer</h2>-->
+<!--                    <br/>-->
+<!--                    <p class="lead">-->
+<!--                        Each employee has a chance to see the impact of his work.-->
+<!--                        You can make a real contribution to the success of the company.-->
+<!--                        <br/>-->
+<!--                        Several activities are often organized all over the year, such as weekly-->
+<!--                        sports sessions, team building events, monthly drink, and much more-->
+<!--                    </p>-->
+<!--                    <div class="row pt16">-->
+<!--                        <div class="col-lg-3 text-center pt16 pb32">-->
+<!--                            <i class="fa fa-2x fa-gift rounded-circle text-bg-primary m-3"></i>-->
+<!--                            <h3>Perks</h3>-->
+<!--                            <p>A full-time position<br/>Attractive salary package.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-3 text-center pt16 pb32">-->
+<!--                            <i class="fa fa-2x fa-bar-chart rounded-circle text-bg-primary m-3"></i>-->
+<!--                            <h3>Trainings</h3>-->
+<!--                            <p>12 days / year, including<br/>6 of your choice.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-3 text-center pt16 pb32">-->
+<!--                            <i class="fa fa-2x fa-futbol-o rounded-circle text-bg-primary m-3"></i>-->
+<!--                            <h3>Sport Activity</h3>-->
+<!--                            <p>Play any sport with colleagues,<br/>the bill is covered.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-3 text-center pt16 pb32">-->
+<!--                            <i class="fa fa-2x fa-coffee rounded-circle text-bg-primary m-3"></i>-->
+<!--                            <h3>Eat &amp; Drink</h3>-->
+<!--                            <p>Fruit, coffee and<br/>snacks provided.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+            <!--            end here-->
+        </xpath>
+    </template>
+
+
+</odoo>

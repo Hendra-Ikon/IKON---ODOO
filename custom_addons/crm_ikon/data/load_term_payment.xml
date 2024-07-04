@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record id="payment_01" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Release PO</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_02" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">FSD</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_03" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">UAT</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_04" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Go Live</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_05" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">1 Month Warranty Period</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_06" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Term 1</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+        <record id="payment_07" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Term 2</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="payment_08" model="product.template">
+            <field name="categ_id" ref="service_category_02" />
+            <field name="detailed_type">service</field>
+            <field name="type">service</field>
+            <field name="name">Term 3</field>
+            <field name="list_price">0.0</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="active">True</field>
+            <field name="invoice_policy">order</field>
+            <field name="taxes_id" eval="[(6, 0, [])]" />
+        </record>
+    
+    </data>
+    
+
+</odoo>
