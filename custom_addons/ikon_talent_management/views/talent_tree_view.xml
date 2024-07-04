@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_talent_pool_tree" model="ir.ui.view">
+            <field name="name">talent.pool.data.tree</field>
+            <field name="model">talent.pool.data</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nama"/>
+                    <field name="email"/>
+                    <field name="posisi"/>
+                    <field name="sumber"/>
+                    <field name="degree"/>
+                    <field name="major"/>
+                    <field name="universitas"/>
+                    <field name="notes"/>
+                    <field name="attachment" widget="binary" filename="attachment_filename"/>
+                    <field name="attachment_filename" invisible="1"/>
+                    <field name="cv_ikon" widget="binary" filename="cv_ikon_filename"/>
+                    <field name="cv_ikon_filename" invisible="1"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="write_date" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_talent_pool_tree" model="ir.actions.act_window">
+            <field name="name">Talent Pool Tree</field>
+            <field name="res_model">talent.pool.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_talent_pool_tree"/>
+        </record>
+
+    </data>
+</odoo>

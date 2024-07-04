@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ikon_profile_user" name="Footer Login Ikon" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@class='o_portal_my_home']" position="replace">
+            <t t-call="portal.portal_contact"/>
+        </xpath>
+
+    </template>
+
+    <template id="ikon_custom_contact" inherit_id="portal.portal_contact" name="Custom Contact">
+
+        <xpath expr="//div[@class='o_portal_contact_details mb-5']" position="replace">
+            <link rel="stylesheet" href="/ikon_recruitment/static/src/css/profile_user.css"/>
+            <script type="text/javascript" src="/ikon_recruitment/static/src/js/user_profile.js"></script>
+            <t t-call="ikon_recruitment.profile_page_inside"/>
+        </xpath>
+
+    </template>
+
+    <template id="ikon_sidebar_profile_user" name="Sidebar profile Ikon" inherit_id="portal.portal_layout">
+        <xpath expr="//div[@class='o_portal_my_details']" position="replace">
+        </xpath>
+        <xpath expr="//div[@class='o_portal_my_security mt-3']" position="replace">
+        </xpath>
+
+    </template>
+
+    <template id="profile_page_inside" name="Profile Page HTML">
+        <div class="banner-container">
+            <div class="banner-banner">
+                <div class="banner-background">
+                </div>
+                <div class="banner-group24">
+                    <div class="banner-fieldaddress">
+                        <span class="banner-text">
+                            <span>Rejected</span>
+                        </span>
+                        <span class="banner-text02">
+                            <span>Interview Status</span>
+                        </span>
+                    </div>
+                    <div class="banner-fieldname">
+                        <span class="banner-text04">
+                            <!--                            <t t-if="partner_id.hr_stage_id">-->
+                            <!--                                <span>-->
+                            <!--                                    <t t-esc="user_id.hr_stage_id.name"/>-->
+                            <!--                                </span>-->
+                            <!--                            </t>-->
+                            <!--                            <t t-else="">-->
+                            <!--                                <span>No stage information available.</span>-->
+                            <!--                            </t>-->
+                            No stage information available.
+                        </span>
+                        <span class="banner-text06">
+                            <span>Interview Stages</span>
+                        </span>
+                    </div>
+                    <div class="banner-biodata">
+                        <div class="banner-name">
+                            <span class="banner-text08">
+                                <span>State</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-group25">
+                    <div class="banner-fieldemail">
+                        <span class="banner-text10">
+                            <span>
+                                <t t-esc="user_id.partner_id.email"/>
+                            </span>
+                        </span>
+                        <span class="banner-text12">
+                            <span>Email</span>
+                        </span>
+                    </div>
+                    <div class="banner-fieldphone">
+                        <span class="banner-text14">
+                            <span>
+                                <t t-esc="user_id.partner_id.phone"/>
+                            </span>
+                        </span>
+                        <span class="banner-text16">
+                            <span>Phone</span>
+                        </span>
+                    </div>
+                    <div class="banner-fieldaddress1">
+                        <span class="banner-text18">
+                            <span>
+                                <t t-esc="user_id.partner_id.city"/>
+                            </span>
+                        </span>
+                        <span class="banner-text20">
+                            <span>City</span>
+                        </span>
+                    </div>
+                    <div class="banner-fieldname1">
+                        <span class="banner-text22">
+                            <span>
+                                <t t-esc="user_id.partner_id.name"/>
+                            </span>
+                        </span>
+                        <span class="banner-text24">
+                            <span>Name</span>
+                        </span>
+                    </div>
+                    <div class="banner-biodata1">
+                        <div class="banner-name1">
+                            <span class="banner-text26">
+                                <span>Biodata diri</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-group26">
+                    <div class="banner-rectangle1">
+                        <img class="avatar_img"
+                             src="https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg"/>
+                    </div>
+<!--                    <a href="/my/account" class="banner-rectangle2">-->
+<!--                        <button type="button">Edit Profile</button>-->
+<!--                    </a>-->
+
+<!--                    <button type="button" class="banner-rectangle2" onclick="redirectToAccount()">Edit Profile</button>-->
+<!--                    <button type="button" class="banner-rectangle3" onclick="redirectToPasswordReset()">Reset Password-->
+<!--                    </button>-->
+                    <button string="Get Applied Jobs" type="object" name="get_user_job_applications"
+                            class="banner-rectangle3 oe_highlight"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <!--    Custom User Dropdown-->
+    <!--    -->
+
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_form_inherit_crm_ikon_1" model="ir.ui.view">
+        <field name="name">product.form.inherit.crm.ikon.1</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='open_pricelist_rules']" position="replace">
+                <button class="oe_stat_button" name="open_pricelist_rules" invisible="1" icon="fa-list-ul"
+                    groups="product.group_product_pricelist" type="object">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="pricelist_item_count" />
+                        </span>
+                        <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+                            Extra Prices
+                        </span>
+                        <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+                            Extra Price
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']" position="replace">
+                <div class="oe_title">
+                    <label for="name" string="Service Name" />
+                    <h1>
+                        <div class="d-flex">
+                            <field name="priority" widget="priority" class="me-3" />
+                            <field class="text-break" name="name" placeholder="e.g. Consulting" />
+                        </div>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='options']" position="replace">
+                <div name="options">
+                    <span class="d-inline-block">
+                        <field name="sale_ok" />
+                        <label for="sale_ok" />
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="purchase_ok" invisible="1" />
+                        <label for="purchase_ok" />
+                    </span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="replace">
+                <field name="categ_id" string="Service Category" domain="[('complete_name', 'in', ['Service', 'Payment'])]" />
+            </xpath>
+            <xpath expr="//field[@name='company_id' and @options]" position="replace">
+                <field name="company_id" groups="base.group_multi_company"
+                    options="{'no_create': True}" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_form_inherit_crm_ikon_2" model="ir.ui.view">
+        <field name="name">product.form.inherit.crm.ikon.2</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="replace">
+                <field name="default_code"
+                    attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="replace">
+                <field name="barcode" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                    invisible="1" />
+            </xpath>
+            <xpath expr="//page[@name='variants']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_form_inherit_crm_ikon_3" model="ir.ui.view">
+        <field name="name">product.form.inherit.crm.ikon.3</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="///field[@name='invoice_policy']" position="replace">
+                <field name="invoice_policy" required="1" invisible="1" />
+            </xpath>
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

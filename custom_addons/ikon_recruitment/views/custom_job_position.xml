@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <!-- Add the filter to the Kanban view -->
+        <record id="hr_kanban_view_applicant_inherit" model="ir.ui.view">
+            <field name="name">hr.applicants.kanban.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//div[@class='o_kanban_record_headings']" position="after">
+                       <span class='text-muted small' >
+                        <p t-if="result">Matched Skill <field name="result"/><br/></p>
+                        <p t-else=""></p>
+                        <p t-if="source_id">
+                            <field name="source_id"/>
+                        </p>
+                        <p t-else=""></p>
+                        <field name="result"/>
+                     
+                        <field name="stage_name" invisible="1"/>
+                        <!-- <field name="result"/>
+                        <field name="source_id"/> -->
+                        <field name="pds_percentage" invisible="1"/>
+                            <span  attrs="{'invisible': [('stage_name', '!=', 'PDS Submission')]}" class="oe_stat_text">
+                                <span attrs="{'invisible': [('pds_percentage', '&lt;', 50)]}">
+                                    PDS Filled
+                                </span>
+                                
+                            </span>
+                        
+                      
+                        
+                       </span> 
+                    </xpath>
+            
+            </field>
+        </record>
+        
+    </data>
+</odoo>
