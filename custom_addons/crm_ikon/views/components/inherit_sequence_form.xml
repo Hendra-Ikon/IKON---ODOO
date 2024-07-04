@@ -1,0 +1,52 @@
+<!-- views/setting_seq_custom_form_view.xml -->
+
+<odoo>
+    <data>
+        <record id="view_setting_seq_custom_form" model="ir.ui.view">
+            <field name="name">view.setting.seq.custom.form</field>
+            <field name="model">setting.seq.custom</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group> 
+                            <field name="format_quo"  placeholder="Example: SEQ/EXT-QUOT/DATE(month)/DATE(year)"/>
+                            <field name="next_numbers"/>
+                            <field name="sequence_id" widget="many2one"/>
+
+                            <button name="reset_seq" type="object"
+                            string="Reset Sequence Number"/>
+
+                        </group>
+
+                        <p>
+                            <span>QUOTATION FORMAT:</span>
+                        </p>
+                        <p>
+                            <smal>@SEQ : Sequence Number</smal>
+                        </p>
+
+                        <p>
+                            <smal>@Text: EXT-QUOT</smal>
+                        </p>
+                        <p>
+                            <smal>@Month(MM)</smal>
+                        </p>
+                        <p>
+                            <smal>@YEAR(YYYY)</smal>
+                        </p>  
+
+                        <footer>
+                            <!-- Menambahkan tombol Reset Sequence Number -->
+                            <!-- <button name="reset_seq" type="object" string="Reset Sequence Number" class="oe_highlight"/> -->
+
+                            <!-- Menambahkan tombol Save -->
+                            <button name="save" type="object" string="Save" class="oe_highlight"/>
+                        </footer>
+                      
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

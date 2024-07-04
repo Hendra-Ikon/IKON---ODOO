@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_internal_user_custom_bank_acc,custom_bank_acc,model_custom_bank_acc,base.group_user,1,1,1,1
+
+
+

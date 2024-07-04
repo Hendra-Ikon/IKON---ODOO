@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+   <t t-extend="KanbanView.buttons" t-name="crm_ikon.kanban_import_button">
+       <t t-jquery="button" t-operation="after">
+           <button type="button" class="btn btn-secondary oe_highlight kanban_open_import_action">
+               Import
+           </button>
+       </t>
+   </t>
+</templates>

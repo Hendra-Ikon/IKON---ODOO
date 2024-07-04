@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ikon_portal_job" name="Portal Job Ikon" inherit_id="website_hr_recruitment.index">
+        <xpath expr="//div[@class='oe_structure']" position="replace">
+            <div class="oe_structure">
+                <section class="s_carousel_wrapper" data-vxml="001"
+                    data-snippet="s_carousel" data-name="Carousel">
+                    <div class="s_carousel s_carousel_default carousel slide"
+                        data-bs-interval="10000" id="myCarousel1696486639079"
+                        style="background-image: none;">
+
+                        <ol class="carousel-indicators o_we_no_overlay">
+                            <li data-bs-slide-to="0"
+                                data-bs-target="#myCarousel1696486639079" class="active"
+                                aria-current="true" />
+                            <li data-bs-slide-to="1"
+                                data-bs-target="#myCarousel1696486639079" />
+                            <li data-bs-slide-to="2"
+                                data-bs-target="#myCarousel1696486639079" />
+                        </ol>
+
+
+                        <div class="carousel-inner">
+
+                            <div
+                                class="carousel-item pt152 pb152 o_colored_level oe_img_bg o_bg_img_center active"
+                                style="background-image: url(&quot;/web/image/website.s_carousel_default_image_1&quot;);"
+                                data-name="Slide">
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div
+                                            class="carousel-content col-lg-6 o_colored_level"
+                                            style="">
+                                            <h2>
+                                                <font style="font-size: 62px;">Explore your
+                                                    dream</font>
+                                                <br />
+                                            </h2>
+                                            <p class="lead">Get your dream job opportunity
+                                                here at IKONSULTAN</p>
+                                            <p>
+                                                <a href="/contactus"
+                                                    class="btn btn-primary mb-2 o_default_snippet_text">Contact
+                                                    us</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="carousel-item pt96 pb96 oe_img_bg o_bg_img_center o_colored_level"
+                                style="background-image: url(&quot;/web/image/website.s_carousel_default_image_2&quot;);"
+                                data-name="Slide">
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div
+                                            class="carousel-content col-lg-8 offset-lg-2 bg-black-50 text-center pt48 pb40 o_colored_level">
+                                            <h2 style="font-size: 62px;"
+                                                class="o_default_snippet_text">Clever Slogan</h2>
+                                            <div class="s_hr pt8 pb24" data-snippet="s_hr"
+                                                data-name="Separator">
+                                                <hr class="w-25 mx-auto"
+                                                    style="border-top-width: 1px; border-top-style: solid;" />
+                                            </div>
+                                            <p class="lead o_default_snippet_text">Storytelling is
+                                                powerful.<br /> It draws readers in and engages
+                                                them.</p>
+                                            <p>
+                                                <a href="/"
+                                                    class="btn btn-primary mb-2 o_default_snippet_text">Start
+                                                    your journey</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="carousel-item pt128 pb128 oe_img_bg o_bg_img_center o_colored_level"
+                                style="background-image: url(&quot;/web/image/website.s_carousel_default_image_3&quot;);"
+                                data-name="Slide">
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div
+                                            class="carousel-content col-lg-6 offset-lg-6 o_colored_level">
+                                            <h2>
+                                                <font
+                                                    style="font-size: 62px; background-color: rgb(255, 255, 255);"
+                                                    class="o_default_snippet_text">Edit this
+                                                    title</font>
+                                            </h2>
+                                            <h4>
+                                                <font
+                                                    style="background-color: rgb(255, 255, 255);"
+                                                    class="o_default_snippet_text">Good
+                                                    writing is simple, but not simplistic.</font>
+                                            </h4>
+                                            <p>
+                                                <br />
+                                            </p>
+                                            <p class="o_default_snippet_text">Good copy
+                                                starts with understanding how your product
+                                                or service helps your customers. Simple
+                                                words communicate better than big words and
+                                                pompous language.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="carousel-control-prev o_not_editable o_we_no_overlay"
+                            data-bs-slide="prev" role="img" aria-label="Previous"
+                            title="Previous" href="#myCarousel1696486639079">
+                            <span class="carousel-control-prev-icon" />
+                            <span class="visually-hidden o_default_snippet_text">Previous</span>
+                        </a>
+                        <a class="carousel-control-next o_not_editable o_we_no_overlay"
+                            data-bs-slide="next" role="img" aria-label="Next" title="Next"
+                            href="#myCarousel1696486639079">
+                            <span class="carousel-control-next-icon" />
+                            <span class="visually-hidden o_default_snippet_text">Next</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='jobs_grid']" position="replace">
+            <div class="col-lg" id="jobs_grid">
+                <div t-if="not jobs">
+                    <div class="text-center text-muted">
+                        <h3 class="css_editable_hidden"><a t-attf-href="/contactus">Contact
+                                us</a> for job opportunities.</h3>
+                        <h4 groups="hr_recruitment.group_hr_recruitment_manager"> Create new job
+                            pages from the <strong>
+                                <i>+New</i>
+                            </strong> top-right button. </h4>
+                    </div>
+                </div>
+                <a t-foreach="jobs" t-as="job"
+                    t-attf-href="/jobs/detail/#{ slug(job) }"
+                    t-attf-class="text-decoration-none#{' mt-3' if job_index else ''}">
+                    <div class="card card-default mb32">
+                        <div class="card-body"
+                            t-att-data-publish="job.website_published and 'on' or 'off'">
+                            <span t-if="not job.website_published"
+                                class="badge text-bg-danger mb8 p-2">unpublished</span>
+                            <h3 class="text-secondary mt0 mb4">
+                                <span t-field="job.name" />
+                            </h3>
+                            <h5 t-if="job.no_of_recruitment &gt;= 1">
+                                <t t-esc="job.no_of_recruitment" /> open positions </h5>
+                            <div t-if="editable" t-field="job.description"
+                                class="mt16 mb0 css_non_editable_mode_hidden" />
+                            <div t-esc="job.description or ''"
+                                class="mt16 mb0 css_editable_mode_hidden o_website_hr_recruitment_job_description" />
+                            <div class="o_job_infos mt16">
+                                <span t-field="job.address_id"
+                                    t-options="{                                             &quot;widget&quot;: &quot;contact&quot;,                                             &quot;fields&quot;: [&quot;address&quot;],                                             &quot;no_tag_br&quot;: True                                             }" />
+                                <div t-if="job.contract_type_id">
+                                    <i class="fa fa-fw fa-suitcase"
+                                        title="Employment type" role="img"
+                                        aria-label="Employment type" />
+                                    <span t-field="job.contract_type_id" />
+                                </div>
+                                <div>
+                                    <i class="fa fa-fw fa-clock-o"
+                                        title="Publication date" role="img"
+                                        aria-label="Publication date" />
+                                    <span t-field="job.write_date" />
+                                </div>
+<!--                                <div class="oe_structure">-->
+<!--                                    <section class="o_job_bottom_bar mt32 mb32">-->
+<!--                                        <div class="text-center">-->
+<!--                                            <a role="button"-->
+<!--                                                t-attf-href="/jobs/apply/#{job.id}"-->
+<!--                                                class="btn btn-primary btn-lg">Apply-->
+<!--                                                Now!</a>-->
+<!--                                        </div>-->
+<!--                                    </section>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </xpath>
+
+    </template>
+
+    <template id="ikon_portal_job_2" name="Portal Job Right Bar" inherit_id="website_hr_recruitment.job_right_side_bar">
+        <xpath expr="//div[@class='col-lg-3 oe_structure oe_empty']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+
+</odoo>

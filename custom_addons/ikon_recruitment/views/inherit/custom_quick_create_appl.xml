@@ -1,0 +1,14 @@
+<odoo>
+    <record id="custom_quick_applicant" model="ir.ui.view">
+        <field name="name">custom.hr.applicant.form.quick_create</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.quick_create_applicant_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="source_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,70 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_portal_user_pds,Portal User PDS,model_hr_applicant,base.group_portal,1,1,1,1
+access_portal_user_recruitment_stage,Portal User Recruitment PDS,hr_recruitment.model_hr_recruitment_stage,base.group_portal,1,1,1,1
+access_portal_user_public_employee,Portal User PDS,hr.model_hr_employee_public,base.group_portal,1,1,1,1
+
+access_portal_user_custom_certif,custom_certif,model_custom_certif,base.group_portal,1,1,1,1
+access_internal_user_custom_certif,custom_certif,model_custom_certif,base.group_user,1,1,1,1
+
+access_portal_user_custom_edu,custom_edu,model_custom_edu,base.group_portal,1,1,1,1
+access_internal_user_custom_edu,custom_edu,model_custom_edu,base.group_user,1,1,1,1
+
+access_portal_user_custom_nonformaledu,custom_nonformaledu,model_custom_nonformaledu,base.group_portal,1,1,1,1
+access_internal_user_custom_nonformaledu,custom_nonformaledu,model_custom_nonformaledu,base.group_user,1,1,1,1
+
+access_portal_user_custom_language_prof,custom_language_prof,model_custom_language_prof,base.group_portal,1,1,1,1
+access_internal_user_custom_language_prof,custom_language_prof,model_custom_language_prof,base.group_user,1,1,1,1
+
+access_portal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_portal,1,1,1,1
+access_internal_user_custom_work_experience,custom_work_experience,model_custom_work_experience,base.group_user,1,1,1,1
+
+access_portal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_portal,1,1,1,1
+access_internal_user_custom_expected_salary,custom_expected_salary,model_custom_expected_salary,base.group_user,1,1,1,1
+
+access_portal_user_custom_org,custom_org,model_custom_org,base.group_portal,1,1,1,1
+access_internal_user_custom_org,custom_org,model_custom_org,base.group_user,1,1,1,1
+
+access_portal_user_custom_health,custom_health,model_custom_health,base.group_portal,1,1,1,1
+access_internal_user_custom_health,custom_health,model_custom_health,base.group_user,1,1,1,1
+
+
+access_portal_user_custom_resume_experience,custom_resume_experience,model_custom_resume_experience,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_experience,custom_resume_experience,model_custom_resume_experience,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_experience_company,custom_resume_experience_company,model_custom_resume_experience_company,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_experience_company,custom_resume_experience_company,model_custom_resume_experience_company,base.group_user,1,1,1,1
+
+access_portal_user_custom_backend_tag,custom_backend_tag,model_custom_backend_tag,base.group_portal,1,1,1,1
+access_internal_user_custom_backend_tag,custom_backend_tag,model_custom_backend_tag,base.group_user,1,1,1,1
+
+access_portal_user_custom_frontend_tag,custom_frontend_tag,model_custom_frontend_tag,base.group_portal,1,1,1,1
+access_internal_user_custom_frontend_tag,custom_frontend_tag,model_custom_frontend_tag,base.group_user,1,1,1,1
+
+access_portal_user_custom_database_tag,custom_database_tag,model_custom_database_tag,base.group_portal,1,1,1,1
+access_internal_user_custom_database_tag,custom_database_tag,model_custom_database_tag,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_certif_tag,custom_resume_certif_tag,model_custom_resume_certif_tag,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_certif_tag,custom_resume_certif_tag,model_custom_resume_certif_tag,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_sysint_apl,custom_resume_sysint_apl,model_custom_resume_sysint_apl,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_sysint_apl,custom_resume_sysint_apl,model_custom_resume_sysint_apl,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_sysint_middleware,custom_resume_sysint_middleware,model_custom_resume_sysint_middleware,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_sysint_middleware,custom_resume_sysint_middleware,model_custom_resume_sysint_middleware,base.group_user,1,1,1,1
+
+access_portal_user_custom_resume_sysint_email_notif,custom_resume_sysint_email_notif,model_custom_resume_sysint_email_notif,base.group_portal,1,1,1,1
+access_internal_user_custom_resume_sysint_email_notif,custom_resume_sysint_email_notif,model_custom_resume_sysint_email_notif,base.group_user,1,1,1,1
+
+
+access_portal_user_custom_family_information,Access Portal User Family Information,model_custom_family_information,base.group_portal,1,1,1,1
+access_internal_user_custom_family_information,Access Internal User Family Information,model_custom_family_information,base.group_user,1,1,1,1
+
+access_portal_user_custom_emergency_contact,Access Portal User Emergency Contact,model_custom_emergency_contact,base.group_portal,1,1,1,1
+access_internal_user_custom_emergency_contact,Access Internal User Emergency Contact,model_custom_emergency_contact,base.group_user,1,1,1,1
+
+access_portal_user_custom_other_activity,Access Portal User Other Activity,model_custom_other_activity,base.group_portal,1,1,1,1
+access_internal_user_custom_other_activity,Access Internal User Other Activity,model_custom_other_activity,base.group_user,1,1,1,1
+
+
+

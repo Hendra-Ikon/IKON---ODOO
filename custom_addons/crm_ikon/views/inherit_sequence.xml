@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- views/res_config_settings.xml -->
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.employee.dept</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="15"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+  
+<xpath expr="//div[@id='invite_users']" position="after">
+    <div id="sequence">
+                            <h2>Sequencee</h2>
+                            <div class="row mt16 o_settings_container" name="users_setting_container">
+                                <div class="col-12 col-lg-6 o_setting_box" id="invite_users_setting">
+                                    <div class="o_setting_right_pane">
+                                        <span>Quotation Settings seq</span>
+                                        <br/>
+                                        <div class="mt8">
+                                            <button name="quo_set" icon="fa-arrow-right" type="object" string="Add Quotation Seq" class="btn-link"/>
+                                        </div>
+                                        <!-- <field name="seq" string="Sequence"/>
+                                        <field name="ket" string="Ket"/>
+                                        <field name="date" string="Date Format"/> -->
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box" id="active_user_setting">
+                                    <div class="o_setting_right_pane">
+                                        <span>Invoice Settings seq</span>
+                                        <div class="mt8">
+                                            <button name="inv_set" icon="fa-arrow-right" type="object" string="Add Invoice Seq" class="btn-link"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+</xpath>
+
+
+                
+            </field>
+        </record>
+    </data>
+</odoo>

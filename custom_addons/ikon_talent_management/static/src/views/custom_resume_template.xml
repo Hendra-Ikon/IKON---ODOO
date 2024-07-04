@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="ikon_talent_management.CustomKanbanView" owl="1" t-inherit="web.ListRenderer">
+
+        <xpath expr="//table" position="attributes">
+            <attribute name="t-attf-class" add="table-borderless {{ !showTable ? 'd-none' : ''}}" remove="table-striped"
+                       separator=" "/>
+        </xpath>
+        <xpath expr="//table" position="after">
+            <t t-if="!showTable">
+                <button t-on-click="props.onAdd" class="btn btn-secondary ms-4 mt-3" role="button" t-if="isEditable">
+                    Create a new entry
+                </button>
+            </t>
+        </xpath>
+        <xpath expr="//thead/tr" position="replace">
+            <tr>
+                <th style="width: 32px; min-width: 32px;"></th>
+                <th class="w-200"></th>
+                <th t-if="isEditable" class="o_list_actions_header" style="width: 32px; min-width: 32px"></th>
+            </tr>
+        </xpath>
+    </t>
+
+    <t t-name="ikon_talent_management.CustomKanbanView.Rows" owl="1" t-inherit-mode="primary"
+       t-inherit="hr_skills.ResumeListRenderer.Rows">
+        <xpath expr="//tr" position="attributes">
+            <attribute name="class" add="o_resume_group_header" separator=" "/>
+        </xpath>
+        <xpath expr="//th[hasclass('o_group_name')]" position="after">
+            <th></th>
+        </xpath>
+    </t>
+
+    <t t-name="ikon_talent_management.CustomKanbanView.RecordRow" owl="1" t-inherit-mode="primary"
+       t-inherit="web.ListRenderer.RecordRow">
+        <xpath expr="//t[@t-foreach='getColumns(record)']" position="replace">
+            <t t-set="data" t-value="record.data"/>
+            <td class="o_resume_timeline_cell position-relative pe-lg-2">
+                <div class="position-relative">
+                    <img t-if="data.company_image" t-attf-src="data:image/png;base64,{{data.company_image}}"
+                         alt="Company Image"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50% padding: 10px;"/>
+                    <img t-else="" t-attf-src="ikon_talent_management/static/src/img/logo-ikon.png"
+                         alt="Company Image"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50% padding: 10px;"/>
+                </div>
+            </td>
+
+            <td class="o_data_cell pt-0" t-on-click="(ev) => this.onCellClicked(record, null, ev)">
+                <div class="o_resume_line" t-att-data-id="id">
+                    <small class="o_resume_line_dates fw-bold">
+                        <t t-esc="formatDate(data.resume_dateStart)"/>
+                        -
+                        <t t-if="data.resume_dateEnd" t-esc="formatDate(data.resume_dateEnd)"/>
+                        <t t-else="">Current</t>
+                    </small>
+                    <h4 class="o_resume_line_title mt-2" t-esc="data.rsm_com_name"/>
+                    <p t-if="data.rsm_com_projectDes" class="o_resume_line_desc" t-esc="data.rsm_com_projectDes"/>
+                    <br/>
+                    <br/>
+
+                    <t t-if="data.resume_tech_used != false">
+                        <p>Technology used:
+                        </p>
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;" t-raw="data.resume_tech_used"/>
+                        </ul>
+                        <br/>
+                        <!--                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
+
+                        <!--                            <ul t-foreach="data.resume_tech_used.split(',') or []" t-as="tech" t-key="tech">-->
+                        <!--                                <li>-->
+                        <!--                                    <t t-esc="tech"/>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </p>-->
+                    </t>
+                    <t t-else="">
+                        <br/>
+                    </t>
+                    <br/>
+
+                    <t t-if="data.resume_sys_used != false">
+                        <p>System integration:
+                        </p>
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;" t-raw="data.resume_sys_used"/>
+                        </ul>
+                        <br/>
+                        <!--                        <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
+
+                        <!--                            <ul t-foreach="data.resume_sys_used.split(',') or []" t-as="sys" t-key="sys">-->
+                        <!--                                <li>-->
+                        <!--                                    <t t-esc="sys"/>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </p>-->
+                    </t>
+                    <t t-else="">
+                        <br/>
+                    </t>
+
+                    <t t-if="data.resume_key_responsible != false">
+                        <p>Key responsibilities are:
+                        </p>
+                        <ul>
+                            <li class="o_resume_line_desc" style="margin-left: 70px;"
+                                t-raw="data.resume_key_responsible"/>
+                        </ul>
+                        <br/>
+
+                    </t>
+                    <t t-else="">
+                        <br/>
+                    </t>
+
+
+                    <!--                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
+                    <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
+                    <!--                        Backend application:-->
+                    <!--                        <span t-esc="data.resume_sys_int_middleware"/>-->
+                    <!--                    </p>-->
+                    <!--                    <p class="o_resume_line_desc" style="margin-left: 70px; position: relative;">-->
+                    <!--                        <span style="height: 10px; width: 10px; background-color: #7b7b7b; border-radius: 20%; display: inline-block; justify-content: center; align-items: center;"></span>-->
+                    <!--                        Database:-->
+                    <!--                        <span t-esc="data.resume_sys_int_email_notif"/>-->
+                    <!--                    </p>-->
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </td>
+
+        </xpath>
+    </t>
+
+
+</templates>
+

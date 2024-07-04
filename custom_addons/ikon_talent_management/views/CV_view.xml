@@ -1,0 +1,213 @@
+<odoo>
+    <template id="custom_cv_view">
+
+        <t t-call="web.html_container">
+            <!-- Your template content goes here -->
+            <link rel="stylesheet" type="text/css"
+                  href="/ikon_talent_management/static/src/css/custom_cv_view.css"/>
+            <!-- Include Bootstrap CSS -->
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&amp;display=swap"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+                    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+                    crossorigin="anonymous"
+            />
+            <link
+                    rel="stylesheet"
+                    href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+                    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+                    crossorigin="anonymous"
+            />
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="left-col">
+                        <div class="skill_header">
+                            SKILL &amp; KNOWLEDGE
+                        </div>
+                        <div class="white_line">
+
+                        </div>
+                        <div class="skills_content">
+                            <t t-set="skill_data" t-value="env['hr.skill'].search([])"/>
+                            <div name="skill_type"
+                                     t-attf-style="height: 30px; font-size: 10px; margin-left: 70px; color: white; font-size: 20px; margin-top: 10px;">
+
+                                <t t-if="applicant.custom_skill != False">
+                                    <ul t-foreach="applicant.custom_skill.split(',') or []" t-as="skill" t-key="skill">
+<!--                                    <option t-att-value="skill.id" t-esc="skill.id">-->
+
+<!--                                    </option>-->
+                                    <li><t t-esc="skill"/></li>
+                                </ul>
+                                </t>
+                            </div>
+<!--                            <select name="skill_type"-->
+<!--                                    t-attf-class="form-select " t-attf-style="height: 30px; font-size: 10px;">-->
+<!--                                <div t-foreach="skill_type" t-as="skill" t-key="skill">-->
+<!--                                    <option t-att-value="skill.name" t-esc="skill.name">-->
+
+<!--                                    </option>-->
+<!--                                </div>-->
+<!--                            </select>-->
+                        </div>
+
+                    </div>
+                    <div class="right-col">
+                        <div class="company_logo">
+                            <img class="img-logo" src="ikon_talent_management/static/src/img/logo-ikon.png"/>
+                        </div>
+
+                        <div class="right-container-wrapper">
+                            <div class="applicant_name">
+                                <h1 t-esc="applicant.name"/>
+                            </div>
+                            <div class="summary_exp">
+                                SUMMARY OF EXPERIENCE
+                            </div>
+                            <td class="summary_content">
+                                <small style="">
+                                    <t t-esc="applicant.summary_experience"/>
+                                </small>
+                            </td>
+                            <div class="key_relevance">
+                                KEY RELEVANCE EXPERIENCE
+                            </div>
+                            <div class="content-data">
+                                <table>
+                                    <!--                <thead>-->
+                                    <!--                    <tr>-->
+                                    <!--                        <th>Experience</th>-->
+                                    <!--                    </tr>-->
+                                    <!--                </thead>-->
+                                    <tbody>
+                                        <t t-foreach="data['pds_resume']" t-as="resume">
+
+
+                                            <tr class="o_data_row" data-id="datapoint_4">
+                                                <!--                                                <td class="o_resume_timeline_cell position-relative pe-lg-2">-->
+                                                <!--                                                    <div class="rounded-circle bg-red position-relative"></div>-->
+                                                <!--                                                </td>-->
+
+                                                <td class="o_data_cell pt-0">
+                                                    <div class="o_resume_line">
+
+                                                        <h4 class="o_resume_line_title mt-2">
+                                                            <t t-esc="resume['rsm_com_name']"
+                                                               style="font-weight: bold;"/>
+                                                        </h4>
+                                                        <small class="o_resume_line_dates fw-bold">
+                                                            (
+                                                            <t t-esc="resume['resume_dateStart']"/>
+                                                            <t t-esc="resume['resume_dateEnd']"/>)
+                                                        </small>
+                                                        <p class="o_resume_line_desc">As:
+                                                            <t t-esc="resume['rsm_com_job_title']"/>
+                                                        </p>
+                                                        <p class="o_resume_line_desc">Project description:
+                                                            <t t-esc="resume['rsm_com_projectDes']"/>
+                                                        </p>
+                                                        <br/>
+                                                        <p class="o_resume_line_desc">Technology used:
+                                                        </p>
+                                                        <ul t-attf-style="margin-left: 20px;">
+
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Backend
+                                                                        technology</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_tech_used_backend']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Frontend
+                                                                        technology</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_tech_used_frontend']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Database
+                                                                        technology</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_tech_used_database']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+
+
+                                                        </ul>
+                                                        <p class="o_resume_line_desc">System Integration:
+                                                        </p>
+                                                        <ul t-attf-style="margin-left: 20px;">
+
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Application</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_sys_int_appl']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Middleware</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_sys_int_middleware']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="content-li">
+                                                                    <div class="content-li-data-name">Email
+                                                                        Notification</div>:
+                                                                    <div style="width: 5px;"/>
+                                                                    <div class="content-li-data-data">
+                                                                        <t t-esc="resume['resume_sys_int_email_notif']"/>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <br/>
+                                                        <br/>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <!--        </t>-->
+        <!--        <t t-call="web.layout">-->
+        <!--        -->
+        <!--        </t>-->
+
+    </template>
+</odoo>

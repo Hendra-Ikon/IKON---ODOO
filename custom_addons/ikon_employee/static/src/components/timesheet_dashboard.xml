@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="ikon_employee.Timesheet" owl="1">
+
+        <Layout display="display">
+            <div class="wrapper">
+                <div class="top">
+                    <t t-if="toggleData.weekLeft">
+                        <h3 class="heading-title">
+                            Timesheet for Week
+                        </h3>
+
+                        <h3 class="choosenDates" name="startDates" id="startDates">
+                            <t t-esc="timesheet_date_header"/>
+
+                        </h3>
+                    </t>
+                    <t t-else="">
+
+                        <h3 class="heading-title">
+                            Timesheet for Week
+                        </h3>
+
+                        <select class="startDates" name="startDates" id="startDates">
+                            <t t-foreach="weekData" t-as="date" t-key="date_index">
+                                <option t-att-value="date.range" style="overflow:hidden;">
+                                    <t t-esc="date.range"/>
+                                </option>
+                            </t>
+
+                        </select>
+                        
+                        
+                    </t>
+
+                </div>
+                <form class="timesheetForm" id="timesheetForm">
+                    <div class="tableWrapper" style="overflow:auto">
+                        <table style="width:100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:2%" class="center">
+                                        <input type="checkbox" style="display:none"/>
+                                    </th>
+                                    <th style="width:24%" id="projectName">Project Name</th>
+                                    <th style="width:18%" id="activityName">Activity Name</th>
+                                    <t t-if="usedData">
+
+                                        <t t-foreach="usedData" t-as="day" t-key="day.id">
+                                            <th class="center" style="width:8%">
+                                                <t t-esc="formatDateheader(day.date)"/>
+                                            </th>
+                                        </t>
+                                    </t>
+
+                                    <!--                                    <t t-if="!timesheet_data.date">-->
+                                    <!--                                        <th class="center" style="width:8%">-->
+                                    <!--                                            <p>HALOO</p>-->
+                                    <!--                                        </th>-->
+                                    <!--                                    </t>-->
+
+
+                                </tr>
+                            </thead>
+                            <t t-if="toggleData.weekLeft">
+                                <tbody>
+                                   
+                                </tbody>
+                            </t>
+                            <t t-else="">
+                                <div class="no-record">
+                                    No Records to display
+                                </div>
+
+                            </t>
+
+                            <tr id="extraRows" style="display: none;"></tr>
+
+
+                        </table>
+                    </div>
+
+                    <div class="bottom">
+                        <p class="required">
+                            <em>*</em>
+                            Deleted project activities are not editable
+                        </p>
+                        <p class="button-list">
+
+                            <!--                        <input type="button" class="delete" id="submitRemoveRows" value="Remove Rows"-->
+                            <!--                               name="btnRemoveRows"/>-->
+                            <t t-if="toggleData.weekLeft">
+                                <input type="submit" class="submit" value="Save" name="btnSave" id="submitSave"
+                                       t-on-click="() => send(state, usedData)"/>
+                                <input class="reset" id="btnReset" value="Reset" type="button"
+                                       onclick="document.location.href='/ikonhrm/symfony/web/index.php/time/editTimesheet/timesheetId/23014/employeeId/279/actionName/viewMyTimesheet';"/>
+                                <input class="cancel" id="btnBack" value="Cancel" type="button"
+                                       t-on-click="() => cancel()"/>
+                                       
+                                 <input class="add-row" id="btnAddRow" value="Add Row" type="button" t-on-click="() => addRow()"/>
+                            </t>
+                            <t t-if="toggleData.weekLeft">
+                                <!-- Tombol "Add Row" -->
+                                
+                            </t>
+                            <t t-else="">
+                                <input type="button" class="edit" id="btnAddRow" value="Edit" name="btnEdit"
+                                       t-on-click="() => addRow()"/>
+
+                                       
+
+                            </t>
+                        </p>
+
+                    </div>
+                </form>
+
+                
+            </div>
+        </Layout>
+    </t>
+
+</templates>

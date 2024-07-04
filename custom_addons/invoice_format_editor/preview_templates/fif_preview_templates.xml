@@ -1,0 +1,169 @@
+<odoo>
+    <data>
+        <!--Normal Template Preview-->
+        <template id="report_preview_fif">
+            <t t-call="web.html_preview_container">
+                <t t-call="web.external_layout">
+                    <t t-set="address">
+                        <address class="mb-0" itemscope="itemscope"
+                            itemtype="http://schema.org/Organization">
+                            <div>
+                                <span itemprop="name">ini Name</span>
+                            </div>
+                            <div itemprop="address" itemscope="itemscope"
+                                itemtype="http://schema.org/PostalAddress">
+                                <div class="d-flex align-items-baseline">
+                                    <span class="w-100 o_force_ltr" itemprop="streetAddress">alamat
+                                        rumah<br />Pleasant Hill CA 94523<br />United States</span>
+                                </div>
+                            </div>
+                        </address>
+                    </t>
+                    <div class="page mt-5">
+                        <h2>
+                            <span>Invoice</span>
+                            <span>INV/2023/00321</span>
+                        </h2>
+                        <div id="informations" class="row mt-4 mb-4">
+                            <div class="col-auto col-3 mw-100 mb-2" name="invoice_date">
+                                <strong>Invoice Date:</strong>
+                                <p class="m-0">20/11/2023</p>
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" name="due_date">
+                                <strong>Due Date:</strong>
+                                <p class="m-0">23/11/2023</p>
+                            </div>
+                        </div>
+                        <table class="table table-sm o_main_table table-borderless"
+                            name="invoice_line_table">
+                            <thead>
+                                <tr>
+                                    <th name="th_description" class="text-start">
+                                        <span></span>
+                                    </th>
+                                    <th name="th_quantity" class="text-center">
+                                        <span>Qty</span>
+                                    </th>
+                                    <th name="th_uom" class="text-center d-md-table-cell">
+                                        <span>UOM</span>
+                                    </th>
+                                    <th name="th_unintprice" class="text-end d-md-table-cell">
+                                        <span>Unit Price<br />(IDR)</span>
+                                    </th>
+                                    <th name="th_term" class="text-center d-md-table-cell">
+                                        <span>Term</span>
+                                    </th>
+                                    <th name="th_invoice" class="text-end">
+                                        <span>Invoice Amount <br />(IDR)</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr>
+                                    <td name="description">
+                                        <span>JSA - PENGEMBANGAN SOFTWARE<br /> - 00001 HEAD OFFICE<br />
+                                            Barometer Enhancement 2023</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span>1</span>
+                                    </td>
+                                    <td class="text-center d-md-table-cell">
+                                        <span class="text-nowrap">Unit</span>
+                                    </td>
+                                    <td class="text-center d-md-table-cell">
+                                        <span id="line_tax_ids">1,000,000,000-</span>
+                                    </td>
+                                    <td class="text-start o_price_total">
+                                        <span class="nowrap">Term VI - 10% after UAT Phase 2</span><br/>
+                                        <span class="nowrap">Term VII - 5% after Go Live Phase 2</span>
+                                    </td>
+                                    <td class="text-end ">
+                                        <span class="nowrap">100,000,000-</span><br/>
+                                        <span class="nowrap">50,000,000-</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span>Sub Total</span><br/>
+                                        <span>PPN</span><br/>
+                                        <!-- <span>PPH</span> -->
+                                    </td>
+                                    <td class="text-end">
+                                        <span>150,000,000-</span><br/>
+                                        <span>16,500,000-</span><br/>
+                                        <span>(3,000,000)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-end">
+                                        <span>Total</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span style="font-weight: bold">163,500,000-</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!-- <tfooter>
+                            </tfooter> -->
+                        </table>
+                        <span style="font-style: italic">In words: #One hundred sixty three million five hundred Rupiah#</span>
+                        <!-- <div class="clearfix">
+                            <div id="total" class="row">
+                                <div class="col-6 ms-auto">
+                                    <table class="table table-sm table-borderless"
+                                        style="page-break-inside: avoid; position:relative;">
+                                        <tbody>
+                                            <tr class="border-black o_subtotal" style="">
+                                                <td>
+                                                    <strong>Untaxed Amount</strong>
+                                                </td>
+                                                <td class="text-end">
+                                                    <span>$ <span class="oe_currency_value">
+                                                        19,250.00</span></span>
+                                                </td>
+                                            </tr>
+                                            <tr style="">
+                                                <td>
+                                                    <span class="text-nowrap">Tax 15%</span>
+                                                </td>
+                                                <td class="text-end o_price_total">
+                                                    <span class="text-nowrap">$ 2,887.50</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-black o_total">
+                                                <td>
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td class="text-end">
+                                                    <span class="text-nowrap">$ <span
+                                                            class="oe_currency_value">
+                                                            22,137.50</span></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4"> Please use the following communication for your payment : <b>
+                                <span>
+                                    INV/2023/00003</span>
+                            </b>
+                        </p>
+                        <p name="payment_term">
+                            <span>Payment terms: 30 Days</span>
+                        </p> -->
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

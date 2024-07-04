@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_ikon_inherit_categories" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.categories</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_kanban_dashboard" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_primary_channel_button']" position="attributes">
+                <attribute name="context">{
+                    'partner_id': context.get('self')
+                    }</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

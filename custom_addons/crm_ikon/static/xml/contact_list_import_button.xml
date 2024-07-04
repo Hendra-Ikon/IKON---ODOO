@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+   <t t-extend="ListView.buttons" t-name="crm_ikon.list_import_button">
+       <t t-jquery="button.o_list_button_add" t-operation="after">
+           <button type="button" class="btn btn-secondary list_open_import_action">
+               Import
+           </button>
+       </t>
+   </t>
+</template>

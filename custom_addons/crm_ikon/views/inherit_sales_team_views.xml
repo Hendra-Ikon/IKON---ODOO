@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_ikon_inherit_sales_team_view" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.sales.team.view</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Category</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_ikon_inherit_sales_team_view_form" model="ir.ui.view">
+        <field name="name">crm_ikon_inherit_sales_team_view_form</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='name']" position="replace">
+                <label for="name" string="Category" />
+            </xpath>
+            <xpath expr="//field[@name='name']" position="replace">
+                <field class="text-break" name="name" placeholder="e.g. Application Development" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_ikon_inherit_sale_sales_team_view_form" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.sale.sales.team.view.form</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sale.crm_team_salesteams_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='use_quotations']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_ikon_inherit_crm_sales_team_view_form" model="ir.ui.view">
+        <field name="name">crm.ikon.inherit.crm.sale.sales.team.view.form</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="crm.sales_team_form_view_in_crm" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='use_opportunities']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
