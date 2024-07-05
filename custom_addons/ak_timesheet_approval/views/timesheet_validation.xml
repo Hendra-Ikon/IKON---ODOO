@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.actions.act_window" id="open_timesheet_wizard">
+		<field name="name">Rejected Reason</field>
+		<field name="res_model">timesheet.validation.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+        <field name="context">{'form_view_ref':'ak_timesheet_approval.open_wizard_for_reject_reason'}</field>
+	</record>
+	
+	<record id="timesheet_Validation_form_customise" model="ir.ui.view">
+		<field name="name">timesheet.validation.form.customise</field>
+		<field name="model">account.analytic.line</field>
+		<field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form/sheet" position="before">
+				<header>
+					<field name="state" widget="statusbar"/>
+				</header>
+			</xpath>
+			<xpath expr="//sheet/group" position="before">
+            	<widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+            	<widget name="web_ribbon" title="Rejected" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+			</xpath>
+			<!-- <xpath expr="//form/sheet/group/group[1]/field[@name='company_id']" position="after">
+				<field name="employee_id"/>
+			</xpath> -->
+		</field>
+	</record>
+
+	<record id="approve_timesheet_tree" model="ir.ui.view">
+		<field name="name">Approve TimeSheets</field>
+		<field name="model">account.analytic.line</field>
+		<field name="arch" type="xml">
+			<tree >
+				<field name="date"/>
+				<field name="employee_id"/>
+				<field name="project_id"/>
+				<field name="task_id"/>
+				<field name="name"/>
+				<field name="status"
+				widget="badge"
+				decoration-warning="status in ('reject', 'Reject')"
+                decoration-success="status in ('approve', 'Approved')"
+				/>
+				<field name="state" invisible="1" 
+				/>
+				<field name="rejected_reason"/>
+				<field name="approved_id"/>
+				<field name="approved_date"/>
+				<field name="rejected_id"/>
+				<field name="rejected_date"/>
+				<field name="unit_amount"/>
+
+				<!-- <button string="Approve or Rejected" name="%(ak_timesheet_approval.open_timesheet_wizard)d" type="action" class="btn btn-primary" attrs="{'invisible': [('state', 'not in', 'submitted')]}"  context="{'active_id': active_id}"/> -->
+				<button string="Approve" name="Action_Approve" type="object" 
+				icon="fa-thumbs-up"
+				states="confirm"
+				attrs="{'invisible': [('state', 'not in', 'submitted')]}"  
+				context="{'active_id': active_id}"
+				/>
+				
+				<button string="Rejected" name="%(ak_timesheet_approval.open_timesheet_wizard)d" type="action"
+				icon="fa-times"
+				states="confirm"
+				attrs="{'invisible': [('state', 'not in', 'submitted')]}"  
+				context="{'active_id': active_id}"
+				/>
+			
+			</tree>
+		</field>
+	</record>
+
+	<record id="open_wizard_for_reject_reason" model="ir.ui.view">
+		<field name="name">Reject Reason</field>
+		<field name="model">timesheet.validation.wizard</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					
+					
+					<field name="reason"/>
+					
+				</sheet>
+				<footer>
+					<button name="reject" string="Reject" class="btn btn-primary" type="object"/>					
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="approve_timesheet" model="ir.actions.act_window">
+		<field name="name">Approve TimeSheets</field>
+		<field name="res_model">account.analytic.line</field>
+		<field name="view_mode">tree</field>
+        <field name="context">{'tree_view_ref':'ak_timesheet_approval.approve_timesheet_tree'}</field>
+	</record>
+ 
+	<menuitem name="Approval" parent="hr_timesheet.timesheet_menu_root" action="approve_timesheet" id="approve_timesheets_menu" groups="ak_timesheet_approval.timesheet_group"/>
+</odoo>
