@@ -142,7 +142,8 @@ class TalentData(models.Model):
             if appl.degree:
                 temp_degree = appl.degree
             source_id = self.env['utm.source'].search([('name', '=', appl.sumber)], limit=1)
-            degree_id = self.env['hr.recruitment.degree'].search([('name', '=', appl.degree.upper())], limit=1)
+            degree_id = self.env['hr.recruitment.degree'].search([('name', '=', str(appl.degree).upper())], limit=1)
+
 
 
             if not source_id:
