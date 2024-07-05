@@ -138,71 +138,66 @@
     </template>
 
     <template id="cv_experience">
-        <t t-value="docs" t-set="data"/>
-        <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
-            KEY RELEVANCE EXPERIENCE
-        </div>
-        <div
-                t-attf-style="padding-left: 15px; background-color: white; padding-top: 10px; padding-bottom: 10px;">
+    <t t-value="docs" t-set="data"/>
+    
+    <t t-foreach="data['pds_resume']" t-as="resume">
+        <t t-if="resume['resume_tech_used'] and resume['resume_sys_used']">
+            <div t-attf-style="padding-left: 10px; padding-top: 10px; padding-bottom: 10px; background-color: #D3D3D3 !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-items: center;">
+                KEY RELEVANCE EXPERIENCE
+            </div>
+        </t>
+    </t>
 
-            <t t-foreach="data['pds_resume']" t-as="resume">
-                <t t-if="resume['resume_tech_used'] or resume['resume_sys_used']">
-
-
-                    <div t-attf-class="o_data_row" data-id="datapoint_4">
-
-                        <div t-attf-class="o_data_cell pt-0">
-                            <div t-attf-class="o_resume_line">
-
-                                <h4 t-attf-class="o_resume_line_title mt-2">
-                                    <t t-esc="resume['rsm_com_name']"
-                                       style="font-weight: bold;"/> (
-                                    <t t-esc="resume['resume_dateStart']"/>
-                                    <t t-esc="resume['resume_dateEnd']"/> )
-                                </h4>
-                                <p t-attf-class="o_resume_line_desc">As:
-                                    <t t-esc="resume['rsm_com_job_title']"/>
-                                </p>
-                                <p t-attf-class="o_resume_line_desc">Project description:
-                                    <small>
-                                        <t t-esc="resume['rsm_com_projectDes']"
-                                           t-attf-class="project_desc"/>
-                                    </small>
-                                </p>
+    <div t-attf-style="padding-left: 15px; background-color: white; padding-top: 10px; padding-bottom: 10px;">
+        <t t-foreach="data['pds_resume']" t-as="resume">
+            <t t-if="resume['resume_tech_used'] and resume['resume_sys_used']">
+                <div t-attf-class="o_data_row" data-id="datapoint_4">
+                    <div t-attf-class="o_data_cell pt-0">
+                        <div t-attf-class="o_resume_line">
+                            <h4 class="o_resume_line_title mt-2">
+                                <t t-esc="resume['rsm_com_name']" style="font-weight: bold;"/> (
+                                <t t-esc="resume['resume_dateStart'].strftime('%B %Y')"/>
+                                - 
+                                <t t-esc="resume['resume_dateEnd'].strftime('%B %Y')"/> )
+                            </h4>
+                            <p t-attf-class="o_resume_line_desc">As:
+                                <t t-esc="resume['rsm_com_job_title']"/>
+                            </p>
+                            <p t-attf-class="o_resume_line_desc">Project description:
+                                <small>
+                                    <t t-esc="resume['rsm_com_projectDes']" t-attf-class="project_desc"/>
+                                </small>
+                            </p>
+                            <br/>
+                            <t t-if="resume['resume_tech_used']">
+                                <p t-attf-class="o_resume_line_desc halo">Technology used:</p>
+                                <t t-raw="resume['resume_tech_used']" t-attf-style="margin-left: 20px;"/>
+                            </t>
+                            <t t-else="">
                                 <br/>
-                                <t t-if="resume['resume_tech_used']">
-                                    <p t-attf-class="o_resume_line_desc halo">Technology used:
-                                    </p>
-                                    <t t-raw="resume['resume_tech_used']" t-attf-style="margin-left: 20px;"/>
-                                </t>
-                                <t t-else="">
-                                    <br/>
-                                </t>
-                                <t t-if="resume['resume_sys_used']">
-                                    <p t-attf-class="o_resume_line_desc">System Integration:
-                                    </p>
-                                    <t t-raw="resume['resume_sys_used']" t-attf-style="margin-left: 20px;"/>
-                                </t>
-                                <t t-else="">
-                                    <br/>
-                                </t>
-                                <t t-if="resume['resume_key_responsible']">
-                                    <p t-attf-class="o_resume_line_desc">Key responsibilities are:
-                                    </p>
-                                    <t t-raw="resume['resume_key_responsible']" t-attf-style="margin-left: 20px;"/>
-                                </t>
-                                <t t-else="">
-                                    <br/>
-                                </t>
-
-
-                            </div>
+                            </t>
+                            <t t-if="resume['resume_sys_used']">
+                                <p t-attf-class="o_resume_line_desc">System Integration:</p>
+                                <t t-raw="resume['resume_sys_used']" t-attf-style="margin-left: 20px;"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                            </t>
+                            <t t-if="resume['resume_key_responsible']">
+                                <p t-attf-class="o_resume_line_desc">Key responsibilities are:</p>
+                                <t t-raw="resume['resume_key_responsible']" t-attf-style="margin-left: 20px;"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                            </t>
                         </div>
                     </div>
-                </t>
+                </div>
             </t>
-        </div>
-    </template>
+        </t>
+    </div>
+</template>
+
 
     <template id="cv_academic">
         <t t-value="docs" t-set="data"/>
