@@ -111,6 +111,8 @@ class PDSData(models.Model):
     pds_emCont = fields.One2many('custom.emergency.contact', 'applicant_id', string='Emergency Contact')
     pds_oac = fields.One2many('custom.other.activity', 'applicant_id', string='Other Activity')
 
+    email_from = fields.Char("Email", size=128, compute='_compute_partner_phone_email',
+        inverse='_inverse_partner_email', store=True)
    
     summary_experience = fields.Text(string="Summary of Experience")
     toggle_pds = fields.Integer(string="Switch PDS Element", default=0)
@@ -121,6 +123,103 @@ class PDSData(models.Model):
 
     group_ids = fields.Many2one('res.groups', string='Group')
 
+
+    @api.onchange('email_from')
+    def _onchange_pds_fullname(self):
+        if self.email_from:
+            existing_record = self.search([('email_from', '=', self.email_from)], limit=1)
+            if existing_record:
+                self.pds_fullname = existing_record.pds_fullname
+                self.pds_nik = existing_record.pds_nik
+                self.pds_addressNIK = existing_record.pds_addressNIK
+                self.pds_zipcode_addressNIK = existing_record.pds_zipcode_addressNIK
+                self.pds_currentAddress = existing_record.pds_currentAddress
+                self.pds_phoneNumber = existing_record.pds_phoneNumber
+                self.pds_zipcode_currentAddress = existing_record.pds_zipcode_currentAddress
+                self.pds_email = existing_record.pds_email
+                self.pds_placeOfBirth = existing_record.pds_placeOfBirth
+                self.pds_nationality = existing_record.pds_nationality
+                self.pds_religion = existing_record.pds_religion
+                self.pds_dob = existing_record.pds_dob
+                self.pds_marital_status = existing_record.pds_marital_status
+                self.pds_sex = existing_record.pds_sex
+                self.height_value = existing_record.height_value
+                self.pds_fi_bank = existing_record.pds_fi_bank
+                self.pds_fi_bank_no = existing_record.pds_fi_bank_no
+                self.pds_fi_holder_name = existing_record.pds_fi_holder_name
+                self.pds_fi_npwp_number = existing_record.pds_fi_npwp_number
+                self.pds_fi_npwp_name = existing_record.pds_fi_npwp_name
+                self.pds_fi_npwp_address = existing_record.pds_fi_npwp_address
+                self.pds_fi_ptkp = existing_record.pds_fi_ptkp
+                self.pds_ijazah_name = existing_record.pds_ijazah_name
+                self.pds_transcript_nilai_name = existing_record.pds_transcript_nilai_name
+                self.pds_bpjs_name = existing_record.pds_bpjs_name
+                self.pds_npwp_name = existing_record.pds_npwp_name
+                self.pds_sertification_name = existing_record.pds_sertification_name
+                self.pds_education = existing_record.pds_education
+                self.pds_certifications = existing_record.pds_certifications
+                self.pds_course = existing_record.pds_course
+                self.pds_lang_prof = existing_record.pds_lang_prof
+                self.pds_work_exp = existing_record.pds_work_exp
+                self.pds_exp_sal = existing_record.pds_exp_sal
+                self.pds_org = existing_record.pds_org
+                self.pds_health = existing_record.pds_health
+                self.pds_family = existing_record.pds_family
+                self.pds_emCont = existing_record.pds_emCont
+                self.pds_oac = existing_record.pds_oac
+            else:
+                self.pds_fullname = False
+                self.pds_nik = False
+                self.pds_addressNIK = False
+                self.pds_zipcode_addressNIK = False
+                self.pds_currentAddress = False
+                self.pds_zipcode_currentAddress = False
+                self.pds_phoneNumber = False
+                self.pds_email = False
+                self.pds_placeOfBirth = False
+                self.pds_nationality = False
+                self.pds_religion = False
+                self.pds_dob = False
+                self.pds_marital_status = False
+                self.pds_sex = False
+                self.height_value = False
+                self.pds_fi_bank = False
+                self.pds_fi_bank_no = False
+                self.pds_fi_holder_name = False
+                self.pds_fi_npwp_number = False
+                self.pds_fi_npwp_name = False
+                self.pds_fi_npwp_address = False
+                self.pds_fi_ptkp = False
+                self.pds_ijazah_name = False
+                self.pds_transcript_nilai_name = False
+                self.pds_bpjs_name = False
+                self.pds_npwp_name = False
+                self.pds_sertification_name = False
+                self.pds_education = False
+                self.pds_certifications = False
+                self.pds_course = False
+                self.pds_lang_prof = False
+                self.pds_work_exp = False
+                self.pds_exp_sal = False
+                self.pds_org = False
+                self.pds_health = False
+                self.pds_family = False
+                self.pds_emCont = False
+                self.pds_oac = False
+                # self.pds_education = [(5, 0, 0)]
+                # self.pds_certifications = [(5, 0, 0)]
+                # self.pds_course = [(5, 0, 0)]
+                # self.pds_lang_prof = [(5, 0, 0)]
+                # self.pds_work_exp = [(5, 0, 0)]
+                # self.pds_exp_sal = [(5, 0, 0)]
+                # self.pds_org = [(5, 0, 0)]
+                # self.pds_health = [(5, 0, 0)]
+                # self.pds_resume = [(5, 0, 0)]
+                # self.pds_family = [(5, 0, 0)]
+                # self.pds_emCont = [(5, 0, 0)]
+                # self.pds_oac = [(5, 0, 0)]
+                
+                
 
     @api.model
     def create_pds(self, values):
@@ -181,12 +280,6 @@ class PDSData(models.Model):
         dict_act_window['context'] = employee_data
 
         return dict_act_window
-
-
-
-
-
-
 
 class HrApplEdu(models.Model):
     _name = 'custom.edu'
