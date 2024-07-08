@@ -9,15 +9,15 @@ class ResumeModel(models.Model):
     _name = "custom.resume.experience"
 
     applicant_id = fields.Many2one('hr.applicant', string='Applicant')
-    resume_dateStart = fields.Date(string="Resume Start")
-    resume_dateEnd = fields.Date(string="Resume End")
+    resume_dateStart = fields.Date(string="Start Date")
+    resume_dateEnd = fields.Date(string="End Date")
     rsm_com_name = fields.Char(string="Project Title",)
     rsm_com_job_title = fields.Char(string="Job Title in Company")
     rsm_com_projectDes = fields.Char(string="Project Description")
-    resume_tech_used = fields.Html(string="Frontend Technology Used")
-    resume_sys_used = fields.Html(string="System Technology Used")
+    resume_tech_used = fields.Html(string="Technology Used")
+    resume_sys_used = fields.Html(string="System Integration")
     resume_tech_used_certificate = fields.Many2many('custom.resume.certif.tag', "resume_certif_tag_rel", string='Resume Certificate')
-    resume_key_responsible = fields.Html(string="Key responsibility")
+    resume_key_responsible = fields.Html(string="Key responsibilitiesc")
     company_image = fields.Image(string="Company Image")
 
 

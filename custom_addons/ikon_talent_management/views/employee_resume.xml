@@ -12,7 +12,7 @@
                 <field name="summary_experience"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page string="Resumes">
+                <page string="resume">
                     <div class="row">
                         <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
 
@@ -28,15 +28,15 @@
                                     <field name="resume_sys_used"/>
 
                                     <!--                                    <field name="fr_test"/>-->
-                                    <field name="company_image"/>
+                                    <!-- <field name="company_image"/> -->
 
                                 </tree>
                                 <form>
                                     <group>
                                         <group>
-                                            <field name="resume_dateStart"/>-->
+                                            <field name="resume_dateStart"/>
                                             <field name="resume_dateEnd"/>
-                                            <field name="company_image"/>
+                                            <!-- <field name="company_image"/> -->
                                         </group>
                                         <group>
                                             <field name="rsm_com_name"/>

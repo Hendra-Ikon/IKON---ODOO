@@ -5,7 +5,7 @@ class InheritEmployee(models.Model):
 
     _inherit = "hr.employee"
 
-    employee_resumes = fields.One2many('custom.resume.experience', 'employee_id', string='Resume')
+    employee_resumes = fields.One2many('custom.resume.experience', 'employee_id', string='resume')
     custom_skill = fields.Text(string="Custom skill")
     # pds_education = fields.One2many('custom.edu', 'employee_id', string='Education')
     empl_pds_education = fields.One2many('custom.edu', 'employee_id', string='Education')

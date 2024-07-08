@@ -346,7 +346,7 @@
                         </xpath>
 <!--                                <attribute name="attrs">{'invisible': [('user_id', '=', 85)]}</attribute>-->
             <xpath expr="//notebook" position="inside">
-                <page string="Resume">
+                <page string="Work Experiences">
                     <div class="row">
                         <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
 
