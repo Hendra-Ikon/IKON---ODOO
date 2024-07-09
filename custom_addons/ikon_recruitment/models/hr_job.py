@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class HrJob(models.Model):
     _inherit = 'hr.job'
 
-    skill_ids = fields.Many2many('custom.skill', string='Add Skill')
+    skill_ids = fields.Many2many('custom.skill', string='Required Skill')
     matching_count = fields.Integer(string='Total Matching', compute='_compute_matching_count')
 
     hr_applicant_count = fields.Integer(string='Total HR Applicants', compute='_compute_hr_applicant_count')
