@@ -12,6 +12,7 @@ class TalentPoolImportWizard(models.TransientModel):
 
     data_file = fields.Binary('Excel File', required=True)
 
+
     def import_data(self):
         file_data = self.data_file
         workbook = xlrd.open_workbook(file_contents=b64decode(file_data))
