@@ -8,8 +8,9 @@ logger = logging.getLogger(__name__)
 class AppliedJob(models.Model):
     _inherit = "hr.applicant"
 
+    # is_interviewer = fields.Boolean(compute='_compute_is_interviewer')
     applied_jobs = fields.Many2many('hr.job', string='Applied Jobs', compute='_compute_applied_jobs', store=True)
-
+    
     @api.depends('job_id')
     def _compute_applied_jobs(self):
         for applicant in self:

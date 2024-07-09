@@ -398,6 +398,18 @@
 
                 </page>
             </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="CV Row Data">
+                    <div class="row">
+                        <div class="col-lg-12 d-flex flex-column">
+                            <field name="cv_row_data" nolabel="1" placeholder="CV Row Data">
+                            </field>
+                        </div>
+                    </div>
+
+                </page>
+            </xpath>
+            
         </field>
     </record>
 

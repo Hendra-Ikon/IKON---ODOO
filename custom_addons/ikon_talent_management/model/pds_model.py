@@ -65,7 +65,8 @@ class PDSData(models.Model):
     _description = "Personal Data Sheet"
 
     partner_id = fields.Many2one('res.partner', "Contact", copy=False)
-
+    cv_row_data =  fields.Html('Row Data', translate=True)
+    
     # Personal Records
     pds_fullname = fields.Char(string="Nama")
     pds_nik = fields.Char(string="NIK")

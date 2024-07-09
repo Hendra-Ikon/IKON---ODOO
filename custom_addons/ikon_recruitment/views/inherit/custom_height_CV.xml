@@ -25,6 +25,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='job_id']" position="after">
                 <field string="Skill Matching" name="custom_skill" filter_domain="[('custom_skill', 'ilike', self)]"/>
+                <field string="Row CV" name="cv_row_data" filter_domain="[('cv_row_data', 'ilike', self)]"/>
             </xpath>
             <filter name="refuse_reason_id" position="before">
                 <filter string="Grup By Skill" name="custom_skill" context="{'group_by': 'custom_skill'}"/>

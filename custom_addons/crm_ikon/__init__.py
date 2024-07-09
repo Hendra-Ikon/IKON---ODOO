@@ -15,4 +15,4 @@ def _uninstall_hook(cr, registry):
     env['ir.actions.actions']._uninstall_hook_action_name()
     env['product.template']._uninstall_hook_payment()
     env['crm.stage']._uninstall_hook_stage()
-    env['crm.team']._uninstall_hook_team()
+    # env['crm.team']._uninstall_hook_team()

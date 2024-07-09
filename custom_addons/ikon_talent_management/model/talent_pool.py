@@ -12,6 +12,7 @@ class TalentPoolImportWizard(models.TransientModel):
 
     data_file = fields.Binary('Excel File', required=True)
 
+
     def import_data(self):
         file_data = self.data_file
         workbook = xlrd.open_workbook(file_contents=b64decode(file_data))
@@ -142,7 +143,8 @@ class TalentData(models.Model):
             if appl.degree:
                 temp_degree = appl.degree
             source_id = self.env['utm.source'].search([('name', '=', appl.sumber)], limit=1)
-            degree_id = self.env['hr.recruitment.degree'].search([('name', '=', appl.degree.upper())], limit=1)
+            degree_id = self.env['hr.recruitment.degree'].search([('name', '=', str(appl.degree).upper())], limit=1)
+
 
 
             if not source_id:
