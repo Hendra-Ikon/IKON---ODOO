@@ -46,7 +46,7 @@
                 <field name="medium_id" optional="hide"/>
                 <field name="source_id" readonly="1" optional="hide"/>
                 <field name="salary_expected" optional="hide"/>
-                <field name="salary_proposed" optional="hide"/>
+                <field name="salary_current" optional="hide"/>
                 <field name="availability" optional="hide"/>
                 <field name="department_id" invisible="context.get('invisible_department', True)" readonly="1"/>
                 <field name="company_id" invisible="1"/>
@@ -167,9 +167,9 @@
                             <span attrs="{'invisible':[('salary_expected_extra','=',False)]}"> + </span>
                             <field name="salary_expected_extra" placeholder="Extra advantages..."/>
                         </div>
-                        <label for="salary_proposed"/>
+                        <label for="salary_current"/>
                         <div class="o_row">
-                            <field name="salary_proposed"/>
+                            <field name="salary_current"/>
                             <span attrs="{'invisible':[('salary_proposed_extra','=',False)]}"> + </span>
                             <field name="salary_proposed_extra" placeholder="Extra advantages..."/>
                         </div>
