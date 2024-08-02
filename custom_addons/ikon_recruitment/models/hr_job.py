@@ -14,7 +14,13 @@ class HrJob(models.Model):
 
     hr_applicant_count = fields.Integer(string='Total HR Applicants', compute='_compute_hr_applicant_count')
     hr_applicant_unmatched_count = fields.Integer(string='Total HR Applicants', compute='_compute_unmatched_count')
-    
+    period_experience = fields.Selection([
+        ('0-1', '0-1 years'),
+        ('1-3', '1-3 years'),
+        ('3-5', '3-5 years'),
+        ('5+', '5+ years'),
+    ], string='Period Experience')  # ini ditambahkan
+
     def _compute_unmatched_count(self):
         match = self.env['hr.job.matching']
         for job in self:

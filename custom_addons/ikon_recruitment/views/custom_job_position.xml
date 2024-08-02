@@ -35,5 +35,29 @@
             </field>
         </record>
         
+ <!-- Define a new form view for hr.job -->
+        <record id="view_hr_job_form_custom" model="ir.ui.view">
+            <field name="name">hr.job.form.custom</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <form string="Job">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Recruitment">
+                                <group>
+                                    <field name="description"/>
+                                    <field name="period_experience"/> <!-- ini ditambahkan -->
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>

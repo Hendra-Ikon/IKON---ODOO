@@ -40,6 +40,14 @@ class HrApplicant(models.Model):
     pds_percentage = fields.Integer(string="PDS Fill", compute='_compute_pds_percentage', store=False)
     pds_send = fields.Boolean(string="Pds Send")
     pds_send_mail = fields.Boolean(string="Pds Send")
+
+    period_experience = fields.Selection([
+        ('0-1', '0-1 years'),
+        ('1-3', '1-3 years'),
+        ('3-5', '3-5 years'),
+        ('5+', '5+ years')
+    ], string="Period Experience")  # ini ditambahkan
+    
     @api.depends('pds_fill')
     def _compute_pds_percentage(self):
         for record in self:
