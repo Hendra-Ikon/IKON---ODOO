@@ -81,6 +81,16 @@
                     type="action" class="btn-primary" data-hotkey="q"
                     attrs="{'invisible': [('state', '!=', 'draft')]}"/>
             </xpath>
+
+            <!-- create button untuk project -->
+            <xpath expr="//button[@id='create_invoice' and @type='action']" position="after">
+                <button name="your_button_action"
+                        type="object"
+                        string="Create Project"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '!=', 'sale')]}" />
+            </xpath>
+
             <xpath expr="//div[@class='oe_title']" position="replace">
                 <div class="oe_title">
                     
@@ -142,6 +152,13 @@
 
             
                 <field name="spv" />
+                <!-- <xpath expr="//field[@name='spv']" position="after">
+                    <button name="your_button_action"
+                        type="object"
+                        string="Your Button"
+                        class="btn-primary"
+                    attrs="{'invisible': [('state', '!=', 'sale')]}" />
+                </xpath> -->
             </xpath>
             
         </field>

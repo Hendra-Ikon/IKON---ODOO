@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import re
 import json
 from odoo.exceptions import UserError 
-from fuzzywuzzy import fuzz
 from collections import Counter
 import xlsxwriter
 import io

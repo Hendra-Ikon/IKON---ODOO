@@ -24,7 +24,6 @@ MONTH_SELECTION = [
 ]
 
 YEAR_SELECTION = [(str(y), str(y)) for y in range(YEARS - 10, YEARS + 4)]
-
     
 class CrmSaleOrder(models.Model):
     _inherit = "sale.order"
@@ -68,16 +67,29 @@ class CrmSaleOrder(models.Model):
     #         period_label = f"{period.period_start}-{period.period_end}"
     #         period_selection.append((period_label, period_label))
     #     return period_selection
-    
-    
+
+    # def your_button_action(self):
+    #     # Logika untuk aksi tombol
+    #     print("Button has been clicked")
+    #     return True
+
+    def your_button_action(self):
+        project_obj = self.env['project.project']
+        project_vals = {
+            'name': self.project_name,
+            'partner_id': self.partner_id.id,
+        }
+        project = project_obj.create(project_vals)
+
+        return True
+
     @api.constrains('name')
     def _check_duplicate_name(self):
         for record in self:
             if record.name:
                 duplicate_exists = self.env['sale.order'].search_count([('name', '=', record.name)])
                 if duplicate_exists > 1:
-                    raise exceptions.ValidationError("Quotation number must be unique. This invoice number already exists.")
-
+                    raise ValidationError("Quotation number must be unique. This invoice number already exists.")
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -421,4 +433,3 @@ class CrmSaleOrder(models.Model):
 
 
    
-
