@@ -2,6 +2,8 @@ import base64
 
 from odoo import fields, models, api
 from odoo.http import request
+from odoo import models, api
+from datetime import datetime
 
 
 class ResumeModel(models.Model):
@@ -31,6 +33,12 @@ class ResumeModel(models.Model):
 
     fr_test = fields.Char(string="Frontend Used", compute="_compute_frontend_tech")
 
+    @staticmethod
+    def format_date(date):
+        # Implementasi untuk mengembalikan format bulan tahun (misal: "Januari 2023")
+        if date:
+            return date.strftime('%B %Y')  # %B untuk nama bulan penuh, %Y untuk tahun empat digit
+        return ''
 
     @api.depends("resume_tech_used")
     def _compute_frontend_tech(self):

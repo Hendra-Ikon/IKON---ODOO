@@ -26,6 +26,7 @@
         'views/inherit/job_apply_form.xml',
         'views/inherit/hr_recruitment.xml',
         'views/tes_popup.xml',
+        'views/inherit/form_apply.xml', #Tambahan ini
         'static/src/js/user_profile.js',
         'views/custom_hr_applicant_kanban.xml',
         'views/custom_job_position.xml',
