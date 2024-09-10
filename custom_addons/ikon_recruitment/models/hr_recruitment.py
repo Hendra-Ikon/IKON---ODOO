@@ -90,7 +90,7 @@ class HrApplCrUsrSnEmail(models.Model):
             # Add the user to the portal group
             user.write({'groups_id': [(4, portal_group_id)]})
 
-            template_id = self.env.ref('ikon_recruitment.set_password_email')
+            template_id = self.env.ref('auth_signup.set_password_email')
             if template_id:
                 template_id.send_mail(user.id, force_send=True)
 

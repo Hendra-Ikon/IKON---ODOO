@@ -7,7 +7,7 @@
     'website': 'https://www.ikonsultan.com',
     'category': 'Tools',
     'images': [],
-    'depends': ['base', 'web', 'website', 'portal', 'website_hr_recruitment', 'hr_recruitment'],
+    'depends': ['base', 'web', 'website', 'portal', 'website_hr_recruitment', 'hr_recruitment', 'auth_signup'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
@@ -32,6 +32,11 @@
         # Timesheet
         'views/timesheet/timesheet.xml',
         # 'views/timesheet/timesheet_dashboard.xml',
+        # Screening Form
+        # 'views/custom_screening_form_view.xml',
+        # 'views/website_screening_form',
+        # Custom email
+        'data/custom_new_user_mail.xml'
     ],
     'assets': {
         'web.assets_frontend': [
