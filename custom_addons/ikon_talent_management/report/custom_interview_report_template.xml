@@ -1,0 +1,228 @@
+<odoo>
+    <template id="custom_interview_one_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div t-attf-class="page">
+                    <t t-call="ikon_talent_management.interview_one_title"/>
+                    <t t-call="ikon_talent_management.interview_one_report"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="interview_one_title">
+        <t t-value="docs" t-set="data"/>
+        <div style="padding-bottom: 50px; font-size:40px; !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            <div style="padding-left: 215px;">Screening Information</div>
+        </div>
+    </template>
+
+    <template id="interview_one_report">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Interview Details
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; margin_bottom: 0px;">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Applicant Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.partner_name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Applied Position</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Interviewer</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.interviewer_one_ids.name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Date</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.interview_one_date" t-options='{"widget": "date","format": "dd MMMM yyyy"}'/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Link</span>
+                        </td>
+                        <td>
+                            <a t-att-href="data.interview_one_link if data.interview_one_link.startswith('https://') else 'https://' + data.interview_one_link" target="_blank">
+                                <span t-esc="data.interview_one_link"/>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Decision</span>
+                        </td>
+                        <td>
+                            <t t-foreach="dict(data.fields_get(allfields=['interview_one_decision'])['interview_one_decision']['selection']).items()" t-as="option">
+                                <t t-if="data.interview_one_decision == option[0]">
+                                    <span>&#9745;</span> <!-- Checkmark -->
+                                </t>
+                                <t t-else="">
+                                    <span>&#9744;</span> <!-- Empty checkbox -->
+                                </t>
+                                <t t-raw="option[1]"/> <!-- Option label -->
+                                <br/>
+                            </t>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div t-attf-style="padding-left: 350px; margin_top: 0px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Summary
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; margin-top: 0px; border: 1px solid #ddd; padding: 15px; word-wrap: break-word; white-space: normal;">
+            <span t-esc="data.interview_one_summary"/>
+        </div>
+    </template>
+
+    <!-- Second Interview Report -->
+    <template id="custom_interview_two_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div t-attf-class="page">
+                    <t t-call="ikon_talent_management.interview_two_title"/>
+                    <t t-call="ikon_talent_management.interview_two_report"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="interview_two_title">
+        <t t-value="docs" t-set="data"/>
+        <div style="padding-bottom: 50px; font-size:40px; !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            <div style="padding-left: 255px;">CBI Information</div>
+        </div>
+    </template>
+
+    <template id="interview_two_report">
+        <t t-value="docs" t-set="data"/>
+        <div t-attf-style="padding-left: 350px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Interview Details
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; margin_bottom: 0px;">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Applicant Name</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.partner_name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Applied Position</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 150px !important;">
+
+                            <span>Interviewer</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.interviewer_two_ids.name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Date</span>
+                        </td>
+                        <td>
+
+                            <span t-esc="data.interview_two_date" t-options='{"widget": "date","format": "dd MMMM yyyy"}'/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Link</span>
+                        </td>
+                        <td>
+                            <a t-att-href="data.interview_two_link if data.interview_two_link.startswith('https://') else 'https://' + data.interview_two_link" target="_blank">
+                                <span t-esc="data.interview_two_link"/>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <span>Interview Decision</span>
+                        </td>
+                        <td>
+                            <t t-foreach="dict(data.fields_get(allfields=['interview_two_decision'])['interview_two_decision']['selection']).items()" t-as="option">
+                                <t t-if="data.interview_two_decision == option[0]">
+                                    <span>&#9745;</span> <!-- Checkmark  -->
+                                </t>
+                                <t t-else="">
+                                    <span>&#9744;</span> <!-- Empty checkbox  -->
+                                </t>
+                                <t t-raw="option[1]"/> <!-- Option label -->
+                                <br/> 
+                            </t>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div t-attf-style="padding-left: 350px; margin_top: 0px; padding-top: 10px; padding-bottom: 10px; background-color: black !important; color: white !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
+            Summary
+        </div>
+        <div t-attf-class="mb-3 col-xl-12" t-attf-style="background-color: white; margin-top: 0px; border: 1px solid #ddd; padding: 15px; word-wrap: break-word; white-space: normal;">
+            <span t-esc="data.interview_two_summary"/>
+        </div>
+    </template>
+</odoo>

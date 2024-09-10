@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Interview One -->
+    <record id="custom_interview_view_form" model="ir.ui.view">
+        <field name="name">Interview One Form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                    <page string="1st Interview">
+                        <div class="row">
+                            <form>
+                                <group string="Interview Details">
+                                    <group>
+                                        <field name="interviewer_one_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" />
+                                        <field name="interview_one_date" widget="date"/>
+                                    </group>
+                                    <group>
+                                        <field name="interview_one_link" widget="url"/>
+                                        <field name="interview_one_decision" widget="radio"/>
+                                    </group>
+                                </group>
+                                <group string="Interview Summary">
+                                    <field name="interview_one_summary" placeholder="Summary..."/>
+                                </group>
+                            </form> 
+                        </div>
+                    </page>
+                    <page string="2nd Interview">
+                        <div class="row">
+                            <form>
+                                <group string="Interview Details">
+                                    <group>
+                                        <field name="interviewer_two_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" />
+                                        <field name="interview_two_date"/>
+                                    </group>
+                                    <group>
+                                        <field name="interview_two_link" widget="url"/>
+                                        <field name="interview_two_decision" widget="radio"/>
+                                    </group>
+                                </group>
+                                <group string="Interview Summary">
+                                    <field name="interview_two_summary" placeholder="Summary..."/>
+                                </group>
+                            </form> 
+                        </div>
+                    </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

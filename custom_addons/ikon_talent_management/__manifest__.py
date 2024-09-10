@@ -34,6 +34,9 @@
         # 'views/custom_resume_template.xml',
         'static/src/js/pds_popup_template.xml',
         # 'views/view_report/report_talent.xml',
+        'views/custom_interview_view.xml',
+        'report/custom_interview_report_template.xml',
+        'report/custom_interview_report.xml'
     ],
 
     "assets": {
