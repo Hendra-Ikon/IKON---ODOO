@@ -30,7 +30,7 @@
     </record>
 
 
-    <record id="set_password_email" model="mail.template">
+    <record id="custom_set_password_email" model="mail.template">
         <field name="name">Settings: Ikon New Portal Signup</field>
         <field name="model_id" ref="base.model_res_users"/>
         <field name="subject">{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to connect

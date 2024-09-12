@@ -2514,35 +2514,90 @@
              data-success-mode="redirect" data-success-page="/jobs"
              hide-change-model="true" t-attf-style="margin-right: 0px; margin-top: 10px;">
 
-           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-           
-           <div class="form-group row mb-4">
-               <label class="col-sm-4 col-form-label" for="pds_fi_bank">Ijazah <span style="color: red;">*</span></label>
-               <div class="col-sm-8">
-                         <t t-if="pds_data['pds_ijazah_name']">
-                            <div class="row">
-                                <div class="col-4">
-                                    <span class="uploaded-file" t-esc="pds_data['pds_ijazah_name']"    />
-                                </div>
-                                <div class="col-md-8 col-sm-4">
-                                <input id="upload_file" type="file" onchange="validatePDF(this)" name="pds_file_ijazah" class="form-control" accept="application/pdf"/>
-                                </div>
-                               
-                                
-                            </div>
-                           
-                        </t>
-                        <t t-else="">
-                            <input type="file" name="pds_file_ijazah" onchange="validatePDF(this)" class="form-control" required="True"
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+        <div class="form-group row mb-4">
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">KTP <span style="color: red;">*</span></label>
+            <div class="col-sm-8">
+                <t t-if="pds_data['pds_ktp_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_ktp_name']"></span>
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_ktp" onchange="validatePDF(this)" class="form-control" 
                             accept="application/pdf"
+                                />
+                        </div>
+                    
+                        
+                    </div>
+                
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_ktp" onchange="validatePDF(this)" class="form-control" required="True"
+                    accept="application/pdf"
+                        />
+                </t>
+                
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Akta Kelahiran <span style="color: red;">*</span></label>
+            <div class="col-sm-8">
+                <t t-if="pds_data['pds_akta_kelahiran_name']">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="uploaded-file" t-esc="pds_data['pds_akta_kelahiran_name']"    />
+                        </div>
+                        <div class="col-md-8 col-sm-4">
+                            <input type="file" name="pds_file_akta_kelahiran" onchange="validatePDF(this)" class="form-control" 
+                            accept="application/pdf"
+                                />
+                        </div>
+                    
+                        
+                    </div>
+                
+                </t>
+                <t t-else="">
+                    <input type="file" name="pds_file_akta_kelahiran" onchange="validatePDF(this)" class="form-control" required="True"
+                    accept="application/pdf"
+                        />
+                </t>
+                
+            </div>
+        </div>
+   
+
+        <div class="form-group row mb-4">
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank">Ijazah <span style="color: red;">*</span></label>
+            <div class="col-sm-8">
+                        <t t-if="pds_data['pds_ijazah_name']">
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="uploaded-file" t-esc="pds_data['pds_ijazah_name']"    />
+                            </div>
+                            <div class="col-md-8 col-sm-4">
+                            <input id="upload_file" type="file" onchange="validatePDF(this)" name="pds_file_ijazah" class="form-control" accept="application/pdf"/>
+                            </div>
                             
- 
-                     />
-                        </t>
-               </div>
-           </div>
-           
-           <div class="form-group row mb-4">
+                            
+                        </div>
+                        
+                    </t>
+                    <t t-else="">
+                        <input type="file" name="pds_file_ijazah" onchange="validatePDF(this)" class="form-control" required="True"
+                        accept="application/pdf"
+                        
+
+                    />
+                    </t>
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
             <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Transcript Nilai <span style="color: red;">*</span></label>
             <div class="col-sm-8">
                 <t t-if="pds_data['pds_transcript_nilai_name']">

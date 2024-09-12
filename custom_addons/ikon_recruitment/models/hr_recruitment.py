@@ -90,21 +90,21 @@ class HrApplCrUsrSnEmail(models.Model):
             # Add the user to the portal group
             user.write({'groups_id': [(4, portal_group_id)]})
 
-            template_id = self.env.ref('auth_signup.set_password_email')
-            if template_id:
-                template_id.send_mail(user.id, force_send=True)
+            # template_id = self.env.ref('ikon_recruitment.custom_set_password_email')
+            # if template_id:
+            #     template_id.send_mail(user.id, force_send=True)
 
-                notification = {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'title': 'Success',
-                        'message': 'Successfully sent login invitation',
-                        # 'sticky': True,
-                    }
+            notification = {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Success',
+                    'message': 'Successfully sent login invitation',
+                    # 'sticky': True,
                 }
+            }
 
-                return notification
+            return notification
             
     def pds_send_mail(self):
         name = self.partner_name  # Replace with the actual field you want to use for the user's name

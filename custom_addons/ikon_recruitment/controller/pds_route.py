@@ -32,7 +32,7 @@ class PDSController(http.Controller):
         pds_family = request.env['custom.family.information'].search([("applicant_id", '=',applicant_id)])
         pds_emc = request.env['custom.emergency.contact'].search([("applicant_id", '=',applicant_id)])
         pds_oa = request.env['custom.other.activity'].search([("applicant_id", '=',applicant_id)])
-        file = request.env['ir.attachment'].sudo().search([("res_id", '=',applicant_id),("name", 'ilike','ijazah')], limit=1)
+        file = request.env['ir.attachment'].sudo().search([("res_id", '=',applicant_id),("name", 'ilike','ktp')], limit=1)
         files = 'web/content/'+str(file.id)+'?view=true'
     
         pds_check = request.env['hr.applicant'].browse(applicant_id)
@@ -443,6 +443,10 @@ class PDSController(http.Controller):
                     return request.redirect('/pds/data#financial')
                 
                 files = []
+                if kwargs.get("pds_file_ktp"):
+                    files.append({"filename": "ktp.pdf", "field_name": "ktp", "content": kwargs.get("pds_file_ktp")})
+                if kwargs.get("pds_file_akta_kelahiran"):
+                    files.append({"filename": "akta_kelahiran.pdf", "field_name": "akta_kelahiran", "content": kwargs.get("pds_file_akta_kelahiran")})
                 if kwargs.get("pds_file_ijazah"):
                     files.append({"filename": "ijazah.pdf", "field_name": "ijazah", "content": kwargs.get("pds_file_ijazah")})
                 if kwargs.get("pds_file_transcript_nilai"):
@@ -577,6 +581,10 @@ class PDSController(http.Controller):
             for applicant in applicant_to_update:
                 
                 files = []
+                if kwargs.get("pds_file_ktp"):
+                    files.append({"filename": "ktp.pdf", "field_name": "ktp", "content": kwargs.get("pds_file_ktp")})
+                if kwargs.get("pds_file_akta_kelahiran"):
+                    files.append({"filename": "akta_kelahiran.pdf", "field_name": "akta_kelahiran", "content": kwargs.get("pds_file_akta_kelahiran")})
                 if kwargs.get("pds_file_ijazah"):
                     files.append({"filename": "ijazah.pdf", "field_name": "ijazah", "content": kwargs.get("pds_file_ijazah")})
                 if kwargs.get("pds_file_transcript_nilai"):
@@ -630,7 +638,7 @@ class PDSController(http.Controller):
 
                     # Update applicant fields
                     applicant = record.env['hr.applicant'].sudo().browse(id_record)
-                    field_names = ['ijazah', 'transcript_nilai', 'bpjs', 'npwp', 'sertification']
+                    field_names = ['ktp','akta_kelahiran', 'ijazah', 'transcript_nilai', 'bpjs', 'npwp', 'sertification']
                     if field_name in field_names:
                         applicant.sudo().write({f"pds_{field_name}_name": filename})
 

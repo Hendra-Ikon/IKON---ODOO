@@ -92,6 +92,8 @@ class PDSData(models.Model):
     pds_fi_npwp_address = fields.Char(string="NPWP Address")
     pds_fi_ptkp = fields.Char(string="PTKP")
 
+    pds_ktp_name = fields.Char(string="KTP")
+    pds_akta_kelahiran_name = fields.Char(string="Akta Kelahiran")
     pds_ijazah_name = fields.Char(string="Ijazah")
     pds_transcript_nilai_name = fields.Char(string="Transcript Nilai")
     pds_bpjs_name = fields.Char(string="BPJS")
@@ -151,6 +153,8 @@ class PDSData(models.Model):
                 self.pds_fi_npwp_name = existing_record.pds_fi_npwp_name
                 self.pds_fi_npwp_address = existing_record.pds_fi_npwp_address
                 self.pds_fi_ptkp = existing_record.pds_fi_ptkp
+                self.pds_ktp_name = existing_record.pds_ktp_name
+                self.pds_akta_kelahiran_name = existing_record.pds_akta_kelahiran_name
                 self.pds_ijazah_name = existing_record.pds_ijazah_name
                 self.pds_transcript_nilai_name = existing_record.pds_transcript_nilai_name
                 self.pds_bpjs_name = existing_record.pds_bpjs_name
@@ -190,6 +194,8 @@ class PDSData(models.Model):
                 self.pds_fi_npwp_name = False
                 self.pds_fi_npwp_address = False
                 self.pds_fi_ptkp = False
+                self.pds_ktp_name = False
+                self.pds_akta_kelahiran_name = False
                 self.pds_ijazah_name = False
                 self.pds_transcript_nilai_name = False
                 self.pds_bpjs_name = False
