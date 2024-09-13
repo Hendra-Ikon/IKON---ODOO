@@ -66,7 +66,7 @@
                                                         You have been invited by <t
                                                             t-out="object.create_uid.name or ''">Ikon
                                                     </t> of <t t-out="object.company_id.name or ''">YourCompany</t> to
-                                                        connect on Ikon.
+                                                        connect on Ikon Recruitment Portal.
                                                         <div style="margin: 16px 0px 16px 0px;">
                                                             <a t-att-href="'http://recruitment.ikonsultan.co.id/web' + object.signup_url.split('/web')[1]"
                                                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
