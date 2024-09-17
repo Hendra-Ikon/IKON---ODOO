@@ -1,4 +1,6 @@
-<odoo>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
     <record model="ir.ui.view" id="custom_hr_kanban_view_applicant">
         <field name="name">Custom Hr Applicants kanban</field>
         <field name="model">hr.applicant</field>
@@ -29,13 +31,32 @@
         </field>
     </record>
 
-
-    <record id="custom_set_password_email" model="mail.template">
-        <field name="name">Settings: Ikon New Portal Signup</field>
+    <!-- Template email untuk mengirim notifikasi ke recruiter -->
+    <record id="set_pds_email_send" model="mail.template">
+        <field name="name">Settings: PDS Send Mail</field>
         <field name="model_id" ref="base.model_res_users"/>
-        <field name="subject">{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to connect
-            to Ikon Recruitment Portal
-        </field>
+        <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+        <field name="description">PDS Filled Status</field>
+        <field name="lang">{{ object.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+    
+
+
+    <!-- For backoffice --> 
+    
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('name', '=', 'set_password_email'), ('module', '=', 'auth_signup')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+
+    <record id="auth_signup.set_password_email" model="mail.template">
+        <field name="name">[Backoffice] New Portal Signup</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="subject">{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to connect to IKON Back Office</field>
         <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
         <field name="email_to">{{ object.email_formatted }}</field>
         <field name="description">Sent to new user after you invited them</field>
@@ -54,7 +75,7 @@
                                                style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
                                             <tr>
                                                 <td valign="middle">
-                                                    <span style="font-size: 10px;">Welcome to Ikon Recruitment portal
+                                                    <span style="font-size: 10px;">Welcome to Ikonsultan Back Office App
                                                     </span>
                                                     <br/>
                                                     <span style="font-size: 20px; font-weight: bold;">
@@ -90,7 +111,7 @@
                                                         You have been invited by <t
                                                             t-out="object.create_uid.name or ''">Ikon
                                                     </t> of <t t-out="object.company_id.name or ''">YourCompany</t> to
-                                                        connect on Ikon.
+                                                        connect on Ikonsultan Back Office App.
                                                         <div style="margin: 16px 0px 16px 0px;">
                                                             <a t-att-href="object.signup_url"
                                                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
@@ -184,20 +205,12 @@
         <field name="lang">{{ object.lang }}</field>
         <field name="auto_delete" eval="True"/>
     </record>
-  
-
-            <!-- Template email untuk mengirim notifikasi ke recruiter -->
-            <record id="set_pds_email_send" model="mail.template">
-                <field name="name">Settings: PDS Send Mail</field>
-                <field name="model_id" ref="base.model_res_users"/>
-                <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
-                <field name="description">PDS Filled Status</field>
-                <field name="lang">{{ object.lang }}</field>
-                <field name="auto_delete" eval="True"/>
-            </record>
-      
-     
     
-
+     <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('name', '=', 'set_password_email'), ('module', '=', 'auth_signup')]" />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
 
 </odoo>
