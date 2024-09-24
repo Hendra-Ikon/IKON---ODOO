@@ -191,7 +191,6 @@ class ScreeningController(http.Controller):
         }
 
         error_fields = []
-        print(values)
         for field_name, field_value in values.items():
             # If it's a known field
             if field_name in authorized_fields:
@@ -210,7 +209,6 @@ class ScreeningController(http.Controller):
         if hasattr(dest_model, "website_form_input_filter"):
             data = dest_model.website_form_input_filter(request, data)
 
-        print(data)
         missing_required_fields = [label for label, field in authorized_fields.items() if field['required'] and label not in data]
         if any(error_fields):
             raise ValidationError(error_fields + missing_required_fields)
