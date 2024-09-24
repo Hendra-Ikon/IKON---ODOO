@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Screening email send button -->
+    <record model="ir.ui.view" id="custom_hr_kanban_screening_send">
+        <field name="name">Custom Screening Stage</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_bottom_left']" position="inside">
+                <field name="stage_name" invisible="1"/>
+                <!-- Add your custom button here -->
+                <button string="Send"
+                        type="object"
+                        class="oe_highlight"
+                        name="action_send_screening_form"
+                        attrs="{'invisible': [('stage_name', '!=', 'Screening')]}"/>
+            </xpath>
+        </field>
+    </record>
 
-    <!-- Interview One -->
-    <record id="custome_screening_form_view" model="ir.ui.view">
+    <!-- Automated Action to delete expired token -->
+    <data>
+        <!-- Scheduled Action Definition -->
+        <record id="custom_delete_screening_token" model="ir.cron">
+            <field name="name">Screening: Delete Expired Screening Token</field>
+            <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="state">code</field>
+            <field name="code">model.clean_expired_tokens()</field>
+            <field name="interval_number">24</field>
+            <field name="interval_type">hours</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+
+    <!-- Screening Form Tab -->
+    <record id="custom_screening_form_view" model="ir.ui.view">
         <field name="name">Screening Form</field>
         <field name="model">hr.applicant</field>
         <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
@@ -11,18 +45,28 @@
                     <page string="Screening Form">
                         <div class="row">
                             <form>
-                                <group string="Interview Details">
-                                    <group>
-                                        <field name="interviewer_one_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" />
-                                        <field name="interview_one_date" widget="date"/>
+                                <group>
+                                    <group string="Availability">
+                                        <field name="screening_availability_status"/>
+                                        <field name="screening_start_date"/>
+                                        <field name="screening_current_emp_stats"/>
+                                        <field name="screening_laptop_ownership"/>
+                                        <field name="screening_wfo_availability"/>
+                                        <field name="screening_bank_client_agreement"/>
                                     </group>
-                                    <group>
-                                        <field name="interview_one_link" widget="url"/>
-                                        <field name="interview_one_decision" widget="radio"/>
+                                    <group string="Salary and Benefits">
+                                        <field name="current_salary"/>
+                                        <field name="screening_current_benefits"/>
+                                        <field name="screening_net_or_gross"/>
+                                        <field name="expected_salary"/>
+                                        <field name="screening_other_expectation"/>
+                                        <field name="screening_negotiability"/>
                                     </group>
                                 </group>
-                                <group string="Interview Summary">
-                                    <field name="interview_one_summary" placeholder="Summary..."/>
+                                <group string="Experience and Expectation">
+                                    <field name="screening_bank_client_exp"/>
+                                    <field name="screening_past_proj_desc"/>
+                                    <field name="screening_in_five_years"/>
                                 </group>
                             </form> 
                         </div>

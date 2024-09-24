@@ -3,7 +3,6 @@ from datetime import datetime
 
 class CustomInterviewOne(models.Model):
     _inherit = "hr.applicant"
-    _description = "Interview One"
 
     applicant_id = fields.Many2one(
         comodel_name='hr.applicant', 
@@ -25,7 +24,6 @@ class CustomInterviewOne(models.Model):
 
 class CustomInterviewTwo(models.Model):
     _inherit = "hr.applicant"
-    _description = "Interview Two"
 
     applicant_id = fields.Many2one(
         comodel_name='hr.applicant', 

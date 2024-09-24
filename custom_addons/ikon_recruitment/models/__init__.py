@@ -7,6 +7,6 @@ from . import job_matching
 from . import job_matching
 from . import hr_recruitment
 from . import inherit_res_partner
-# from . import custom_screening_form
+from . import custom_screening_form
 # from . import crm_team
 
