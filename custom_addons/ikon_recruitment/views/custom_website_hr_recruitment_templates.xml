@@ -1,0 +1,42 @@
+<odoo>
+    <template id="custom_job_card" inherit_id="website_hr_recruitment.index">
+        <!-- Modify the card structure to apply a fixed margin and center the card -->
+        <xpath expr="//div[contains(@class, 'card-body')]" position="replace">
+            <style>
+                .card-body {
+                    text-align: left !important; /* Ensure everything inside the card aligns to the left */
+                    margin-left: 0 !important; /* Avoid automatic centering */
+                    padding: 16px;
+                }
+            </style>
+            <div class="card-body" t-att-data-publish="job.website_published and 'on' or 'off'">
+                <span t-if="not job.website_published" class="badge text-bg-danger mb8 p-2">unpublished</span>
+                <h3 class="text-secondary mt0 mb4 text-left">
+                    <span t-field="job.name" />
+                </h3>
+                <h5 t-if="job.no_of_recruitment &gt;= 1" class="text-left">
+                    <t t-esc="job.no_of_recruitment"/> open positions
+                </h5>
+                <div t-if="editable"
+                    t-field="job.description"
+                    class="mt16 mb0 css_non_editable_mode_hidden text-left"/>
+                <div t-esc="job.description or ''"
+                    class="mt16 mb0 css_editable_mode_hidden o_website_hr_recruitment_job_description text-left"
+                />
+                <div class="o_job_infos mt16 text-left">
+                    <span t-field="job.address_id" t-options='{
+                        "widget": "contact",
+                        "fields": ["address"],
+                        "no_tag_br": True
+                        }'/>
+                    <div t-if="job.contract_type_id">
+                        <i class="fa fa-fw fa-suitcase" title="Employment type" role="img" aria-label="Employment type"/><span t-field="job.contract_type_id"/>
+                    </div>
+                    <div>
+                        <i class="fa fa-fw fa-clock-o" title="Publication date" role="img" aria-label="Publication date"/><span t-field="job.write_date"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

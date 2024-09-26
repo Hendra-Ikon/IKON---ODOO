@@ -46,6 +46,8 @@
         'views/custom_screening_form_website.xml',
         # Custom email
         'data/custom_new_user_mail.xml',
+        # Custom Job Card
+        'views/custom_website_hr_recruitment_templates.xml',
     ],
     'assets': {
         'web.assets_frontend': [
