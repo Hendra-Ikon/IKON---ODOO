@@ -14,7 +14,6 @@ class CustomWebsiteForm(WebsiteForm):
         return float(field_input)
     
     def extract_data(self, model, values):
-        print("here1")
         dest_model = request.env[model.sudo().model]
 
         data = {
@@ -29,8 +28,6 @@ class CustomWebsiteForm(WebsiteForm):
         # Add your custom field to authorized_fields if it doesn't already exist
         if 'salary_expected' not in authorized_fields:
             authorized_fields['salary_expected'] = {'type': 'float', 'required': False}
-
-        print(authorized_fields)
 
         error_fields = []
         custom_fields = []
