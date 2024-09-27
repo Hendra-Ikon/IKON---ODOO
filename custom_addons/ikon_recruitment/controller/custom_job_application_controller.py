@@ -1,17 +1,67 @@
 from odoo import http
 from odoo.http import request
+from odoo.tools import plaintext2html
 from odoo.exceptions import ValidationError
 from odoo.addons.website.controllers.form import WebsiteForm  # Import the existing controller
-from odoo import SUPERUSER_ID, _
+from odoo import SUPERUSER_ID, _, _lt
 import base64
 
 class CustomWebsiteForm(WebsiteForm):
+    
+    # Constants string to make metadata readable on a text field
+
+    _meta_label = _lt("Metadata")  # Title for meta data
+
+    # Dict of dynamically called filters following type of field to be fault tolerent
+
+    def identity(self, field_label, field_input):
+        return field_input
+
+    def integer(self, field_label, field_input):
+        return int(field_input)
 
     def floating(self, field_label, field_input):
         # Handle the case for Indonesian number format
+        print("here4")
         if isinstance(field_input, str):
+            print("here5")
             field_input = field_input.replace('.', '')
+            print("here6", field_input)
+            print("here7", float(field_input))
         return float(field_input)
+
+    def html(self, field_label, field_input):
+        return plaintext2html(field_input)
+
+    def boolean(self, field_label, field_input):
+        return bool(field_input)
+
+    def binary(self, field_label, field_input):
+        return base64.b64encode(field_input.read())
+
+    def one2many(self, field_label, field_input):
+        return [int(i) for i in field_input.split(',')]
+
+    def many2many(self, field_label, field_input, *args):
+        return [(args[0] if args else (6, 0)) + (self.one2many(field_label, field_input),)]
+
+    _input_filters = {
+        'char': identity,
+        'text': identity,
+        'html': html,
+        'date': identity,
+        'datetime': identity,
+        'many2one': integer,
+        'one2many': one2many,
+        'many2many': many2many,
+        'selection': identity,
+        'boolean': boolean,
+        'integer': integer,
+        'float': floating,
+        'binary': binary,
+        'monetary': floating,
+    }
+
     
     def extract_data(self, model, values):
         dest_model = request.env[model.sudo().model]
@@ -28,7 +78,7 @@ class CustomWebsiteForm(WebsiteForm):
         # Add your custom field to authorized_fields if it doesn't already exist
         if 'salary_expected' not in authorized_fields:
             authorized_fields['salary_expected'] = {'type': 'float', 'required': False}
-
+        print("authorized fields:", authorized_fields)
         error_fields = []
         custom_fields = []
 
@@ -52,8 +102,11 @@ class CustomWebsiteForm(WebsiteForm):
             # If it's a known field
             elif field_name in authorized_fields:
                 try:
+                    print("here1", field_name)
                     input_filter = self._input_filters[authorized_fields[field_name]['type']]
+                    print("here2", input_filter, field_value)
                     data['record'][field_name] = input_filter(self, field_name, field_value)
+                    print("here3")
                 except ValueError:
                     error_fields.append(field_name)
 
