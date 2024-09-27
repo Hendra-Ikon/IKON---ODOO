@@ -22,12 +22,8 @@ class CustomWebsiteForm(WebsiteForm):
 
     def floating(self, field_label, field_input):
         # Handle the case for Indonesian number format
-        print("here4")
         if isinstance(field_input, str):
-            print("here5")
             field_input = field_input.replace('.', '')
-            print("here6", field_input)
-            print("here7", float(field_input))
         return float(field_input)
 
     def html(self, field_label, field_input):
@@ -78,7 +74,6 @@ class CustomWebsiteForm(WebsiteForm):
         # Add your custom field to authorized_fields if it doesn't already exist
         if 'salary_expected' not in authorized_fields:
             authorized_fields['salary_expected'] = {'type': 'float', 'required': False}
-        print("authorized fields:", authorized_fields)
         error_fields = []
         custom_fields = []
 
@@ -102,11 +97,8 @@ class CustomWebsiteForm(WebsiteForm):
             # If it's a known field
             elif field_name in authorized_fields:
                 try:
-                    print("here1", field_name)
                     input_filter = self._input_filters[authorized_fields[field_name]['type']]
-                    print("here2", input_filter, field_value)
                     data['record'][field_name] = input_filter(self, field_name, field_value)
-                    print("here3")
                 except ValueError:
                     error_fields.append(field_name)
 
