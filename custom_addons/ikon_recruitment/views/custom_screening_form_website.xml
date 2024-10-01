@@ -33,7 +33,6 @@
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening1" type="text" class="form-control s_website_form_input"
-                                                    name="partner_name" 
                                                     t-att-value="applicant.partner_name" 
                                                     readonly="readonly"  
                                                     required="true" />
@@ -49,7 +48,6 @@
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening2" type="tel" class="form-control s_website_form_input"
-                                                    name="partner_phone" 
                                                     t-att-value="applicant.partner_phone if applicant.partner_phone else 'No Phone Available'" 
                                                     readonly="readonly"  
                                                     required="true" />
@@ -65,7 +63,6 @@
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening3" type="email" class="form-control s_website_form_input"
-                                                    name="email_from" 
                                                     t-att-value="applicant.email_from" 
                                                     readonly="readonly"  
                                                     required="true" />
@@ -73,16 +70,15 @@
                                         </div>
                                     </div>
                                     <!-- Applied Position -->
-                                    <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="email" data-name="Field">
+                                    <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening4">
                                                 <span class="s_website_form_label_content">Position that you applied</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
-                                                <input id="screening4" type="text" class="form-control s_website_form_input"
-                                                    name="name" 
-                                                    t-att-value="applicant.name if applicant.name else 'No Position Applied'" 
+                                                <input id="screening4" type="text" class="form-control s_website_form_input" 
+                                                    t-att-value="applicant.job_id.name if applicant.job_id else 'No Position Applied'" 
                                                     readonly="readonly"  
                                                     required="true" />
                                             </div>

@@ -2,7 +2,7 @@
 <odoo>
     <!-- Print First Interview Report -->
     <record id="action_print_interview_one_report" model="ir.actions.report">
-        <field name="name">Screening Information</field>
+        <field name="name">Screening Interview</field>
         <field name="model">hr.applicant</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">ikon_talent_management.custom_interview_one_report</field>
@@ -14,7 +14,7 @@
 
     <!-- Print Second Interview Report -->
     <record id="action_print_interview_two_report" model="ir.actions.report">
-        <field name="name">CBI Information</field>
+        <field name="name">CBI Interview</field>
         <field name="model">hr.applicant</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">ikon_talent_management.custom_interview_two_report</field>

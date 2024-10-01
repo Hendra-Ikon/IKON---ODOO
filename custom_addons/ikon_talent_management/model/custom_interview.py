@@ -8,19 +8,19 @@ class CustomInterviewOne(models.Model):
         comodel_name='hr.applicant', 
         string='Applicant')
     interviewer_one_ids = fields.Many2many('res.users', 'hr_applicant_res_users_interviewers_one_rel',
-        string='Interviewers', index=True, tracking=True,
+        string='First Interviewers', index=True, tracking=True,
         domain="[('share', '=', False), ('company_ids', 'in', company_id)]")
     interview_one_date = fields.Date(
-        string="Interview Date")
+        string="First Interview Date")
     interview_one_link = fields.Char(
-        string="Interview Link")
+        string="First Interview Link")
     interview_one_decision = fields.Selection(
-        string="Interview Decision", 
+        string="First Interview Decision", 
         selection=[
             ('hire', 'Hire'), 
             ('do_not_hire', 'Do Not Hire'), 
             ('second_interview', 'Refer for 2nd Interview')])
-    interview_one_summary = fields.Html(string="Summary")
+    interview_one_summary = fields.Html(string="First Interview Summary")
 
 class CustomInterviewTwo(models.Model):
     _inherit = "hr.applicant"
@@ -29,22 +29,16 @@ class CustomInterviewTwo(models.Model):
         comodel_name='hr.applicant', 
         string='Applicant')
     interviewer_two_ids = fields.Many2many('res.users', 'hr_applicant_res_users_interviewers_two_rel',
-        string='Interviewers', index=True, tracking=True,
+        string='Second Interviewers', index=True, tracking=True,
         domain="[('share', '=', False), ('company_ids', 'in', company_id)]")
     interview_two_date = fields.Date(
-        string="Interview Date")
+        string="Second Interview Date")
     interview_two_link = fields.Char(
-        string="Interview Link")
+        string="Second Interview Link")
     interview_two_decision = fields.Selection(
-        string="Interview Decision", 
-        selection=[
-            ('hire', 'Hire'), 
-            ('do_not_hire', 'Do Not Hire'), 
-            ('second_interview', 'Refer for 2nd Interview')])
-    interview_two_decision = fields.Selection(
-        string="Interview Decision", 
+        string="Second Interview Decision", 
         selection=[
             ('hire', 'Hire'), 
             ('do_not_hire', 'Do Not Hire')])
-    interview_two_summary = fields.Html(string="Summary")
+    interview_two_summary = fields.Html(string="Second Interview Summary")
     

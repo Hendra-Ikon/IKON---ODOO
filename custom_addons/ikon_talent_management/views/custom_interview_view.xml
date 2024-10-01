@@ -13,16 +13,16 @@
                             <form>
                                 <group string="Interview Details">
                                     <group>
-                                        <field name="interviewer_one_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" />
-                                        <field name="interview_one_date" widget="date"/>
+                                        <field name="interviewer_one_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" string="Inteviewer" />
+                                        <field name="interview_one_date" widget="date" string="Interview Date"/>
                                     </group>
                                     <group>
-                                        <field name="interview_one_link" widget="url"/>
-                                        <field name="interview_one_decision" widget="radio"/>
+                                        <field name="interview_one_link" widget="url" string="Interview Link"/>
+                                        <field name="interview_one_decision" widget="radio" string="Interview Decision"/>
                                     </group>
                                 </group>
                                 <group string="Interview Summary">
-                                    <field name="interview_one_summary" placeholder="Summary..."/>
+                                    <field name="interview_one_summary" placeholder="Summary..." string="Summary"/>
                                 </group>
                             </form> 
                         </div>
@@ -32,16 +32,16 @@
                             <form>
                                 <group string="Interview Details">
                                     <group>
-                                        <field name="interviewer_two_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" />
-                                        <field name="interview_two_date"/>
+                                        <field name="interviewer_two_ids" options="{'no_create': True, 'no_create_edit': True}" widget="many2many_avatar_user" string="Interviewer" />
+                                        <field name="interview_two_date" string="Interview Date"/>
                                     </group>
                                     <group>
-                                        <field name="interview_two_link" widget="url"/>
-                                        <field name="interview_two_decision" widget="radio"/>
+                                        <field name="interview_two_link" widget="url" string="Interview Link"/>
+                                        <field name="interview_two_decision" widget="radio" string="Interview Decision"/>
                                     </group>
                                 </group>
                                 <group string="Interview Summary">
-                                    <field name="interview_two_summary" placeholder="Summary..."/>
+                                    <field name="interview_two_summary" placeholder="Summary..." string="Summary"/>
                                 </group>
                             </form> 
                         </div>

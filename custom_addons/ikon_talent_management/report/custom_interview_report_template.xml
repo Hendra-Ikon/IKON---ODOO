@@ -12,8 +12,8 @@
 
     <template id="interview_one_title">
         <t t-value="docs" t-set="data"/>
-        <div style="padding-bottom: 50px; font-size:40px; !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
-            <div style="padding-left: 215px;">Screening Information</div>
+        <div style="padding-bottom: 50px; font-size: 40px; color: black; font-weight: bold; display: flex; justify-content: center; align-items: center;">
+            Screening Interview
         </div>
     </template>
 
@@ -44,7 +44,7 @@
                         </td>
                         <td>
 
-                            <span t-esc="data.name"/>
+                            <span t-esc="data.job_id.name"/>
                         </td>
 
                     </tr>
@@ -76,7 +76,7 @@
                             <span>Interview Link</span>
                         </td>
                         <td>
-                            <a t-att-href="data.interview_one_link if data.interview_one_link.startswith('https://') else 'https://' + data.interview_one_link" target="_blank">
+                            <a t-att-href="data.interview_one_link if data.interview_one_link and isinstance(data.interview_one_link, str) and data.interview_one_link.startswith('https://') else 'https://' + (data.interview_one_link or '')" target="_blank">
                                 <span t-esc="data.interview_one_link"/>
                             </a>
                         </td>
@@ -126,8 +126,8 @@
 
     <template id="interview_two_title">
         <t t-value="docs" t-set="data"/>
-        <div style="padding-bottom: 50px; font-size:40px; !important; color: black !important; font-weight: bold !important; display: flex; justify-content: center; align-item: center;">
-            <div style="padding-left: 255px;">CBI Information</div>
+        <div style="padding-bottom: 50px; font-size: 40px; color: black; font-weight: bold; display: flex; justify-content: center; align-items: center;">
+            CBI Interview
         </div>
     </template>
 
@@ -158,7 +158,7 @@
                         </td>
                         <td>
 
-                            <span t-esc="data.name"/>
+                            <span t-esc="data.job_id.name"/>
                         </td>
 
                     </tr>
