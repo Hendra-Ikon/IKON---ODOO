@@ -1,5 +1,5 @@
 import logging
-from odoo import models, fields, api
+from odoo import models, fields, api, tools
 from datetime import datetime, timedelta
 import secrets
 
@@ -10,7 +10,12 @@ class CustomScreeningForm(models.Model):
 
     screening_token = fields.Char(string='Screening Token', readonly=True)
     screening_token_expiration = fields.Datetime(string='Screening Token Expiration')
+    screening_url = fields.Char(string='Screening URL', readonly=True)
     
+    email_formatted = fields.Char(
+        'Formatted Email', compute='_compute_email_formatted',
+        help='Format email address "Name <email@domain>"')
+
     applicant_id = fields.Many2one(
         comodel_name='hr.applicant',
         string='Applicant')
@@ -93,59 +98,78 @@ class CustomScreeningForm(models.Model):
         string="Negotiability",
         website_form_blacklisted=False,
     )
+
+    @api.depends('applicant_id')
+    def _compute_email_formatted(self):
+        for applicant_id in self:
+            if applicant_id.email_from:
+                applicant_id.email_formatted = tools.formataddr((applicant_id.partner_name or u"False", applicant_id.email_from or u"False"))
+            else:
+                applicant_id.email_formatted = ''
     
     @api.model
     def clean_expired_tokens(self):
         # This method will be called periodically to clean expired tokens
         expired_tokens = self.search([('screening_token_expiration', '<', fields.Datetime.now())])
-        expired_tokens.write({'screening_token': False, 'screening_token_expiration': False})
+        expired_tokens.write({'screening_token': None, 'screening_token_expiration': None, 'screening_url': None})
         
     def generate_screening_url(self):
         # Check if a token exists and if it's expired
+        base_url = 'https://recruitment.ikonsultan.co.id/'
+
         if self.screening_token and self.screening_token_expiration > datetime.now():
             # Return existing token if it's not expired
-            base_url = 'http://recruitment.ikonsultan.co.id/'
             return f"{base_url}web/screening-form/{self.screening_token}?email={self.email_from}"
+        elif self.screening_token and self.screening_token_expiration < datetime.now():
+            self.clean_expired_tokens()
         
         # Generate a unique token
         token = secrets.token_urlsafe(16)
         # Set token expiration (e.g., 1 hour from now)
-        token_expiration = fields.Datetime.now() + timedelta(hours=24)
+        token_expiration = fields.Datetime.now() + timedelta(minutes=1)
+
         self.write({
             'screening_token': token,
             'screening_token_expiration': token_expiration
         })
-        # Return the full URL
-        base_url = 'http://recruitment.ikonsultan.co.id/'
-        return f"\'{base_url}web/screening-form/{self.screening_token}?email={self.email_from}\'"
-        # return self.screening_token
+        
+        screening_url = f"{base_url}web/screening-form/{self.screening_token}?email={self.email_from}"
+
+        self.write({
+            'screening_url': screening_url
+        })
+
+        return screening_url
 
     def action_send_screening_form(self):
-        name = self.partner_name
-        email = self.email_from
-        
         context = self._context
         current_uid = context.get('uid')
         current_user = self.env['res.users'].browse(current_uid)
 
-        subject = f"{current_user.name} from {current_user.company_id.name} invites you to fill Screening Form for the position you applied"
+        # subject = f"{current_user.name} from {current_user.company_id.name} invites you to fill Screening Form for the position you applied"
         user = self.env['res.users'].search([
-            ('login', '=', email),
-            ('name', '=', name)
+            ('login', '=', self.email_from),
+            ('name', '=', self.partner_name)
             ], limit=1)
+
+        self.generate_screening_url()
 
         template = self.env.ref('ikon_recruitment.custom_screening_email')
         
-        template.write({
-            'subject': subject,
-            'email_to': self.email_from,
-            'body_html': template.body_html.replace(
-                '{screening_url}', self.generate_screening_url()).replace(
-                '{applicant_name}', name).replace(
-                '{creator}', current_user.name)
-        })
+        # template.write({
+        #     'subject': subject,
+        #     'email_to': self.email_from,
+        #     'applicant_name': name, 
+        #     'creator_name':current_user.name,
+        #     'screening_url':self.generate_screening_url()
+            # 'body_html': template.body_html.replace(
+        #         '{screening_url}', self.generate_screening_url()).replace(
+        #         '{applicant_name}', name).replace(
+        #         '{creator}', current_user.name)
+        # })
         
-        template.send_mail(user.id, force_send=True, raise_exception=True)
+        # email_values={'applicant_name': name, 'creator_name':current_user.name,'screening_url':self.generate_screening_url()}
+        template.send_mail(self.id, force_send=True, raise_exception=True)
         _logger.info("Screening email sent for user <%s> to <%s>", user.login, user.email)
 
         notification = {

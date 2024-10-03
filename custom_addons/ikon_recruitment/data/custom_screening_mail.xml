@@ -3,8 +3,8 @@
     
     <record id="custom_screening_email" model="mail.template">
         <field name="name">Ikon: Screening Email</field>
-        <field name="model_id" ref="base.model_res_users"/>
-        <field name="subject">{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to fill Screening Form for the position you applied</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="subject">{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to fill screening form for the position you applied</field>
         <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
         <field name="email_to">{{ object.email_formatted }}</field>
         <field name="description">Send screening form email</field>
@@ -27,7 +27,7 @@
                                                     </span>
                                                     <br/>
                                                     <span style="font-size: 20px; font-weight: bold;">
-                                                        <t t-out="'{applicant_name}'">Marc Demo</t>
+                                                        <t t-out="object.partner_name or ''">Marc Demo</t>
                                                     </span>
                                                 </td>
                                                 <td valign="middle" align="right">
@@ -53,34 +53,18 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <div>
-                                                        Dear <t t-out="'{applicant_name}'">Marc Demo</t>,
+                                                        Dear <t t-out="object.partner_name or ''">Marc Demo</t>,
                                                         <br/>
                                                         <br/>
-                                                        You have been invited by <t
-                                                            t-out="'{creator}'">Ikon
+                                                        You have been invited by <t t-out="object.create_uid.name or ''">Ikon
                                                     </t> of <t t-out="object.company_id.name or ''">YourCompany</t> to
                                                         fill the screening form for the position you applied.
                                                         <div style="margin: 16px 0px 16px 0px;">
-                                                            <a t-att-href="{screening_url}"
+                                                            <a t-att-href="object.screening_url"
                                                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
                                                                 Screening Form
                                                             </a>
                                                         </div>
-                                                        <!-- <t t-set="website_url" t-value="'https://recruitment.ikonsultan.co.id/'"></t> -->
-                                                        <!-- Your Ikon domain is:
-                                                        <b>
-                                                            <a t-att-href="'https://recruitment.ikonsultan.co.id/'">
-                                                                https://recruitment.ikonsultan.co.id/
-                                                            </a>
-                                                        </b>
-                                                        <br/>
-                                                        Your sign in email is:
-                                                        <b>
-                                                            <a t-attf-href="/web/login?login={{ object.email }}"
-                                                               target="_blank" t-out="object.email or ''">
-                                                                mark.brown23@example.com
-                                                            </a>
-                                                        </b> -->
                                                         <br/>
                                                         <br/>
                                                         Never heard of Ikon? It’s an all-in-one business software
@@ -150,7 +134,7 @@
                 </tr>
             </table>
         </field>
-        <field name="lang">{{ object.lang }}</field>
+        <field name="lang">'en_US'</field>
         <field name="auto_delete" eval="True"/>
     </record>
     
