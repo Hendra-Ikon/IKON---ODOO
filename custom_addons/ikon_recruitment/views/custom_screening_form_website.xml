@@ -26,16 +26,18 @@
                                 <div class="s_website_form_rows row s_col_no_bgcolor">
                                     <!-- Full Name -->
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required " data-type="char" data-name="Field">
-                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor" >
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening1">
-                                                <span class="s_website_form_label_content">Full Name</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;" >Full Name</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening1" type="text" class="form-control s_website_form_input"
                                                     t-att-value="applicant.partner_name" 
                                                     readonly="readonly"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -43,14 +45,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening2">
-                                                <span class="s_website_form_label_content">Phone Number</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Phone Number</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening2" type="tel" class="form-control s_website_form_input"
                                                     t-att-value="applicant.partner_phone if applicant.partner_phone else 'No Phone Available'" 
                                                     readonly="readonly"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -58,14 +62,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="email" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening3">
-                                                <span class="s_website_form_label_content">Email</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Email</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening3" type="email" class="form-control s_website_form_input"
                                                     t-att-value="applicant.email_from" 
                                                     readonly="readonly"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -73,14 +79,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening4">
-                                                <span class="s_website_form_label_content">Position that you applied</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Position that you applied</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening4" type="text" class="form-control s_website_form_input" 
                                                     t-att-value="applicant.job_id.name if applicant.job_id else 'No Position Applied'" 
                                                     readonly="readonly"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -88,14 +96,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required " data-type="char" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening5">
-                                                <span class="s_website_form_label_content">How is your availability? (e.g. In 3 months)</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">How is your availability? (e.g. In 3 months)</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening5" type="text" class="form-control s_website_form_input"
                                                     name="screening_availability_status" 
                                                     t-att-value="applicant.screening_availability_status"   
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -104,14 +114,16 @@
                                         data-type="date" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening6">
-                                                <span class="s_website_form_label_content">Any specific date that you target to start?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Any specific date that you target to start?</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening6" type="date" class="form-control s_website_form_input"
                                                     name="screening_start_date" 
                                                     t-att-value="applicant.screening_start_date if applicant.screening_start_date else ''" 
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -119,14 +131,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required " data-type="char" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening7">
-                                                <span class="s_website_form_label_content">What is your current employment status? (e.g. Contract - 6 monts)</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">What is your current employment status? (e.g. Contract - 6 monts)</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="screening7" type="text" class="form-control s_website_form_input"
                                                     name="screening_current_emp_stats" 
                                                     t-att-value="applicant.screening_current_emp_stats"   
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -135,11 +149,11 @@
                                         data-type="selection" data-name="screening_laptop_ownership">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening8">
-                                                <span class="s_website_form_label_content">Laptop Ownership</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Laptop Ownership</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
-                                                <select id="screening8" class="form-control s_website_form_input" name="screening_laptop_ownership">
+                                                <select id="screening8" class="form-control s_website_form_input" name="screening_laptop_ownership" style="font-size: 14px;">
                                                     <option value="yes_yes" t-att-selected="applicant.screening_laptop_ownership == 'yes_yes'">
                                                         Yes and OK to use it for project
                                                     </option>
@@ -159,10 +173,10 @@
                                         data-type="boolean" data-name="screening_wfo_availability">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="recruitment_wfo_availability">
-                                                <span class="s_website_form_label_content">WFO Availability</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">WFO Availability</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
-                                            <div class="col-sm">
+                                            <div class="col-sm" style="font-size: 14px;">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="screening_wfo_availability" id="wfo_yes" value='true' required="true"
                                                         t-att-checked="applicant.screening_wfo_availability == True"/>
@@ -186,11 +200,11 @@
                                         data-type="selection" data-name="screening_bank_client_agreement">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening9">
-                                                <span class="s_website_form_label_content">Our clients might be a bank or financing companies.</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Our clients might be a bank or financing companies.</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
-                                            <div class="col-sm">
-                                                <select id="screening9" class="form-control s_website_form_input" name="screening_bank_client_agreement">
+                                            <div class="col-sm" style="font-size: 14px;">
+                                                <select id="screening9" class="form-control s_website_form_input" name="screening_bank_client_agreement" style="font-size: 14px;">
                                                     <option value="yes_yes" t-att-selected="applicant.screening_bank_client_agreement == 'yes_yes'">
                                                         Yes, I am OK to work for banks
                                                     </option>
@@ -210,14 +224,16 @@
                                         data-type="html" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening_bank_client_exp">
-                                                <span class="s_website_form_label_content">Do you have any experience working for banks / financing companies / insurance? Please describe your projects and your role, and duration for each project</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Do you have any experience working for banks / financing companies / insurance? Please describe your projects and your role, and duration for each project</span>
                                             </label>
                                             <div class="col-sm">
                                                 <!-- Textarea to show existing content, allowing editing -->
-                                                <textarea id="screening_bank_client_exp" class="form-control s_website_form_input" 
+                                                <div class="col-sm">
+                                                    <!-- Textarea to show existing content, allowing editing -->
+                                                    <textarea id="screening_bank_client_exp" class="form-control s_website_form_input" 
                                                         name="screening_bank_client_exp" rows="5" 
-                                                        t-esc="applicant.screening_bank_client_exp">
-                                                </textarea>
+                                                        style="font-size: 14px;"><t t-esc="applicant.screening_bank_client_exp"/></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -227,14 +243,13 @@
                                         data-type="html" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening_past_proj_desc">
-                                                <span class="s_website_form_label_content">Describe your project(s) that you are very proud of!  Describe your role, key challenges, your achievements, and duration for each project</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Describe your project(s) that you are very proud of!  Describe your role, key challenges, your achievements, and duration for each project</span>
                                             </label>
                                             <div class="col-sm">
                                                 <!-- Textarea to show existing content, allowing editing -->
                                                 <textarea id="screening_past_proj_desc" class="form-control s_website_form_input" 
                                                         name="screening_past_proj_desc" rows="5" 
-                                                        t-esc="applicant.screening_past_proj_desc">
-                                                </textarea>
+                                                        style="font-size: 14px;"><t t-esc="applicant.screening_past_proj_desc"/></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -243,14 +258,13 @@
                                         data-type="html" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening_in_five_years">
-                                                <span class="s_website_form_label_content">Describe your career goals and expectations in the next 5 years</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Describe your career goals and expectations in the next 5 years</span>
                                             </label>
                                             <div class="col-sm">
                                                 <!-- Textarea to show existing content, allowing editing -->
                                                 <textarea id="screening_in_five_years" class="form-control s_website_form_input" 
                                                     name="screening_in_five_years" rows="5" 
-                                                    t-esc="applicant.screening_in_five_years">
-                                                </textarea>
+                                                    style="font-size: 14px;"><t t-esc="applicant.screening_in_five_years"/></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -258,14 +272,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="integer" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="current_salary">
-                                                <span class="s_website_form_label_content">What is your current monthly salary?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">What is your current monthly salary?</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
                                                 <input id="current_salary" type="number" class="form-control s_website_form_input"
                                                     name="current_salary" 
                                                     t-att-value="applicant.current_salary if applicant.current_salary else '0'"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -274,14 +290,13 @@
                                         data-type="html" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening_current_benefits">
-                                                <span class="s_website_form_label_content">Can you describe your current package (insurance, allowance)?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Can you describe your current package (insurance, allowance)?</span>
                                             </label>
                                             <div class="col-sm">
                                                 <!-- Textarea to show existing content, allowing editing -->
                                                 <textarea id="screening_current_benefits" class="form-control s_website_form_input" 
                                                     name="screening_current_benefits" rows="5"
-                                                    t-esc="applicant.screening_current_benefits">
-                                                </textarea>
+                                                    style="font-size: 14px;"><t t-esc="applicant.screening_current_benefits"/></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -290,15 +305,15 @@
                                         data-type="selection" data-name="screening_net_or_gross">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening10">
-                                                <span class="s_website_form_label_content">Is it Net or Gross?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Is it Net or Gross?</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
-                                            <div class="col-sm">
-                                                <select id="screening10" class="form-control s_website_form_input" name="screening_net_or_gross">
-                                                    <option value="net" t-att-selected="applicant.screening_net_or_gross == 'net'">
+                                            <div class="col-sm" style="font-size: 14px;">
+                                                <select id="screening10" class="form-control s_website_form_input" name="screening_net_or_gross" style="font-size: 14px;">
+                                                    <option value="net" t-att-selected="applicant.screening_net_or_gross == 'net'" style="font-size: 14px;">
                                                         Net
                                                     </option>
-                                                    <option value="gross" t-att-selected="applicant.screening_net_or_gross == 'gross'">
+                                                    <option value="gross" t-att-selected="applicant.screening_net_or_gross == 'gross'" style="font-size: 14px;">
                                                         Gross
                                                     </option>
                                                 </select>
@@ -309,14 +324,16 @@
                                     <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required" data-type="integer" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="expected_salary">
-                                                <span class="s_website_form_label_content">What is your expected monthly salary?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">What is your expected monthly salary?</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
-                                            <div class="col-sm">
+                                            <div class="col-sm" style="font-size: 14px;">
                                                 <input id="expected_salary" type="number" class="form-control s_website_form_input"
                                                     name="expected_salary" 
                                                     t-att-value="applicant.expected_salary if applicant.expected_salary else '0'"  
-                                                    required="true" />
+                                                    required="true"
+                                                    style="font-size: 14px;"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -325,14 +342,13 @@
                                         data-type="html" data-name="Field">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening_other_expectation">
-                                                <span class="s_website_form_label_content">Any other expecations?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Any other expecations?</span>
                                             </label>
                                             <div class="col-sm">
                                                 <!-- Textarea to show existing content, allowing editing -->
                                                 <textarea id="screening_other_expectation" class="form-control s_website_form_input" 
                                                     name="screening_other_expectation" rows="5" 
-                                                    t-esc="applicant.screening_other_expectation">
-                                                </textarea>
+                                                    style="font-size: 14px;"><t t-esc="applicant.screening_other_expectation"/></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -341,11 +357,11 @@
                                         data-type="selection" data-name="screening_negotiability">
                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                             <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="screening11">
-                                                <span class="s_website_form_label_content">Is it negotiable?</span>
+                                                <span class="s_website_form_label_content" style="font-size: 14px;">Is it negotiable?</span>
                                                 <span class="s_website_form_mark"> *</span>
                                             </label>
                                             <div class="col-sm">
-                                                <select id="screening11" class="form-control s_website_form_input" name="screening_negotiability">
+                                                <select id="screening11" class="form-control s_website_form_input" name="screening_negotiability" style="font-size: 14px;">
                                                     <option value="yes" t-att-selected="applicant.screening_negotiability == 'yes'">
                                                         Yes
                                                     </option>
