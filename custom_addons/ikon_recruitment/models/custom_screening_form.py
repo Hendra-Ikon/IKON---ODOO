@@ -126,7 +126,7 @@ class CustomScreeningForm(models.Model):
         # Generate a unique token
         token = secrets.token_urlsafe(16)
         # Set token expiration (e.g., 1 hour from now)
-        token_expiration = fields.Datetime.now() + timedelta(minutes=1)
+        token_expiration = fields.Datetime.now() + timedelta(hourse=24)
 
         self.write({
             'screening_token': token,
