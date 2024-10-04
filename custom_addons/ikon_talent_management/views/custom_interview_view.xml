@@ -23,6 +23,9 @@
                                 </group>
                                 <group string="Interview Summary">
                                     <field name="interview_one_summary" placeholder="Summary..." string="Summary"/>
+                                    <group>
+                                        <button string="Summarize" type="object" class="oe_highlight" name="action_summarize_interview"/>
+                                    </group>
                                 </group>
                             </form> 
                         </div>

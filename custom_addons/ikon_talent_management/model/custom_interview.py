@@ -22,6 +22,9 @@ class CustomInterviewOne(models.Model):
             ('second_interview', 'Refer for 2nd Interview')])
     interview_one_summary = fields.Html(string="First Interview Summary")
 
+    def action_summarize_interview(self):
+        return True
+
 class CustomInterviewTwo(models.Model):
     _inherit = "hr.applicant"
 
