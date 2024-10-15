@@ -8,7 +8,7 @@
     'category': 'Tools',
     'images': [],
     'images': [],
-    'depends': ['base', "web", 'hr_recruitment', 'hr_skills', 'website', ],
+    'depends': ['base', "web", 'hr_recruitment', 'hr_skills', 'website'],
     "external_dependencies": {"python3.9": ["graphene"]},
     'license': 'AGPL-3',
     'data': [
