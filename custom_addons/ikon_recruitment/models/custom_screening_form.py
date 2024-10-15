@@ -19,10 +19,7 @@ class CustomScreeningForm(models.Model):
     applicant_id = fields.Many2one(
         comodel_name='hr.applicant',
         string='Applicant')
-    # Full name = hr.applicant.partner_name
-    # Phone No = hr.applicant.partner_phone
-    # Email = hr.applicant.email_from
-    # Position that you applied = hr.applicant.name
+ 
     screening_availability_status = fields.Char(
         string="Availability Status",
         required=False,
@@ -71,7 +68,7 @@ class CustomScreeningForm(models.Model):
         string="Expectation in 5 Years",
         website_form_blacklisted=False,
     )
-    # What is your current monthly salary? (Float.2) = hr.applicant.current_salary
+
     screening_current_benefits = fields.Text(
         string="Current Benefits",
         website_form_blacklisted=False,
@@ -84,7 +81,7 @@ class CustomScreeningForm(models.Model):
         string="Net or Gross",
         website_form_blacklisted=False,
     )
-    # What is your expected montly salary? (Float.2) = hr.applicant.expected_salary
+
     screening_other_expectation = fields.Text(
         string="Other Expectations",
         website_form_blacklisted=False,
@@ -156,19 +153,6 @@ class CustomScreeningForm(models.Model):
 
         template = self.env.ref('ikon_recruitment.custom_screening_email')
         
-        # template.write({
-        #     'subject': subject,
-        #     'email_to': self.email_from,
-        #     'applicant_name': name, 
-        #     'creator_name':current_user.name,
-        #     'screening_url':self.generate_screening_url()
-            # 'body_html': template.body_html.replace(
-        #         '{screening_url}', self.generate_screening_url()).replace(
-        #         '{applicant_name}', name).replace(
-        #         '{creator}', current_user.name)
-        # })
-        
-        # email_values={'applicant_name': name, 'creator_name':current_user.name,'screening_url':self.generate_screening_url()}
         template.send_mail(self.id, force_send=True, raise_exception=True)
         _logger.info("Screening email sent for user <%s> to <%s>", user.login, user.email)
 
@@ -178,7 +162,6 @@ class CustomScreeningForm(models.Model):
             'params': {
                 'title': 'Success',
                 'message': 'Successfully sent screening email',
-                # 'sticky': True,
             }
         }
 
