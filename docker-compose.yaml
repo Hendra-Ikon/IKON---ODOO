@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+      - undetected-selenium
     ports:
       - "8042:8042"
     volumes:
@@ -32,6 +33,17 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - odoo-crm-db-data:/var/lib/postgresql/data/pgdata
+
+  undetected-selenium:
+    build: 
+      context: ./selenium
+      dockerfile: Dockerfile
+    container_name: undetected-selenium
+    ports:
+      - "5000:5000"  # Expose the port if you have a web server
+    volumes:
+      - ./selenium/scripts:/app  # Optional: to persist data, change as needed
+    shm_size: 2g
 
 volumes:
   odoo-crm-db-data:
