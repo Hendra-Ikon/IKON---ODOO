@@ -10,3 +10,9 @@ access_internal_user_custom_minreq,custom_minreq,model_custom_minreq,base.group_
 
 access_portal_user_custom_great,custom_great,model_custom_great,base.group_portal,1,1,1,1
 access_internal_user_custom_great,custom_great,model_custom_great,base.group_user,1,1,1,1
+
+access_portal_user_custom_first_interview_summmary_prompt,Access Portal User First Interview Summmary Prompt,model_custom_first_interview_summmary_prompt,base.group_portal,1,1,1,1
+access_internal_user_custom_first_interview_summmary_prompt,Access Internal User First Interview Summmary Prompt,model_custom_first_interview_summmary_prompt,base.group_user,1,1,1,1
+
+access_portal_user_custom_second_interview_summmary_prompt,Access Portal User Second Interview Summmary Prompt,model_custom_second_interview_summmary_prompt,base.group_portal,1,1,1,1
+access_internal_user_custom_second_interview_summmary_prompt,Access Internal User Second Interview Summmary Prompt,model_custom_second_interview_summmary_prompt,base.group_user,1,1,1,1

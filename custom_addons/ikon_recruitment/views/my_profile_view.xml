@@ -246,7 +246,7 @@
                                             </td>
                                             <td class="text-center text-muted">
 
-                                                <span t-esc="job['job'].name"/>
+                                                <span t-esc="job['job_name']"/>
                                             </td>
                                             <td class="text-center text-muted">
 

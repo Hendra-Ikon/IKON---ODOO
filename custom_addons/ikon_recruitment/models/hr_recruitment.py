@@ -228,3 +228,28 @@ class CustomResUsers(models.Model):
                 force_send = not(self.env.context.get('import_file', False))
                 template.send_mail(user.id, force_send=force_send, raise_exception=True, email_values=email_values)
             _logger.info("Password reset email sent for user <%s> to <%s>", user.login, user.email)
+
+
+class FirstInterviewPrompts(models.Model):
+    _name = 'custom.first_interview_summmary_prompt'
+    _description = 'First Interview Summary Prompt'
+
+    prompt_id = fields.Many2one('hr.job', string='Job Position', required=True, invisible=True, ondelete="cascade")
+    prompt = fields.Char(string='Prompt', required=True)
+    # New field for dependencies (selectable fields from hr.job)
+    dependency_field = fields.Many2one('ir.model.fields', string='Dependency Field',
+                                       domain="[('model', '=', 'hr.job'), ('ttype', 'in', ['char', 'many2one', 'html', 'selection'])]",
+                                       help="Select a field from hr.job that this prompt depends on.",
+                                       required=False)
+    
+class SecondInterviewPrompts(models.Model):
+    _name = 'custom.second_interview_summmary_prompt'
+    _description = 'First Interview Summary Prompt'
+
+    prompt_id = fields.Many2one('hr.job', string='Job Position', required=True, invisible=True, ondelete="cascade")
+    prompt = fields.Char(string='Prompt', required=True)
+    # New field for dependencies (selectable fields from hr.job)
+    dependency_field = fields.Many2one('ir.model.fields', string='Dependency Field',
+                                       domain="[('model', '=', 'hr.job'), ('ttype', 'in', ['char', 'many2one', 'html', 'selection'])]",
+                                       help="Select a field from hr.job that this prompt depends on.",
+                                       required=False)

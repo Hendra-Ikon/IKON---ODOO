@@ -9,11 +9,51 @@ _logger = logging.getLogger(__name__)
 class HrJob(models.Model):
     _inherit = 'hr.job'
 
+    first_interview_summary_prompt = fields.One2many(
+        comodel_name='custom.first_interview_summmary_prompt', 
+        inverse_name='prompt_id', 
+        string='First Interview Summary Prompts'
+    )
+    second_interview_summary_prompt = fields.One2many(
+        comodel_name='custom.second_interview_summmary_prompt', 
+        inverse_name='prompt_id', 
+        string='Second Interview Summary Prompts'
+    )
+
     skill_ids = fields.Many2many('custom.skill', string='Required Skill')
     matching_count = fields.Integer(string='Total Matching', compute='_compute_matching_count')
 
     hr_applicant_count = fields.Integer(string='Total HR Applicants', compute='_compute_hr_applicant_count')
     hr_applicant_unmatched_count = fields.Integer(string='Total HR Applicants', compute='_compute_unmatched_count')
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(HrJob, self).default_get(fields_list)
+
+        # Default prompts for first interview
+        default_first_prompts = [
+            (0, 0, {'prompt': 'Key points terms of Work Experience, Technical Skills, Achievements, Problem-Solving Abilities, and Adaptability Preparedness.'}),
+            (0, 0, {'prompt': 'The strength of the candidate'}),
+            (0, 0, {'prompt': 'The weakness of the candidate'}),
+            (0, 0, {'prompt': 'How is the result of the live coding test of the candidate'}),
+            (0, 0, {'prompt': 'How is the relevance and suitability of the candidate', 'dependency_field': 4869}),
+            (0, 0, {'prompt': 'How is the relevance and suitability of the candidate', 'dependency_field': 4870}),
+            (0, 0, {'prompt': 'How is the relevance and suitability of the candidate', 'dependency_field': 4871}),
+        ]
+
+        # Default prompts for second interview
+        default_second_prompts = [
+            (0, 0, {'prompt': 'Key points terms of Work Experience, Technical Skills, Achievements, Problem-Solving Abilities, and Adaptability Preparedness.'}),
+        ]
+
+        # Assign default values to the fields
+        res.update({
+            'first_interview_summary_prompt': default_first_prompts,
+            'second_interview_summary_prompt': default_second_prompts,
+        })
+
+        return res
+
     
     def _compute_unmatched_count(self):
         match = self.env['hr.job.matching']
