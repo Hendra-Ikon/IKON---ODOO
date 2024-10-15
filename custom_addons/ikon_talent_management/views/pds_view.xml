@@ -2679,15 +2679,15 @@
         </div>
 
         <div class="form-group row mb-4">
-            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Sertification</label>
+            <label class="col-sm-4 col-form-label" for="pds_fi_bank_no">Certification</label>
             <div class="col-sm-8">
-                <t t-if="pds_data['pds_sertification_name']">
+                <t t-if="pds_data['pds_certification_name']">
                     <div class="row">
                         <div class="col-4">
-                            <span class="uploaded-file" t-esc="pds_data['pds_sertification_name']"    />
+                            <span class="uploaded-file" t-esc="pds_data['pds_certification_name']"    />
                         </div>
                         <div class="col-md-8 col-sm-4">
-                            <input type="file" name="pds_file_sertification" onchange="validatePDF(this)" class="form-control" 
+                            <input type="file" name="pds_file_certification" onchange="validatePDF(this)" class="form-control" 
                             accept="application/pdf"
                                    />
                         </div>
@@ -2697,7 +2697,7 @@
                    
                 </t>
                 <t t-else="">
-                    <input type="file" name="pds_file_sertification" onchange="validatePDF(this)" class="form-control"
+                    <input type="file" name="pds_file_certification" onchange="validatePDF(this)" class="form-control"
                     accept="application/pdf"
                            />
                 </t>

@@ -68,7 +68,7 @@ class PDSController(http.Controller):
     def my_account(self):
         user = request.env.user
         user_avatar = user.image_1920
-        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
         for stage_check in stage_checks:
@@ -80,6 +80,7 @@ class PDSController(http.Controller):
         for applicant in applicants:
             applied_jobs.append({
                 'job': applicant.job_id,
+                'job_name': applicant.job_id.name,
                 'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
                 "created": applicant.create_date,
                 'from_talent_universitas': applicant.from_talent_universitas,
@@ -115,7 +116,7 @@ class PDSController(http.Controller):
     def my_profile(self):
         user = request.env.user
         user_avatar = user.image_1920
-        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
         for stage_check in stage_checks:
@@ -127,6 +128,7 @@ class PDSController(http.Controller):
         for applicant in applicants:
             applied_jobs.append({
                 'job': applicant.job_id,
+                'job_name': applicant.job_id.name,
                 'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
                 "created": applicant.create_date,
                 'from_talent_universitas': applicant.from_talent_universitas,
@@ -162,7 +164,7 @@ class PDSController(http.Controller):
     def custom_my_home(self):
         user = request.env.user
         user_avatar = user.image_1920
-        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
 
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
@@ -175,6 +177,7 @@ class PDSController(http.Controller):
         for applicant in applicants:
             applied_jobs.append({
                 'job': applicant.job_id,
+                'job_name': applicant.job_id.name,
                 'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
                 "created": applicant.create_date,
                 'from_talent_universitas': applicant.from_talent_universitas,
@@ -209,7 +212,7 @@ class PDSController(http.Controller):
     def custom_route_my(self):
         user = request.env.user
         user_avatar = user.image_1920
-        applicants = request.env['hr.applicant'].search([('email_from', '=', user.email)])
+        applicants = request.env['hr.applicant'].sudo().search([('email_from', '=', user.email)])
 
         stage_checks = request.env['hr.applicant'].search([('email_from', '=', user.email)])
 
@@ -222,6 +225,7 @@ class PDSController(http.Controller):
         for applicant in applicants:
             applied_jobs.append({
                 'job': applicant.job_id,
+                'job_name': applicant.job_id.name,
                 'stage': applicant.stage_id.name if applicant.stage_id else 'N/A',
                 "created": applicant.create_date,
                 'from_talent_universitas': applicant.from_talent_universitas,

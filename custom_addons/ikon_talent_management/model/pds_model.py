@@ -98,7 +98,7 @@ class PDSData(models.Model):
     pds_transcript_nilai_name = fields.Char(string="Transcript Nilai")
     pds_bpjs_name = fields.Char(string="BPJS")
     pds_npwp_name = fields.Char(string="NPWP")
-    pds_sertification_name = fields.Char(string="Sertification")
+    pds_certification_name = fields.Char(string="Certification")
 
     # pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education', domain="[('user_id', '=', user_id)]")
     pds_education = fields.One2many('custom.edu', 'applicant_id', string='Education')
@@ -159,7 +159,7 @@ class PDSData(models.Model):
                 self.pds_transcript_nilai_name = existing_record.pds_transcript_nilai_name
                 self.pds_bpjs_name = existing_record.pds_bpjs_name
                 self.pds_npwp_name = existing_record.pds_npwp_name
-                self.pds_sertification_name = existing_record.pds_sertification_name
+                self.pds_certification_name = existing_record.pds_certification_name
                 self.pds_education = existing_record.pds_education
                 self.pds_certifications = existing_record.pds_certifications
                 self.pds_course = existing_record.pds_course
@@ -200,7 +200,7 @@ class PDSData(models.Model):
                 self.pds_transcript_nilai_name = False
                 self.pds_bpjs_name = False
                 self.pds_npwp_name = False
-                self.pds_sertification_name = False
+                self.pds_certification_name = False
                 self.pds_education = False
                 self.pds_certifications = False
                 self.pds_course = False
