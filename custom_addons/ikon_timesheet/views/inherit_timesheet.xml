@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <!-- Inherited view to add new fields or modify existing ones -->
+        <record id="view_hr_timesheet_line_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.timesheet.line.tree.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="replace">
+                    <field name="project_id" required="1" attrs="{'readonly': [('state', '=', 'approved')]}" options="{'no_create_edit': True, 'no_open': 1}"/>
+
+                </xpath>
+                <xpath expr="//field[@name='task_id']" position="replace">
+                    <field name="task_id" optional="show" attrs="{'readonly': [('state', '=', 'approved')]}" options="{'no_create_edit': True, 'no_open': True}" widget="task_with_hours" context="{'default_project_id': project_id}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" optional="show" attrs="{'readonly': [('state', '=', 'approved')]}" required="0"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="status" readonly="1" optional="show"/>
+                    <field name="approved_date" string="Date Approver" optional="show" readonly="1" context="{'default_project_id': project_id}"/>
+                    <field name="approved_id" string="Approver" optional="show" readonly="1" context="{'default_project_id': project_id}"/>
+                    <field name="rejected_reason" readonly="1" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='unit_amount']" position="after">
+                    <field name="state" invisible="1" />
+                    <button string="Submit" name="Action_Resubmit" type="object"
+                    icon="fa-lg fa-save"
+                    states="confirm"
+                    attrs="{'invisible': [('state', 'not in', 'rejected')]}"
+                    context="{'active_id': active_id}"
+            />
+                </xpath>
+            
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

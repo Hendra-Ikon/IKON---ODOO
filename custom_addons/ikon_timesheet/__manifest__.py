@@ -20,19 +20,24 @@
 #
 ##############################################################################
 {
-    'name': 'IKON Custom Employee',
-    'summary': 'IKON Custom Employee for Odoo 16',
+    'name': 'IKON Custom Timesheet',
+    'summary': 'IKON Custom Timesheet for Odoo 16',
     'version': '16.0.1.1.0',
     'category': 'Human Resources',
     'company': 'PT. IKONSULTAN INOVATAMA',
     'description': """
-        This module allows assigning multiple user approvers for employee timesheets, leaves, and expenses.
+        This module allows timesheet approver to see, approve and reject employee timesheet submission.
     """,
     'author': 'Orison Situmorang',
-    'depends': ['hr', 'hr_timesheet', 'hr_holidays', 'hr_expense'],
+    'depends': ['base','hr_timesheet'],
     'data': [
         'security/ir.model.access.csv',
-        'views/hr_employee_views.xml',
+        'views/email_template.xml',
+        'views/inherit_timesheet.xml',
+        'views/timesheet_calendar_view.xml',
+        'views/timesheet_report_calender_view.xml',
+        'views/timesheet_validation_groups.xml',
+        'views/timesheet_validation.xml',
     ],
     'installable': True,
     'application': False,
