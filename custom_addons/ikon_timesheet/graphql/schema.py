@@ -43,9 +43,26 @@ class CreateTimesheet(graphene.Mutation):
             'unit_amount': input.unit_amount,
             'employee_id': input.employee_id,
             'date': input.date
-        }
+                }  # Add missing closing brace
         timesheet = env['account.analytic.line'].create(vals)
         return CreateTimesheet(timesheet=timesheet, success=True)
+
+
+class DeleteTimesheet(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+
+    success = graphene.Boolean()
+    message = graphene.String()
+
+    def mutate(self, info, id):
+        env = info.context["env"]
+        timesheet = env['account.analytic.line'].browse(id)
+        if timesheet:
+            timesheet.unlink()
+            return DeleteTimesheet(success=True, message="Timesheet deleted successfully")
+        return DeleteTimesheet(success=False, message="Timesheet not found")
+
 
 class TimesheetMutation(graphene.Mutation):
     class Arguments:
@@ -71,20 +88,21 @@ class TimesheetMutation(graphene.Mutation):
         
         return TimesheetMutation(success=True, timesheet=timesheet)
 
+
 class Query(graphene.ObjectType):
-    # GET all timesheets
+    # Change field name to match resolver
     timesheets = graphene.List(TimesheetType)
-    # GET timesheet by ID
-    timesheet_byID = graphene.Field(TimesheetType, id=graphene.Int(required=True))
-    
+    timesheet = graphene.Field(TimesheetType, id=graphene.Int(required=True))
+
     def resolve_timesheets(self, info):
         return info.context["env"]['account.analytic.line'].search([])
-    
+
     def resolve_timesheet(self, info, id):
         return info.context["env"]['account.analytic.line'].browse(id)
-
+    
 class Mutation(graphene.ObjectType):
     create_timesheet = CreateTimesheet.Field()
     update_timesheet = TimesheetMutation.Field()
+    delete_timesheet = DeleteTimesheet.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
