@@ -1,6 +1,7 @@
 import graphene
 from odoo.addons.graphql_base import OdooObjectType
 
+# Defines timesheet data structure and field
 class TimesheetType(OdooObjectType):
     class Meta:
         name = 'Timesheet'
@@ -19,6 +20,7 @@ class TimesheetType(OdooObjectType):
     approved_id = graphene.Int()
     rejected_id = graphene.Int()
 
+# Defines input structure for creating timesheets
 class CreateTimesheetInput(graphene.InputObjectType):
     name = graphene.String(required=True)
     project_id = graphene.Int(required=True)
@@ -27,6 +29,7 @@ class CreateTimesheetInput(graphene.InputObjectType):
     employee_id = graphene.Int(required=True)
     date = graphene.Date(required=True)
 
+# Handles timesheet creation mutation
 class CreateTimesheet(graphene.Mutation):
     class Arguments:
         input = CreateTimesheetInput(required=True)
@@ -43,11 +46,11 @@ class CreateTimesheet(graphene.Mutation):
             'unit_amount': input.unit_amount,
             'employee_id': input.employee_id,
             'date': input.date
-                }  # Add missing closing brace
+                }
         timesheet = env['account.analytic.line'].create(vals)
         return CreateTimesheet(timesheet=timesheet, success=True)
 
-
+# Handles timesheet delete mutation
 class DeleteTimesheet(graphene.Mutation):
     class Arguments:
         id = graphene.Int(required=True)
@@ -63,7 +66,7 @@ class DeleteTimesheet(graphene.Mutation):
             return DeleteTimesheet(success=True, message="Timesheet deleted successfully")
         return DeleteTimesheet(success=False, message="Timesheet not found")
 
-
+# Handles timesheet state changes (approve/reject/resubmit)
 class TimesheetMutation(graphene.Mutation):
     class Arguments:
         timesheet_id = graphene.Int(required=True)
@@ -88,9 +91,8 @@ class TimesheetMutation(graphene.Mutation):
         
         return TimesheetMutation(success=True, timesheet=timesheet)
 
-
+# Defines available queries for timesheet operations
 class Query(graphene.ObjectType):
-    # Change field name to match resolver
     timesheets = graphene.List(TimesheetType)
     timesheet = graphene.Field(TimesheetType, id=graphene.Int(required=True))
 
@@ -100,9 +102,11 @@ class Query(graphene.ObjectType):
     def resolve_timesheet(self, info, id):
         return info.context["env"]['account.analytic.line'].browse(id)
     
+# Registers available mutations for timesheet operations    
 class Mutation(graphene.ObjectType):
     create_timesheet = CreateTimesheet.Field()
     update_timesheet = TimesheetMutation.Field()
     delete_timesheet = DeleteTimesheet.Field()
 
+# Schema to call in controller
 schema = graphene.Schema(query=Query, mutation=Mutation)

@@ -29,8 +29,8 @@
         This module allows timesheet approver to see, approve and reject employee timesheet submission.
     """,
     'author': 'Orison Situmorang',
-    'depends': ['base','hr_timesheet', 'graphql_base',],
-    "external_dependencies": {"python3.9": ["graphene"]},
+    'depends': ['base', 'hr_timesheet', 'graphql_base', 'web'],
+    "external_dependencies": {"python3.9": ["graphene", "graphql-core"]},
     'data': [
         'security/ir.model.access.csv',
         'views/email_template.xml',
