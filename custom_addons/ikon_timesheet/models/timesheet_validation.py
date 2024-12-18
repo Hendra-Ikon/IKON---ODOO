@@ -28,8 +28,8 @@ class TimesheetValidation(models.Model):
 
     @api.model
     def create(self, vals):
-        vals['state'] = 'submitted'
         return super(TimesheetValidation, self).create(vals)
+
 
     def Action_Approve(self):
         self.write({
@@ -44,6 +44,15 @@ class TimesheetValidation(models.Model):
             'state': 'rejected',
             'status': 'reject'
         })
+
+    def action_submit(self):
+        for record in self:
+            if record.state == 'draft':
+                record.write({
+                'state': 'submitted',
+                'status': 'draft'
+            })
+
 
     def Action_Resubmit(self):
         self.write({
