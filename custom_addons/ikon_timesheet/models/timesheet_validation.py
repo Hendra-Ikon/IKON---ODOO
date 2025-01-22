@@ -19,6 +19,7 @@ class TimesheetValidation(models.Model):
         ('approve', 'Approved')
     ], string="Status", required=True, default='draft')
 
+    project_id = fields.Many2one('project.project', string="Project", required=True)
     employee_id = fields.Many2one('hr.employee', string="Employee", required=True)
     approved_id = fields.Many2one('res.users', string='Approved By')
     rejected_id = fields.Many2one('res.users', string='Rejected By')
